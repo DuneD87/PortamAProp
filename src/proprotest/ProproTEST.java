@@ -25,7 +25,10 @@ public class ProproTEST {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here, morirem!
+        //VENTU ES HOMO
+        // TODO code application logic here, morirem!eeeee
+        String s = "VENTU ES HOMO";
+        s.charAt(0);
         Graph graph = new SingleGraph("test",true,true);
         Generator g = new BiggsSmithGraphGenerator();
         g.addElementSink(graph);
