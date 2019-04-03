@@ -45,8 +45,7 @@ public class LlegirFitxerSolicitud {
     public void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
         Time emisio = new Time(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
-        Time arribada = new Time(Integer.parseInt(parts[6]), Integer.parseInt(parts[7]), Integer.parseInt(parts[8]));
-        Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, arribada, Integer.parseInt(parts[9]));
+        Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[8]));
         _vecSol.add(sol);
 
     }

@@ -12,12 +12,11 @@ public class Solicitud {
     private Time _horaArribada; //Hora, minuts i segons en que s'ha acabat el trajecte
     private int _numPassatgers; //Numero de passatgers de la solicitud
 
-    public Solicitud(int id, int origen, int desti, Time emisio, Time arribada, int numPersones) {
+    public Solicitud(int id, int origen, int desti, Time emisio, int numPersones) {
         _identificadorSol = id;
         _llocOrigen = origen;
         _llocDesti = desti;
         _horaEmisio = emisio;
-        _horaArribada = arribada;
         _numPassatgers = numPersones;
     }
 

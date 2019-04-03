@@ -46,9 +46,6 @@ public class GeneradorSolicituds {
             llistat += random.nextInt(24) + " ";//hora emisio
             llistat += random.nextInt(60) + " ";//minut emisio
             llistat += random.nextInt(60) + " ";//segon emisio
-            llistat += random.nextInt(24) + " ";//hora finalitzat
-            llistat += random.nextInt(60) + " ";//minut finalizat
-            llistat += random.nextInt(60) + " ";//segon finalitzat
             llistat += random.nextInt(8) + 1;//numero de passatgers, entre 1 i 9
             llistat += "\n";
 

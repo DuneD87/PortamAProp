@@ -28,6 +28,7 @@ public class ProproTEST {
         //VENTU ES HOMO
         // TODO code application logic here, morirem!eeeee
         String s = "VENTU ES HOMO";
+        String x = "EN XAVI ES UNA PUTETA";
         s.charAt(0);
         Graph graph = new SingleGraph("test",true,true);
         Generator g = new BiggsSmithGraphGenerator();
