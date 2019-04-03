@@ -25,7 +25,7 @@ public class ProproTEST {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // TODO code application logic here, morirem!
         Graph graph = new SingleGraph("test",true,true);
         Generator g = new BiggsSmithGraphGenerator();
         g.addElementSink(graph);
