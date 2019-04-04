@@ -19,7 +19,7 @@ import org.graphstream.algorithm.generator.lcf.DyckGraphGenerator;
 import org.graphstream.algorithm.randomWalk.RandomWalk;
 import sun.nio.cs.Surrogate;
 
-public class ProproTEST {
+public class PortamAProp {
 
     /**
      * @param args the command line arguments
