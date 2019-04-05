@@ -25,10 +25,10 @@ public class PortamAProp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //VENTU ES HOMO
+        //VENTU ES HOMOSEXUAL
         // TODO code application logic here, morirem!eeeee
         String s = "VENTU ES HOMO";
-        String x = "EN XAVI ES UNA PUTETA";
+        String x = "EN XAVI ES UNA PUTETAAAAAAAA";
         s.charAt(0);
         Graph graph = new SingleGraph("test",true,true);
         Generator g = new BiggsSmithGraphGenerator();
