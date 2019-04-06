@@ -25,19 +25,6 @@ public class PortamAProp {
      * @param args the command line argumentsdsfds
      */
     public static void main(String[] args) {
-     
-        Graph graph = new SingleGraph("test",true,true);
-        Generator g = new BiggsSmithGraphGenerator();
-        g.addElementSink(graph);
-        //g.addSink(graph);
-        g.begin();
-        for (int i  = 0; i < 1000; i++)
-            g.nextEvents();
-        //DynamicAlgorithm dAlg = new RandomWalk();
-      
-        //dAlg.init(graph);
-        //dAlg.compute();
-        graph.display();
         
     }
 
