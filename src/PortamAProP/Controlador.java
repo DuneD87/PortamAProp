@@ -14,8 +14,8 @@ import org.graphstream.graph.Graph;
  */
 public class Controlador {
     
-    private Graph _graf;
-    private Vector<Solicitud> _solicituds;
+    private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
+    private Vector<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
     
     /**
     * @brief Constructor per defecte
@@ -23,7 +23,7 @@ public class Controlador {
     * @post S'ha construit un objecte controlador per defecte
     */
     public Controlador() {
-        
+        //Redundant
     }
     
     /**
