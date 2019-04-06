@@ -25,7 +25,8 @@ public class PortamAProp {
      * @param args the command line argumentsdsfds
      */
     public static void main(String[] args) {
-        
+        Controlador c = new Controlador();
+        c.init();
     }
 
 }
