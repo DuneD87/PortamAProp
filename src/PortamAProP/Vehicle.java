@@ -1,3 +1,5 @@
+package PortamAProP;
+
 /**
  * @author Buenaventura
  * @description Objecte que serveix per assomir les peticions

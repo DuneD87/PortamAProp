@@ -1,7 +1,9 @@
-package proprotest;
+package PortamAProP;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.Vector;
+import org.graphstream.graph.Graph;
 
 
 /**
@@ -11,6 +13,10 @@ import java.util.Scanner;
  * @author drive
  */
 public class Controlador {
+    
+    private Graph _graf;
+    private Vector<Solicitud> _solicituds;
+    
     /**
     * @brief Constructor per defecte
     * @pre ---
@@ -42,11 +48,10 @@ public class Controlador {
         while (opcio != 0) {
             switch (opcio) {
                 case 1:
-                    System.out.println("test1");
+                    crearFitxerNode();
                     break;
                 case 2:
-                    System.out.println("test2");
-                    //TODO: Generar fitxer solicitud
+                    crearFitxerSolicitud();
                     break;
                 case 3:
                     System.out.println("test3");
@@ -104,5 +109,25 @@ public class Controlador {
      */
     public void initSolicitud(File fitxer) {
         
+    }
+    
+    /**
+     * @brief Crea un fitxer amb nodes
+     * @pre ---
+     * @post S'ha generat un fitxer TFG
+     */
+    public void crearFitxerNode() {
+        GeneradorNodesGraf g = new GeneradorNodesGraf();
+        g.init();
+    }
+    
+    /**
+     * @brief Crea un fitxer amb solicituds
+     * @pre ---
+     * @post S'ha creat un fitxer amb solicituds
+     */
+    public void crearFitxerSolicitud() {
+        GeneradorSolicituds g = new GeneradorSolicituds();
+        g.init();
     }
 }

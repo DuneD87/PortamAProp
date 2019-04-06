@@ -1,4 +1,4 @@
-
+package PortamAProP;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +14,11 @@ public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions = new TreeSet<String>();
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
-
+    
+    public GeneradorNodesGraf() {
+        init();
+    }
+    
     public void init() {
 
         Llegir_ubicacions();
