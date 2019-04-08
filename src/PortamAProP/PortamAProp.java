@@ -26,7 +26,8 @@ public class PortamAProp {
      */
     public static void main(String[] args) {
         Controlador c = new Controlador();
-        String p = "pene";
+        String p = "Xavi";
+        String s = "FFFxh";
         c.init();
     }
 
