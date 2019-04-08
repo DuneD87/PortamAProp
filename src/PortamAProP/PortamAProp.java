@@ -20,7 +20,7 @@ import org.graphstream.algorithm.randomWalk.RandomWalk;
 import sun.nio.cs.Surrogate;
 
 public class PortamAProp {
-
+    private String probaMerge="Helloworld";
     /**
      * @param args the command line argumentsdsfds
      */
@@ -31,3 +31,5 @@ public class PortamAProp {
     }
 
 }
+
+

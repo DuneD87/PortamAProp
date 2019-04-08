@@ -54,7 +54,7 @@ public class GeneradorNodesGraf {
             System.out.println("Nom del fitxer:");
             String nomf = teclat.nextLine();
             CrearFitxer(nomf, nodes);
-
+            
         }
     }
 
