@@ -20,14 +20,12 @@ import org.graphstream.algorithm.randomWalk.RandomWalk;
 import sun.nio.cs.Surrogate;
 
 public class PortamAProp {
-    private String probaMerge="Helloworld";
+
     /**
      * @param args the command line argumentsdsfds
      */
     public static void main(String[] args) {
         Controlador c = new Controlador();
-        String p = "Xavi";
-        String s = "FFFxh";
         c.init();
     }
 
