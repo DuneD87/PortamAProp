@@ -12,18 +12,20 @@ public class Vehicle {
     private double _autonomiaRestant; //Temps que li falta per haber de anar a cargar
     private int _numPassatgers; //Numero de passatges actuals del vehicle
     private double _carga; //Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
+    private int _idNodePrincipi; // Identificador del node en que el cotxe esta inicialment
     //Constructors
 
     public Vehicle() {
         
     }
-    public Vehicle(int Id, int CapTotal, double AutoTot, double carga){
+    public Vehicle(int Id, int CapTotal, double AutoTot, double carga, int node){
         _identificador=Id;
         _capacitatTotal=CapTotal;
         _autonomiaTotal=AutoTot;
         _numPassatgers=0;
         _autonomiaRestant=AutoTot;
         _carga=carga;
+        _idNodePrincipi=node;
     }
     //Metodes publics
     

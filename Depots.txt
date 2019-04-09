@@ -1,0 +1,14 @@
+1 Correus
+2 Plaça_Indepencia
+3 UdG_Montilivi
+4 Sant_Gregori
+5 UdG_Aguiles
+6 Palamos
+#
+1 2 3.0
+1 3 4.0
+2 2 6.0
+2 4 1.0
+5 1 6.0
+4 6 40.0
+#

@@ -43,7 +43,7 @@ public class LlegirFitxersVehicle {
     //Post: Retorna el vehicle creat a partir de linia i l'afageix al vector de vehicles
     public void Crearvehicle(String linia) {
         String[] parts = linia.split(" ");
-        Vehicle v = new Vehicle(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]));
+        Vehicle v = new Vehicle(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]), Integer.parseInt(parts[4]));
         _vecVehicles.add(v);
     }
 

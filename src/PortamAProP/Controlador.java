@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.Vector;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 
 
 /**
@@ -14,7 +15,7 @@ import org.graphstream.graph.Graph;
  */
 public class Controlador {
     
-    private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
+    private Graph _graf = new SingleGraph("Mapa"); // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
     private Vector<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
     
     /**
@@ -44,6 +45,7 @@ public class Controlador {
     public void gestionarMenu() {
         
         Scanner inText = new Scanner(System.in);
+        System.out.println("Comanda:");
         int opcio = Integer.parseInt(inText.nextLine());
         while (opcio != 0) {
             switch (opcio) {
@@ -55,7 +57,7 @@ public class Controlador {
                     break;
                 case 3:
                     System.out.println("test3");
-                    //TODO: Llegir fitxer graf
+                    GenerarGraf();
                     break;
                 case 4:
                     System.out.println("test4");
@@ -65,7 +67,11 @@ public class Controlador {
                     System.out.println("test5");
                     //TODO: Llegir fitxer solicituds
                     break;
+                case 6:
+                    _graf.display();
+                    break;
             }
+            System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
         }
     }
@@ -81,7 +87,8 @@ public class Controlador {
                 + "2 - Generar fitxer solicitud\n"
                 + "3 - Llegir fitxer graf\n"
                 + "4 - Llegir fitxer vehicles\n"
-                + "5 - Llegir fitxer solucituds\n");
+                + "5 - Llegir fitxer solucituds\n"
+                + "6 - Mostrar Graf");
     }
     
     /**
@@ -129,5 +136,18 @@ public class Controlador {
     public void crearFitxerSolicitud() {
         GeneradorSolicituds g = new GeneradorSolicituds();
         g.init();
+    }
+    
+     
+    /**
+     * @brief Crea el graf
+     * @pre ---
+     * @post S'ha creat el graf
+     */
+    public void GenerarGraf(){
+       LlegirFitxerGraf mapa= new LlegirFitxerGraf();
+       _graf=mapa.init(_graf);
+       System.out.println("Nodes inserits correctament");
+        
     }
 }
