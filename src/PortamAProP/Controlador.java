@@ -17,8 +17,10 @@ import org.graphstream.graph.implementations.SingleGraph;
  */
 public class Controlador {
     
-    private Graph _graf = new SingleGraph("Mapa"); // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
+    private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
     private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
+    private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
+    private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
 
     /**
     * @brief Constructor per defecte
@@ -26,9 +28,9 @@ public class Controlador {
     * @post S'ha construit un objecte controlador per defecte
     */
     public Controlador() {
-        Time t = new Time(100);
-        Solicitud s = new Solicitud(0,0,0,t,0);
-      
+        _graf = new SingleGraph("MAPA");
+        _generadorNodes = new GeneradorNodesGraf();
+        _generadorSol = new GeneradorSolicituds();
     }
     
     /**
@@ -92,7 +94,8 @@ public class Controlador {
                 + "3 - Llegir fitxer graf\n"
                 + "4 - Llegir fitxer vehicles\n"
                 + "5 - Llegir fitxer solucituds\n"
-                + "6 - Mostrar Graf");
+                + "6 - Mostrar Graf \n"
+                + "0 - Sortir");
     }
     
     /**
@@ -128,8 +131,8 @@ public class Controlador {
      * @post S'ha generat un fitxer TFG
      */
     public void crearFitxerNode() {
-        GeneradorNodesGraf g = new GeneradorNodesGraf();
-        g.init();
+       
+ 
     }
     
     /**
@@ -138,8 +141,8 @@ public class Controlador {
      * @post S'ha creat un fitxer amb solicituds
      */
     public void crearFitxerSolicitud() {
-        GeneradorSolicituds g = new GeneradorSolicituds();
-        g.init();
+        
+  
     }
     
      
@@ -150,7 +153,8 @@ public class Controlador {
      */
     public void GenerarGraf(){
        LlegirFitxerGraf mapa= new LlegirFitxerGraf();
-       _graf=mapa.init(_graf);
+       mapa.initFitxer(_graf);
+       _graf = mapa.obtGraph();
        System.out.println("Nodes inserits correctament");
         
     }
