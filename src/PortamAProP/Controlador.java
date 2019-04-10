@@ -1,7 +1,9 @@
 package PortamAProP;
 
 import java.io.File;
+import java.sql.Time;
 import java.util.Scanner;
+import java.util.SortedSet;
 import java.util.Vector;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -16,15 +18,17 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class Controlador {
     
     private Graph _graf = new SingleGraph("Mapa"); // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
-    private Vector<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
-    
+    private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
+
     /**
     * @brief Constructor per defecte
     * @pre ---
     * @post S'ha construit un objecte controlador per defecte
     */
     public Controlador() {
-        //Redundant
+        Time t = new Time(100);
+        Solicitud s = new Solicitud(0,0,0,t,0);
+      
     }
     
     /**
