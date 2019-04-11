@@ -3,12 +3,20 @@ package PortamAProP;
 
 import java.util.Vector;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LlegirFitxersVehicle {
 
-    private Vector<Vehicle> _vecVehicles = new Vector<Vehicle>(50);//vector global de vehicles
-
+    private List<Vehicle> _vecVehicles;
+    
+    /**
+     * @brief Inicialitza la lectura de vehicles
+     * @pre ---
+     * @post S'ha inicialitzat la lectura de vehicles
+     */
     public void init() {
+        _vecVehicles = new ArrayList<Vehicle>();
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -39,13 +47,25 @@ public class LlegirFitxersVehicle {
         }
     }
 
-    //Pre: linia = string valid per configuracio de vehicle
-    //Post: Retorna el vehicle creat a partir de linia i l'afageix al vector de vehicles
-    public void Crearvehicle(String linia) {
+    /**
+     * @brief Crea un vehicle
+     * @pre linia = string valid per configuracio de vehicle
+     * @post Ens crea un vehicle a partir de linia i l'afegeix a l'estructura
+     * @param linia 
+     */
+    private void Crearvehicle(String linia) {
         String[] parts = linia.split(" ");
         Vehicle v = new Vehicle(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]), Integer.parseInt(parts[4]));
         _vecVehicles.add(v);
     }
-
+    
+    /**
+     * @brief Ens dona l'estructura que conte els vehicles
+     * @pre S'ha cridat a init previament
+     * @post Ens dona l'estructura que conte els vehicles
+     */
+    public List<Vehicle> obtVehicles() {
+        return _vecVehicles;
+    }
 }
 

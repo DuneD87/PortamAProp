@@ -16,14 +16,15 @@ import java.util.TreeSet;
 
 public class LlegirFitxerSolicitud {
 
-    private SortedSet<Solicitud> _vecSol = new TreeSet<Solicitud>(); //@brief Estructura on ens guardem les solicituds ordenades per data d'emissio decreixent
+    private SortedSet<Solicitud> _vecSol; //@brief Estructura on ens guardem les solicituds ordenades per data d'emissio decreixent
     
     /**
      * @brief Inicialitza la lectura de solicituds
      * @pre Cadena de caracters amb el format implicit
      * @post S'han llegit les solicituds desde cadena de caracters
      */
-    public void initText(String text) {
+    public LlegirFitxerSolicitud(String text) {
+        _vecSol = new TreeSet<Solicitud>();
         Scanner sc = new Scanner(text);
         String linia = sc.nextLine();
         while (linia != null)
@@ -36,7 +37,8 @@ public class LlegirFitxerSolicitud {
      * @pre ---
      * @post S'han llegit les solicituds desde fitxer
      */
-    public void initFitxer() {
+    public LlegirFitxerSolicitud() {
+        _vecSol = new TreeSet<Solicitud>();
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -72,11 +74,20 @@ public class LlegirFitxerSolicitud {
      * @pre s valid per a configuracio de solicitud
      * @post S'ha creat una nova solicitud i s'ha afegit a l'estructura
      */
-    public void CrearSolicitud(String s) {
+    private void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
         Time emisio = new Time(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
         Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[8]));
         _vecSol.add(sol);
 
+    }
+    
+    /**
+     * @brief Estructura de solicituds
+     * @pre S'ha cridat initText o initFitxer
+     * @post Ens dona l'estructura ordenada que conte les solicituds
+     */
+    public SortedSet<Solicitud> obtSol() {
+        return _vecSol;
     }
 }

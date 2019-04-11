@@ -20,7 +20,7 @@ public class LlegirFitxerGraf {
      * @pre Cadena de caracters amb el format implicit
      * @post Inicialitza la construccio del graf a traves d'una cadena de caracters
      */
-    public void initText(Graph graf, String text) {
+    public LlegirFitxerGraf(Graph graf, String text) {
       
         Scanner scanner = new Scanner(text);
         String linia = scanner.nextLine();
@@ -40,7 +40,7 @@ public class LlegirFitxerGraf {
      * @pre ---
      * @post Inicialitza la construccio del graf a traves d'un fitxer
      */
-    public void initFitxer(Graph _graf) {
+    public LlegirFitxerGraf (Graph _graf) {
         //_graf.display();
         File fitxer = null;
         FileReader fr = null;

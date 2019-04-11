@@ -10,7 +10,7 @@ public class GeneradorSolicituds {
   
     private int _maxNodes = 100;
 
-    public void init() {
+    public GeneradorSolicituds() {
 
         int numero;
         Scanner teclado = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class GeneradorSolicituds {
 
     //Pre: 0<numero
     //Post: Retorna un string amb una llista de solicituds creades
-    public String Crear_solicituds(int numero) {
+    private String Crear_solicituds(int numero) {
         Random random = new Random();
         String llistat = "";
         StringBuffer buffer = new StringBuffer();
@@ -56,7 +56,7 @@ public class GeneradorSolicituds {
 
     //Pre: -
     //Post: Crea un fitxer de nom nomf i amb el contingut de sol
-    public void CrearFitxer(String nomf, String sol) {
+    private void CrearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {

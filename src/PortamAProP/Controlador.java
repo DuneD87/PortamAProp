@@ -152,8 +152,7 @@ public class Controlador {
      * @post S'ha creat el graf
      */
     public void GenerarGraf(){
-       LlegirFitxerGraf mapa= new LlegirFitxerGraf();
-       mapa.initFitxer(_graf);
+       LlegirFitxerGraf mapa= new LlegirFitxerGraf(_graf);
        _graf = mapa.obtGraph();
        System.out.println("Nodes inserits correctament");
         

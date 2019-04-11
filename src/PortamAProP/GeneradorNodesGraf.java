@@ -16,7 +16,7 @@ public class GeneradorNodesGraf {
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
     
    
-    public void init() {
+    public GeneradorNodesGraf() {
 
         Llegir_ubicacions();
 
@@ -57,7 +57,7 @@ public class GeneradorNodesGraf {
 
     //Pre: cert
     //Post: Emplena un Set amb ubicacions a partir de un fitxer
-    public void Llegir_ubicacions() {
+    private void Llegir_ubicacions() {
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
