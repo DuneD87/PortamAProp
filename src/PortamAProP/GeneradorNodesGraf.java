@@ -1,4 +1,5 @@
 package PortamAProP;
+import com.sun.xml.internal.ws.client.ContentNegotiation;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,17 +15,17 @@ public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions = new TreeSet<String>();
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
-    
+    private String nodes = "";  
    
-    public void init() {
+    public void init( int nodesExistents) {
 
         Llegir_ubicacions();
 
         System.out.println("Quants nodes vols crear?");
         Scanner teclat = new Scanner(System.in);
         int numNodes = Integer.parseInt(teclat.nextLine());
-        String nodes = "";
-        for (int i = 1; i <= numNodes; i++) {//Per cada node assignar id i etiqueta
+        nodes = "";
+        for (int i = nodesExistents; i <= numNodes+nodesExistents; i++) {//Per cada node assignar id i etiqueta
             nodes += Integer.toString(i) + " ";
             nodes += _ubicacions.first() + "\n";
             _ubicacions.remove(_ubicacions.first());
@@ -51,8 +52,11 @@ public class GeneradorNodesGraf {
             System.out.println("Nom del fitxer:");
             String nomf = teclat.nextLine();
             CrearFitxer(nomf, nodes);
-            
         }
+        
+        ///////////////////////////////////////////////////////////////////////////
+        ////////////////////RecordarCambiarR
+        TornarString();
     }
 
     //Pre: cert
@@ -63,7 +67,10 @@ public class GeneradorNodesGraf {
         BufferedReader br = null;
 
         try {
-            fitxer = new File("//home/wodash/Escritorio/PC/2nQuatri/Projecte de programacio/ProjecteGran/FitxersConfiguracio/PilaUbicacions.txt");
+            System.out.println("Nom amb el fitxer de localitzacions:");
+            Scanner teclat = new Scanner(System.in); 
+            String nom=teclat.nextLine();
+            fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
 
@@ -109,6 +116,10 @@ public class GeneradorNodesGraf {
                 e2.printStackTrace();
             }
         }
+    }
+    
+    public String TornarString(){
+        return nodes;
     }
 
 }

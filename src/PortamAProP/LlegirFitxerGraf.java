@@ -9,7 +9,7 @@ package PortamAProP;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.algorithm.*;
-import java.io.*;
+    import java.io.*;
 import java.util.Scanner;
 
 public class LlegirFitxerGraf {
@@ -73,7 +73,7 @@ public class LlegirFitxerGraf {
                 e2.printStackTrace();
             }
         }
-
+        obtGraph();
     }
     
     /**

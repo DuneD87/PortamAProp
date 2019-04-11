@@ -21,6 +21,7 @@ public class Controlador {
     private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
+    private LlegirFitxerGraf _llegirGraf; // @brief Objecte que ens permet crear graf tant aleatoriament com per fitxer 
 
     /**
     * @brief Constructor per defecte
@@ -31,6 +32,7 @@ public class Controlador {
         _graf = new SingleGraph("MAPA");
         _generadorNodes = new GeneradorNodesGraf();
         _generadorSol = new GeneradorSolicituds();
+        _llegirGraf = new LlegirFitxerGraf();
     }
     
     /**
@@ -62,8 +64,7 @@ public class Controlador {
                     crearFitxerSolicitud();
                     break;
                 case 3:
-                    System.out.println("test3");
-                    GenerarGraf();
+                    InicialitzarVariables();
                     break;
                 case 4:
                     System.out.println("test4");
@@ -91,9 +92,7 @@ public class Controlador {
         System.out.println("MENU\n" 
                 + "1 - Generar fitxer nodes\n"
                 + "2 - Generar fitxer solicitud\n"
-                + "3 - Llegir fitxer graf\n"
-                + "4 - Llegir fitxer vehicles\n"
-                + "5 - Llegir fitxer solucituds\n"
+                + "3 - Inicialitzar Variables \n"
                 + "6 - Mostrar Graf \n"
                 + "0 - Sortir");
     }
@@ -157,5 +156,43 @@ public class Controlador {
        _graf = mapa.obtGraph();
        System.out.println("Nodes inserits correctament");
         
+    }
+    
+    /**
+     * @brief Inicialitza totes les variables del programa
+     * @pre ---
+     * @post S'han inicialitzat les variables
+     */
+    public void InicialitzarVariables(){
+        
+        System.out.println("Si us plau entra el nom del fitxer amb els punts de recarrega.");
+        _llegirGraf.initFitxer(_graf);
+        System.out.println("Com vols crear la resta del graf? \"Random\" o \"Fitxer\" ");
+        Scanner teclat= new Scanner(System.in);
+        String opcio;
+        boolean valid=false;
+        do{
+            opcio=teclat.nextLine();
+            if(opcio.equals("Random") || opcio.equals("Fitxer"))
+                valid=true;
+        }while(! valid);
+        
+        if(opcio.equals("Random")){
+            _generadorNodes.init(_graf.getNodeCount()+1);
+            String nodes=_generadorNodes.TornarString();
+            System.out.println(_graf.getNodeCount());
+            _llegirGraf.initText(_graf, nodes);
+        }else if(opcio.equals("Fitxer")){
+            _llegirGraf.initFitxer(_graf);
+        }
+            
+        
+    
+    
+    
+    
+    
+    
+    
     }
 }
