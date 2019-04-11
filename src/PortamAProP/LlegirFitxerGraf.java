@@ -87,8 +87,6 @@ public class LlegirFitxerGraf {
         _graf.getNode(parts[0]).addAttribute("Nom", parts[1]);
         _graf.getNode(parts[0]).setAttribute("ui.label", parts[1]);
     }
-    //Pre: s valid per la cracio de arestes
-    //Post: Crea la aresta segons la configuracio de s
     
     /**
      * @brief Defineix arestes

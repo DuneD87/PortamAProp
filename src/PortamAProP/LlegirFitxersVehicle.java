@@ -16,7 +16,7 @@ public class LlegirFitxersVehicle {
      * @post S'ha inicialitzat la lectura de vehicles
      */
     public void init() {
-        _vecVehicles = new ArrayList<Vehicle>();
+        _vecVehicles = new ArrayList<>();
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -51,7 +51,6 @@ public class LlegirFitxersVehicle {
      * @brief Crea un vehicle
      * @pre linia = string valid per configuracio de vehicle
      * @post Ens crea un vehicle a partir de linia i l'afegeix a l'estructura
-     * @param linia 
      */
     private void Crearvehicle(String linia) {
         String[] parts = linia.split(" ");

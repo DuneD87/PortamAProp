@@ -1,4 +1,10 @@
 package PortamAProP;
+/**
+ * @class GeneradorNodesGraf
+ * @brief Classe que ens permet generar nodes del graf
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,12 +18,16 @@ import java.util.TreeSet;
 
 public class GeneradorNodesGraf {
 
-    private SortedSet<String> _ubicacions = new TreeSet<String>();
+    private SortedSet<String> _ubicacions;
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
     
-   
+   /**
+    * @brief Inicialitza la generacio de nodes 
+    * @pre ---
+    * @post S'ha inicialitzat la generacio de nodes
+    */
     public GeneradorNodesGraf() {
-
+        _ubicacions = new TreeSet<>();
         Llegir_ubicacions();
 
         System.out.println("Quants nodes vols crear?");
@@ -55,8 +65,11 @@ public class GeneradorNodesGraf {
         }
     }
 
-    //Pre: cert
-    //Post: Emplena un Set amb ubicacions a partir de un fitxer
+    /**
+     * @brief Llegeix les ubicacions
+     * @pre ---
+     * @post S'han llegit les ubicacions i s'han guardat en una estructura de dades
+     */
     private void Llegir_ubicacions() {
         File fitxer = null;
         FileReader fr = null;
@@ -85,8 +98,11 @@ public class GeneradorNodesGraf {
         }
     }
 
-    //Pre: -
-    //Post: Crea un fitxer de nom nomf i amb el contingut de sol
+    /**
+     * @brief Crea un fitxer amb els nodes
+     * @pre ---
+     * @S'ha creat un fitxer al directori local amb format TFG 
+     */
     public void CrearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
         PrintWriter pw = null;
