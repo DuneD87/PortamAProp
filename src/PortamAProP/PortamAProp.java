@@ -21,7 +21,7 @@ import org.graphstream.algorithm.randomWalk.RandomWalk;
 
 public class PortamAProp {
     /**
-     * @param args the command line argumentsdsfdsatastasdasds
+     * @param args the command line argumentsdsfdsasdfetastasdasds
      */
     public static void main(String[] args) {
         Controlador c = new Controlador();
