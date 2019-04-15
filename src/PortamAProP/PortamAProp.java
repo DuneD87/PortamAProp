@@ -17,7 +17,7 @@ import org.graphstream.algorithm.generator.lcf.BiggsSmithGraphGenerator;
 import org.graphstream.algorithm.generator.lcf.CubicalGraphGenerator;
 import org.graphstream.algorithm.generator.lcf.DyckGraphGenerator;
 import org.graphstream.algorithm.randomWalk.RandomWalk;
-import sun.nio.cs.Surrogate;
+
 
 public class PortamAProp {
     /**
