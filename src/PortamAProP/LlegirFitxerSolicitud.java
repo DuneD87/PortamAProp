@@ -24,13 +24,9 @@ public class LlegirFitxerSolicitud {
      */
     public LlegirFitxerSolicitud(String text) {
         _vecSol = new TreeSet<Solicitud>();
-        Scanner sc = new Scanner(text);
-        String linia = sc.nextLine();
-        while (linia != null) {
-            CrearSolicitud(linia);
-            linia = sc.nextLine();
-            
-        }
+        String[] lines = text.split("\r\n|\r|\n");
+        for (int i = 0; i < lines.length; i++) 
+            CrearSolicitud(lines[i]);
         System.out.println("Solicituds creades");
         
     }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class LlegirFitxersVehicle {
 
     private List<Vehicle> _vecVehicles;
-    
+    private static String FITXER_VEHICLE = "Vehicles.txt";
     /**
      * @brief Inicialitza la lectura de vehicles
      * @pre ---
@@ -24,8 +24,9 @@ public class LlegirFitxersVehicle {
 
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Nom del fitxer de vehicles:");
-            String nom = sc.nextLine();
+            //System.out.println("Nom del fitxer de vehicles:");
+            //String nom = sc.nextLine();
+            String nom = FITXER_VEHICLE;
             fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);

@@ -14,7 +14,8 @@ import java.util.Scanner;
 
 public class LlegirFitxerGraf {
     private Graph _graf; // @brief Atribut necessari per construir el graf
-    
+    private static String NOM_FITXER_D = "Depots.txt";
+    private static String NOM_FITXER_G = "Graf.txt";
     /**
      * @brief Inicialitza el graf
      * @pre Cadena de caracters amb el format implicit
@@ -46,17 +47,17 @@ public class LlegirFitxerGraf {
         FileReader fr = null;
         BufferedReader br = null;
         try {
-            Scanner teclat = new Scanner(System.in);
-            System.out.println("Nom del fitxer de nodes:");
-            String nom = teclat.nextLine();
-            fitxer = new File(nom);
+            //Scanner teclat = new Scanner(System.in);
+            //System.out.println("Nom del fitxer de nodes:");
+            //String nom = teclat.nextLine();
+            fitxer = new File(NOM_FITXER_D).getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
             String linia;
             while ((linia = br.readLine()) != null && !linia.equals("#")) {
                 CrearNode(linia, _graf);
             }
-
+            
             while ((linia = br.readLine()) != null && !linia.equals("#")) {
                 DefinirAresta(linia, _graf.getEdgeCount(), _graf);
 

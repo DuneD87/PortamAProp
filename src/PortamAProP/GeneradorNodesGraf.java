@@ -20,6 +20,7 @@ public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions;
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
+    private static int MAX_NODES = 20;
     
    /**
     * @brief Inicialitza la generacio de nodes 
@@ -30,9 +31,10 @@ public class GeneradorNodesGraf {
         _ubicacions = new TreeSet<>();
         Llegir_ubicacions();
 
-        System.out.println("Quants nodes vols crear?");
-        Scanner teclat = new Scanner(System.in);
-        int numNodes = Integer.parseInt(teclat.nextLine());
+        //System.out.println("Quants nodes vols crear?");
+        //Scanner teclat = new Scanner(System.in);
+        //int numNodes = Integer.parseInt(teclat.nextLine());
+        int numNodes = MAX_NODES;
         String nodes = "";
         for (int i = 1; i <= numNodes; i++) {//Per cada node assignar id i etiqueta
             nodes += Integer.toString(i) + " ";
@@ -55,14 +57,14 @@ public class GeneradorNodesGraf {
         }
         nodes += "#\n";
         System.out.println(nodes);
-        System.out.println("Vols fer un fitxer amb aqustes solicituds? [S|n]");
+        /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S|n]");
         String eleccio = teclat.nextLine();
         if (eleccio.equals("S")) {
             System.out.println("Nom del fitxer:");
             String nomf = teclat.nextLine();
             CrearFitxer(nomf, nodes);
             
-        }
+        }*/
     }
 
     /**

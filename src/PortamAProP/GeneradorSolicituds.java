@@ -10,23 +10,24 @@ public class GeneradorSolicituds {
   
     private int _maxNodes = 100;
     private String _sol;
-    
+    private static int MAX_SOL = 10;
     public GeneradorSolicituds() {
 
         int numero;
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Quantes solicituds vols fer?");
-        numero = Integer.parseInt(teclado.nextLine());
+        //Scanner teclado = new Scanner(System.in);
+        //System.out.println("Quantes solicituds vols fer?");
+        //numero = Integer.parseInt(teclado.nextLine());
+        numero = MAX_SOL;
         _sol = Crear_solicituds(numero);
         System.out.print(_sol);
-        System.out.println("Vols fer un fitxer amb aqustes solicituds? [S/N]");
+        /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S/N]");
         String eleccio = teclado.nextLine();
         if (eleccio.equals("S")) {
             System.out.println("Nom del fitxer:");
             String nomf = teclado.nextLine();
             CrearFitxer(nomf, _sol);
 
-        }
+        }*/
 
     }
 
