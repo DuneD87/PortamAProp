@@ -26,8 +26,12 @@ public class LlegirFitxerSolicitud {
         _vecSol = new TreeSet<Solicitud>();
         Scanner sc = new Scanner(text);
         String linia = sc.nextLine();
-        while (linia != null)
+        while (linia != null) {
             CrearSolicitud(linia);
+            linia = sc.nextLine();
+            
+        }
+        System.out.println("Solicituds creades");
         
     }
     
@@ -79,7 +83,7 @@ public class LlegirFitxerSolicitud {
     private void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
         Time emisio = new Time(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
-        Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[8]));
+        Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[6]));
         _vecSol.add(sol);
 
     }
