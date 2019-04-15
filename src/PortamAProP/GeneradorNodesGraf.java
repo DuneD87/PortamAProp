@@ -76,7 +76,8 @@ public class GeneradorNodesGraf {
         BufferedReader br = null;
 
         try {
-            fitxer = new File("//home/wodash/Escritorio/PC/2nQuatri/Projecte de programacio/ProjecteGran/FitxersConfiguracio/PilaUbicacions.txt");
+           
+            fitxer = new File("PilaUbicacions.txt").getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
 

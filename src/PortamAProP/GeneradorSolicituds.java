@@ -9,21 +9,22 @@ public class GeneradorSolicituds {
 
   
     private int _maxNodes = 100;
-
+    private String _sol;
+    
     public GeneradorSolicituds() {
 
         int numero;
         Scanner teclado = new Scanner(System.in);
         System.out.println("Quantes solicituds vols fer?");
         numero = Integer.parseInt(teclado.nextLine());
-        String sol = Crear_solicituds(numero);
-        System.out.print(sol);
+        _sol = Crear_solicituds(numero);
+        System.out.print(_sol);
         System.out.println("Vols fer un fitxer amb aqustes solicituds? [S/N]");
         String eleccio = teclado.nextLine();
         if (eleccio.equals("S")) {
             System.out.println("Nom del fitxer:");
             String nomf = teclado.nextLine();
-            CrearFitxer(nomf, sol);
+            CrearFitxer(nomf, _sol);
 
         }
 
@@ -78,5 +79,14 @@ public class GeneradorSolicituds {
                 e2.printStackTrace();
             }
         }
+    }
+    /**
+     * @brief Ens dona les solicituds generades aleatoriament
+     * @pre ---
+     * @return Cadena de caracters amb les solicituds
+     */
+    @Override
+    public String toString() {
+        return _sol;
     }
 }

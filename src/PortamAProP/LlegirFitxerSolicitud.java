@@ -5,7 +5,6 @@ package PortamAProP;
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
-import java.util.Vector;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -44,7 +43,10 @@ public class LlegirFitxerSolicitud {
         BufferedReader br = null;
 
         try {
-            fitxer = new File("//home/wodash/Escritorio/PC/2nQuatri/Projecte de programacio/ProjecteGran/FitxersConfiguracio/Solicituds.txt");
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Nom del fitxer de solicituds:");
+            String nom = sc.nextLine();
+            fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
 

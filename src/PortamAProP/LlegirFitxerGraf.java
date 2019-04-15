@@ -47,7 +47,7 @@ public class LlegirFitxerGraf {
         BufferedReader br = null;
         try {
             Scanner teclat = new Scanner(System.in);
-            System.out.println("Nom del fitxer:");
+            System.out.println("Nom del fitxer de nodes:");
             String nom = teclat.nextLine();
             fitxer = new File(nom);
             fr = new FileReader(fitxer);

@@ -5,6 +5,7 @@ import java.util.Vector;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class LlegirFitxersVehicle {
 
@@ -15,14 +16,17 @@ public class LlegirFitxersVehicle {
      * @pre ---
      * @post S'ha inicialitzat la lectura de vehicles
      */
-    public void init() {
+    public LlegirFitxersVehicle() {
         _vecVehicles = new ArrayList<>();
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
-            fitxer = new File("//home/wodash/Escritorio/PC/2nQuatri/Projecte de programacio/ProjecteGran/FitxersConfiguracio/Vehicles.txt");
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Nom del fitxer de vehicles:");
+            String nom = sc.nextLine();
+            fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
 

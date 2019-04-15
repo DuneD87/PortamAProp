@@ -2,8 +2,11 @@ package PortamAProP;
 
 import java.io.File;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.Vector;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -18,7 +21,8 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class Controlador {
     
     private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
-    private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes 
+    private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes
+    private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
 
@@ -29,8 +33,11 @@ public class Controlador {
     */
     public Controlador() {
         _graf = new SingleGraph("MAPA");
-        _generadorNodes = new GeneradorNodesGraf();
-        _generadorSol = new GeneradorSolicituds();
+        generarGraf();
+        _solicituds = new TreeSet<>();
+        generarSolicituds();
+        _vehicles = new ArrayList<>();
+        generarVehicles();
     }
     
     /**
@@ -63,7 +70,7 @@ public class Controlador {
                     break;
                 case 3:
                     System.out.println("test3");
-                    GenerarGraf();
+                    generarGraf();
                     break;
                 case 4:
                     System.out.println("test4");
@@ -99,33 +106,6 @@ public class Controlador {
     }
     
     /**
-     * @brief Inicialitza el graf
-     * @pre ---
-     * @post S'ha incialitzat el graf
-     */
-    public void initGraf(File fitxer) {
-        
-    }
-    
-    /**
-     * @brief Inicialitza els vehicles
-     * @pre ---
-     * @post S'han incialitzat els vehicles i guardats en una estructura de dades
-     */
-    public void initVehicles(File fitxer) {
-        
-    }
-    
-    /**
-     * @brief Inicialitza les solicituds
-     * @pre ---
-     * @post S'han inicialitzats les solicituds 
-     */
-    public void initSolicitud(File fitxer) {
-        
-    }
-    
-    /**
      * @brief Crea un fitxer amb nodes
      * @pre ---
      * @post S'ha generat un fitxer TFG
@@ -145,16 +125,46 @@ public class Controlador {
   
     }
     
+    /**
+     * @brief Inicialitza els vehicles
+     * @pre ---
+     * @post S'han incialitzat els vehicles i guardats en una estructura de dades
+     */
+    private void generarVehicles() {
+        LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle();
+        _vehicles = lVehicle.obtVehicles();
+    }
+    
+    /**
+     * @brief Inicialitza les solicituds
+     * @pre ---
+     * @post S'han inicialitzats les solicituds 
+     */
+    private void generarSolicituds() {
+        GeneradorSolicituds sol = new GeneradorSolicituds();
+        String lSol = sol.toString();
+        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(lSol);
+        _solicituds = lFitxer.obtSol();
+    }
      
     /**
      * @brief Crea el graf
      * @pre ---
      * @post S'ha creat el graf
      */
-    public void GenerarGraf(){
-       LlegirFitxerGraf mapa= new LlegirFitxerGraf(_graf);
-       _graf = mapa.obtGraph();
-       System.out.println("Nodes inserits correctament");
+    private void generarGraf(){
+       System.out.println("Vols llegir el graf de fitxer o generarlo de forma aleatoria ? S/N");
+       boolean rand = false;
+       Scanner sc = new Scanner(System.in);
+       String c = sc.nextLine();
+       if (c == "S") { 
+            LlegirFitxerGraf mapa = new LlegirFitxerGraf(_graf);
+           _graf = mapa.obtGraph();
+           System.out.println("Nodes inserits correctament");
+       } else {
+           GeneradorNodesGraf grafGen = new GeneradorNodesGraf();
+           
+       }
         
     }
 }
