@@ -42,7 +42,7 @@ public class LlegirFitxerGraf {
         }
         
         CompletarGraf(graf);
-        EliminarNodesDesconectats(_graf);
+        EliminarNodesDesconectats(graf);
         this._graf = graf;
         return graf;
     }

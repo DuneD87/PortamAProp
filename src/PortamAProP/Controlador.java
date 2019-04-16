@@ -3,11 +3,14 @@ package PortamAProP;
 import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.List;
 import java.util.Vector;
+import javafx.util.Pair;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -25,9 +28,10 @@ public class Controlador {
     private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
-    private static String NOM_FITXER_D = "Depots.txt";
-    private static String NOM_FITXER_G = "Graf.txt";
-    private static String FORMAT_ENTRADA_GRAF="R";
+    private String NOM_FITXER_D = "Depots.txt";
+    private String NOM_FITXER_G = "Graf.txt";
+    private String FORMAT_ENTRADA_GRAF="R";
+    private ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>_ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -77,7 +81,7 @@ public class Controlador {
         while (opcio != 0) {
             switch (opcio) {
                 case 1:
-                    _graf.display();
+                    _graf.display(true);
                     break;
                 case 2:
                     mostrarVehicles();
@@ -85,6 +89,9 @@ public class Controlador {
                 case 3:
                     mostrarSolicituds();
                     break;
+                case 4:
+                    AssignarSolicitudsAVehicles();
+                    MostrarVehiclesSolicituds();
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -140,7 +147,6 @@ public class Controlador {
         //Scanner teclat=new Scanner(System.in);
         //String opcio=teclat.nextLine();
         String opcio=FORMAT_ENTRADA_GRAF;
-        _graf.display();
         
         if(opcio.equals("R")){
             _generadorNodes = new GeneradorNodesGraf();
@@ -154,5 +160,39 @@ public class Controlador {
         _graf = mapa.obtGraph();
         System.out.println("Nodes inserits correctament");
 
+    }
+    
+    public void AssignarSolicitudsAVehicles(){
+        int indexVehicle=0;
+        int divisor=_vehicles.size();
+        int numerador=_solicituds.size();
+        System.out.println(divisor + " " + numerador);
+        int blocs=numerador/divisor;
+        Vehicle ve=_vehicles.get(indexVehicle);
+        Iterator<Solicitud> iterador=_solicituds.iterator();
+        for(int i=0;i<blocs;i=i+blocs){
+            TreeSet<Solicitud> solici= new TreeSet<Solicitud>();
+            for(int y=0;i<divisor;y++){
+                solici.add(iterador.next());
+            }
+            Pair<Vehicle,TreeSet<Solicitud>> subSol = new Pair<Vehicle,TreeSet<Solicitud>>(ve,solici);
+             _ruta.add(subSol);
+        }  
+        
+                
+    }
+    
+    
+    public void MostrarVehiclesSolicituds(){
+        Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
+        while(it!=null){
+             Pair<Vehicle,TreeSet<Solicitud>> pair=it.next();
+             Vehicle v= pair.getKey();
+             TreeSet<Solicitud> s=pair.getValue();
+             System.out.println(v);
+             System.out.println(s);
+        }
+       
+        
     }
 }
