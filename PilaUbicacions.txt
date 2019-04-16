@@ -1,4 +1,4 @@
-A Coruña
+ACoruña
 Alava
 Albacete
 Alicante
@@ -25,9 +25,9 @@ Huelva
 Huesca
 Ibiza
 Jaén
-La Rioja
-Las Palmas de Gran Canaria
-Gran Canaria
+LaRioja
+LasPalmasdeGranCanaria
+GranCanaria
 Fuerteventura
 Lanzarote
 León
@@ -47,7 +47,7 @@ Santa Cruz de Tenerife
 Tenerife
 La Gomera
 La Palma
-El Hierro
+ElHierro
 Segovia
 Sevilla
 Soria

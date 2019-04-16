@@ -10,30 +10,48 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.algorithm.*;
 import java.io.*;
+import java.lang.String;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class LlegirFitxerGraf {
-    private Graph _graf; // @brief Atribut necessari per construir el graf
-    private static String NOM_FITXER_D = "Depots.txt";
-    private static String NOM_FITXER_G = "Graf.txt";
+    private Graph _graf; // @brief Atribut necessari per construir el graf    
+    public LlegirFitxerGraf(){
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @brief Inicialitza el graf
      * @pre Cadena de caracters amb el format implicit
      * @post Inicialitza la construccio del graf a traves d'una cadena de caracters
      */
-    public LlegirFitxerGraf(Graph graf, String text) {
+    public Graph ModificarGrafPerString(Graph graf, String text) {
       
-        Scanner scanner = new Scanner(text);
-        String linia = scanner.nextLine();
-        while (scanner.hasNextLine() && !linia.equals("#")) {
-            CrearNode(linia, graf);
+        String[] lines = text.split("\r\n|\r|\n");
+        int contador=0;
+        for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
+            System.out.println(lines[i]);
+            CrearNode(lines[i], graf);
+            contador=i;
         }
-
-        while (scanner.hasNextLine() && !linia.equals("#")) {
-            DefinirAresta(linia, graf.getEdgeCount(), graf);
+            contador+=2;
+         for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
+             System.out.println(lines[i]);
+             DefinirAresta(lines[i], graf.getEdgeCount(), graf);
 
         }
+        
         CompletarGraf(graf);
+        EliminarNodesDesconectats(_graf);
+        this._graf = _graf;
+        return graf;
     }
     
     /**
@@ -41,7 +59,7 @@ public class LlegirFitxerGraf {
      * @pre ---
      * @post Inicialitza la construccio del graf a traves d'un fitxer
      */
-    public LlegirFitxerGraf (Graph _graf) {
+    public Graph ModificarGrafPerFitxer (Graph _graf, String file) {
         //_graf.display();
         File fitxer = null;
         FileReader fr = null;
@@ -50,7 +68,7 @@ public class LlegirFitxerGraf {
             //Scanner teclat = new Scanner(System.in);
             //System.out.println("Nom del fitxer de nodes:");
             //String nom = teclat.nextLine();
-            fitxer = new File(NOM_FITXER_D).getAbsoluteFile();
+            fitxer = new File(file).getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
             String linia;
@@ -63,6 +81,8 @@ public class LlegirFitxerGraf {
 
             }
             CompletarGraf(_graf);
+            EliminarNodesDesconectats(_graf);
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -74,7 +94,8 @@ public class LlegirFitxerGraf {
                 e2.printStackTrace();
             }
         }
-
+        this._graf = _graf;
+        return _graf;
     }
     
     /**
@@ -140,5 +161,38 @@ public class LlegirFitxerGraf {
      */
     public Graph obtGraph() {
         return _graf;
+    }
+
+    
+    /**
+     * @brief Elimina els nodes desconectats o conectats nomes entre dos nodes
+     * @pre graf complet amb pessos
+     * @post Retorna un graf complet sense desconxions
+     */
+    public void EliminarNodesDesconectats(Graph graf) {
+        int contador;
+        Stack<Node> pila = new Stack<Node>();
+        for (Node n : graf) {
+            contador = 0;
+            System.out.println(n.getId());
+            for (Node m : graf) {
+                if (n.hasEdgeFrom(m.getId())) {
+                    Object valor = n.getEdgeBetween(m).getAttribute("Pes");
+                    if (valor.toString().equals("Infinity")) {
+                        contador++;
+                    }
+
+                }
+            }
+            if (contador == graf.getNodeCount() - 1 || contador == graf.getNodeCount() - 2) {
+                System.out.println(n.getAttribute("Nom").toString());
+
+                pila.push(n);
+            }
+        }
+        while (!pila.empty()) {
+            graf.removeNode(pila.pop());
+        }
+        this._graf = graf;
     }
 }

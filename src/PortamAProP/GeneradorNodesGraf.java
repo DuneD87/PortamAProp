@@ -21,13 +21,23 @@ public class GeneradorNodesGraf {
     private SortedSet<String> _ubicacions;
     private int _pesMax = 100;//Pes maxim que pot tenir una aresta
     private static int MAX_NODES = 20;
-    
+    private static String FITXER_UBICACIONS="PilaUbicacions.txt";
+    private static String _nodes="";
    /**
     * @brief Inicialitza la generacio de nodes 
     * @pre ---
     * @post S'ha inicialitzat la generacio de nodes
     */
     public GeneradorNodesGraf() {
+        
+    }
+    
+    /**
+     * @brief Genera Nodes Aleatoriament
+     * @pre ---
+     * @post S'ha generat un String amb nodes aleatoris
+     */
+    public void  GeneradorAleatoriNodes(int NodesExistents){
         _ubicacions = new TreeSet<>();
         Llegir_ubicacions();
 
@@ -35,13 +45,13 @@ public class GeneradorNodesGraf {
         //Scanner teclat = new Scanner(System.in);
         //int numNodes = Integer.parseInt(teclat.nextLine());
         int numNodes = MAX_NODES;
-        String nodes = "";
-        for (int i = 1; i <= numNodes; i++) {//Per cada node assignar id i etiqueta
-            nodes += Integer.toString(i) + " ";
-            nodes += _ubicacions.first() + "\n";
+        _nodes = "";
+        for (int i = NodesExistents+1; i <= numNodes+NodesExistents; i++) {//Per cada node assignar id i etiqueta
+            _nodes += Integer.toString(i) + " ";
+            _nodes += _ubicacions.first() + "\n";
             _ubicacions.remove(_ubicacions.first());
         }
-        nodes += "#\n";
+        _nodes += "#\n";
         int maximArestes = numNodes * (numNodes - 1) / 2;
         Random random = new Random();
         int numArestes = random.nextInt(maximArestes) + 1;
@@ -51,12 +61,12 @@ public class GeneradorNodesGraf {
             do {
                 desti = random.nextInt(numNodes) + 1;
             } while (origen == desti);
-            nodes += Integer.toString(origen) + " ";
-            nodes += Integer.toString(desti) + " ";
-            nodes += Integer.toString(random.nextInt(_pesMax) + 1) + "\n";
+            _nodes += Integer.toString(origen) + " ";
+            _nodes += Integer.toString(desti) + " ";
+            _nodes += Integer.toString(random.nextInt(_pesMax) + 1) + "\n";
         }
-        nodes += "#\n";
-        System.out.println(nodes);
+        _nodes += "#\n";
+        System.out.println(_nodes);
         /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S|n]");
         String eleccio = teclat.nextLine();
         if (eleccio.equals("S")) {
@@ -79,7 +89,7 @@ public class GeneradorNodesGraf {
 
         try {
            
-            fitxer = new File("PilaUbicacions.txt").getAbsoluteFile();
+            fitxer = new File(FITXER_UBICACIONS).getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
 
@@ -104,7 +114,7 @@ public class GeneradorNodesGraf {
     /**
      * @brief Crea un fitxer amb els nodes
      * @pre ---
-     * @S'ha creat un fitxer al directori local amb format TFG 
+     * @post S'ha creat un fitxer al directori local amb format TFG 
      */
     public void CrearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
@@ -128,6 +138,14 @@ public class GeneradorNodesGraf {
                 e2.printStackTrace();
             }
         }
+    }
+    /**
+     * @brief Retorna el string de nodes
+     * @pre ---
+     * @post Retorna string _nodes
+     */
+    public String OptenirNodes(){
+        return _nodes;
     }
 
 }

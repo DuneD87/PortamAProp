@@ -1,10 +1,11 @@
-7 Correus
-8 Plaça_Indepencia
-9 UdG_Montilivi
-10 Sant_Gregori
-11 UdG_Aguiles
-12 Palamos
+7 LLoc7
+8 LLoc8
+9 LLoc9
+10 LLoc10
+11 LLoc11
+12 LLoc12
 #
+7 2 10.0
 11 2 3.0
 10 3 4.0
 9 12 6.0

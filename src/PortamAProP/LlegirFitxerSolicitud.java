@@ -12,17 +12,18 @@ import java.sql.Time;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
+import org.graphstream.graph.*;
 public class LlegirFitxerSolicitud {
 
     private SortedSet<Solicitud> _vecSol; //@brief Estructura on ens guardem les solicituds ordenades per data d'emissio decreixent
-    
+    private Graph _graf;
     /**
      * @brief Inicialitza la lectura de solicituds
      * @pre Cadena de caracters amb el format implicit
      * @post S'han llegit les solicituds desde cadena de caracters
      */
-    public LlegirFitxerSolicitud(String text) {
+    public LlegirFitxerSolicitud(String text, Graph graf) {
+        _graf=graf;
         _vecSol = new TreeSet<Solicitud>();
         String[] lines = text.split("\r\n|\r|\n");
         for (int i = 0; i < lines.length; i++) 
@@ -78,9 +79,12 @@ public class LlegirFitxerSolicitud {
      */
     private void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
+        if(_graf.getNode(parts[1])!=null &&_graf.getNode(parts[2])!=null && _graf.getNode(parts[1]).hasEdgeBetween(parts[2])){
         Time emisio = new Time(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
         Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[6]));
         _vecSol.add(sol);
+        }else
+            System.out.println("Solicitud no creada perque els nodes no existeixen");
 
     }
     

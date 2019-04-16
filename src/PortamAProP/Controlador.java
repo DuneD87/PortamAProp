@@ -25,7 +25,9 @@ public class Controlador {
     private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
-
+    private static String NOM_FITXER_D = "Depots.txt";
+    private static String NOM_FITXER_G = "Graf.txt";
+    private static String FORMAT_ENTRADA_GRAF="R";
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -121,7 +123,7 @@ public class Controlador {
     private void generarSolicituds() {
         GeneradorSolicituds sol = new GeneradorSolicituds();
         String lSol = sol.toString();
-        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(lSol);
+        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
         _solicituds = lFitxer.obtSol();
     }
 
@@ -132,7 +134,23 @@ public class Controlador {
      */
     private void generarGraf() {
 
-        LlegirFitxerGraf mapa = new LlegirFitxerGraf(_graf);
+        LlegirFitxerGraf mapa = new LlegirFitxerGraf();
+        mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D);//Els Depots sempre es Generer primer i a partir de un fitxer
+        System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
+        //Scanner teclat=new Scanner(System.in);
+        //String opcio=teclat.nextLine();
+        String opcio=FORMAT_ENTRADA_GRAF;
+        _graf.display();
+        
+        if(opcio.equals("R")){
+            _generadorNodes = new GeneradorNodesGraf();
+            _generadorNodes.GeneradorAleatoriNodes(_graf.getNodeCount());
+            String nodes=_generadorNodes.OptenirNodes();
+            mapa.ModificarGrafPerString(_graf, nodes);    
+        }else if(opcio.equals("F")){
+            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G);
+        }
+
         _graf = mapa.obtGraph();
         System.out.println("Nodes inserits correctament");
 
