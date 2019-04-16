@@ -39,7 +39,7 @@ public class Solicitud implements Comparable<Solicitud> {
      */
     @Override
     public String toString() {
-        String resultat = "Identificador: " + _identificadorSol + "\n"
+        String resultat = "\nIdentificador: " + _identificadorSol + "\n"
                 + "LlocOrigen: " + _llocOrigen + "\n"
                 + "LLocDesti: " + _llocDesti + "\n"
                 + "HoraEmisio: " + _horaEmisio + "\n"

@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import java.util.List;
 import java.util.Vector;
 import javafx.util.Pair;
+import javax.swing.text.StyledEditorKit;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -31,7 +32,7 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="R";
-    private ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>_ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    private ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>_ruta;
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -44,6 +45,7 @@ public class Controlador {
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
+        _ruta= new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     }
 
     /**
@@ -130,6 +132,7 @@ public class Controlador {
     private void generarSolicituds() {
         GeneradorSolicituds sol = new GeneradorSolicituds();
         String lSol = sol.toString();
+        System.out.println(lSol);
         LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
         _solicituds = lFitxer.obtSol();
     }
@@ -161,36 +164,45 @@ public class Controlador {
         System.out.println("Nodes inserits correctament");
 
     }
-    
-    public void AssignarSolicitudsAVehicles(){
-        int indexVehicle=0;
-        int divisor=_vehicles.size();
-        int numerador=_solicituds.size();
-        System.out.println(divisor + " " + numerador);
-        int blocs=numerador/divisor;
-        Vehicle ve=_vehicles.get(indexVehicle);
-        Iterator<Solicitud> iterador=_solicituds.iterator();
-        for(int i=0;i<blocs;i=i+blocs){
-            TreeSet<Solicitud> solici= new TreeSet<Solicitud>();
-            for(int y=0;i<divisor;y++){
-                solici.add(iterador.next());
+
+     /**
+     * @brief Assigna per cada vehicle, un grup de solicituds
+     * @pre ---
+     * @post Afageix a _ruta, vehicles amb unes solicituds 
+     */
+    public void AssignarSolicitudsAVehicles() {
+        int indexVehicle = 0;
+        int divisor = _vehicles.size();
+        int numerador = _solicituds.size();
+        int blocs = numerador / divisor;
+        Iterator<Solicitud> iterador = _solicituds.iterator();
+        for (int i = 0; i < blocs;i++) {
+            Vehicle ve = _vehicles.get(indexVehicle);
+            TreeSet<Solicitud> solici = new TreeSet<Solicitud>();
+            int y = 0;
+            while (iterador.hasNext() && y < blocs) {
+                Solicitud s=iterador.next();
+                solici.add(s);
+                y++;
             }
-            Pair<Vehicle,TreeSet<Solicitud>> subSol = new Pair<Vehicle,TreeSet<Solicitud>>(ve,solici);
-             _ruta.add(subSol);
-        }  
-        
-                
+            Pair<Vehicle, TreeSet<Solicitud>> subSol = new Pair<Vehicle, TreeSet<Solicitud>>(ve, solici);
+            _ruta.add(subSol);
+            indexVehicle++;
+        }
+
     }
-    
-    
+
+
     public void MostrarVehiclesSolicituds(){
         Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
-        while(it!=null){
+        while(it.hasNext()){
              Pair<Vehicle,TreeSet<Solicitud>> pair=it.next();
              Vehicle v= pair.getKey();
              TreeSet<Solicitud> s=pair.getValue();
-             System.out.println(v);
-             System.out.println(s);
+             System.out.println("************************************************\n Vehicle:");
+             System.out.println(v.toString()+ "\n Solicitds del vehicle:");
+             System.out.println("\t"+s);
+             System.out.println("************************************************\n");
         }
        
         
