@@ -20,13 +20,6 @@ public class LlegirFitxerGraf {
     
     }
     
-    
-    
-    
-    
-    
-    
-    
     /**
      * @brief Inicialitza el graf
      * @pre Cadena de caracters amb el format implicit
@@ -50,7 +43,7 @@ public class LlegirFitxerGraf {
         
         CompletarGraf(graf);
         EliminarNodesDesconectats(_graf);
-        this._graf = _graf;
+        this._graf = graf;
         return graf;
     }
     
