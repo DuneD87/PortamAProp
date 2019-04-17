@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.SortedSet;
+import java.util.Stack;
+import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
 /**
@@ -14,22 +16,23 @@ import org.graphstream.graph.Node;
 
 public class SolucioRuta {
     
-    private List<Node> _solucioActual; //@brief Solucio al algoritme, llista de nodes ordenats que recorre el nostre vehicle
-    private List<Node> _nodes; //@brief Llista de nodes inicial
-    private SortedSet<Solicitud> _solicituds; //@brief Llista de solicituds ordenades per hora de emissio
+    private Stack<Integer> _solucioActual; //@brief Solucio al algoritme, llista de nodes ordenats que recorre el nostre vehicle
+    private Graph _graf; //@brief Llista de nodes inicial
+    private ArrayList<Solicitud> _solicituds; //@brief Llista de solicituds ordenades per hora de emissio
     private int _nivell; //@brief Nivell recursiu en el que es troba l'algoritme
-    private Vehicle _cotxe; //@brief Vehicle encarregat d atendre les solicituds 
-    
+    private Vehicle _vehicle; //@brief Vehicle encarregat d atendre les solicituds 
+    private boolean _enTransit;
     /**
      * @brief Constructor
      * @param nodes Vector de nodes
      * @param solicituds SortedSet de solicituds
      */
-    public SolucioRuta(List<Node> nodes, SortedSet<Solicitud> solicituds, Vehicle cotxe) {
-        _solucioActual = new ArrayList<>();
-        _nodes = nodes;
+    public SolucioRuta(Graph graf, ArrayList<Solicitud> solicituds, Vehicle cotxe) {
+        _solucioActual = new Stack<>();
+        _graf = graf;
         _solicituds = solicituds;
-        _cotxe = cotxe;
+        _vehicle = cotxe;
+        _enTransit = false;
     }
     
     /**
@@ -38,7 +41,7 @@ public class SolucioRuta {
      * @post S'ha inicicialitzat el candidat amb el maxim de nodes
      */
     public CandidatRuta iniCan() {
-        return new CandidatRuta(_nodes.size());
+        return new CandidatRuta(_vehicle.getPosicio(),_graf.getNodeCount());
     }
     
     /**
@@ -47,17 +50,44 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        
-        return true;
+        boolean acceptable = false;
+        double carregaPrevista = _graf.getNode(_vehicle.getPosicio()).getEdgeBetween(iCan.actual()).getAttribute("Pes");
+        //Primer preguntem si el cotxe pot arribar al node
+        if (carregaPrevista < _vehicle.carregaRestant()) {
+            //Recollim passatgers ?
+            if (_vehicle.getPosicio() == _solicituds.get(_nivell).Origen() && !_enTransit) {
+                //Pujen passatgers i ens moguem cap el desti
+                _enTransit = true;
+                _vehicle.ModificarPassatgers(_nivell); 
+            }
+            acceptable = true;
+        }
+        return acceptable;
     }
     
     /**
-     * @brief Ens diu si la solucio es completa
+     * @brief Solucio definitiva
      * @pre ---
-     * @post Boolea que ens diu si el nivell ha arribat al nombre de candidats
+     * @post Ens diu si totes les solicituds s'han completat
+     */
+    public boolean definitiva() {
+        return _nivell == _solicituds.size();
+    }
+    
+    /**
+     * @brief Solicitud completa
+     * @pre ---
+     * @post Ens diu si s'ha completat la solicitud, el vehicle ha arribat al desti amb els passatgers
      */
     public boolean completa(CandidatRuta iCan) {
-        return _nivell == iCan.actual();
+        boolean esCompleta = _vehicle.getPosicio() == _solicituds.get(_nivell).Desti() && _enTransit;
+        if (esCompleta) {
+            _vehicle.ModificarPassatgers(-1*_solicituds.get(_nivell).NumPassatgers());//Es baixen els passatgers
+            _nivell++;//Seguent solicitud
+            iniCan();//Inicialitzem de nou candidats
+            _enTransit = false;// el cotxe no porta passatgers ja
+        }
+        return esCompleta;
     }
     
     /**
@@ -66,7 +96,12 @@ public class SolucioRuta {
      * @post Guarda el node actual dins d'una llista de nodes
      */
     public void anotar(CandidatRuta iCan) {
-        
+        //Anotem el nou node
+        _solucioActual.push(iCan.actual());
+        //restem el pes entre la posicio actual del vehicle i el candidat
+        _vehicle.descarga(_graf.getNode(_vehicle.getPosicio()).getEdgeBetween(iCan.actual()).getAttribute("Pes"));
+        //Actualitzem la posicio del vehicle a iCan
+        _vehicle.setPosicio(iCan.actual());
     }
     
     /**
@@ -75,7 +110,12 @@ public class SolucioRuta {
      * @post Borra el node actual de la llista de nodes
      */
     public void desanotar() {
-        
+        //Desanotem el node
+        int nodeUltim = _solucioActual.pop(); //L'ultima solucio valida, tornem enrera
+        //Carreguem el vehicle
+        _vehicle.cargar(_graf.getNode(nodeUltim).getEdgeBetween(_vehicle.getPosicio()).getAttribute("Pes"));
+        //Tornem enrera
+        _vehicle.setPosicio(nodeUltim);
     }
     
 }
