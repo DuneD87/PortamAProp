@@ -21,7 +21,8 @@ public class SolucioRuta {
     private ArrayList<Solicitud> _solicituds; //@brief Llista de solicituds ordenades per hora de emissio
     private int _nivell; //@brief Nivell recursiu en el que es troba l'algoritme
     private Vehicle _vehicle; //@brief Vehicle encarregat d atendre les solicituds 
-    private boolean _enTransit;
+    private boolean _enTransit; //@brief Ens diu si el vehicle ja ha recollit els passatgers
+    
     /**
      * @brief Constructor
      * @param nodes Vector de nodes
@@ -80,10 +81,11 @@ public class SolucioRuta {
      * @post Ens diu si s'ha completat la solicitud, el vehicle ha arribat al desti amb els passatgers
      */
     public boolean completa(CandidatRuta iCan) {
-        boolean esCompleta = _vehicle.getPosicio() == _solicituds.get(_nivell).Desti() && _enTransit;
+        boolean esCompleta = (_vehicle.getPosicio() == _solicituds.get(_nivell).Desti() && _enTransit) || iCan.actual() == _graf.getNodeCount();
         if (esCompleta) {
             _vehicle.ModificarPassatgers(-1*_solicituds.get(_nivell).NumPassatgers());//Es baixen els passatgers
             _nivell++;//Seguent solicitud
+            //movem el cotxe al depot mes proper a la seguent solicitud
             iniCan();//Inicialitzem de nou candidats
             _enTransit = false;// el cotxe no porta passatgers ja
         }

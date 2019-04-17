@@ -3,14 +3,17 @@ package PortamAProP;
 import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import javafx.util.Pair;
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -45,6 +48,7 @@ public class Controlador {
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
+        AssignarSolicitudsAVehicles();
     }
 
     /**
@@ -56,19 +60,7 @@ public class Controlador {
         mostrarMenu();
         gestionarMenu();
     }
-
-    public void mostrarSolicituds() {
-        for (Solicitud s : _solicituds) {
-            System.out.println(s.toString());
-        }
-    }
-
-    public void mostrarVehicles() {
-        for (Vehicle c : _vehicles) {
-            System.out.println(c.toString());
-        }
-    }
-
+    
     /**
      * @brief Gestiona les diferents opcions del menu
      * @pre ---
@@ -85,14 +77,9 @@ public class Controlador {
                     _graf.display(true);
                     break;
                 case 2:
-                    mostrarVehicles();
+                    algoritmeBacktracking();
                     break;
-                case 3:
-                    mostrarSolicituds();
-                    break;
-                case 4:
-                    AssignarSolicitudsAVehicles();
-                    MostrarVehiclesSolicituds();
+              
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -107,8 +94,7 @@ public class Controlador {
     public void mostrarMenu() {
         System.out.println("MENU\n"
                 + "1 - Mostrar Graf\n"
-                + "2 - Mostrar Vehicles\n"
-                + "3 - Mostrar Solicituds\n"
+                + "2 - Algoritme Backtracking\n"
                 + "0 - Sortir");
     }
 
@@ -184,7 +170,7 @@ public class Controlador {
     }
     
     
-    public void MostrarVehiclesSolicituds(){
+    /*public void MostrarVehiclesSolicituds(){
         Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
         while(it!=null){
              Pair<Vehicle,TreeSet<Solicitud>> pair=it.next();
@@ -193,7 +179,14 @@ public class Controlador {
              System.out.println(v);
              System.out.println(s);
         }
+    }*/
+    public void algoritmeBacktracking() {
+        Collection<Edge> edgeSet = _graf.getEdgeSet();
+        double pesTotalGraf = 0;
+        for (Edge s : edgeSet) {
+            double pes = s.getAttribute("Pes");
+            System.out.println(pes);
+        }
        
-        
     }
 }
