@@ -20,13 +20,6 @@ public class LlegirFitxerGraf {
     
     }
     
-    
-    
-    
-    
-    
-    
-    
     /**
      * @brief Inicialitza el graf
      * @pre Cadena de caracters amb el format implicit
@@ -124,7 +117,7 @@ public class LlegirFitxerGraf {
          */
         if (!_graf.getNode(parts[0]).hasEdgeToward(parts[1])) {
             _graf.addEdge(Integer.toString(index), parts[0], parts[1]);
-            _graf.getEdge(Integer.toString(index)).setAttribute("Pes", parts[2]);
+            _graf.getEdge(Integer.toString(index)).setAttribute("Pes", Double.parseDouble(parts[2]));
             _graf.getEdge(Integer.toString(index)).setAttribute("ui.label", parts[2]);
         }
 

@@ -3,12 +3,14 @@ package PortamAProP;
 import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
@@ -60,19 +62,7 @@ public class Controlador {
         mostrarMenu();
         gestionarMenu();
     }
-
-    public void mostrarSolicituds() {
-        for (Solicitud s : _solicituds) {
-            System.out.println(s.toString());
-        }
-    }
-
-    public void mostrarVehicles() {
-        for (Vehicle c : _vehicles) {
-            System.out.println(c.toString());
-        }
-    }
-
+    
     /**
      * @brief Gestiona les diferents opcions del menu
      * @pre ---
@@ -89,7 +79,7 @@ public class Controlador {
                     _graf.display(true);
                     break;
                 case 2:
-                    mostrarVehicles();
+                    algoritmeBacktracking();
                     break;
                 case 3:
                     mostrarSolicituds();
@@ -113,8 +103,7 @@ public class Controlador {
     public void mostrarMenu() {
         System.out.println("MENU\n"
                 + "1 - Mostrar Graf\n"
-                + "2 - Mostrar Vehicles\n"
-                + "3 - Mostrar Solicituds\n"
+                + "2 - Algoritme Backtracking\n"
                 + "0 - Sortir");
     }
 

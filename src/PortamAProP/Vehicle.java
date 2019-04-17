@@ -14,6 +14,7 @@ public class Vehicle {
     private int _numPassatgers; //@brief Numero de passatges actuals del vehicle
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
     private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
+    private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
    
     /**
      * @brief Constructor amb parametres
@@ -28,6 +29,7 @@ public class Vehicle {
         _autonomiaRestant=AutoTot;
         _carga=carga;
         _idNodePrincipi=node;
+        _idNodeActual = _idNodePrincipi;
     }
     
     
@@ -77,6 +79,51 @@ public class Vehicle {
                 + "=============================================";
          
         return sortida;
+    }
+    
+    /**
+     * @brief Nombre de passatgers
+     * @pre ---
+     * @post Ens diu el nombre de passatges que te actualment el vehicle
+     */
+    public int nPassatgers() {
+        return _numPassatgers;
+    }
+    
+    /**
+     * @brief Node inicial
+     * @pre ---
+     * @post Ens diu el node inicial del vehicle
+     */
+    public int nodeInicial() {
+        return _idNodePrincipi;
+    }
+    
+    /**
+     * @brief Actualitza la posicio del vehicle
+     * @pre 0 <= nodeId >= maxNodesGraf
+     * @post S'ha actualitzat l'identificador del node on es troba el vehicle
+     */
+    public void setPosicio(int nodeId) {
+        _idNodeActual = nodeId; 
+    }
+    
+    /**
+     * @brief Ens dona la posicio actual del vehicle
+     * @pre ---
+     * @post Ens dona l'identificador del node on actualment es troba el vehidle
+     */
+    public int getPosicio() {
+        return _idNodeActual;
+    }
+    
+    /**
+     * @brief Autonomia restant del vehicle
+     * @pre ---
+     * @post Ens diu la quantitat de carrega que li queda al vehicle
+     */
+    public double carregaRestant() {
+        return _autonomiaRestant;
     }
 }
 
