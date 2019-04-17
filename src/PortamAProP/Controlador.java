@@ -187,7 +187,11 @@ public class Controlador {
 
     }
 
-
+     /**
+     * @brief Mostra les solicituds per cada vehicle
+     * @pre ---
+     * @post Mostra les solicituds per cada vehicle
+     */
     public void MostrarVehiclesSolicituds(){
         Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
         while(it.hasNext()){
@@ -210,7 +214,12 @@ public class Controlador {
         }
        
     }
-
+    
+     /**
+     * @brief crea i mostra un subgraf complet amb les soliciutds del vehicle
+     * @pre ---
+     * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de llista_solicituds 
+     */
     public void CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
