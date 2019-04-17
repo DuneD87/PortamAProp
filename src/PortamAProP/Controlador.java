@@ -37,7 +37,8 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="R";
-    private ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>_ruta;
+    private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    private LlegirFitxerGraf mapa;
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -82,7 +83,7 @@ public class Controlador {
                     algoritmeBacktracking();
                     break;
                 case 3:
-                    mostrarSolicituds();
+                    
                     break;
                 case 4:
                     AssignarSolicitudsAVehicles();
@@ -138,7 +139,7 @@ public class Controlador {
      */
     private void generarGraf() {
 
-        LlegirFitxerGraf mapa = new LlegirFitxerGraf();
+        mapa = new LlegirFitxerGraf();
         mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D);//Els Depots sempre es Generer primer i a partir de un fitxer
         System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
         //Scanner teclat=new Scanner(System.in);
@@ -200,6 +201,15 @@ public class Controlador {
             CrearSubGraf(s);
         }
     }
+    public void algoritmeBacktracking() {
+        Collection<Edge> edgeSet = _graf.getEdgeSet();
+        double pesTotalGraf = 0;
+        for (Edge s : edgeSet) {
+            double pes = s.getAttribute("Pes");
+            System.out.println(pes);
+        }
+       
+    }
 
     public void CrearSubGraf(TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
@@ -213,16 +223,26 @@ public class Controlador {
             String desti = Integer.toString(d);
             if (subgraf.getNode(origen) == null) {
                 subgraf.addNode(origen);
+                subgraf.getNode(origen).setAttribute("ui.label", origen);
             }
             if (subgraf.getNode(desti) == null) {
                 subgraf.addNode(desti);
+                subgraf.getNode(desti).setAttribute("ui.label", desti);
             }
-            Edge aresta = _graf.getNode(origen).getEdgeBetween(desti);
-            subgraf.addEdge(aresta.getId(), origen, desti);
-            
 
+ 
         }
-        
+        for(Node n: subgraf){
+            for(Node m: subgraf){
+                if(! n.hasEdgeBetween(m) && !n.equals(m)){
+                    Double pes= _graf.getNode(n.getId()).getEdgeBetween(m.getId()).getAttribute("Pes");
+                    subgraf.addEdge(Integer.toString(subgraf.getEdgeCount()), n, m);
+                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount()-1)).addAttribute("pes", pes);
+                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount()-1)).addAttribute("ui.label", pes);
+                }
+            }
+        }
+        subgraf=mapa.CompletarGraf(subgraf);
         subgraf.display();
     }
 

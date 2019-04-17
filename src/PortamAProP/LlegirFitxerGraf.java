@@ -41,7 +41,7 @@ public class LlegirFitxerGraf {
 
         }
         
-        CompletarGraf(graf);
+        graf=CompletarGraf(graf);
         EliminarNodesDesconectats(graf);
         this._graf = graf;
         return graf;
@@ -73,7 +73,7 @@ public class LlegirFitxerGraf {
                 DefinirAresta(linia, _graf.getEdgeCount(), _graf);
 
             }
-            CompletarGraf(_graf);
+            _graf=CompletarGraf(_graf);
             EliminarNodesDesconectats(_graf);
             
         } catch (Exception e) {
@@ -128,23 +128,23 @@ public class LlegirFitxerGraf {
      * @pre ---
      * @post S'ha completat el graf afegint les arestes que falten fen servir l'algorisme de Dijkstra per trobar el cami minim entre dos nodes
      */
-    private void CompletarGraf(Graph _graf) {
+    public Graph CompletarGraf(Graph graf) {
         Dijkstra di = new Dijkstra(Dijkstra.Element.EDGE, "Minim", "Pes");
-        di.init(_graf);
-        for (Node n : _graf) {
-            di.setSource(_graf.getNode(n.getId()));
+        di.init(graf);
+        for (Node n : graf) {
+            di.setSource(graf.getNode(n.getId()));
             di.compute();
-            for (Node m : _graf) {
+            for (Node m : graf) {
                 if (!n.getId().equals(m.getId()) && !n.hasEdgeFrom(m.getId())) {
-                    _graf.addEdge(String.valueOf(_graf.getEdgeCount()), n, m);
-                    _graf.getEdge(String.valueOf(_graf.getEdgeCount() - 1)).addAttribute("Pes", di.getPathLength(m));
-                    _graf.getEdge(String.valueOf(_graf.getEdgeCount() - 1)).addAttribute("ui.label", di.getPathLength(m));
+                    graf.addEdge(String.valueOf(graf.getEdgeCount()), n, m);
+                    graf.getEdge(String.valueOf(graf.getEdgeCount() - 1)).addAttribute("Pes", di.getPathLength(m));
+                    graf.getEdge(String.valueOf(graf.getEdgeCount() - 1)).addAttribute("ui.label", di.getPathLength(m));
 
                 }
             }
 
         }
-        this._graf = _graf;
+        return graf;
     }
 
     /**
