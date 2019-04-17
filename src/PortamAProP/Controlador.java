@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.graph.Node;
+import scala.Int;
 
 /**
  * @brief Classe controladora, es dedica a gestionar les diferents opcions del
@@ -94,6 +97,8 @@ public class Controlador {
                 case 4:
                     AssignarSolicitudsAVehicles();
                     MostrarVehiclesSolicituds();
+                case 5:
+                
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -196,15 +201,40 @@ public class Controlador {
     public void MostrarVehiclesSolicituds(){
         Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
         while(it.hasNext()){
-             Pair<Vehicle,TreeSet<Solicitud>> pair=it.next();
-             Vehicle v= pair.getKey();
-             TreeSet<Solicitud> s=pair.getValue();
-             System.out.println("************************************************\n Vehicle:");
-             System.out.println(v.toString()+ "\n Solicitds del vehicle:");
-             System.out.println("\t"+s);
-             System.out.println("************************************************\n");
+            Pair<Vehicle, TreeSet<Solicitud>> pair = it.next();
+            Vehicle v = pair.getKey();
+            TreeSet<Solicitud> s = pair.getValue();
+            System.out.println("************************************************\n Vehicle:");
+            System.out.println(v.toString() + "\n Solicitds del vehicle:");
+            System.out.println("\t" + s);
+            System.out.println("************************************************\n");
+            CrearSubGraf(s);
         }
-       
-        
     }
+
+    public void CrearSubGraf(TreeSet<Solicitud> llista_solicituds) {
+        Iterator<Solicitud> it = llista_solicituds.iterator();
+        Graph subgraf = new SingleGraph("Ruta");
+        System.out.println("##########################################");
+        while (it.hasNext()) {
+            Solicitud s = it.next();
+            int o = s.Origen();
+            int d = s.Desti();
+            String origen = Integer.toString(o);
+            String desti = Integer.toString(d);
+            if (subgraf.getNode(origen) == null) {
+                subgraf.addNode(origen);
+            }
+            if (subgraf.getNode(desti) == null) {
+                subgraf.addNode(desti);
+            }
+            Edge aresta = _graf.getNode(origen).getEdgeBetween(desti);
+            subgraf.addEdge(aresta.getId(), origen, desti);
+            
+
+        }
+        
+        subgraf.display();
+    }
+
 }
