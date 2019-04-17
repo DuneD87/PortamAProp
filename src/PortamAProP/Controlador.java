@@ -31,7 +31,8 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="R";
-    private ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>_ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    
     /**
      * @brief Constructor per defecte
      * @pre ---
