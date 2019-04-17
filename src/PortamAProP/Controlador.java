@@ -198,7 +198,7 @@ public class Controlador {
             System.out.println(v.toString() + "\n Solicitds del vehicle:");
             System.out.println("\t" + s);
             System.out.println("************************************************\n");
-            CrearSubGraf(s);
+            CrearSubGraf(v,s);
         }
     }
     public void algoritmeBacktracking() {
@@ -211,10 +211,11 @@ public class Controlador {
        
     }
 
-    public void CrearSubGraf(TreeSet<Solicitud> llista_solicituds) {
+    public void CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         System.out.println("##########################################");
+        subgraf.addNode(Integer.toString(v.nodeInicial()));
         while (it.hasNext()) {
             Solicitud s = it.next();
             int o = s.Origen();
