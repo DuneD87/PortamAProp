@@ -106,7 +106,7 @@ public class LlegirFitxerGraf {
              _graf.getNode(parts[0]).addAttribute("Tipus", "Depot");
              Num_depots++;
              _graf.getNode(parts[0]).addAttribute("VehiclesMaxim", parts[2]);
-             _graf.getNode(parts[0]).addAttribute("VehicleActual", "0");
+             _graf.getNode(parts[0]).addAttribute("VehiclesActual", "0");
         }else
              _graf.getNode(parts[0]).addAttribute("Tipus", "Solicitud");
     }
