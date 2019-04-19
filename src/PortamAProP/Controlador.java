@@ -80,7 +80,14 @@ public class Controlador {
         while (opcio != 0) {
             switch (opcio) {
                 case 1:
-                    _graf.display(true);      
+                    _graf.display(true); 
+                    
+                   // for(Node n: _graf){
+                     //   System.out.println("Id: " + n.getId() + " Vehicles actuals: " + n.getAttribute("VehicleActual"));
+                    //}
+                    for(int i=0;i<_graf.getNodeCount();i++){
+                        System.out.println("Id: " + _graf.getNode(i).getId() + " Vehicles actuals: " + _graf.getNode(i).getAttribute("VehicleActual"));
+                    }
                     break;
                 case 2:
                     algoritmeBacktracking();
@@ -120,6 +127,16 @@ public class Controlador {
     private void generarVehicles() {
         LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle();
         _vehicles = lVehicle.obtVehicles();
+        
+        for(int i=0;i<_vehicles.size();i++){
+            Vehicle v=_vehicles.get(i);
+            System.out.println(v.nodeInicial());
+            Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehicleActual"))+1;
+            String s=n.toString();
+            _graf.getNode(v.nodeInicial()).setAttribute("VehicleActual", s);
+        }
+        
+            
     }
 
     /**

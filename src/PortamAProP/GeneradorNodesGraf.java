@@ -46,7 +46,7 @@ public class GeneradorNodesGraf {
         //int numNodes = Integer.parseInt(teclat.nextLine());
         int numNodes = MAX_NODES;
         _nodes = "";
-        for (int i = NodesExistents+1; i <= numNodes+NodesExistents; i++) {//Per cada node assignar id i etiqueta
+        for (int i = NodesExistents; i <= numNodes+NodesExistents; i++) {//Per cada node assignar id i etiqueta
             _nodes += Integer.toString(i) + " ";
             _nodes += _ubicacions.first() + "\n";
             _ubicacions.remove(_ubicacions.first());
