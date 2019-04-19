@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
+import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -39,6 +40,8 @@ public class Controlador {
     private String FORMAT_ENTRADA_GRAF="R";
     private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
+    private Object[] _nodes;
+    private Object[] _arestes;
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -77,7 +80,7 @@ public class Controlador {
         while (opcio != 0) {
             switch (opcio) {
                 case 1:
-                    _graf.display(true);
+                    _graf.display(true);      
                     break;
                 case 2:
                     algoritmeBacktracking();
@@ -157,6 +160,9 @@ public class Controlador {
 
         _graf = mapa.obtGraph();
         System.out.println("Nodes inserits correctament");
+        
+       _nodes=RetornarArrayNodes(_graf);
+       _arestes=RetornarArrayArestes(_graf);
 
     }
 
@@ -262,5 +268,16 @@ public class Controlador {
         
     }
     
+    public Object[] RetornarArrayNodes(Graph g){
+        Collection<Node> array= g.getNodeSet();
+        Object[] nodes=array.toArray();
+        return nodes;
+    }
+    
+    public Object[] RetornarArrayArestes(Graph g){
+        Collection<Node> array= g.getNodeSet();
+        Object[] arestes=array.toArray();
+        return arestes;
+    }
 
 }
