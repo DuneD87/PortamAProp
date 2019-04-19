@@ -86,7 +86,7 @@ public class Controlador {
                      //   System.out.println("Id: " + n.getId() + " Vehicles actuals: " + n.getAttribute("VehicleActual"));
                     //}
                     for(int i=0;i<_graf.getNodeCount();i++){
-                        System.out.println("Id: " + _graf.getNode(i).getId() + " Vehicles actuals: " + _graf.getNode(i).getAttribute("VehicleActual"));
+                        System.out.println("Id: " + _graf.getNode(i).getId() + " Vehicles actuals: " + _graf.getNode(i).getAttribute("VehiclesActual"));
                     }
                     break;
                 case 2:
@@ -131,9 +131,9 @@ public class Controlador {
         for(int i=0;i<_vehicles.size();i++){
             Vehicle v=_vehicles.get(i);
             System.out.println(v.nodeInicial());
-            Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehicleActual"))+1;
+            Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehiclesActual"))+1;
             String s=n.toString();
-            _graf.getNode(v.nodeInicial()).setAttribute("VehicleActual", s);
+            _graf.getNode(v.nodeInicial()).setAttribute("VehiclesActual", s);
         }
         
             
