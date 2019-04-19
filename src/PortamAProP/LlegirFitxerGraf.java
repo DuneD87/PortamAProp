@@ -15,9 +15,10 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class LlegirFitxerGraf {
-    private Graph _graf; // @brief Atribut necessari per construir el graf    
+    private Graph _graf; // @brief Atribut necessari per construir el graf 
+    private int Num_depots;// @brief Atribut necessari per optimitzar temps per fer el greedy
     public LlegirFitxerGraf(){
-    
+        Num_depots=0;
     }
     
     /**
@@ -25,13 +26,13 @@ public class LlegirFitxerGraf {
      * @pre Cadena de caracters amb el format implicit
      * @post Inicialitza la construccio del graf a traves d'una cadena de caracters
      */
-    public Graph ModificarGrafPerString(Graph graf, String text) {
+    public Graph ModificarGrafPerString(Graph graf, String text, String format) {
       
         String[] lines = text.split("\r\n|\r|\n");
         int contador=0;
         for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
             System.out.println(lines[i]);
-            CrearNode(lines[i], graf);
+            CrearNode(lines[i], graf, format);
             contador=i;
         }
             contador+=2;
@@ -52,7 +53,7 @@ public class LlegirFitxerGraf {
      * @pre ---
      * @post Inicialitza la construccio del graf a traves d'un fitxer
      */
-    public Graph ModificarGrafPerFitxer (Graph _graf, String file) {
+    public Graph ModificarGrafPerFitxer (Graph _graf, String file, String format) {
         //_graf.display();
         File fitxer = null;
         FileReader fr = null;
@@ -66,7 +67,7 @@ public class LlegirFitxerGraf {
             br = new BufferedReader(fr);
             String linia;
             while ((linia = br.readLine()) != null && !linia.equals("#")) {
-                CrearNode(linia, _graf);
+                CrearNode(linia, _graf, format);
             }
             
             while ((linia = br.readLine()) != null && !linia.equals("#")) {
@@ -96,11 +97,16 @@ public class LlegirFitxerGraf {
      * @pre s valid per la creació del node
      * @post S'ha construit un nou node 
      */
-    private void CrearNode(String s, Graph _graf) {
+    private void CrearNode(String s, Graph _graf, String format) {
         String[] parts = s.split(" ");
         _graf.addNode(parts[0]);
         _graf.getNode(parts[0]).addAttribute("Nom", parts[1]);
         _graf.getNode(parts[0]).setAttribute("ui.label", parts[1]);
+        if(format.equals("Depot")){
+             _graf.getNode(parts[0]).addAttribute("Tipus", "Depot");
+             Num_depots++;
+        }else
+             _graf.getNode(parts[0]).addAttribute("Tipus", "Solicitud");
     }
     
     /**
@@ -187,5 +193,13 @@ public class LlegirFitxerGraf {
             graf.removeNode(pila.pop());
         }
         this._graf = graf;
+    }
+    /**
+     * @brief Retorna el numero de depots del graf
+     * @pre Cert
+     * @post Retorna el numero de depots
+     */
+    public int GetNumDepot(){
+        return Num_depots;
     }
 }

@@ -140,7 +140,7 @@ public class Controlador {
     private void generarGraf() {
 
         mapa = new LlegirFitxerGraf();
-        mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D);//Els Depots sempre es Generer primer i a partir de un fitxer
+        mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D, "Depot");//Els Depots sempre es Generer primer i a partir de un fitxer
         System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
         //Scanner teclat=new Scanner(System.in);
         //String opcio=teclat.nextLine();
@@ -150,9 +150,9 @@ public class Controlador {
             _generadorNodes = new GeneradorNodesGraf();
             _generadorNodes.GeneradorAleatoriNodes(_graf.getNodeCount());
             String nodes=_generadorNodes.OptenirNodes();
-            mapa.ModificarGrafPerString(_graf, nodes);    
+            mapa.ModificarGrafPerString(_graf, nodes,"Solicitud");    
         }else if(opcio.equals("F")){
-            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G);
+            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "Solicitud");
         }
 
         _graf = mapa.obtGraph();
@@ -161,7 +161,7 @@ public class Controlador {
     }
 
      /**
-     * @brief Assigna per cada vehicle, un grup de solicituds
+     * @brief Assigna per cada vehicle, un grup de solicituds, tambe assigna tots els depots
      * @pre ---
      * @post Afageix a _ruta, vehicles amb unes solicituds 
      */
@@ -171,7 +171,7 @@ public class Controlador {
         int numerador = _solicituds.size();
         int blocs = numerador / divisor;
         Iterator<Solicitud> iterador = _solicituds.iterator();
-        for (int i = 0; i < blocs;i++) {
+        for (int i = 0; i < divisor;i++) {
             Vehicle ve = _vehicles.get(indexVehicle);
             TreeSet<Solicitud> solici = new TreeSet<Solicitud>();
             int y = 0;
@@ -202,7 +202,8 @@ public class Controlador {
             System.out.println(v.toString() + "\n Solicitds del vehicle:");
             System.out.println("\t" + s);
             System.out.println("************************************************\n");
-            CrearSubGraf(v,s);
+            Graph subgraf=CrearSubGraf(v,s);
+            AlgorismeGreedy(v,s,subgraf);
         }
     }
     public void algoritmeBacktracking() {
@@ -220,11 +221,12 @@ public class Controlador {
      * @pre ---
      * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de llista_solicituds 
      */
-    public void CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
+    public Graph CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
-        System.out.println("##########################################");
-        subgraf.addNode(Integer.toString(v.nodeInicial()));
+        for(int x=1;x<mapa.GetNumDepot();x++){            
+                subgraf.addNode(_graf.getNode(x).getId());
+        }
         while (it.hasNext()) {
             Solicitud s = it.next();
             int o = s.Origen();
@@ -254,6 +256,11 @@ public class Controlador {
         }
         subgraf=mapa.CompletarGraf(subgraf);
         subgraf.display();
+        return subgraf;
     }
+    public void AlgorismeGreedy(Vehicle v,TreeSet<Solicitud> llista_solicitud,Graph graf){
+        
+    }
+    
 
 }
