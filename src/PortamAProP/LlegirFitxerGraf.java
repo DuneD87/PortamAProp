@@ -17,6 +17,7 @@ import java.util.Stack;
 public class LlegirFitxerGraf {
     private Graph _graf; // @brief Atribut necessari per construir el graf 
     private int Num_depots;// @brief Atribut necessari per optimitzar temps per fer el greedy
+    
     public LlegirFitxerGraf(){
         Num_depots=0;
     }
