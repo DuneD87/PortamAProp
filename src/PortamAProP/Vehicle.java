@@ -47,7 +47,7 @@ public class Vehicle {
      * @pre 0 < temps
      * @post Ens resta temps al atribut _autonomiaRestant i el deixa a 0 si aquest ultim es negatiu
      */
-    public void descarga(int temps){
+    public void descarga(double temps){
         _autonomiaRestant-=temps; //Preguntar si possar index de descarga
         if(_autonomiaRestant<0)
             _autonomiaRestant=0;
@@ -58,7 +58,7 @@ public class Vehicle {
      * @pre 0 < temps
      * @post S'ha carregat el vehicle en funcio del temps
      */
-    public void cargar(int temps){
+    public void cargar(double temps){
         _autonomiaRestant=_autonomiaRestant+(temps*_carga);
         if(_autonomiaRestant>_autonomiaTotal)
             _autonomiaRestant=_autonomiaTotal;

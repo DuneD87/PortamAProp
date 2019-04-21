@@ -42,6 +42,8 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
+    private int MAX_DISTANCIA_GREEDY=20;//@brief distancia maxima acceptada pel greedy
+    private ArrayList<Ruta> _rutes;
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -55,6 +57,7 @@ public class Controlador {
         _vehicles = new ArrayList<>();
         generarVehicles();
         _ruta= new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+        _rutes=new ArrayList<Ruta>();
     }
 
     /**
@@ -96,8 +99,10 @@ public class Controlador {
                     
                     break;
                 case 4:
+                    
+                    
                     AssignarSolicitudsAVehicles();
-                    MostrarVehiclesSolicituds();
+                    //MostrarVehiclesSolicituds();
                 case 5:
                 
             }
@@ -187,6 +192,16 @@ public class Controlador {
      * @post Afageix a _ruta, vehicles amb unes solicituds 
      */
     public void AssignarSolicitudsAVehicles() {
+        
+        
+        for(int i=0;i<_vehicles.size();i++){
+            CrearRuta(_vehicles.get(i));
+            System.out.println("\n*\n*\n*\n");
+        }
+        
+        
+        
+        /*
         int indexVehicle = 0;
         int divisor = _vehicles.size();
         int numerador = _solicituds.size();
@@ -205,7 +220,7 @@ public class Controlador {
             _ruta.add(subSol);
             indexVehicle++;
         }
-
+        */
     }
 
      /**
@@ -274,12 +289,27 @@ public class Controlador {
             }
         }
         subgraf=mapa.CompletarGraf(subgraf);
-        subgraf.display();
+        //subgraf.display();
         return subgraf;
     }
-    public void CrearRuta(){
-        
-        
+    public void CrearRuta(Vehicle v){
+        TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
+        Solicitud s=SolicitudMesProperaDisponible(v);
+        int contadorSolicituds=1;
+        while(s!=null && contadorSolicituds<_solicituds.size()){
+            if(VehiclePotAssolirSolicitud(v,s)){
+                ruta.add(s);
+                s.setEstat(Solicitud.ESTAT.ENTRANSIT);
+               
+                
+            }
+             contadorSolicituds++;
+            s=SolicitudMesProperaDisponible(v);
+        }
+      System.out.println(v);
+      System.out.println("###########################");
+      System.out.println(ruta);
+      _rutes.add(new Ruta(v,ruta,CrearSubGraf(v, ruta)));
         
     }
     
@@ -294,5 +324,63 @@ public class Controlador {
         Object[] arestes=array.toArray();
         return arestes;
     }
+    public Solicitud SolicitudMesProperaDisponible(Vehicle v){
+        Solicitud s=null;
+        boolean trobat = false;
+        Iterator<Solicitud> it = _solicituds.iterator();
+        while (!trobat && it.hasNext()) {
+            Solicitud ss = it.next();
+            double pes=_graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+            if ( pes < MAX_DISTANCIA_GREEDY && ss.getEstat()==Solicitud.ESTAT.ESPERA) {
+                trobat = true;
+                s = ss;
+            }
 
+        }
+        return s;
+    }
+    
+    public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s){
+        boolean valid=false;
+        double anar_solicitud=_graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
+        double completar_solicitud=_graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
+        double depot_proxim=BuscarDepotMesProxim(s.Desti());
+        double autonomia=v.carregaRestant();
+        if(anar_solicitud+completar_solicitud+depot_proxim<autonomia){
+            valid=true;
+            v.setPosicio(s.Origen());
+            v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
+            v.setPosicio(s.Desti());
+        }
+        return valid;
+    }
+    
+    public double BuscarDepotMesProxim(int index){
+        double distancia=Integer.MAX_VALUE;
+        int numDepots=0;
+        Iterator<Node> it=_graf.iterator();
+        boolean fi=false;
+        while(it.hasNext() && !fi){
+            Node n=it.next();
+            if(n.getAttribute("Tipus").equals("Depot")){
+                numDepots++;
+            }
+           
+        }
+
+        for (int i = 0; i < numDepots; i++) {
+            if (index == i) {
+                distancia = 0;
+            } else {
+                double pes = _graf.getNode(index).getEdgeBetween(i).getAttribute("Pes");
+                if (pes < distancia) {
+                    distancia = pes;
+                }
+            }
+        }
+
+        
+        
+        return  distancia;
+    }
 }
