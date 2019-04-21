@@ -9,6 +9,8 @@ import java.sql.Time;
 import org.graphstream.graph.*;
 import org.graphstream.graph.Node;
 
+
+
 public class Solicitud implements Comparable<Solicitud> {
 
     private int _identificadorSol; //@brief Identificador de solicitud
@@ -17,7 +19,12 @@ public class Solicitud implements Comparable<Solicitud> {
     private Time _horaEmisio; //@brief Hora, minuts i segons en la que s'ha fet la solicitud
     private Time _horaArribada; //@brief Hora, minuts i segons en que s'ha acabat el trajecte
     private int _numPassatgers; //@brief Numero de passatgers de la solicitud
-    
+    enum ESTAT {
+        ESPERA,
+        ENTRANSIT,
+        FINALITZADA
+    }
+    private ESTAT _estat;
     /**
      * @brief Constructor
      * @pre ---
@@ -30,6 +37,7 @@ public class Solicitud implements Comparable<Solicitud> {
         _horaEmisio = emisio;
         _horaArribada=null;
         _numPassatgers = numPersones;
+        _estat = ESTAT.ESPERA;
     }
     
     /**
@@ -133,5 +141,23 @@ public class Solicitud implements Comparable<Solicitud> {
         if (!(obj instanceof Solicitud)) return false; //L'objecte no pertany a la classe Naip
         Solicitud s = (Solicitud)obj;//Hem arribat fins aqui, fem casting del objecte a Naip;
         return _horaEmisio.equals(s._horaEmisio) && _identificadorSol == s._identificadorSol; //Tenen el mateix pal i son del mateix tipus ?
+    }
+    
+    /**
+     * @brief Ens diu l'estat de la solicitud
+     * @pre ---
+     * @post Ens diu si la solicitud es troba en espera, en transit o finalitzada
+     */
+    public ESTAT getEstat() {
+        return _estat;
+    }
+    
+    /**
+     * @brief Canvia l'estat de la solicitud
+     * @pre ---
+     * @post S'ha canviat l'estat de la solicitud
+     */
+    public void setEstat(ESTAT s) {
+        _estat = s;
     }
 }

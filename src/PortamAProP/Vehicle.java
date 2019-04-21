@@ -89,6 +89,14 @@ public class Vehicle {
     public int nPassatgers() {
         return _numPassatgers;
     }
+    /**
+     * @brief Total de passatgers
+     * @pre ---
+     * @post Ens diu el total de passatgers que pot assolir el vehicle
+     */
+    public int nPassTotal() {
+        return _capacitatTotal;
+    }
     
     /**
      * @brief Node inicial

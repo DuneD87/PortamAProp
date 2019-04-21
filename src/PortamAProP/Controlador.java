@@ -134,9 +134,7 @@ public class Controlador {
             Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehiclesActual"))+1;
             String s=n.toString();
             _graf.getNode(v.nodeInicial()).setAttribute("VehiclesActual", s);
-        }
-        
-            
+        }  
     }
 
     /**
