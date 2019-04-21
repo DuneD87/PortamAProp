@@ -61,12 +61,17 @@ public class SolucioRuta {
         if (carregaPrevista < _vehicle.carregaRestant()) {
             //Recollim passatgers ?
             String tipus = _graf.getNode(iCan.actual()).getAttribute("Tipus");
-            if (tipus == "Solicitud") {//Ens trobem amb una solicitud
+            if (tipus == "Solicitud" && _solicituds.get(_nivell).getEstat() == Solicitud.ESTAT.ESPERA) {//Ens trobem amb una solicitud
                 //Tenim lloc al vehicle ?
                 int llocsRestants = _vehicle.nPassatgers() - _vehicle.nPassTotal();
                 if (llocsRestants <= _solicituds.get(_nivell).NumPassatgers()) {
                     carregarPassatgers();
                     acceptable = true;
+                }
+                //Hem arribat a un desti i tenim passatgers que volen anar aquet desti
+                if (haFinalitzat(iCan)) {
+                    acceptable = true; // L'algoritme anota el node
+                    _solicituds.get(_nivell).setEstat(Solicitud.ESTAT.FINALITZADA);
                 }
             }
         } else { //No tenim prou fuel, anem al depot mes proper i carreguem duran 15min
@@ -81,7 +86,7 @@ public class SolucioRuta {
      */
     private void despDepotProper() {
         double distMin = Double.MAX_VALUE; //Confiem que no hi hagi cap pes del graf amb aquet valor :P
-        int id;
+        int id = 0;
         for (Node n : _depots) {
             double distAct = (Double)_graf.getNode(_vehicle.getPosicio()).getEdgeBetween(n).getAttribute("Pes");
             if ( distAct <= distMin) {
@@ -91,8 +96,9 @@ public class SolucioRuta {
         }
         if (_vehicle.carregaRestant() <= distMin) { //podem arribar al depot
             _vehicle.descarga(distMin);
-            
-        }
+            _vehicle.setPosicio(id);
+            _vehicle.cargar(15*60);//Carreguem durant 15min
+        }//Si no pot arribar, truquem a la grua
     }
     
     /**
@@ -111,7 +117,8 @@ public class SolucioRuta {
      */
     private boolean haFinalitzat(CandidatRuta iCan) {
         int id = _solicituds.get(_nivell).Desti();
-        return _solicituds.get(_nivell).getEstat() == Solicitud.ESTAT.ENTRANSIT && id == iCan.actual();
+        boolean fi = _solicituds.get(_nivell).getEstat() == Solicitud.ESTAT.ENTRANSIT && id == iCan.actual();
+        return fi;
     }
     
     /**
@@ -135,6 +142,7 @@ public class SolucioRuta {
         _vehicle.descarga(_graf.getNode(_vehicle.getPosicio()).getEdgeBetween(iCan.actual()).getAttribute("Pes"));
         //Actualitzem la posicio del vehicle a iCan
         _vehicle.setPosicio(iCan.actual());
+        _nivell++;
     }
     
     /**
@@ -143,6 +151,7 @@ public class SolucioRuta {
      * @post Borra el node actual de la llista de nodes
      */
     public void desanotar() {
+        _nivell--;
         //Desanotem el node
         int nodeUltim = _solucioActual.pop(); //L'ultima solucio valida, tornem enrera
         //Carreguem el vehicle
@@ -151,4 +160,12 @@ public class SolucioRuta {
         _vehicle.setPosicio(nodeUltim);
     }
     
+    /**
+     * @brief Ens dona la solucio
+     * @pre ---
+     * @post Retorna una pila de nodes amb la ruta que ha fet el vehicle (provisional)
+     */
+    public Stack<Integer> solActual() {
+        return _solucioActual;
+    }
 }

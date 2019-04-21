@@ -11,6 +11,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
@@ -241,13 +242,14 @@ public class Controlador {
         }
     }
     public void algoritmeBacktracking() {
-        Collection<Edge> edgeSet = _graf.getEdgeSet();
-        double pesTotalGraf = 0;
-        for (Edge s : edgeSet) {
-            double pes = s.getAttribute("Pes");
-            System.out.println(pes);
-        }
-       
+        Pair<Vehicle,TreeSet<Solicitud>> pair = _ruta.get(0);
+        Vehicle v = pair.getKey();
+        TreeSet<Solicitud> sols = pair.getValue();
+        ArrayList<Solicitud> solsArray = new ArrayList<>(sols);
+        SolucioRuta solRuta = new SolucioRuta(_graf, solsArray, v);
+        SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
+        Stack<Integer> s = solRuta.solActual();
+        System.out.println("Tamany de la solucio:" + s.size());
     }
     
      /**
