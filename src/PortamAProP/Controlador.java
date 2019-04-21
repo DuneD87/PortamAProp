@@ -225,8 +225,6 @@ public class Controlador {
             System.out.println(v.toString() + "\n Solicitds del vehicle:");
             System.out.println("\t" + s);
             System.out.println("************************************************\n");
-            Graph subgraf=CrearSubGraf(v,s);
-            AlgorismeGreedy(v,s,subgraf);
         }
     }
     public void algoritmeBacktracking() {
@@ -281,7 +279,9 @@ public class Controlador {
         subgraf.display();
         return subgraf;
     }
-    public void AlgorismeGreedy(Vehicle v,TreeSet<Solicitud> llista_solicitud,Graph graf){
+    public void CrearRuta(){
+        
+        
         
     }
     
