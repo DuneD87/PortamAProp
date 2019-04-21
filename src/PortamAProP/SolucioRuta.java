@@ -89,6 +89,10 @@ public class SolucioRuta {
                 id = n.getIndex();
             }
         }
+        if (_vehicle.carregaRestant() <= distMin) { //podem arribar al depot
+            _vehicle.descarga(distMin);
+            
+        }
     }
     
     /**
