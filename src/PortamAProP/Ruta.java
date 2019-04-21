@@ -14,6 +14,15 @@ public class Ruta {
         _graf=g;
     }
     
+    @Override
+    public String toString(){
+    String ruta="Vehicle de la ruta:\n"+ _vehicle.toString() + 
+            "Solicituds de la ruta: \n" + _solicituds.toString();
+    return ruta;
+    }
     
+    public void MostrarGraf(){
+        _graf.display();
+    }
     
 }

@@ -104,7 +104,7 @@ public class Controlador {
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
                 case 5:
-                
+                    MostrarRutes();
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -195,8 +195,8 @@ public class Controlador {
         
         
         for(int i=0;i<_vehicles.size();i++){
+            //System.out.println(_vehicles.get(i));
             CrearRuta(_vehicles.get(i));
-            System.out.println("\n*\n*\n*\n");
         }
         
         
@@ -300,15 +300,10 @@ public class Controlador {
             if(VehiclePotAssolirSolicitud(v,s)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
-               
-                
             }
              contadorSolicituds++;
             s=SolicitudMesProperaDisponible(v);
         }
-      System.out.println(v);
-      System.out.println("###########################");
-      System.out.println(ruta);
       _rutes.add(new Ruta(v,ruta,CrearSubGraf(v, ruta)));
         
     }
@@ -330,24 +325,33 @@ public class Controlador {
         Iterator<Solicitud> it = _solicituds.iterator();
         while (!trobat && it.hasNext()) {
             Solicitud ss = it.next();
-            double pes=_graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
-            if ( pes < MAX_DISTANCIA_GREEDY && ss.getEstat()==Solicitud.ESTAT.ESPERA) {
+            if (v.nodeInicial() == ss.Origen()) {
                 trobat = true;
                 s = ss;
+            } else {
+                double pes = _graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+                if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
+                    trobat = true;
+                    s = ss;
+                }
             }
-
         }
         return s;
     }
-    
-    public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s){
-        boolean valid=false;
-        double anar_solicitud=_graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
-        double completar_solicitud=_graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
-        double depot_proxim=BuscarDepotMesProxim(s.Desti());
-        double autonomia=v.carregaRestant();
-        if(anar_solicitud+completar_solicitud+depot_proxim<autonomia){
-            valid=true;
+
+    public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
+        boolean valid = false;
+        double anar_solicitud;
+        if (v.nodeInicial() == s.Origen()) {
+            anar_solicitud = 0;
+        } else {
+            anar_solicitud = _graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
+        }
+        double completar_solicitud = _graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
+        double depot_proxim = BuscarDepotMesProxim(s.Desti());
+        double autonomia = v.carregaRestant();
+        if (anar_solicitud + completar_solicitud + depot_proxim < autonomia) {
+            valid = true;
             v.setPosicio(s.Origen());
             v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
             v.setPosicio(s.Desti());
@@ -382,5 +386,11 @@ public class Controlador {
         
         
         return  distancia;
+    }
+    public void MostrarRutes(){
+        for(Ruta r:_rutes){
+            System.out.println(r);
+            r.MostrarGraf();
+        }
     }
 }
