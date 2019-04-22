@@ -103,6 +103,7 @@ public class Controlador {
                     
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
+                    //MostrarSolicitudsNoAssignades();
                 case 5:
                     MostrarRutes();
             }
@@ -433,6 +434,14 @@ public class Controlador {
         for(Ruta r:_rutes){
             System.out.println(r);
             r.MostrarGraf();
+        }
+    }
+    
+    public void MostrarSolicitudsNoAssignades(){
+        for(Solicitud s: _solicituds){
+            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+                System.out.println(s);
+            }
         }
     }
 }
