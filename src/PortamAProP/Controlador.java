@@ -292,6 +292,12 @@ public class Controlador {
         //subgraf.display();
         return subgraf;
     }
+    
+    /**
+     * @brief Donat un vehicle, crea una ruta de solicituds que el vehicle pot completar amb la seva autonomia total
+     * @pre Vehicle valid
+     * @post Afageix a _rutes, la ruta del vehicle v
+     */
     public void CrearRuta(Vehicle v){
         TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
         Solicitud s=SolicitudMesProperaDisponible(v);
@@ -308,17 +314,33 @@ public class Controlador {
         
     }
     
+    /**
+     * @brief Retorna un array amb els nodes del graf
+     * @pre ---
+     * @post Retorna un array de nodes del graf g
+     */
     public Object[] RetornarArrayNodes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] nodes=array.toArray();
         return nodes;
     }
     
+    /**
+     * @brief Retorna un array amb les arestes del graf
+     * @pre ---
+     * @post Retorna un array d'arestes del graf g
+     */
     public Object[] RetornarArrayArestes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] arestes=array.toArray();
         return arestes;
     }
+    
+    /**
+     * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     * @pre ---
+     * @post Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     */
     public Solicitud SolicitudMesProperaDisponible(Vehicle v){
         Solicitud s=null;
         boolean trobat = false;
@@ -338,7 +360,13 @@ public class Controlador {
         }
         return s;
     }
-
+    
+    
+    /**
+     * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i tornar al Depot mes proper
+     * @pre ---
+     * @post Retorna cert si el vehicle v pot assolir la solicitud s
+     */
     public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
         boolean valid = false;
         double anar_solicitud;
@@ -359,6 +387,13 @@ public class Controlador {
         return valid;
     }
     
+    
+    
+    /**
+     * @brief Retorna la distancia al depot mes proper del vehicle
+     * @pre ---
+     * @post Retorna la distancia al depot mes proper del vehicle v
+     */
     public double BuscarDepotMesProxim(int index){
         double distancia=Integer.MAX_VALUE;
         int numDepots=0;
@@ -387,6 +422,13 @@ public class Controlador {
         
         return  distancia;
     }
+    
+    
+    /**
+     * @brief Mostrar rutes
+     * @pre ---
+     * @post Mostra les rutes de _rutes
+     */
     public void MostrarRutes(){
         for(Ruta r:_rutes){
             System.out.println(r);
