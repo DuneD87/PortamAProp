@@ -104,8 +104,13 @@ public class Controlador {
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
                     //MostrarSolicitudsNoAssignades();
+                    break;
                 case 5:
+                    MostrarSolicitudsNoAssignades();
+                    break;
+                case 6: 
                     MostrarRutes();
+                    break;
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -194,11 +199,15 @@ public class Controlador {
      */
     public void AssignarSolicitudsAVehicles() {
         
-        
-        for(int i=0;i<_vehicles.size();i++){
-            //System.out.println(_vehicles.get(i));
-            CrearRuta(_vehicles.get(i));
-        }
+            for (int i = 0; i < _vehicles.size(); i++) {
+                //System.out.println(_vehicles.get(i));
+                CrearRuta(_vehicles.get(i));
+                
+            }
+            for(int i=_vehicles.size()-1;i>=0;i--)
+            {
+                CrearRuta(_vehicles.get(i));
+            }
         
         
         
@@ -443,5 +452,15 @@ public class Controlador {
                 System.out.println(s);
             }
         }
+    }
+    
+     public int NumeroSolicitudsNoAssignades(){
+        int noAssignades=0;
+        for(Solicitud s: _solicituds){
+            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+                noAssignades++;
+            }
+        }
+        return noAssignades;
     }
 }
