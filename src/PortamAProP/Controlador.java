@@ -42,7 +42,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=20;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=40;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     /**
      * @brief Constructor per defecte
@@ -99,8 +99,6 @@ public class Controlador {
                     
                     break;
                 case 4:
-                    
-                    
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
                     //MostrarSolicitudsNoAssignades();
@@ -199,15 +197,26 @@ public class Controlador {
      */
     public void AssignarSolicitudsAVehicles() {
         
-            for (int i = 0; i < _vehicles.size(); i++) {
+            //for (int i = 0; i < _vehicles.size(); i++) 
+            int i=0;
+            int y=0;
+            int anterior=NumeroSolicitudsNoAssignades();
+            while (NumeroSolicitudsNoAssignades()!=0 && y<10){
                 //System.out.println(_vehicles.get(i));
                 CrearRuta(_vehicles.get(i));
+                _vehicles.get(i).restaurarCarrega();
+                i++;
+                if(anterior==NumeroSolicitudsNoAssignades()){
+                y++;
+                }
+                anterior=NumeroSolicitudsNoAssignades();
+                if(i==_vehicles.size()){
+                    i=0;
+                }
+                System.out.println("===============================\n Numero de solicituds restants: " +  NumeroSolicitudsNoAssignades());
                 
             }
-            for(int i=_vehicles.size()-1;i>=0;i--)
-            {
-                CrearRuta(_vehicles.get(i));
-            }
+
         
         
         
@@ -268,8 +277,10 @@ public class Controlador {
     public Graph CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
+        //Primer afegim tots els depots
         for(int x=1;x<mapa.GetNumDepot();x++){            
                 subgraf.addNode(_graf.getNode(x).getId());
+                subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
         }
         while (it.hasNext()) {
             Solicitud s = it.next();
@@ -310,17 +321,20 @@ public class Controlador {
      */
     public void CrearRuta(Vehicle v){
         TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
-        Solicitud s=SolicitudMesProperaDisponible(v);
+        Solicitud s=SolicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
         int contadorSolicituds=1;
+        int posInicial=v.getPosicio();
         while(s!=null && contadorSolicituds<_solicituds.size()){
             if(VehiclePotAssolirSolicitud(v,s)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
             }
-             contadorSolicituds++;
+            contadorSolicituds++;
             s=SolicitudMesProperaDisponible(v);
         }
+        v.setPosicio(posInicial);
       _rutes.add(new Ruta(v,ruta,CrearSubGraf(v, ruta)));
+     
         
     }
     
@@ -390,7 +404,6 @@ public class Controlador {
         double autonomia = v.carregaRestant();
         if (anar_solicitud + completar_solicitud + depot_proxim < autonomia) {
             valid = true;
-            v.setPosicio(s.Origen());
             v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
             v.setPosicio(s.Desti());
         }

@@ -133,5 +133,9 @@ public class Vehicle {
     public double carregaRestant() {
         return _autonomiaRestant;
     }
+    
+    public void restaurarCarrega(){
+       _autonomiaRestant=_autonomiaTotal;
+    }
 }
 
