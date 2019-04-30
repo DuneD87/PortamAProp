@@ -42,7 +42,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=40;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     /**
      * @brief Constructor per defecte
@@ -99,6 +99,7 @@ public class Controlador {
                     
                     break;
                 case 4:
+                    _graf.display();
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
                     //MostrarSolicitudsNoAssignades();
@@ -201,13 +202,15 @@ public class Controlador {
             int i=0;
             int y=0;
             int anterior=NumeroSolicitudsNoAssignades();
-            while (NumeroSolicitudsNoAssignades()!=0 && y<10){
+            while (NumeroSolicitudsNoAssignades()!=0 && y<_vehicles.size()){
                 //System.out.println(_vehicles.get(i));
                 CrearRuta(_vehicles.get(i));
                 _vehicles.get(i).restaurarCarrega();
                 i++;
                 if(anterior==NumeroSolicitudsNoAssignades()){
                 y++;
+                }else{
+                    y=0;
                 }
                 anterior=NumeroSolicitudsNoAssignades();
                 if(i==_vehicles.size()){
@@ -374,7 +377,7 @@ public class Controlador {
             if (v.nodeInicial() == ss.Origen()) {
                 trobat = true;
                 s = ss;
-            } else {
+            } else {                
                 double pes = _graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
                     trobat = true;
