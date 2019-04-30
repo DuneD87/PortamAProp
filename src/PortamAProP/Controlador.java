@@ -45,6 +45,7 @@ public class Controlador {
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY=20;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
+    
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -67,8 +68,10 @@ public class Controlador {
      * @post S'ha inicialitzat el programa
      */
     public void init() {
+        AssignarSolicitudsAVehicles();
         mostrarMenu();
         gestionarMenu();
+        
     }
     
     /**
@@ -242,14 +245,12 @@ public class Controlador {
         }
     }
     public void algoritmeBacktracking() {
-        Pair<Vehicle,TreeSet<Solicitud>> pair = _ruta.get(0);
-        Vehicle v = pair.getKey();
-        TreeSet<Solicitud> sols = pair.getValue();
-        ArrayList<Solicitud> solsArray = new ArrayList<>(sols);
-        SolucioRuta solRuta = new SolucioRuta(_graf, solsArray, v);
+       
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0));
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
-        Stack<Integer> s = solRuta.solActual();
-        System.out.println("Tamany de la solucio:" + s.size());
+        boolean trobat = soluRuta.existeixSolucio(solRuta);
+       
+        //System.out.println("Tamany de la solucio:" + s.size());
     }
     
      /**

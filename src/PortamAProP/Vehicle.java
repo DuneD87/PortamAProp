@@ -133,5 +133,14 @@ public class Vehicle {
     public double carregaRestant() {
         return _autonomiaRestant;
     }
+    
+    /**
+     * @brief Autonomia total del vehicle
+     * @pre ---
+     * @post Ens diu la quantitat de carrega total que pot enmagatzemar el vehicle
+     */
+    public double carregaTotal() {
+        return _autonomiaTotal;
+    }
 }
 

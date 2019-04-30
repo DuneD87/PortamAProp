@@ -20,10 +20,10 @@ public class SolucionadorRuta {
         CandidatRuta iCan = _actual.iniCan();
         while (!iCan.esFi() && !_trobat) {
             if (_actual.acceptable(iCan)) {
-                if (!_actual.completa(iCan)) {
+                if (!_actual.completa()) {
                     backtracking();
                     if (!_trobat)
-                        _actual.desanotar();
+                        _actual.desanotar(iCan);
                 } else {
                     _trobat = true;
                 }

@@ -1,10 +1,8 @@
 package PortamAProP;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.SortedSet;
 import java.util.Stack;
+import javafx.util.Pair;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
@@ -15,157 +13,237 @@ import org.graphstream.graph.Node;
  */
 
 public class SolucioRuta {
+
+    ArrayList<Node> _nodes; //@brief Subgrup de nodes que el nostre vehicle atendra
+    ArrayList<Solicitud> _solicituds;//@breif Subgrup de solicituds que el nostre vehicle atendra
+
+    /**
+     * @brief Aquesta estructura requereix una explicacio mes elaborada. La idea
+     * es la seguent: Guardem una coleccio de pairs, aquest pair conte un
+     * character que ens diu si el candidat es origen, desti o depot, i
+     * seguidament una referencia a un node, per si en el cas de que es depot,
+     * poder obtenir la capacitat actual del punt de carrega.
+     */
     
-    private Stack<Integer> _solucioActual; //@brief Solucio al algoritme, llista de nodes ordenats que recorre el nostre vehicle
-    private Graph _graf; //@brief Llista de nodes inicial
-    private ArrayList<Node> _depots;
-    private ArrayList<Solicitud> _solicituds; //@brief Llista de solicituds ordenades per hora de emissio
-    private int _nivell; //@brief Nivell recursiu en el que es troba l'algoritme
-    private Vehicle _vehicle; //@brief Vehicle encarregat d atendre les solicituds 
-    private boolean _enTransit; //@brief Ens diu si el vehicle ja ha recollit els passatgers
+    //TODO, comprovar que tenim lloc al depot, encara que si treballem amb un 
+    //vehicle, sempre tindrem lloc ?
     
+    ArrayList<Pair<Character, Node>> _candidats;
+    Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
+    double _cost;//@brief temps acumulat en atendre totes les peticions
+    Graph _graf;//@brief Subgraph sobre el que treballem
+    Stack<Node> _ruta;//@brief Conjunt de nodes que representa la nostra ruta
+    private int _nPeticions;//@brief Numero de peticions que estem tramitan
+    private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
+
+    static final double FACTOR_CARREGA_CRITIC = 0.5; //@brief Constant que ens diu quan el vehicle ha de carregar
+
     /**
      * @brief Constructor
-     * @param nodes Vector de nodes
-     * @param solicituds SortedSet de solicituds
+     * @post A partir d'una ruta generada per el voraç, obtenim les diferents
+     * estructures de dades, i completem la ruta, intentan millorar la solucio
+     * obtenida.
      */
-    public SolucioRuta(Graph graf, ArrayList<Solicitud> solicituds, Vehicle cotxe) {
-        _solucioActual = new Stack<>();
-        _graf = graf;
-        _solicituds = solicituds;
-        _vehicle = cotxe;
-        _enTransit = false;
-        for (Node n : _graf.getNodeSet()) 
-            if (n.getAttribute("Tipus") == "Depot")
-                _depots.add(n);
+    public SolucioRuta(Ruta r) {
+
+        _nodes = r.getNodes();
+        _solicituds = r.getSol();
+        _vehicle = r.getVehicle();
+        _cost = 0;
+        _nPeticions = 0;
+        
+        for (Solicitud s : _solicituds) {
+            System.out.println(s.Origen());
+            Pair<Character, Node> p1 = new Pair('O', _graf.getNode(s.Origen()));
+            _candidats.add(p1);
+            Pair<Character, Node> p2 = new Pair('D', _graf.getNode(s.Desti()));
+            _candidats.add(p2);
+        }
+        for (Node p : _nodes) {
+            if (p.getAttribute("Tipus") == "Depot") {
+                Pair<Character, Node> depot = new Pair('P', p);
+                _candidats.add(depot);
+            }
+        }
     }
-    
+
     /**
-     * @brief Inicialitza el candidat
-     * @pre ---
-     * @post S'ha inicicialitzat el candidat amb el maxim de nodes
-     */
-    public CandidatRuta iniCan() {
-        return new CandidatRuta(_vehicle.getPosicio(),_graf.getNodeCount());
-    }
-    
-    /**
-     * @brief Solucio acceptable
-     * @pre ---
-     * @post Ens diu si el candidat es acceptable
+     * @brief Candidat acceptable
+     * @pre 0 <= iCan.actual() <= nNodes - 1 @post
+     * Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
+        char tipus = _candidats.get(iCan.actual() / 2).getKey();
+        Node p = _candidats.get(iCan.actual() / 2).getValue();
         boolean acceptable = false;
-        double carregaPrevista = _graf.getNode(_vehicle.getPosicio()).getEdgeBetween(iCan.actual()).getAttribute("Pes");
-        //Primer preguntem si el cotxe pot arribar al node
-        if (carregaPrevista < _vehicle.carregaRestant()) {
-            //Recollim passatgers ?
-            String tipus = _graf.getNode(iCan.actual()).getAttribute("Tipus");
-            if (tipus == "Solicitud" && _solicituds.get(_nivell).getEstat() == Solicitud.ESTAT.ESPERA) {//Ens trobem amb una solicitud
-                //Tenim lloc al vehicle ?
-                int llocsRestants = _vehicle.nPassatgers() - _vehicle.nPassTotal();
-                if (llocsRestants <= _solicituds.get(_nivell).NumPassatgers()) {
-                    carregarPassatgers();
-                    acceptable = true;
-                }
-                //Hem arribat a un desti i tenim passatgers que volen anar aquet desti
-                if (haFinalitzat(iCan)) {
-                    acceptable = true; // L'algoritme anota el node
-                    _solicituds.get(_nivell).setEstat(Solicitud.ESTAT.FINALITZADA);
-                }
+
+        /**
+         * Mirem si podem arribar al node, tenicament el voraç ja ho comprova,
+         * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
+         * ruta que el bactracking no trobi ?
+         */
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        if (temps < _vehicle.carregaRestant()) {
+            // Podem arribar, mirem si el candidat es acceptable
+            switch (tipus) {
+                case 'O':
+                    acceptable = origenAcceptable(iCan);
+                    break;
+                case 'D':
+                    acceptable = destiAcceptable(iCan, p);
+                    break;
+                case 'P':
+                    acceptable = depotAcceptable(iCan);
+                    break;
             }
-        } else { //No tenim prou fuel, anem al depot mes proper i carreguem duran 15min
-            despDepotProper();
         }
+
         return acceptable;
     }
+
     /**
-     * @brief Desplaça el vehicle al depot mes proper
-     * @pre Vehicle amb carrega superior al pes entre la posicio del vehicle i el depot mes proper
-     * @post S'ha desplaçat el vehicle al depot mes proper
+     * @brief Ens diu si considerem el candidat origen com a acceptable, per
+     * aixo s'han de cumplir dos condicions: 
+     * ->Tenim prou espai per carregar els
+     * clients que esperen. 
+     * ->La bateria del vehicle es superior al 50%, sino entraria en contradiccio amb la primera llei robotica, que obliga al
+     * automata a no agredir a cap huma.
+
      */
-    private void despDepotProper() {
-        double distMin = Double.MAX_VALUE; //Confiem que no hi hagi cap pes del graf amb aquet valor :P
-        int id = 0;
-        for (Node n : _depots) {
-            double distAct = (Double)_graf.getNode(_vehicle.getPosicio()).getEdgeBetween(n).getAttribute("Pes");
-            if ( distAct <= distMin) {
-                distMin = distAct;
-                id = n.getIndex();
-            }
-        }
-        if (_vehicle.carregaRestant() <= distMin) { //podem arribar al depot
-            _vehicle.descarga(distMin);
-            _vehicle.setPosicio(id);
-            _vehicle.cargar(15*60);//Carreguem durant 15min
-        }//Si no pot arribar, truquem a la grua
+    private boolean origenAcceptable(CandidatRuta iCan) {
+        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
+        return _solicituds.get(iCan.actual()).NumPassatgers() < _vehicle.nPassatgers()
+                && _vehicle.carregaRestant() > mitjaBat
+                && _solicituds.get(iCan.actual()).getEstat() == Solicitud.ESTAT.ESPERA;
     }
-    
+
     /**
-     * @brief Carrega passatgers
-     * @pre ---
-     * @post S'ha modificat el numero de passatgers del vehicle
+     * @brief Ens diu si considerem el candidat desti com a acceptable, per aixo
+     * s'ha de cumplir: 
+     * ->Els passatgers que portem hagin de baixar al node
      */
-    private void carregarPassatgers() {
-        _vehicle.ModificarPassatgers(_solicituds.get(_nivell).NumPassatgers());
+    private boolean destiAcceptable(CandidatRuta iCan, Node p) {
+        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
+        return _solicituds.get(iCan.actual()).Desti() == p.getIndex()
+                && _vehicle.carregaRestant() > mitjaBat
+                && _solicituds.get(iCan.actual()).getEstat() == Solicitud.ESTAT.ENTRANSIT;
     }
-    
+
     /**
-     * @brief Ens diu si ha finalitzat la solicitud
-     * @pre ---
-     * @post Ens diu si ha finalitzat la solicitud actual
+     * @brief Ens diu si considerem el candidat depot com aceptable, per aixo
+     * s'ha de cumplir: 
+     * ->No hi ha cap peticio en curs, i la bateria del vehicle
+     * esta per sota del factor de carrega critic
      */
-    private boolean haFinalitzat(CandidatRuta iCan) {
-        int id = _solicituds.get(_nivell).Desti();
-        boolean fi = _solicituds.get(_nivell).getEstat() == Solicitud.ESTAT.ENTRANSIT && id == iCan.actual();
-        return fi;
+    private boolean depotAcceptable(CandidatRuta iCan) {
+        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
+        return _vehicle.carregaRestant() < mitjaBat
+                && _nPeticions == 0;
     }
-    
+
     /**
-     * @brief Solicitud completa
-     * @pre ---
-     * @post Ens diu si s'ha completat la solicitud, el vehicle ha arribat al desti amb els passatgers
+     * @brief Inicialitza el candidat i possa com a maxim el maxim del vector de
+     * candidats. Els nostres candidats son: 
+     * -Origen: Origen d'una peticio
+     * -Desti: Desti d'una peticio -Depot: Punt de recarrega
      */
-    public boolean completa(CandidatRuta iCan) {
-       return _nivell == _solicituds.size();
+    public CandidatRuta iniCan() {
+        return new CandidatRuta(_candidats.size());
     }
-    
+
     /**
-     * @brief Anota el candidat
-     * @pre ---
-     * @post Guarda el node actual dins d'una llista de nodes
+     * @brief Anotem candidat
+     * @post S'ha anotat el node a la ruta, s'ha actualitzat el cost total i
+     * s'ha decrementat la bateria del vehicle. *LA POST ES FA SEMPRE*
+     *
+     * Independenment de la postcondicio hem de tractar 3 casos:
+     *
+     * -> Origen i desti: Modifiquem el nombre de passatges del vehicle i
+     * actualitzem el rellotge global.
+     *
+     * -> Depot: Carreguem el cotxe durant 30min i actualitzem el rellotge
+     * global.
      */
     public void anotar(CandidatRuta iCan) {
-        //Anotem el nou node
-        _solucioActual.push(iCan.actual());
-        //restem el pes entre la posicio actual del vehicle i el candidat
-        _vehicle.descarga(_graf.getNode(_vehicle.getPosicio()).getEdgeBetween(iCan.actual()).getAttribute("Pes"));
-        //Actualitzem la posicio del vehicle a iCan
-        _vehicle.setPosicio(iCan.actual());
-        _nivell++;
+        char tipus = _candidats.get(iCan.actual() / 2).getKey();
+        Node p = _candidats.get(iCan.actual() / 2).getValue();
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        _ruta.push(_candidats.get(iCan.actual() / 2).getValue());
+        _vehicle.descarga(temps);
+        _cost += temps;
+
+        switch (tipus) {
+            case 'O':
+                _nPeticions++;
+                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()).NumPassatgers());
+                break;
+            case 'D':
+                _nPeticions--;
+                _nPeticionsTramitades++;
+                _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual()).NumPassatgers());
+                break;
+            case 'P':
+                _vehicle.cargar(30);
+                break;
+        }
+    }
+
+    /**
+     * @brief Desanotem candidat
+     * @post S'ha eliminat l'ultim node de la ruta, s'ha actualitzat el cost
+     * total i s'ha incrementat la bateria del cotxe
+     *
+     * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
+     */
+    public void desanotar(CandidatRuta iCan) {
+        char tipus = _candidats.get(iCan.actual() / 2).getKey();
+        Node p = _candidats.get(iCan.actual() / 2).getValue();
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        _ruta.pop();
+        _vehicle.cargar(temps);
+        _cost -= temps;
+
+        switch (tipus) {
+            case 'O':
+                _nPeticions--;
+                _vehicle.ModificarPassatgers(-1*_solicituds.get(iCan.actual()).NumPassatgers());
+                break;
+            case 'D':
+                _nPeticions++;
+                _nPeticionsTramitades--;
+                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()).NumPassatgers());
+                break;
+            case 'P':
+                _vehicle.descarga(30);
+                break;
+        }
+
     }
     
     /**
-     * @brief Desanota el candidat
-     * @pre ---
-     * @post Borra el node actual de la llista de nodes
+     * @brief Solucio completa
+     * @post Ens diu si el nombre de peticions tramitades es igual al nombre de 
+     * peticions que teniem en una primera instancia
      */
-    public void desanotar() {
-        _nivell--;
-        //Desanotem el node
-        int nodeUltim = _solucioActual.pop(); //L'ultima solucio valida, tornem enrera
-        //Carreguem el vehicle
-        _vehicle.cargar(_graf.getNode(nodeUltim).getEdgeBetween(_vehicle.getPosicio()).getAttribute("Pes"));
-        //Tornem enrera
-        _vehicle.setPosicio(nodeUltim);
+    public boolean completa() {
+        return _nPeticionsTramitades == _solicituds.size();
     }
     
     /**
-     * @brief Ens dona la solucio
-     * @pre ---
-     * @post Retorna una pila de nodes amb la ruta que ha fet el vehicle (provisional)
+     * @brief Pot ser millor
+     * @post Sempre potser millor, tot es precios
      */
-    public Stack<Integer> solActual() {
-        return _solucioActual;
+    public boolean potSerMillor(CandidatRuta iCan) {
+        return true;
     }
+    
+    /**
+     * @brief Es millor
+     * @post Ens diu si el cost de de la solucio actual, es inferior al cost 
+     * de la solucio anterior.
+     */
+    public boolean esMillor(SolucioRuta optim) {
+        return _cost < optim._cost;
+    }
+
 }

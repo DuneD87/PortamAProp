@@ -15,9 +15,9 @@ public class CandidatRuta {
      * @brief Constructor
      * @param max ens diu el nombre de nodes que tractem
      */
-    public CandidatRuta(int inici, int max) {
+    public CandidatRuta(int max) {
         _max = max;
-        _iCan = inici;
+        _iCan = 1;
     }
     
     /**
