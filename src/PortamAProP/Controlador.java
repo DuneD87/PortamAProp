@@ -43,7 +43,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=20;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     
     /**
@@ -103,12 +103,17 @@ public class Controlador {
                     
                     break;
                 case 4:
-                    
-                    
+                    _graf.display();
                     AssignarSolicitudsAVehicles();
                     //MostrarVehiclesSolicituds();
+                    //MostrarSolicitudsNoAssignades();
+                    break;
                 case 5:
+                    MostrarSolicitudsNoAssignades();
+                    break;
+                case 6: 
                     MostrarRutes();
+                    break;
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -197,11 +202,28 @@ public class Controlador {
      */
     public void AssignarSolicitudsAVehicles() {
         
-        
-        for(int i=0;i<_vehicles.size();i++){
-            //System.out.println(_vehicles.get(i));
-            CrearRuta(_vehicles.get(i));
-        }
+            //for (int i = 0; i < _vehicles.size(); i++) 
+            int i=0;
+            int y=0;
+            int anterior=NumeroSolicitudsNoAssignades();
+            while (NumeroSolicitudsNoAssignades()!=0 && y<_vehicles.size()){
+                //System.out.println(_vehicles.get(i));
+                CrearRuta(_vehicles.get(i));
+                _vehicles.get(i).restaurarCarrega();
+                i++;
+                if(anterior==NumeroSolicitudsNoAssignades()){
+                y++;
+                }else{
+                    y=0;
+                }
+                anterior=NumeroSolicitudsNoAssignades();
+                if(i==_vehicles.size()){
+                    i=0;
+                }
+                System.out.println("===============================\n Numero de solicituds restants: " +  NumeroSolicitudsNoAssignades());
+                
+            }
+
         
         
         
@@ -261,8 +283,10 @@ public class Controlador {
     public Graph CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
+        //Primer afegim tots els depots
         for(int x=1;x<mapa.GetNumDepot();x++){            
                 subgraf.addNode(_graf.getNode(x).getId());
+                subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
         }
         while (it.hasNext()) {
             Solicitud s = it.next();
@@ -295,33 +319,58 @@ public class Controlador {
         //subgraf.display();
         return subgraf;
     }
+    
+    /**
+     * @brief Donat un vehicle, crea una ruta de solicituds que el vehicle pot completar amb la seva autonomia total
+     * @pre Vehicle valid
+     * @post Afageix a _rutes, la ruta del vehicle v
+     */
     public void CrearRuta(Vehicle v){
         TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
-        Solicitud s=SolicitudMesProperaDisponible(v);
+        Solicitud s=SolicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
         int contadorSolicituds=1;
+        int posInicial=v.getPosicio();
         while(s!=null && contadorSolicituds<_solicituds.size()){
             if(VehiclePotAssolirSolicitud(v,s)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
             }
-             contadorSolicituds++;
+            contadorSolicituds++;
             s=SolicitudMesProperaDisponible(v);
         }
+        v.setPosicio(posInicial);
       _rutes.add(new Ruta(v,ruta,CrearSubGraf(v, ruta)));
+     
         
     }
     
+    /**
+     * @brief Retorna un array amb els nodes del graf
+     * @pre ---
+     * @post Retorna un array de nodes del graf g
+     */
     public Object[] RetornarArrayNodes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] nodes=array.toArray();
         return nodes;
     }
     
+    /**
+     * @brief Retorna un array amb les arestes del graf
+     * @pre ---
+     * @post Retorna un array d'arestes del graf g
+     */
     public Object[] RetornarArrayArestes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] arestes=array.toArray();
         return arestes;
     }
+    
+    /**
+     * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     * @pre ---
+     * @post Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     */
     public Solicitud SolicitudMesProperaDisponible(Vehicle v){
         Solicitud s=null;
         boolean trobat = false;
@@ -331,7 +380,7 @@ public class Controlador {
             if (v.nodeInicial() == ss.Origen()) {
                 trobat = true;
                 s = ss;
-            } else {
+            } else {                
                 double pes = _graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
                     trobat = true;
@@ -341,7 +390,13 @@ public class Controlador {
         }
         return s;
     }
-
+    
+    
+    /**
+     * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i tornar al Depot mes proper
+     * @pre ---
+     * @post Retorna cert si el vehicle v pot assolir la solicitud s
+     */
     public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
         boolean valid = false;
         double anar_solicitud;
@@ -355,13 +410,19 @@ public class Controlador {
         double autonomia = v.carregaRestant();
         if (anar_solicitud + completar_solicitud + depot_proxim < autonomia) {
             valid = true;
-            v.setPosicio(s.Origen());
             v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
             v.setPosicio(s.Desti());
         }
         return valid;
     }
     
+    
+    
+    /**
+     * @brief Retorna la distancia al depot mes proper del vehicle
+     * @pre ---
+     * @post Retorna la distancia al depot mes proper del vehicle v
+     */
     public double BuscarDepotMesProxim(int index){
         double distancia=Integer.MAX_VALUE;
         int numDepots=0;
@@ -390,10 +451,35 @@ public class Controlador {
         
         return  distancia;
     }
+    
+    
+    /**
+     * @brief Mostrar rutes
+     * @pre ---
+     * @post Mostra les rutes de _rutes
+     */
     public void MostrarRutes(){
         for(Ruta r:_rutes){
             System.out.println(r);
             r.MostrarGraf();
         }
+    }
+    
+    public void MostrarSolicitudsNoAssignades(){
+        for(Solicitud s: _solicituds){
+            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+                System.out.println(s);
+            }
+        }
+    }
+    
+     public int NumeroSolicitudsNoAssignades(){
+        int noAssignades=0;
+        for(Solicitud s: _solicituds){
+            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+                noAssignades++;
+            }
+        }
+        return noAssignades;
     }
 }

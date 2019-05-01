@@ -20,7 +20,7 @@ public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions;
     private int _pesMax = 10;//Pes maxim que pot tenir una aresta
-    private static int MAX_NODES = 50;
+    private static int MAX_NODES = 10;
     private static String FITXER_UBICACIONS="PilaUbicacions.txt";
     private static String _nodes="";
    /**
@@ -92,7 +92,6 @@ public class GeneradorNodesGraf {
             fitxer = new File(FITXER_UBICACIONS).getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
-
             String linia;
             while ((linia = br.readLine()) != null) {
                 _ubicacions.add(linia);
