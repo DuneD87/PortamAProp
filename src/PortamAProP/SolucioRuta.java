@@ -51,7 +51,8 @@ public class SolucioRuta {
         _vehicle = r.getVehicle();
         _cost = 0;
         _nPeticions = 0;
-        
+        _graf = r.getGraph();
+        _graf.display();
         for (Solicitud s : _solicituds) {
             System.out.println(s.Origen());
             Pair<Character, Node> p1 = new Pair('O', _graf.getNode(s.Origen()));
