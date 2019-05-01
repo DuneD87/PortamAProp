@@ -106,6 +106,7 @@ public class SolucioRuta {
                     acceptable = origenAcceptable(iCan);
                     break;
                 case 'D':
+                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50%
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
