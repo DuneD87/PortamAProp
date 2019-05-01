@@ -246,7 +246,7 @@ public class Controlador {
     }
     public void algoritmeBacktracking() {
        
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_graf);
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0));
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();

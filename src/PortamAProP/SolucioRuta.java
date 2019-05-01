@@ -44,14 +44,14 @@ public class SolucioRuta {
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
      */
-    public SolucioRuta(Ruta r,Graph g) {
+    public SolucioRuta(Ruta r) {
 
        
         _solicituds = r.getSol();
         _vehicle = r.getVehicle();
         _cost = 0;
         _nPeticions = 0;
-        _graf = g;
+        _graf = r.getGraph();
          _nodes = new ArrayList<>(_graf.getNodeSet());
          System.out.println("Carrega total: " + _vehicle.carregaTotal() + "Carrega actual: " + _vehicle.carregaRestant());
          _vehicle.cargar(50000);
