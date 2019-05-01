@@ -21,7 +21,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
 import scala.Int;
 
-/**
+/*
  * @brief Classe controladora, es dedica a gestionar les diferents opcions del
  * programa
  * @input Menu provisional per fer diferents execucions
@@ -100,15 +100,15 @@ public class Controlador {
                     break;
                 case 4:
                     _graf.display();
-                    AssignarSolicitudsAVehicles();
-                    //MostrarVehiclesSolicituds();
-                    //MostrarSolicitudsNoAssignades();
+                    assignarSolicitudsAVehicles();
+                    //mostrarVehiclesSolicituds();
+                    //mostrarSolicitudsNoAssignades();
                     break;
                 case 5:
-                    MostrarSolicitudsNoAssignades();
+                    mostrarSolicitudsNoAssignades();
                     break;
                 case 6: 
-                    MostrarRutes();
+                    mostrarRutes();
                     break;
             }
             System.out.println("Comanda:");
@@ -185,9 +185,6 @@ public class Controlador {
 
         _graf = mapa.obtGraph();
         System.out.println("Nodes inserits correctament");
-        
-       _nodes=RetornarArrayNodes(_graf);
-       _arestes=RetornarArrayArestes(_graf);
 
     }
 
@@ -196,27 +193,27 @@ public class Controlador {
      * @pre ---
      * @post Afageix a _ruta, vehicles amb unes solicituds 
      */
-    public void AssignarSolicitudsAVehicles() {
+    public void assignarSolicitudsAVehicles() {
         
             //for (int i = 0; i < _vehicles.size(); i++) 
             int i=0;
             int y=0;
-            int anterior=NumeroSolicitudsNoAssignades();
-            while (NumeroSolicitudsNoAssignades()!=0 && y<_vehicles.size()){
+            int anterior=numeroSolicitudsNoAssignades();
+            while (numeroSolicitudsNoAssignades()!=0 && y<_vehicles.size()){
                 //System.out.println(_vehicles.get(i));
-                CrearRuta(_vehicles.get(i));
+                crearRuta(_vehicles.get(i));
                 _vehicles.get(i).restaurarCarrega();
                 i++;
-                if(anterior==NumeroSolicitudsNoAssignades()){
+                if(anterior==numeroSolicitudsNoAssignades()){
                 y++;
                 }else{
                     y=0;
                 }
-                anterior=NumeroSolicitudsNoAssignades();
+                anterior=numeroSolicitudsNoAssignades();
                 if(i==_vehicles.size()){
                     i=0;
                 }
-                System.out.println("===============================\n Numero de solicituds restants: " +  NumeroSolicitudsNoAssignades());
+                System.out.println("===============================\n Numero de solicituds restants: " +  numeroSolicitudsNoAssignades());
                 
             }
 
@@ -250,7 +247,7 @@ public class Controlador {
      * @pre ---
      * @post Mostra les solicituds per cada vehicle
      */
-    public void MostrarVehiclesSolicituds(){
+    public void mostrarVehiclesSolicituds(){
         Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
         while(it.hasNext()){
             Pair<Vehicle, TreeSet<Solicitud>> pair = it.next();
@@ -277,7 +274,7 @@ public class Controlador {
      * @pre ---
      * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de llista_solicituds 
      */
-    public Graph CrearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
+    public Graph crearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         //Primer afegim tots els depots
@@ -322,21 +319,21 @@ public class Controlador {
      * @pre Vehicle valid
      * @post Afageix a _rutes, la ruta del vehicle v
      */
-    public void CrearRuta(Vehicle v){
+    public void crearRuta(Vehicle v){
         TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
-        Solicitud s=SolicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
+        Solicitud s=solicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
         int contadorSolicituds=1;
         int posInicial=v.getPosicio();
         while(s!=null && contadorSolicituds<_solicituds.size()){
-            if(VehiclePotAssolirSolicitud(v,s)){
+            if(vehiclePotAssolirSolicitud(v,s)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
             }
             contadorSolicituds++;
-            s=SolicitudMesProperaDisponible(v);
+            s=solicitudMesProperaDisponible(v);
         }
         v.setPosicio(posInicial);
-      _rutes.add(new Ruta(v,ruta,CrearSubGraf(v, ruta)));
+      _rutes.add(new Ruta(v,ruta,crearSubGraf(v, ruta)));
      
         
     }
@@ -346,29 +343,31 @@ public class Controlador {
      * @pre ---
      * @post Retorna un array de nodes del graf g
      */
-    public Object[] RetornarArrayNodes(Graph g){
+    /*
+    public Object[] retornarArrayNodes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] nodes=array.toArray();
         return nodes;
     }
-    
+    */
     /**
      * @brief Retorna un array amb les arestes del graf
      * @pre ---
      * @post Retorna un array d'arestes del graf g
      */
-    public Object[] RetornarArrayArestes(Graph g){
+    /*
+    public Object[] retornarArrayArestes(Graph g){
         Collection<Node> array= g.getNodeSet();
         Object[] arestes=array.toArray();
         return arestes;
     }
-    
+    */
     /**
      * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
      * @pre ---
      * @post Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
      */
-    public Solicitud SolicitudMesProperaDisponible(Vehicle v){
+    public Solicitud solicitudMesProperaDisponible(Vehicle v){
         Solicitud s=null;
         boolean trobat = false;
         Iterator<Solicitud> it = _solicituds.iterator();
@@ -394,7 +393,7 @@ public class Controlador {
      * @pre ---
      * @post Retorna cert si el vehicle v pot assolir la solicitud s
      */
-    public boolean VehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
+    public boolean vehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
         boolean valid = false;
         double anar_solicitud;
         if (v.nodeInicial() == s.Origen()) {
@@ -403,7 +402,7 @@ public class Controlador {
             anar_solicitud = _graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
         }
         double completar_solicitud = _graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
-        double depot_proxim = BuscarDepotMesProxim(s.Desti());
+        double depot_proxim = buscarDepotMesProxim(s.Desti());
         double autonomia = v.carregaRestant();
         if (anar_solicitud + completar_solicitud + depot_proxim < autonomia) {
             valid = true;
@@ -420,7 +419,7 @@ public class Controlador {
      * @pre ---
      * @post Retorna la distancia al depot mes proper del vehicle v
      */
-    public double BuscarDepotMesProxim(int index){
+    public double buscarDepotMesProxim(int index){
         double distancia=Integer.MAX_VALUE;
         int numDepots=0;
         Iterator<Node> it=_graf.iterator();
@@ -455,14 +454,14 @@ public class Controlador {
      * @pre ---
      * @post Mostra les rutes de _rutes
      */
-    public void MostrarRutes(){
+    public void mostrarRutes(){
         for(Ruta r:_rutes){
             System.out.println(r);
             r.MostrarGraf();
         }
     }
     
-    public void MostrarSolicitudsNoAssignades(){
+    public void mostrarSolicitudsNoAssignades(){
         for(Solicitud s: _solicituds){
             if(s.getEstat()==Solicitud.ESTAT.ESPERA){
                 System.out.println(s);
@@ -470,7 +469,7 @@ public class Controlador {
         }
     }
     
-     public int NumeroSolicitudsNoAssignades(){
+     public int numeroSolicitudsNoAssignades(){
         int noAssignades=0;
         for(Solicitud s: _solicituds){
             if(s.getEstat()==Solicitud.ESTAT.ESPERA){
