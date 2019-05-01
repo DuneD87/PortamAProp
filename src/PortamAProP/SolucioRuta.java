@@ -96,8 +96,7 @@ public class SolucioRuta {
          * ruta que el bactracking no trobi ?
          */
         System.out.println("Objecte anterior: " + _ruta.lastElement().getIndex() + "  Objecte actual: " + p.getIndex());
-        if (_ruta.lastElement().hasEdgeBetween(p))
-            System.out.println("There is an edge");
+       
         double temps;
         temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         if (temps < _vehicle.carregaRestant()) {
@@ -194,11 +193,13 @@ public class SolucioRuta {
             case 'O':
                 _nPeticions++;
                 _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual() / 2).NumPassatgers());
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
                 _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual() / 2).NumPassatgers());
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
                 break;
             case 'P':
                 _vehicle.cargar(30);
@@ -225,11 +226,13 @@ public class SolucioRuta {
             case 'O':
                 _nPeticions--;
                 _vehicle.ModificarPassatgers(-1*_solicituds.get(iCan.actual()/2).NumPassatgers());
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ESPERA);
                 break;
             case 'D':
                 _nPeticions++;
                 _nPeticionsTramitades--;
                 _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()/2).NumPassatgers());
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
                 break;
             case 'P':
                 _vehicle.descarga(30);
@@ -251,7 +254,7 @@ public class SolucioRuta {
      * @brief Pot ser millor
      * @post Sempre potser millor, tot es precios
      */
-    public boolean potSerMillor(CandidatRuta iCan) {
+    public boolean potSerMillor(SolucioRuta optim) {
         return true;
     }
     
@@ -263,5 +266,9 @@ public class SolucioRuta {
     public boolean esMillor(SolucioRuta optim) {
         return _cost < optim._cost;
     }
-
+    
+    
+    public Stack<Node> obtSolucio() {
+        return _ruta;
+    }
 }

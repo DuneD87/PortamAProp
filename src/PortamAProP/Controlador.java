@@ -249,7 +249,9 @@ public class Controlador {
         SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_graf);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
-       
+        Stack<Node> solucio = solRuta.obtSolucio();
+        for (Node n : solucio)
+            System.out.println(n.getAttribute("Nom") + ": " + n.getAttribute("Tipus") + "->");
         //System.out.println("Tamany de la solucio:" + s.size());
     }
     

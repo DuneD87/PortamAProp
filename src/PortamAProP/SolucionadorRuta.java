@@ -20,21 +20,18 @@ public class SolucionadorRuta {
      */
     private void backtracking() {
         CandidatRuta iCan = _actual.iniCan();
-        while (!iCan.esFi() && !_trobat) {
-            if (_actual.acceptable(iCan)) {
+        while (!iCan.esFi()) {
+            if (_actual.acceptable(iCan) && _actual.potSerMillor(_optim)) {
                 _actual.anotar(iCan);
                 if (!_actual.completa()) {
                     backtracking();
-                    //std::cout<<"sup"<<'\n';
-                    if (!_trobat) {
-                        _actual.desanotar(iCan);
-                    }
-                } else {
+                } else if (_actual.esMillor(_optim)) {
+                    _optim = _actual;
                     _trobat = true;
                 }
+                _actual.desanotar(iCan);
 
             }
-
             iCan.seguent();
         }
     }
@@ -44,6 +41,8 @@ public class SolucionadorRuta {
      * @param inicial Solucio inicial amb la q treballem
      */
     public SolucionadorRuta(SolucioRuta inicial) {
+        _actual = inicial;
+        _optim = _actual;
         _trobat = false;
     }
 
