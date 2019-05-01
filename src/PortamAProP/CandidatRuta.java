@@ -15,9 +15,9 @@ public class CandidatRuta {
      * @brief Constructor
      * @param max ens diu el nombre de nodes que tractem
      */
-    public CandidatRuta(int inici, int max) {
+    public CandidatRuta(int max) {
         _max = max;
-        _iCan = inici;
+        _iCan = 0;
     }
     
     /**
@@ -35,7 +35,7 @@ public class CandidatRuta {
      * @post Ens diu si hem arribat al final de la llista
      */
     public boolean esFi() {
-        return _iCan > _max;
+        return _iCan >= _max;
     }
     
     /**

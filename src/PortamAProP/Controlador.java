@@ -11,6 +11,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
@@ -44,6 +45,7 @@ public class Controlador {
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
+    
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -66,8 +68,10 @@ public class Controlador {
      * @post S'ha inicialitzat el programa
      */
     public void init() {
+        assignarSolicitudsAVehicles();
         mostrarMenu();
         gestionarMenu();
+        
     }
     
     /**
@@ -260,13 +264,14 @@ public class Controlador {
         }
     }
     public void algoritmeBacktracking() {
-        Collection<Edge> edgeSet = _graf.getEdgeSet();
-        double pesTotalGraf = 0;
-        for (Edge s : edgeSet) {
-            double pes = s.getAttribute("Pes");
-            System.out.println(pes);
-        }
        
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0));
+        SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
+        boolean trobat = soluRuta.existeixSolucio(solRuta);
+        Stack<Node> solucio = solRuta.obtSolucio();
+        for (Node n : solucio)
+            System.out.println(n.getAttribute("Nom") + ": " + n.getAttribute("Tipus") + "->");
+        //System.out.println("Tamany de la solucio:" + s.size());
     }
     
      /**

@@ -134,8 +134,22 @@ public class Vehicle {
         return _autonomiaRestant;
     }
     
+    /**
+     * @brief Autonomia total del vehicle
+     * @pre ---
+     * @post Ens diu la quantitat de carrega total que pot enmagatzemar el vehicle
+     */
+    public double carregaTotal() {
+        return _autonomiaTotal;
+    }
+    
+    /**
+     * @brief Assigna l'autonimia total del vehicle a l'autonomia restant
+     * @pre ---
+     * @post Ens diu la quantitat de carrega total que pot enmagatzemar el vehicle
+     */
     public void restaurarCarrega(){
-       _autonomiaRestant=_autonomiaTotal;
+        _autonomiaRestant=_autonomiaTotal;
     }
 }
 
