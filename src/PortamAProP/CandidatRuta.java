@@ -17,7 +17,7 @@ public class CandidatRuta {
      */
     public CandidatRuta(int max) {
         _max = max;
-        _iCan = 1;
+        _iCan = 0;
     }
     
     /**
@@ -35,7 +35,7 @@ public class CandidatRuta {
      * @post Ens diu si hem arribat al final de la llista
      */
     public boolean esFi() {
-        return _iCan > _max;
+        return _iCan >= _max;
     }
     
     /**

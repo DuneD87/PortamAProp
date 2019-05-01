@@ -44,13 +44,26 @@ public class SolucioRuta {
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
      */
-    public SolucioRuta(Ruta r) {
+    public SolucioRuta(Ruta r,Graph g) {
 
-        _nodes = r.getNodes();
+       
         _solicituds = r.getSol();
         _vehicle = r.getVehicle();
         _cost = 0;
         _nPeticions = 0;
+        _graf = g;
+         _nodes = new ArrayList<>(_graf.getNodeSet());
+         System.out.println("Carrega total: " + _vehicle.carregaTotal() + "Carrega actual: " + _vehicle.carregaRestant());
+         _vehicle.cargar(50000);
+        _candidats = new ArrayList<>();
+        _ruta = new Stack<>();
+        for (Node p : _nodes) {
+            if (p.getIndex() == _vehicle.nodeInicial()) {
+                System.out.println("Primer punt afegit");
+                _ruta.push(p);
+            }
+                
+        }
         
         for (Solicitud s : _solicituds) {
             System.out.println(s.Origen());
@@ -73,16 +86,20 @@ public class SolucioRuta {
      * Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        char tipus = _candidats.get(iCan.actual() / 2).getKey();
-        Node p = _candidats.get(iCan.actual() / 2).getValue();
+        char tipus = _candidats.get(iCan.actual()).getKey();
+        Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
-
+        if (_ruta.lastElement() == p) return false;//workaround
         /**
          * Mirem si podem arribar al node, tenicament el voraç ja ho comprova,
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
          * ruta que el bactracking no trobi ?
          */
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        System.out.println("Objecte anterior: " + _ruta.lastElement().getIndex() + "  Objecte actual: " + p.getIndex());
+        if (_ruta.lastElement().hasEdgeBetween(p))
+            System.out.println("There is an edge");
+        double temps;
+        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
@@ -112,9 +129,9 @@ public class SolucioRuta {
      */
     private boolean origenAcceptable(CandidatRuta iCan) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
-        return _solicituds.get(iCan.actual()).NumPassatgers() < _vehicle.nPassatgers()
+        return _solicituds.get(iCan.actual()/2).NumPassatgers() < _vehicle.nPassatgers()
                 && _vehicle.carregaRestant() > mitjaBat
-                && _solicituds.get(iCan.actual()).getEstat() == Solicitud.ESTAT.ESPERA;
+                && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ESPERA;
     }
 
     /**
@@ -124,9 +141,9 @@ public class SolucioRuta {
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
-        return _solicituds.get(iCan.actual()).Desti() == p.getIndex()
+        return _solicituds.get(iCan.actual()/2).Desti() == p.getIndex()
                 && _vehicle.carregaRestant() > mitjaBat
-                && _solicituds.get(iCan.actual()).getEstat() == Solicitud.ESTAT.ENTRANSIT;
+                && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
     }
 
     /**
@@ -148,6 +165,7 @@ public class SolucioRuta {
      * -Desti: Desti d'una peticio -Depot: Punt de recarrega
      */
     public CandidatRuta iniCan() {
+        //System.out.println("Tamany candidat: "  + _candidats.size() + "Tamany solicituds: " + _solicituds.size());
         return new CandidatRuta(_candidats.size());
     }
 
@@ -165,22 +183,22 @@ public class SolucioRuta {
      * global.
      */
     public void anotar(CandidatRuta iCan) {
-        char tipus = _candidats.get(iCan.actual() / 2).getKey();
-        Node p = _candidats.get(iCan.actual() / 2).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-        _ruta.push(_candidats.get(iCan.actual() / 2).getValue());
+        char tipus = _candidats.get(iCan.actual()).getKey();
+        Node p = _candidats.get(iCan.actual()).getValue();
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+        _ruta.push(_candidats.get(iCan.actual()).getValue());
         _vehicle.descarga(temps);
         _cost += temps;
 
         switch (tipus) {
             case 'O':
                 _nPeticions++;
-                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()).NumPassatgers());
+                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual() / 2).NumPassatgers());
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
-                _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual()).NumPassatgers());
+                _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual() / 2).NumPassatgers());
                 break;
             case 'P':
                 _vehicle.cargar(30);
@@ -196,9 +214,9 @@ public class SolucioRuta {
      * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
      */
     public void desanotar(CandidatRuta iCan) {
-        char tipus = _candidats.get(iCan.actual() / 2).getKey();
-        Node p = _candidats.get(iCan.actual() / 2).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        char tipus = _candidats.get(iCan.actual()).getKey();
+        Node p = _candidats.get(iCan.actual()).getValue();
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         _ruta.pop();
         _vehicle.cargar(temps);
         _cost -= temps;
@@ -206,12 +224,12 @@ public class SolucioRuta {
         switch (tipus) {
             case 'O':
                 _nPeticions--;
-                _vehicle.ModificarPassatgers(-1*_solicituds.get(iCan.actual()).NumPassatgers());
+                _vehicle.ModificarPassatgers(-1*_solicituds.get(iCan.actual()/2).NumPassatgers());
                 break;
             case 'D':
                 _nPeticions++;
                 _nPeticionsTramitades--;
-                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()).NumPassatgers());
+                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()/2).NumPassatgers());
                 break;
             case 'P':
                 _vehicle.descarga(30);
