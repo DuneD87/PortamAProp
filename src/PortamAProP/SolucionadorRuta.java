@@ -18,7 +18,7 @@ public class SolucionadorRuta {
      * @pre ---
      * @post Busca una unica solucio al problema, plega quan la trobat
      */
-    private void backtracking() {
+    /*private void backtracking() {
         CandidatRuta iCan = _actual.iniCan();
         while (!iCan.esFi()) {
             if (_actual.acceptable(iCan) && _actual.potSerMillor(_optim)) {
@@ -31,6 +31,25 @@ public class SolucionadorRuta {
                 }
                 _actual.desanotar(iCan);
 
+            }
+            iCan.seguent();
+        }
+    }*/
+    private void backtracking() {
+        //backtracking una solucio
+        CandidatRuta iCan = _actual.iniCan();
+        while (!iCan.esFi() && !_trobat) {
+            if (_actual.acceptable(iCan)) {
+                _actual.anotar(iCan);
+                if (!_actual.completa()) {
+                    backtracking();
+                    //std::cout<<"sup"<<'\n';
+                    if (!_trobat) {
+                        _actual.desanotar(iCan);
+                    }
+                } else {
+                    _trobat = true;
+                }
             }
             iCan.seguent();
         }

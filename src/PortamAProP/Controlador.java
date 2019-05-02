@@ -43,7 +43,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=10;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     
     /**
@@ -265,12 +265,30 @@ public class Controlador {
     }
     public void algoritmeBacktracking() {
        
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0));
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_graf);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();
-        for (Node n : solucio)
-            System.out.println(n.getAttribute("Nom") + ": " + n.getAttribute("Tipus") + "->");
+        Node first = solucio.firstElement();
+        if (trobat)
+            System.out.println("Solucio trobada: ");
+        else {
+            System.out.println("No s'ha trobat solucio");
+            return;
+        }
+        System.out.print(first.getAttribute("Tipus") + ": " + first.getAttribute("Nom"));
+        int i = 0;
+        for (Node n : solucio) {
+            if (i > 0)
+                System.out.print("->" + n.getAttribute("Tipus") + ": "+ n.getAttribute("Nom") );
+                if (i > 9) {
+                    System.out.println();
+                    i = 1;
+                }
+            i++;
+        }
+        System.out.println();
+        System.out.println("Temps total: " + solRuta.obtCost() + " minuts");
         //System.out.println("Tamany de la solucio:" + s.size());
     }
     
@@ -287,6 +305,7 @@ public class Controlador {
                 subgraf.addNode(_graf.getNode(x).getId());
                 subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
                 subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Tipus", "Depot");
+                subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Nom", _graf.getNode(x).getAttribute("Nom").toString());
                 
         }
         while (it.hasNext()) {
@@ -298,12 +317,14 @@ public class Controlador {
             if (subgraf.getNode(origen) == null) {
                 subgraf.addNode(origen);
                 subgraf.getNode(origen).setAttribute("ui.label", origen);
+                subgraf.getNode(_graf.getNode(origen).getId()).addAttribute("Nom", _graf.getNode(origen).getAttribute("Nom").toString());
             }
             if (subgraf.getNode(desti) == null) {
                 subgraf.addNode(desti);
+                subgraf.getNode(_graf.getNode(desti).getId()).addAttribute("Nom", _graf.getNode(desti).getAttribute("Nom").toString());
                 subgraf.getNode(desti).setAttribute("ui.label", desti);
             }
-
+            
  
         }
         for(Node n: subgraf){

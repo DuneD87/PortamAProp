@@ -44,41 +44,50 @@ public class SolucioRuta {
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
      */
-    public SolucioRuta(Ruta r) {
+    public SolucioRuta(Ruta r, Graph g) {
 
-       
+        //NO COINCIDEIX CANDIDAT AMB SOLICITUD
         _solicituds = r.getSol();
         _vehicle = r.getVehicle();
         _cost = 0;
         _nPeticions = 0;
-        _graf = r.getGraph();
-         _nodes = new ArrayList<>(_graf.getNodeSet());
-         System.out.println("Carrega total: " + _vehicle.carregaTotal() + "Carrega actual: " + _vehicle.carregaRestant());
-         _vehicle.cargar(50000);
+        _graf = g;
+        _nodes = new ArrayList<>(_graf.getNodeSet());
+        System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
+                 "VEHICLE:\n" + _vehicle.toString());
+        _vehicle.cargar(50000);
         _candidats = new ArrayList<>();
         _ruta = new Stack<>();
+        _graf.display();
         for (Node p : _nodes) {
             if (p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
-                System.out.println("Primer punt afegit");
+                System.out.println("****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****\n");
                 _ruta.push(p);
             }
                 
         }
-        
         for (Solicitud s : _solicituds) {
-            System.out.println("Origen: solicitud: " + s.Origen());
+            s.setEstat(Solicitud.ESTAT.ESPERA);
             Pair<Character, Node> p1 = new Pair('O', _graf.getNode(Integer.toString(s.Origen())));
             _candidats.add(p1);
-            System.out.println("Origen: solicitud: " + s.Desti());
+            System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(Integer.toString(s.Origen())).getAttribute("Nom")
+                    + " Desti: " + _graf.getNode(Integer.toString(s.Desti())).getAttribute("Nom"));
             Pair<Character, Node> p2 = new Pair('D', _graf.getNode(Integer.toString(s.Desti())));
             _candidats.add(p2);
+           
         }
+        System.out.println("NOMBRE DE SOLICITUDS A ATENDRE: " + _solicituds.size());
+        int nDepots = 0;
         for (Node p : _nodes) {
+            String s = p.getAttribute("Tipus");
             if (p.getAttribute("Tipus") == "Depot") {
                 Pair<Character, Node> depot = new Pair('P', p);
                 _candidats.add(depot);
+                nDepots++;
             }
         }
+        System.out.println("NOMBRE DE DEPOTS: " + nDepots +
+                "\n*********************************************************************************************************");
     }
 
     /**
@@ -87,6 +96,7 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
+        //System.out.println("TAMANY DE LA PILA: " + _ruta.size());
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
@@ -96,11 +106,11 @@ public class SolucioRuta {
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
          * ruta que el bactracking no trobi ?
          */
-        System.out.println("Objecte anterior: " + _ruta.lastElement().getIndex());
-        System.out.println("Objecte actual: " + p.getIndex());
+       
        
         double temps;
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " Pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
@@ -108,6 +118,7 @@ public class SolucioRuta {
                     acceptable = origenAcceptable(iCan);
                     break;
                 case 'D':
+                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50%
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
@@ -115,7 +126,7 @@ public class SolucioRuta {
                     break;
             }
         }
-
+        //System.out.println(acceptable);
         return acceptable;
     }
 
@@ -130,7 +141,7 @@ public class SolucioRuta {
      */
     private boolean origenAcceptable(CandidatRuta iCan) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
-        return _solicituds.get(iCan.actual()/2).NumPassatgers() < _vehicle.nPassatgers()
+        return _solicituds.get(iCan.actual()/2).NumPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
                 && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ESPERA;
     }
@@ -141,10 +152,9 @@ public class SolucioRuta {
      * ->Els passatgers que portem hagin de baixar al node
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
-        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
+        //double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
         return _solicituds.get(iCan.actual()/2).Desti() == p.getIndex()
-                && _vehicle.carregaRestant() > mitjaBat
-                && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
+            && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
     }
 
     /**
@@ -167,7 +177,7 @@ public class SolucioRuta {
      */
     public CandidatRuta iniCan() {
         //System.out.println("Tamany candidat: "  + _candidats.size() + "Tamany solicituds: " + _solicituds.size());
-        return new CandidatRuta(_candidats.size());
+        return new CandidatRuta(_candidats.size() - 1);
     }
 
     /**
@@ -184,13 +194,13 @@ public class SolucioRuta {
      * global.
      */
     public void anotar(CandidatRuta iCan) {
+        //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         _ruta.push(_candidats.get(iCan.actual()).getValue());
         _vehicle.descarga(temps);
         _cost += temps;
-
         switch (tipus) {
             case 'O':
                 _nPeticions++;
@@ -217,10 +227,13 @@ public class SolucioRuta {
      * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
      */
     public void desanotar(CandidatRuta iCan) {
+        //System.out.println("DESANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
-        Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p.toString()).getAttribute("pes");
-        _ruta.pop();
+        Node p = _ruta.pop();
+         
+        // System.out.println("ACTUAL: " + p + " ANTERIOR: " + _ruta.lastElement());
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+       
         _vehicle.cargar(temps);
         _cost -= temps;
 
@@ -272,5 +285,9 @@ public class SolucioRuta {
     
     public Stack<Node> obtSolucio() {
         return _ruta;
+    }
+    
+    public double obtCost() {
+        return _cost;
     }
 }
