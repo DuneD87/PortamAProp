@@ -283,10 +283,10 @@ public class Controlador {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         //Primer afegim tots els depots
-        for(int x=1;x<mapa.GetNumDepot();x++){            
+        for(int x=0;x<mapa.GetNumDepot();x++){            
                 subgraf.addNode(_graf.getNode(x).getId());
                 subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
-                subgraf.getNode(_graf.getNode(x)).addAttribute("Tipus", "Depot");
+                subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Tipus", "Depot");
                 
         }
         while (it.hasNext()) {
@@ -296,11 +296,12 @@ public class Controlador {
             String origen = Integer.toString(o);
             String desti = Integer.toString(d);
             if (subgraf.getNode(origen) == null) {
-                subgraf.addNode(origen);
+                System.out.println("Origen: " + origen);
+                CrearNodeIndex(subgraf,o);
                 subgraf.getNode(origen).setAttribute("ui.label", origen);
             }
             if (subgraf.getNode(desti) == null) {
-                subgraf.addNode(desti);
+                CrearNodeIndex(subgraf,d);
                 subgraf.getNode(desti).setAttribute("ui.label", desti);
             }
 
@@ -318,7 +319,29 @@ public class Controlador {
         }
         subgraf=mapa.CompletarGraf(subgraf);
         //subgraf.display();
+        for(Node n: subgraf){
+            System.out.println("Index Node:" +  n.getIndex()+ " Id Node: " + n.getId());
+        }
         return subgraf;
+    }
+    
+       public void CrearNodeIndex(Graph subgraf, int index){
+        String id= Integer.toString(index);
+        for(int i=0;i<index;i++){
+            if(subgraf.getNode(i) == null){
+                subgraf.addNode(Integer.toString(i+1000));
+                subgraf.getNode(Integer.toString(i+1000)).setAttribute("Temporal", "1");
+                
+            }
+           }
+        subgraf.addNode(id);
+        for(Node n: subgraf){
+            System.out.println("ID: " + n.getId());
+            if(n.getAttribute("Temporal") !=null && n.getAttribute("Temporal").equals("1")){
+                subgraf.removeNode(n);
+            }
+        }
+        
     }
     
     /**
