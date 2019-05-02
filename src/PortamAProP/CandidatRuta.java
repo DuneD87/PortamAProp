@@ -35,7 +35,7 @@ public class CandidatRuta {
      * @post Ens diu si hem arribat al final de la llista
      */
     public boolean esFi() {
-        return _iCan > _max ;
+        return _iCan >= _max ;
     }
     
     /**
