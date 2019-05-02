@@ -286,6 +286,8 @@ public class Controlador {
         for(int x=1;x<mapa.GetNumDepot();x++){            
                 subgraf.addNode(_graf.getNode(x).getId());
                 subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
+                subgraf.getNode(_graf.getNode(x)).addAttribute("Tipus", "Depot");
+                
         }
         while (it.hasNext()) {
             Solicitud s = it.next();
