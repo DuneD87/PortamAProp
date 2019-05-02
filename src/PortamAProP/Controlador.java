@@ -12,9 +12,11 @@ import java.util.TreeSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+import java.util.TreeMap;
 import java.util.Vector;
 import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
+import jdk.nashorn.internal.objects.NativeJava;
 import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
@@ -43,7 +45,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=10;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     
     /**
@@ -264,8 +266,14 @@ public class Controlador {
         }
     }
     public void algoritmeBacktracking() {
-       
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_graf);
+        /*
+        int cont=0;
+        for(int i: _rutes.get(0).retornarConversio()){
+            System.out.println("Index: " + cont + "Node: " + i);
+            cont++;
+        }
+        */
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_rutes.get(1).getGraph());
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();
@@ -276,11 +284,11 @@ public class Controlador {
             System.out.println("No s'ha trobat solucio");
             return;
         }
-        System.out.print(first.getAttribute("Tipus") + ": " + first.getAttribute("Nom"));
+        System.out.println(first.getAttribute("Tipus") + ": " + first.getAttribute("Nom"));
         int i = 0;
         for (Node n : solucio) {
             if (i > 0)
-                System.out.print("->" + n.getAttribute("Tipus") + ": "+ n.getAttribute("Nom") );
+                System.out.println("->" + n.getAttribute("Tipus") + ": "+ n.getAttribute("Nom") );
                 if (i > 9) {
                     System.out.println();
                     i = 1;
@@ -297,15 +305,16 @@ public class Controlador {
      * @pre ---
      * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de llista_solicituds 
      */
-    public Graph crearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds) {
+    public Graph crearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds, int [] c) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         //Primer afegim tots els depots
-        for(int x=1;x<mapa.GetNumDepot();x++){            
+        for(int x=0;x<mapa.GetNumDepot();x++){            
                 subgraf.addNode(_graf.getNode(x).getId());
                 subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
                 subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Tipus", "Depot");
                 subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Nom", _graf.getNode(x).getAttribute("Nom").toString());
+                c[_graf.getNode(x).getIndex()]=x;
                 
         }
         while (it.hasNext()) {
@@ -318,11 +327,14 @@ public class Controlador {
                 subgraf.addNode(origen);
                 subgraf.getNode(origen).setAttribute("ui.label", origen);
                 subgraf.getNode(_graf.getNode(origen).getId()).addAttribute("Nom", _graf.getNode(origen).getAttribute("Nom").toString());
+                 c[_graf.getNode(origen).getIndex()]=subgraf.getNodeCount()-1;
+            
             }
             if (subgraf.getNode(desti) == null) {
                 subgraf.addNode(desti);
                 subgraf.getNode(_graf.getNode(desti).getId()).addAttribute("Nom", _graf.getNode(desti).getAttribute("Nom").toString());
                 subgraf.getNode(desti).setAttribute("ui.label", desti);
+                c[_graf.getNode(desti).getIndex()]=subgraf.getNodeCount()-1;
             }
             
  
@@ -361,7 +373,10 @@ public class Controlador {
             s=solicitudMesProperaDisponible(v);
         }
         v.setPosicio(posInicial);
-      _rutes.add(new Ruta(v,ruta,crearSubGraf(v, ruta)));
+        int [] conversio = new int [200];
+        System.out.println("Mida conversio" + conversio.length);
+        Graph sub=crearSubGraf(v, ruta, conversio);
+      _rutes.add(new Ruta(v,ruta,sub,conversio));
      
         
     }

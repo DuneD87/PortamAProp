@@ -2,7 +2,9 @@ package PortamAProP;
 
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.TreeMap;
 import java.util.TreeSet;
+import javafx.util.Pair;
 import org.graphstream.graph.*;
 
 public class Ruta {
@@ -11,16 +13,18 @@ public class Ruta {
     private TreeSet<Solicitud> _solicituds;//@brief Conjunt solicituds ordenades decreixement per data, 
     private Graph _graf;//@brief Subgraph per on es moura el nostre vehicle
     private Stack<Node> _ruta;//@brief Solucio obtenida per l'algoritme de backtracking
+    private int [] _conversio; // @brief array de pairs que assosia l'index dels nodes del subgraf de la ruta amb l'index del graf complet
     
     /**
      * @brief Constructor
      * @post Construim una nova ruta fen servir un vehicle, un conjunt de solicituds i un subgraph
      */
-    public Ruta(Vehicle vehicle,TreeSet<Solicitud> sol,Graph g){
+    public Ruta(Vehicle vehicle,TreeSet<Solicitud> sol,Graph g, int [] c ){
         _vehicle=vehicle;
         _solicituds=sol;
         _graf=g;
         _ruta = new Stack<>();
+        _conversio= c;
     }
     
     /**
@@ -85,5 +89,9 @@ public class Ruta {
      */
     public void desanotarNode() {
         _ruta.pop();
+    }
+    
+    public int [] retornarConversio(){
+        return _conversio;
     }
 }

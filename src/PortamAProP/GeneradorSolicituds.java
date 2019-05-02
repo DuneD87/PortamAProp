@@ -10,7 +10,8 @@ public class GeneradorSolicituds {
   
     private int _maxNodes = 20;
     private String _sol;
-    private static int MAX_SOL = 20;
+    private static int MAX_SOL = 50;
+    private static int MAX_PERSONES = 2;
     public GeneradorSolicituds() {
 
         int numero;
@@ -49,7 +50,7 @@ public class GeneradorSolicituds {
             llistat += random.nextInt(24) + " ";//hora emisio
             llistat += random.nextInt(60) + " ";//minut emisio
             llistat += random.nextInt(60) + " ";//segon emisio
-            llistat += random.nextInt(4) + 1;//numero de passatgers, entre 1 i 9
+            llistat += random.nextInt(MAX_PERSONES) + 1;//numero de passatgers, entre 1 i 9
             llistat += "\n";
 
         }

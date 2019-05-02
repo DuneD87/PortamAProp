@@ -35,8 +35,11 @@ public class SolucioRuta {
     Stack<Node> _ruta;//@brief Conjunt de nodes que representa la nostra ruta
     private int _nPeticions;//@brief Numero de peticions que estem tramitan
     private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
-
+    
     static final double FACTOR_CARREGA_CRITIC = 0.5; //@brief Constant que ens diu quan el vehicle ha de carregar
+    
+    //Afegit per Buenaventura 
+    private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
 
     /**
      * @brief Constructor
@@ -52,6 +55,7 @@ public class SolucioRuta {
         _cost = 0;
         _nPeticions = 0;
         _graf = g;
+        _conversio=r.retornarConversio();
         _nodes = new ArrayList<>(_graf.getNodeSet());
         System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
                  "VEHICLE:\n" + _vehicle.toString());
@@ -68,11 +72,22 @@ public class SolucioRuta {
         }
         for (Solicitud s : _solicituds) {
             s.setEstat(Solicitud.ESTAT.ESPERA);
-            Pair<Character, Node> p1 = new Pair('O', _graf.getNode(Integer.toString(s.Origen())));
+           /*
+            System.out.println("Origen en el graf: "+ s.Origen()+ " En el subgraf: " + _conversio[s.Origen()]);
+             System.out.println("Desti en el graf: "+ s.Desti()+ " En el subgraf: " + _conversio[s.Desti()]);
+              System.out.println("Els nodes existeixen Origen: " + _graf.getNode(_conversio[s.Origen()]).getIndex());
+              System.out.println("Desti: " + _graf.getNode(_conversio[s.Desti()]).getIndex());
+              System.out.println("=================NODES DEL SUBGRAF");
+              for(Node n: _graf){
+                  System.out.println("Node "+n+ " Index " + n.getIndex());
+              }
+            */
+           
+            Pair<Character, Node> p1 = new Pair('O', _graf.getNode(_conversio[s.Origen()]));
             _candidats.add(p1);
-            System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(Integer.toString(s.Origen())).getAttribute("Nom")
-                    + " Desti: " + _graf.getNode(Integer.toString(s.Desti())).getAttribute("Nom"));
-            Pair<Character, Node> p2 = new Pair('D', _graf.getNode(Integer.toString(s.Desti())));
+            System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(_conversio[s.Origen()]).getAttribute("Nom")
+                    + " Desti: " + _graf.getNode(_conversio[s.Desti()]).getAttribute("Nom"));
+            Pair<Character, Node> p2 = new Pair('D', _graf.getNode(_conversio[s.Desti()]));
             _candidats.add(p2);
            
         }
@@ -109,8 +124,8 @@ public class SolucioRuta {
        
        
         double temps;
-        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " Pes: " + " Carrega restant: " + _vehicle.carregaRestant());
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
@@ -197,7 +212,7 @@ public class SolucioRuta {
         //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
         _ruta.push(_candidats.get(iCan.actual()).getValue());
         _vehicle.descarga(temps);
         _cost += temps;
@@ -232,7 +247,7 @@ public class SolucioRuta {
         Node p = _ruta.pop();
          
         // System.out.println("ACTUAL: " + p + " ANTERIOR: " + _ruta.lastElement());
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
        
         _vehicle.cargar(temps);
         _cost -= temps;
