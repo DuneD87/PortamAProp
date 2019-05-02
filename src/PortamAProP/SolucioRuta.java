@@ -68,10 +68,10 @@ public class SolucioRuta {
         }
         for (Solicitud s : _solicituds) {
             s.setEstat(Solicitud.ESTAT.ESPERA);
-            System.out.println("Origen: solicitud: " + s.Origen());
             Pair<Character, Node> p1 = new Pair('O', _graf.getNode(Integer.toString(s.Origen())));
             _candidats.add(p1);
-            System.out.println("Desti: solicitud: " + s.Desti());
+            System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(Integer.toString(s.Origen())).getAttribute("Nom")
+                    + " Desti: " + _graf.getNode(Integer.toString(s.Desti())).getAttribute("Nom"));
             Pair<Character, Node> p2 = new Pair('D', _graf.getNode(Integer.toString(s.Desti())));
             _candidats.add(p2);
            
@@ -109,24 +109,19 @@ public class SolucioRuta {
        
        
         double temps;
-        System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " Pes: " + " Carrega restant: " + _vehicle.carregaRestant());
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p.getId()).getAttribute("Pes");
-        
+        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " Pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
-            
             switch (tipus) {
                 case 'O':
-                    
                     acceptable = origenAcceptable(iCan);
                     break;
                 case 'D':
-                    
                     //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50%
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
-                    
                     acceptable = depotAcceptable(iCan);
                     break;
             }
@@ -157,13 +152,9 @@ public class SolucioRuta {
      * ->Els passatgers que portem hagin de baixar al node
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
-        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
-        System.out.println( _solicituds.get(iCan.actual()/2).Desti() == p.getIndex()
-               
-                );
+        //double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
         return _solicituds.get(iCan.actual()/2).Desti() == p.getIndex()
-               
-                && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
+            && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
     }
 
     /**
@@ -174,8 +165,6 @@ public class SolucioRuta {
      */
     private boolean depotAcceptable(CandidatRuta iCan) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
-        /*System.out.println(_vehicle.carregaRestant() < mitjaBat
-                && _nPeticions == 0);*/
         return _vehicle.carregaRestant() < mitjaBat
                 && _nPeticions == 0;
     }
@@ -205,7 +194,7 @@ public class SolucioRuta {
      * global.
      */
     public void anotar(CandidatRuta iCan) {
-        System.out.println("ANOTEM");
+        //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
@@ -238,7 +227,7 @@ public class SolucioRuta {
      * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
      */
     public void desanotar(CandidatRuta iCan) {
-        System.out.println("DESANOTEM");
+        //System.out.println("DESANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _ruta.pop();
          
@@ -296,5 +285,9 @@ public class SolucioRuta {
     
     public Stack<Node> obtSolucio() {
         return _ruta;
+    }
+    
+    public double obtCost() {
+        return _cost;
     }
 }
