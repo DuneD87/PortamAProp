@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.Vector;
-import javafx.util.Pair;
 import javax.swing.text.StyledEditorKit;
 import jdk.nashorn.internal.objects.NativeJava;
 import org.graphstream.algorithm.Dijkstra;
@@ -45,7 +44,7 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=100;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY=1000;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
     
     /**
@@ -266,14 +265,14 @@ public class Controlador {
         }
     }
     public void algoritmeBacktracking() {
-        /*
+        
         int cont=0;
         for(int i: _rutes.get(0).retornarConversio()){
             System.out.println("Index: " + cont + "Node: " + i);
             cont++;
         }
-        */
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_rutes.get(1).getGraph());
+        
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_rutes.get(0).getGraph());
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();

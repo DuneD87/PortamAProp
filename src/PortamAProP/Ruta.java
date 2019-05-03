@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javafx.util.Pair;
 import org.graphstream.graph.*;
 
 public class Ruta {

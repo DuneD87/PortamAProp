@@ -2,7 +2,6 @@ package PortamAProP;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import javafx.util.Pair;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
@@ -83,11 +82,11 @@ public class SolucioRuta {
               }
             */
            
-            Pair<Character, Node> p1 = new Pair('O', _graf.getNode(_conversio[s.Origen()]));
+            Pair<Character, Node> p1 = new Pair('O', _graf.getNode((_conversio[s.Origen()])));
             _candidats.add(p1);
             System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(_conversio[s.Origen()]).getAttribute("Nom")
                     + " Desti: " + _graf.getNode(_conversio[s.Desti()]).getAttribute("Nom"));
-            Pair<Character, Node> p2 = new Pair('D', _graf.getNode(_conversio[s.Desti()]));
+            Pair<Character, Node> p2 = new Pair('D', _graf.getNode((_conversio[s.Desti()])));
             _candidats.add(p2);
            
         }
@@ -124,7 +123,8 @@ public class SolucioRuta {
        
        
         double temps;
-        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        //System.out.println("Punt actual: " + p.getIndex());
+        //System.out.println(tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
         temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
@@ -229,7 +229,7 @@ public class SolucioRuta {
                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
                 break;
             case 'P':
-                _vehicle.cargar(30);
+                _vehicle.cargar(100);
                 break;
         }
     }
