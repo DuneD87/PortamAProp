@@ -6,6 +6,9 @@
 #   2n parametre: Nom del node
 #   3r paramentre (opcional): Numero de cotxes que permet recargar simultaniament
 #
+#   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+#   l'ultima linia de paramentres
+#
 6 LLoc7
 7 LLoc8
 8 LLoc9

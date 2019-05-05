@@ -10,6 +10,9 @@
 #   6e parametre: Segon emisio
 #   7e parametre: Numero de passatgers de la solicitud
 #
+#   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+#   l'ultima linia de paramentres
+#
 1 1 2 12 22 11 2
 2 3 2 12 33 56 3
 3 1 2 12 34 11 4

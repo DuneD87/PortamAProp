@@ -9,6 +9,9 @@
 #   4t paramentre: Index Efectivitat de carga 
 #   5e paramentre: Id node on comença
 #
+#   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+#   l'ultima linia de paramentres
+#
 1 5 300 0.4 1
 2 5 300 0.6 2
 3 2 100 0.5 2

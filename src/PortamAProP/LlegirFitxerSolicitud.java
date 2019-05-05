@@ -37,8 +37,9 @@ public class LlegirFitxerSolicitud {
      * @pre ---
      * @post S'han llegit les solicituds desde fitxer
      */
-    public LlegirFitxerSolicitud() {
+    public LlegirFitxerSolicitud(Graph graf) {
         _vecSol = new TreeSet<Solicitud>();
+        _graf=graf;
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -46,7 +47,8 @@ public class LlegirFitxerSolicitud {
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Nom del fitxer de solicituds:");
-            String nom = sc.nextLine();
+            //String nom = sc.nextLine();
+            String nom="Solicituds.txt";
             fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
@@ -55,6 +57,7 @@ public class LlegirFitxerSolicitud {
             while ((linia = br.readLine()) != null) {
                 if(linia.charAt(0)!='#')
                     CrearSolicitud(linia);
+         
             }
             for (Solicitud s : _vecSol) {
                 System.out.println(s);

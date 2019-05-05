@@ -40,6 +40,8 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="F";
+    private String FORMAT_ENTRADA_SOLICITUDS="F";
+    private String FORMAT_ENTRADA_VEHICLES="F";
     private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
@@ -158,10 +160,15 @@ public class Controlador {
      * @post S'han inicialitzats les solicituds
      */
     private void generarSolicituds() {
+        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(_graf);
+        if(FORMAT_ENTRADA_SOLICITUDS.equals("R")){
         GeneradorSolicituds sol = new GeneradorSolicituds();
         String lSol = sol.toString();
         System.out.println(lSol);
-        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
+        lFitxer= new LlegirFitxerSolicitud(lSol, _graf);}
+        else if(FORMAT_ENTRADA_SOLICITUDS.equals("F")){
+        // Ja esta fet a la inicialitzacio del objecte lFitxer
+        }
         _solicituds = lFitxer.obtSol();
     }
 
@@ -177,14 +184,13 @@ public class Controlador {
         System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
         //Scanner teclat=new Scanner(System.in);
         //String opcio=teclat.nextLine();
-        String opcio=FORMAT_ENTRADA_GRAF;
         
-        if(opcio.equals("R")){
+        if(FORMAT_ENTRADA_GRAF.equals("R")){
             _generadorNodes = new GeneradorNodesGraf();
             _generadorNodes.GeneradorAleatoriNodes(_graf.getNodeCount());
             String nodes=_generadorNodes.OptenirNodes();
             mapa.ModificarGrafPerString(_graf, nodes,"Solicitud");    
-        }else if(opcio.equals("F")){
+        }else if(FORMAT_ENTRADA_GRAF.equals("F")){
             mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "Solicitud");
         }
 
