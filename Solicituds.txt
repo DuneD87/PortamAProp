@@ -1,3 +1,15 @@
-1 1 2 12 22 11 12 30 12 2
-2 3 2 12 33 56 12 40 22 3
-3 1 2 12 34 11 14 20 55 4
+#
+#   Format de fitxer per la creacio de Solicituds
+#   =============================================
+#   Creacio de Solicituds (una per linia):
+#   1r parametre: Id de la solicitud
+#   2n parametre: Id node origen
+#   3r parametre: Id node desti
+#   4t parametre: Hora emisio
+#   5e parametre: Minut emisio
+#   6e parametre: Segon emisio
+#   7e parametre: Numero de passatgers de la solicitud
+#
+1 1 2 12 22 11 2
+2 3 2 12 33 56 3
+3 1 2 12 34 11 4

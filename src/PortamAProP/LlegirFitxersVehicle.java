@@ -33,7 +33,8 @@ public class LlegirFitxersVehicle {
 
             String linia;
             while ((linia = br.readLine()) != null) {
-                Crearvehicle(linia);
+                if(linia.charAt(0)!='#')
+                    Crearvehicle(linia);
             }
             for (Vehicle v : _vecVehicles) {
                 System.out.println(v);

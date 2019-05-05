@@ -53,7 +53,8 @@ public class LlegirFitxerSolicitud {
 
             String linia;
             while ((linia = br.readLine()) != null) {
-                CrearSolicitud(linia);
+                if(linia.charAt(0)!='#')
+                    CrearSolicitud(linia);
             }
             for (Solicitud s : _vecSol) {
                 System.out.println(s);

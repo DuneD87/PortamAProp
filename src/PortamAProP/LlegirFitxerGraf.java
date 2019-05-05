@@ -67,12 +67,14 @@ public class LlegirFitxerGraf {
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
             String linia;
-            while ((linia = br.readLine()) != null && !linia.equals("#")) {
-                CrearNode(linia, _graf, format);
+            while ((linia = br.readLine()) != null && !linia.equals("*")) {
+                if(linia.charAt(0)!='#')
+                    CrearNode(linia, _graf, format);
             }
             
-            while ((linia = br.readLine()) != null && !linia.equals("#")) {
-                DefinirAresta(linia, _graf.getEdgeCount(), _graf);
+            while ((linia = br.readLine()) != null && !linia.equals("*")) {
+                if(linia.charAt(0)!='#')
+                    DefinirAresta(linia, _graf.getEdgeCount(), _graf);
 
             }
             _graf=CompletarGraf(_graf);
