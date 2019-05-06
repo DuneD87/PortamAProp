@@ -53,7 +53,7 @@ public class SolucioRuta {
         _vehicle = r.getVehicle();
         _cost = 0;
         _nPeticions = 0;
-        _graf = g;
+        _graf = r.getGraph();
         _conversio=r.retornarConversio();
         _nodes = new ArrayList<>(_graf.getNodeSet());
         System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
@@ -94,14 +94,32 @@ public class SolucioRuta {
         int nDepots = 0;
         for (Node p : _nodes) {
             String s = p.getAttribute("Tipus");
-            if (p.getAttribute("Tipus") == "Depot") {
+            if (p.getAttribute("Tipus") == "Depot" && !p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
                 Pair<Character, Node> depot = new Pair('P', p);
                 _candidats.add(depot);
                 nDepots++;
             }
         }
+        //System.out.println("TAMANY DELS CANDIDATS: " + _candidats.size());
         System.out.println("NOMBRE DE DEPOTS: " + nDepots +
                 "\n*********************************************************************************************************");
+    }
+    
+    /**
+     * @brief Constructor de copia
+     * @pre ---
+     * @post S'ha construit una nova SolucioRuta a partir de la solucio anterior
+     */
+    public SolucioRuta(SolucioRuta sol) {
+        _solicituds = sol._solicituds;
+        _candidats = sol._candidats;
+        _conversio = sol._conversio;
+        _cost = sol._cost;
+        _nPeticions = sol._nPeticions;
+        _nodes = sol._nodes;
+        _ruta = sol._ruta;
+        _vehicle = sol._vehicle;
+        _graf = sol._graf;
     }
 
     /**
@@ -120,7 +138,7 @@ public class SolucioRuta {
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
          * ruta que el bactracking no trobi ?
          */
-       
+        //System.out.println("NOMBRE DE PETICIONS TRAMITADES : " + _nPeticionsTramitades);
        
         double temps;
         //System.out.println("Punt actual: " + p.getIndex());
@@ -133,7 +151,7 @@ public class SolucioRuta {
                     acceptable = origenAcceptable(iCan);
                     break;
                 case 'D':
-                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50%
+                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50% o menys ( afegim factor nou ? factor regular + factor critic ? )
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
@@ -168,7 +186,7 @@ public class SolucioRuta {
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
         //double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
-        return _solicituds.get(iCan.actual()/2).Desti() == p.getIndex()
+        return _conversio[_solicituds.get(iCan.actual()/2).Desti()] == p.getIndex()
             && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ENTRANSIT;
     }
 
@@ -213,7 +231,7 @@ public class SolucioRuta {
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-        _ruta.push(_candidats.get(iCan.actual()).getValue());
+       _ruta.push(_candidats.get(iCan.actual()).getValue());
         _vehicle.descarga(temps);
         _cost += temps;
         switch (tipus) {
@@ -221,15 +239,18 @@ public class SolucioRuta {
                 _nPeticions++;
                 _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual() / 2).NumPassatgers());
                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
                 _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual() / 2).NumPassatgers());
                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
+                 
                 break;
             case 'P':
-                _vehicle.cargar(100);
+                _vehicle.cargar(3000);
+                _cost += 30;
                 break;
         }
     }
@@ -265,7 +286,8 @@ public class SolucioRuta {
                  _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
                 break;
             case 'P':
-                _vehicle.descarga(30);
+                _vehicle.descarga(3000);
+                _cost -= 30;
                 break;
         }
 
@@ -277,7 +299,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == _solicituds.size();
+        return _nPeticionsTramitades == _solicituds.size() - 1;
     }
     
     /**
@@ -294,7 +316,7 @@ public class SolucioRuta {
      * de la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
-        return _cost < optim._cost;
+        return _cost > optim._cost;
     }
     
     

@@ -11,31 +11,44 @@ public class SolucionadorRuta {
 
     private SolucioRuta _actual;
     private SolucioRuta _optim;
-    boolean _trobat;
-
+    private boolean _trobat;
+    private int _nSolucions;
+    private int _nSolucionsTotal;
     /**
      * @brief Algoritme de backtracking
      * @pre ---
      * @post Busca una unica solucio al problema, plega quan la trobat
      */
-    /*private void backtracking() {
+    private void backtracking() {
         CandidatRuta iCan = _actual.iniCan();
         while (!iCan.esFi()) {
             if (_actual.acceptable(iCan) && _actual.potSerMillor(_optim)) {
                 _actual.anotar(iCan);
                 if (!_actual.completa()) {
                     backtracking();
-                } else if (_actual.esMillor(_optim)) {
-                    _optim = _actual;
-                    _trobat = true;
+                    
                 }
-                _actual.desanotar(iCan);
+                if (_actual.completa() && _actual.esMillor(_optim)) {
+                    _optim = new SolucioRuta(_actual);
+                    System.out.flush();
+                    _trobat = true;
+                    _nSolucions++;
+                    if (_nSolucions < (_nSolucionsTotal + 100))
+                        System.out.print(".");
+                    else {
+                        _nSolucionsTotal = _nSolucions;
+                        System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
+                    } 
+                        
+                }
+                
+                 _actual.desanotar(iCan);
 
             }
             iCan.seguent();
         }
-    }*/
-    private void backtracking() {
+    }
+    /*private void backtracking() {
         //backtracking una solucio
         CandidatRuta iCan = _actual.iniCan();
         while (!iCan.esFi() && !_trobat) {
@@ -53,7 +66,7 @@ public class SolucionadorRuta {
             }
             iCan.seguent();
         }
-    }
+    }*/
 
     /**
      * @brief Constructor
@@ -61,8 +74,10 @@ public class SolucionadorRuta {
      */
     public SolucionadorRuta(SolucioRuta inicial) {
         _actual = inicial;
-        _optim = _actual;
+        _optim = new SolucioRuta(_actual);
         _trobat = false;
+        _nSolucions = 0;
+        _nSolucionsTotal = 0;
     }
 
     /**
@@ -81,6 +96,7 @@ public class SolucionadorRuta {
      */
     public boolean existeixSolucio(SolucioRuta sol) {
         _actual = sol;
+        System.out.println("**BUSCAN SOLUCIO MILLOR**");
         backtracking();
 
         return _trobat;

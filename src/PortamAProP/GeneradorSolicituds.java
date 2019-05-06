@@ -10,7 +10,7 @@ public class GeneradorSolicituds {
   
     private int _maxNodes = 20;
     private String _sol;
-    private static int MAX_SOL = 50;
+    private static int MAX_SOL = 40;
     private static int MAX_PERSONES = 2;
     public GeneradorSolicituds() {
 

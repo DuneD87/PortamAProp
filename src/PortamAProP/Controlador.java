@@ -116,6 +116,8 @@ public class Controlador {
                 case 6: 
                     mostrarRutes();
                     break;
+                case 0:
+                    return ;
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -276,8 +278,7 @@ public class Controlador {
             System.out.println("Index: " + cont + "Node: " + i);
             cont++;
         }
-        
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_rutes.get(0).getGraph());
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_graf);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();
