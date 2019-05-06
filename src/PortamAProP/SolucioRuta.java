@@ -95,7 +95,7 @@ public class SolucioRuta {
         int nDepots = 0;
         for (Node p : _nodes) {
             String s = p.getAttribute("Tipus");
-            if (p.getAttribute("Tipus") == "Depot") {
+            if (p.getAttribute("Tipus") == "Depot" && !p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
                 Pair<Character, Node> depot = new Pair('P', p);
                 _candidats.add(depot);
                 nDepots++;
@@ -111,7 +111,7 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        //System.out.println("TAMANY DE LA PILA: " + _ruta.size());
+        System.out.println("TAMANY DE LA PILA: " + _ruta.size());
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
@@ -124,8 +124,8 @@ public class SolucioRuta {
        
        
         double temps;
-        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " Pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
@@ -133,7 +133,7 @@ public class SolucioRuta {
                     acceptable = origenAcceptable(iCan);
                     break;
                 case 'D':
-                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50%
+                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50% o menys ( afegim factor nou ? factor regular + factor critic ? )
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
@@ -141,7 +141,7 @@ public class SolucioRuta {
                     break;
             }
         }
-        //System.out.println(acceptable);
+        System.out.println(acceptable);
         return acceptable;
     }
 
@@ -212,8 +212,8 @@ public class SolucioRuta {
         //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-        _ruta.push(_candidats.get(iCan.actual()).getValue());
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
+       
         _vehicle.descarga(temps);
         _cost += temps;
         switch (tipus) {
@@ -221,15 +221,18 @@ public class SolucioRuta {
                 _nPeticions++;
                 _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual() / 2).NumPassatgers());
                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                 _ruta.push(_candidats.get(iCan.actual()).getValue());
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
                 _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual() / 2).NumPassatgers());
                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
+                 _ruta.push(_candidats.get(iCan.actual()).getValue());
                 break;
             case 'P':
                 _vehicle.cargar(30);
+                 _ruta.push(_candidats.get(iCan.actual()).getValue());
                 break;
         }
     }
@@ -247,7 +250,7 @@ public class SolucioRuta {
         Node p = _ruta.pop();
          
         // System.out.println("ACTUAL: " + p + " ANTERIOR: " + _ruta.lastElement());
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("Pes");
        
         _vehicle.cargar(temps);
         _cost -= temps;
@@ -277,7 +280,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == _solicituds.size();
+        return _nPeticionsTramitades == _solicituds.size() - 1;
     }
     
     /**

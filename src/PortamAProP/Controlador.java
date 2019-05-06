@@ -41,7 +41,7 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="R";
-    private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta;
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
@@ -116,6 +116,8 @@ public class Controlador {
                 case 6: 
                     mostrarRutes();
                     break;
+                case 0:
+                    return ;
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -273,7 +275,7 @@ public class Controlador {
             cont++;
         }
         */
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_rutes.get(1).getGraph());
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(0),_graf);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = solRuta.obtSolucio();
