@@ -531,7 +531,7 @@ public class Controlador {
          if(r.size()==0){
              v.setHoraUltimaSol(s.Emisio());
              valid=true;
-         }else
+         }else{}
          
          
          
