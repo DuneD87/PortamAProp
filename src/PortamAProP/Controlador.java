@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -47,7 +48,7 @@ public class Controlador {
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY=1000;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    
+    private long LIMIT_FINESTRA_TEMPS=3600000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MILISEGONS)
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -70,7 +71,7 @@ public class Controlador {
      * @post S'ha inicialitzat el programa
      */
     public void init() {
-        assignarSolicitudsAVehicles();
+        //assignarSolicitudsAVehicles();
         mostrarMenu();
         gestionarMenu();
         
@@ -105,7 +106,7 @@ public class Controlador {
                     
                     break;
                 case 4:
-                    _graf.display();
+                    //_graf.display();
                     assignarSolicitudsAVehicles();
                     //mostrarVehiclesSolicituds();
                     //mostrarSolicitudsNoAssignades();
@@ -146,7 +147,7 @@ public class Controlador {
         LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle();
         _vehicles = lVehicle.obtVehicles();
         
-        for(int i=0;i<_vehicles.size();i++){
+        for(int i=0;i<_vehicles.size();i++){//suma 1 per cada vehicle en el su depot
             Vehicle v=_vehicles.get(i);
             System.out.println(v.nodeInicial());
             Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehiclesActual"))+1;
@@ -214,10 +215,11 @@ public class Controlador {
         int anterior = numeroSolicitudsNoAssignades();
         while (numeroSolicitudsNoAssignades() != 0 && y < _vehicles.size()) {
             //System.out.println(_vehicles.get(i));
+           // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
             crearRuta(_vehicles.get(i));
             _vehicles.get(i).restaurarCarrega();
             i++;
-            if (anterior == numeroSolicitudsNoAssignades()) {
+            if (anterior == numeroSolicitudsNoAssignades()) {//AAugmentar y per parar el bucle si no acaba de assignar solicituds
                 y++;
             } else {
                 y = 0;
@@ -226,10 +228,12 @@ public class Controlador {
             if (i == _vehicles.size()) {
                 i = 0;
             }
-            System.out.println("===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
+            System.out.println("\n===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
 
         }
-
+        for(Vehicle v: _vehicles){
+            v.setPosicio(v.nodeInicial());
+        }
 
         
         /*
@@ -370,19 +374,31 @@ public class Controlador {
         int contadorSolicituds=1;
         int posInicial=v.getPosicio();
         while(s!=null && contadorSolicituds<_solicituds.size()){
+           // System.out.println("*******************************");
             if(vehiclePotAssolirSolicitud(v,s) && DinsFinestraTemps(v,s,ruta)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
+               // System.out.println("Solicitud entrada correctament \n");
+            }else{
+                s.setEstat(Solicitud.ESTAT.VISITADA);
+               // System.out.println("Solicitud visitada \n");
             }
             contadorSolicituds++;
             s=solicitudMesProperaDisponible(v);
         }
-        v.setPosicio(posInicial);
+        v.setHoraUltimaSol(null);
         int [] conversio = new int [200];
-        System.out.println("Mida conversio" + conversio.length);
         Graph sub=crearSubGraf(v, ruta, conversio);
-      _rutes.add(new Ruta(v,ruta,sub,conversio));
-     
+        if(ruta.size()==0){
+            System.out.println("\nNo hi ha solicituds per crear una ruta\n");
+        }else{
+            _rutes.add(new Ruta(v,ruta,sub,conversio));
+         }
+        
+        for(Solicitud sol: _solicituds){
+            if(sol.getEstat()==Solicitud.ESTAT.VISITADA)
+                sol.setEstat(Solicitud.ESTAT.ESPERA);
+        }
         
     }
     
@@ -411,21 +427,31 @@ public class Controlador {
     }
     */
     /**
-     * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang
+     * preestablert
      * @pre ---
-     * @post Retorna la solicitud mes propera de vehicle v dins d'un rang preestablert
+     * @post Retorna la solicitud mes propera de vehicle v dins d'un rang
+     * preestablert
      */
-    public Solicitud solicitudMesProperaDisponible(Vehicle v){
-        Solicitud s=null;
+    public Solicitud solicitudMesProperaDisponible(Vehicle v) {
+        Solicitud s = null;
         boolean trobat = false;
         Iterator<Solicitud> it = _solicituds.iterator();
+       // System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar solicitud mes propera\n");
         while (!trobat && it.hasNext()) {
             Solicitud ss = it.next();
-            if (v.nodeInicial() == ss.Origen()) {
-                trobat = true;
-                s = ss;
-            } else {                
-                double pes = _graf.getNode(v.nodeInicial()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+            if (v.getPosicio() == ss.Origen()) {
+                if (ss.getEstat() == Solicitud.ESTAT.ESPERA) {
+                    trobat = true;
+                    s = ss;
+                    System.out.println("Origen solicitud al nodel del vhehicle");
+                }
+
+            } else {
+                //System.out.println("Node on esta el vehicle " + v.getPosicio());
+                //System.out.println("Node Origen solicitud " + ss.Origen());
+                double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+               // System.out.println("Pes entra la aresta" + pes);
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
                     trobat = true;
                     s = ss;
@@ -434,7 +460,7 @@ public class Controlador {
         }
         return s;
     }
-    
+
     
     /**
      * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i tornar al Depot mes proper
@@ -444,23 +470,36 @@ public class Controlador {
     public boolean vehiclePotAssolirSolicitud(Vehicle v, Solicitud s) {
         boolean valid = false;
         double anar_solicitud;
+        //System.out.println("=======================================\nPot assolir soliciutd? \n" + s.toString()+ "\n");
         if (v.nodeInicial() == s.Origen()) {
+            //System.out.println("Node inicial es origen de la solictud");
             anar_solicitud = 0;
-           
+
         } else {
             anar_solicitud = _graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
         }
         double completar_solicitud = _graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
         double depot_proxim = buscarDepotMesProxim(s.Desti());
         double autonomia = v.carregaRestant();
-        if (anar_solicitud + completar_solicitud + depot_proxim < autonomia && s.NumPassatgers()<=v.nPassatgers()) {
+        //System.out.println("Anar solicitud: " + anar_solicitud);
+       // System.out.println("completar solicitud: " + completar_solicitud);
+       // System.out.println("depot proxim: " + depot_proxim);
+       // System.out.println("autonomia: " + autonomia);
+        boolean resultat = anar_solicitud + completar_solicitud + depot_proxim < autonomia;
+        boolean pass = s.NumPassatgers() <= v.nPassTotal();
+       // System.out.println("Resultat:" + resultat);
+       // System.out.println("Passatgers solcitud:" + s.NumPassatgers());
+       // System.out.println("Passatgers vehicle:" + v.nPassTotal());
+       // System.out.println("Passatgers:" + pass);
+        if (anar_solicitud + completar_solicitud + depot_proxim < autonomia && s.NumPassatgers() <= v.nPassTotal()) {
             valid = true;
-            v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
+            v.descarga(anar_solicitud + completar_solicitud + depot_proxim);
             v.setPosicio(s.Desti());
         }
+        //System.out.println("=================================");
         return valid;
     }
-    
+
     
     
     /**
@@ -521,27 +560,30 @@ public class Controlador {
      public int numeroSolicitudsNoAssignades(){
         int noAssignades=0;
         for(Solicitud s: _solicituds){
-            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+            if(s.getEstat()==Solicitud.ESTAT.ESPERA || s.getEstat()==Solicitud.ESTAT.VISITADA){
                 noAssignades++;
             }
         }
         return noAssignades;
     }
-     public boolean DinsFinestraTemps(Vehicle v, Solicitud s, TreeSet<Solicitud> r ){
-         boolean valid = false;
-         if(r.size()==0){
-             v.setHoraUltimaSol(s.Emisio());
-             valid=true;
-         }else{}
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         return valid;
-     }
+
+    public boolean DinsFinestraTemps(Vehicle v, Solicitud s, TreeSet<Solicitud> r) {
+        boolean valid = false;
+        //System.out.println("\n Solicitud dins de finestra de temps:");
+        if (r.size() == 0) {
+            v.setHoraUltimaSol(s.Emisio());
+            valid = true;
+            //System.out.println("Primera solicitud");
+        } else {
+            Time limit = new Time(0);
+            limit.setTime(v.getHoraUltimaSol().getTime() + LIMIT_FINESTRA_TEMPS);
+            if (s.Emisio().before(limit)) {
+                valid = true;
+                // System.out.println("Dins de finestra de temps");
+            } else {
+                // System.out.println("Fora finsetra de temps \n");
+            }
+        }
+        return valid;
+    }
 }

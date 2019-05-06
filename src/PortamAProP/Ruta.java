@@ -32,7 +32,7 @@ public class Ruta {
     @Override
     public String toString(){
     String ruta="Vehicle de la ruta:\n"+ _vehicle.toString() + 
-            "Solicituds de la ruta: \n" + _solicituds.toString();
+            "\nSolicituds de la ruta: \n" + _solicituds.toString();
     return ruta;
     }
     
