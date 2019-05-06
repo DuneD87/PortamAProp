@@ -59,7 +59,7 @@ public class Vehicle {
      * @post S'ha carregat el vehicle en funcio del temps
      */
     public void cargar(double temps){
-        _autonomiaRestant=_autonomiaRestant+(temps*_carga);
+        _autonomiaRestant += temps;
         if(_autonomiaRestant>_autonomiaTotal)
             _autonomiaRestant=_autonomiaTotal;
     }
