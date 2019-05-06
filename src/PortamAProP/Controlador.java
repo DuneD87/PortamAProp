@@ -41,7 +41,6 @@ public class Controlador {
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF="F";
     private String FORMAT_ENTRADA_SOLICITUDS="F";
-    private String FORMAT_ENTRADA_VEHICLES="F";
     private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
@@ -200,36 +199,36 @@ public class Controlador {
     }
 
      /**
-     * @brief Assigna per cada vehicle, un grup de solicituds, tambe assigna tots els depots
+     * @brief Assigna per cada vehicle, un grup de solicituds, tambe assigna
+     * tots els depots
      * @pre ---
-     * @post Afageix a _ruta, vehicles amb unes solicituds 
+     * @post Afageix a _ruta, vehicles amb unes solicituds
      */
     public void assignarSolicitudsAVehicles() {
-        
-            //for (int i = 0; i < _vehicles.size(); i++) 
-            int i=0;
-            int y=0;
-            int anterior=numeroSolicitudsNoAssignades();
-            while (numeroSolicitudsNoAssignades()!=0 && y<_vehicles.size()){
-                //System.out.println(_vehicles.get(i));
-                crearRuta(_vehicles.get(i));
-                _vehicles.get(i).restaurarCarrega();
-                i++;
-                if(anterior==numeroSolicitudsNoAssignades()){
-                y++;
-                }else{
-                    y=0;
-                }
-                anterior=numeroSolicitudsNoAssignades();
-                if(i==_vehicles.size()){
-                    i=0;
-                }
-                System.out.println("===============================\n Numero de solicituds restants: " +  numeroSolicitudsNoAssignades());
-                
-            }
 
-        
-        
+        //for (int i = 0; i < _vehicles.size(); i++) 
+        int i = 0;
+        int y = 0;
+        int anterior = numeroSolicitudsNoAssignades();
+        while (numeroSolicitudsNoAssignades() != 0 && y < _vehicles.size()) {
+            //System.out.println(_vehicles.get(i));
+            crearRuta(_vehicles.get(i));
+            _vehicles.get(i).restaurarCarrega();
+            i++;
+            if (anterior == numeroSolicitudsNoAssignades()) {
+                y++;
+            } else {
+                y = 0;
+            }
+            anterior = numeroSolicitudsNoAssignades();
+            if (i == _vehicles.size()) {
+                i = 0;
+            }
+            System.out.println("===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
+
+        }
+
+
         
         /*
         int indexVehicle = 0;
@@ -370,7 +369,7 @@ public class Controlador {
         int contadorSolicituds=1;
         int posInicial=v.getPosicio();
         while(s!=null && contadorSolicituds<_solicituds.size()){
-            if(vehiclePotAssolirSolicitud(v,s)){
+            if(vehiclePotAssolirSolicitud(v,s) && DinsFinestraTemps(v,s,ruta)){
                 ruta.add(s);
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);
             }
@@ -446,13 +445,14 @@ public class Controlador {
         double anar_solicitud;
         if (v.nodeInicial() == s.Origen()) {
             anar_solicitud = 0;
+           
         } else {
             anar_solicitud = _graf.getNode(v.nodeInicial()).getEdgeBetween(s.Origen()).getAttribute("Pes");
         }
         double completar_solicitud = _graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");
         double depot_proxim = buscarDepotMesProxim(s.Desti());
         double autonomia = v.carregaRestant();
-        if (anar_solicitud + completar_solicitud + depot_proxim < autonomia) {
+        if (anar_solicitud + completar_solicitud + depot_proxim < autonomia && s.NumPassatgers()<=v.nPassatgers()) {
             valid = true;
             v.descarga(anar_solicitud+completar_solicitud+depot_proxim);
             v.setPosicio(s.Desti());
@@ -526,4 +526,21 @@ public class Controlador {
         }
         return noAssignades;
     }
+     public boolean DinsFinestraTemps(Vehicle v, Solicitud s, TreeSet<Solicitud> r ){
+         boolean valid = false;
+         if(r.size()==0){
+             v.setHoraUltimaSol(s.Emisio());
+             valid=true;
+         }else
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         return valid;
+     }
 }

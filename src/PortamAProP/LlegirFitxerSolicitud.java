@@ -17,6 +17,7 @@ public class LlegirFitxerSolicitud {
 
     private SortedSet<Solicitud> _vecSol; //@brief Estructura on ens guardem les solicituds ordenades per data d'emissio decreixent
     private Graph _graf;
+    private String NOM_FITXER_SOL="Solicituds.txt"; //@brief Nom del fitxer d'on es llegeixen les solicituds
     /**
      * @brief Inicialitza la lectura de solicituds
      * @pre Cadena de caracters amb el format implicit
@@ -48,7 +49,7 @@ public class LlegirFitxerSolicitud {
             Scanner sc = new Scanner(System.in);
             System.out.println("Nom del fitxer de solicituds:");
             //String nom = sc.nextLine();
-            String nom="Solicituds.txt";
+            String nom=NOM_FITXER_SOL;
             fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
