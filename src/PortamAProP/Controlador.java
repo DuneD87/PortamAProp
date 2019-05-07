@@ -40,8 +40,8 @@ public class Controlador {
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
-    private String FORMAT_ENTRADA_GRAF="F";
-    private String FORMAT_ENTRADA_SOLICITUDS="F";
+    private String FORMAT_ENTRADA_GRAF="R";
+    private String FORMAT_ENTRADA_SOLICITUDS="R";
     private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
@@ -451,10 +451,13 @@ public class Controlador {
                 }
 
             } else {//sino mirem per cada solicitud el seu pes i ens quedem amb el de pes mes petit
-                //System.out.println("Node on esta el vehicle " + v.getPosicio());
-                //System.out.println("Node Origen solicitud " + ss.Origen());
-               // System.out.println("Pes entra la aresta" + pes);
-               double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+                //  System.out.println("Node on esta el vehicle " + v.getPosicio());
+               //System.out.println("Node Origen solicitud " + ss.Origen());
+               //System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
+                double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
+             
+                //System.out.println("Pes entra la aresta" + pes);
+               
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
                     if(millorsol == null){
                         millorsol=ss;
