@@ -17,7 +17,8 @@ public class Vehicle {
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
     private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
     private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
-    private Time _HoraUltimaSol;//@brief Temps de la emisio de la ultima solicitud assignada al vehicle
+    private Time _HoraPrimeraSol;//@brief Temps de la emisio de la primera solicitud assignada al vehicle
+    private Time _HoraUltimaSol;//@brief Temps de arribada de la ultima solicitud del vehicle
     /**
      * @brief Constructor amb parametres
      * @pre ---
@@ -35,6 +36,7 @@ public class Vehicle {
         _idNodePrincipi=node;
         _idNodeActual = _idNodePrincipi;
         _HoraUltimaSol = null;
+        _HoraPrimeraSol = null;
     }
     
     
@@ -159,10 +161,18 @@ public class Vehicle {
     }
     
     public void setHoraPrimeraSol(Time t){
-        _HoraUltimaSol=t;
+        _HoraPrimeraSol=t;
     }
     
     public Time getHoraPrimeraSol(){
+        return _HoraPrimeraSol;
+    }
+    
+    public void setHoraUltimaSol(Time t){
+        _HoraUltimaSol=t;
+    }
+    
+    public Time getHoraUltimaSol(){
         return _HoraUltimaSol;
     }
 }

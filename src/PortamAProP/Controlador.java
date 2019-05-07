@@ -594,6 +594,9 @@ public class Controlador {
         } else {
             Time limit = new Time(0);
             limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
+            if(v.getHoraUltimaSol()==null){
+                v.setHoraUltimaSol(v.getHoraPrimeraSol());
+            }
             if (s.Emisio().before(limit) && s.Emisio().after(v.getHoraPrimeraSol()) ) {
                 valid = true;
                  System.out.println("Dins de finestra de temps");
