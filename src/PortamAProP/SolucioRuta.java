@@ -129,7 +129,7 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        //System.out.println("TAMANY DE LA PILA: " + _ruta.size());
+        System.out.println("TAMANY DE LA PILA: " + _ruta.size());
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
@@ -299,7 +299,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == (_solicituds.size() - 1);
+        return _nPeticionsTramitades == (_solicituds.size() - 2);
     }
     
     /**
@@ -316,7 +316,7 @@ public class SolucioRuta {
      * de la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
-        return _cost > optim._cost;
+        return _cost < optim._cost;
     }
     
     
