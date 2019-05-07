@@ -40,7 +40,7 @@ public class Controlador {
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
-    private String FORMAT_ENTRADA_GRAF="R";
+    private String FORMAT_ENTRADA_GRAF="F";
     private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta;
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;

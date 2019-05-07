@@ -33,12 +33,12 @@ public class SolucionadorRuta {
                     System.out.flush();
                     _trobat = true;
                     _nSolucions++;
-                    if (_nSolucions < (_nSolucionsTotal + 100))
-                        System.out.print(".");
+                    /*if (_nSolucions < (_nSolucionsTotal + 100))
+                        //System.out.print(".");
                     else {
                         _nSolucionsTotal = _nSolucions;
-                        System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
-                    } 
+                        //System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
+                    } */
                         
                 }
                 
@@ -85,7 +85,7 @@ public class SolucionadorRuta {
      * @return SolucioRuta, objecte que conte la solucio potencial al algoritme
      */
     public SolucioRuta obtSolucio() {
-        return _actual;
+        return _optim;
     }
 
     /**

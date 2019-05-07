@@ -139,7 +139,7 @@ public class SolucioRuta {
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
          * ruta que el bactracking no trobi ?
          */
-        //System.out.println("NOMBRE DE PETICIONS TRAMITADES : " + _nPeticionsTramitades);
+        //System.out.println("NOMBRE DE PETICIONS TRAMITADES : " + _nPeticionsTramitades + " NOMBRE DE SOLICITUDS TOTALS: " + _solicituds.size());
        
         double temps;
         //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
@@ -249,8 +249,8 @@ public class SolucioRuta {
                  
                 break;
             case 'P':
-                _vehicle.cargar(3000);
-                _cost += 30;
+                _vehicle.cargar(300);
+                _cost += 300;
                 break;
         }
     }
@@ -286,8 +286,8 @@ public class SolucioRuta {
                  _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
                 break;
             case 'P':
-                _vehicle.descarga(3000);
-                _cost -= 30;
+                _vehicle.descarga(300);
+                _cost -= 300;
                 break;
         }
 
@@ -299,7 +299,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == _solicituds.size() - 1;
+        return _nPeticionsTramitades == (_solicituds.size() - 1);
     }
     
     /**
