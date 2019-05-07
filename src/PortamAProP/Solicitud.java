@@ -21,6 +21,7 @@ public class Solicitud implements Comparable<Solicitud> {
     private int _numPassatgers; //@brief Numero de passatgers de la solicitud
     enum ESTAT {
         ESPERA,
+        VISITADA,
         ENTRANSIT,
         FINALITZADA
     }
@@ -53,6 +54,7 @@ public class Solicitud implements Comparable<Solicitud> {
                 + "HoraEmisio: " + _horaEmisio + "\n"
                 + "HoraArribada: " + _horaArribada + "\n"
                 + "NumeroPassatgers: " + _numPassatgers + "\n"
+                + "Estat: "            + _estat.toString() + "\n"
                 + "=============================================";
         return resultat;
     }

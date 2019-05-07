@@ -1,9 +1,26 @@
+#   Format per el fitxer de Nodes
+#
+#   =============================
+#   Creacio de Nodes:
+#   1r parametre: Id del node
+#   2n parametre: Nom del node
+#   3r paramentre (opcional): Numero de cotxes que permet recargar simultaniament
+#
+#   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+#   l'ultima linia de paramentres
+#
 0 Depo0 5
 1 Depot1 5
 2 Depot2 5
 3 Depot3 5
 4 Depot4 5
 5 Depot5 5
+*
+#
+#   Creacio d'Arestes:
+#   1r paramentre: Id node origen
+#   2n paramentre: Id node desti
+#   3r paramentre: Pes de l'aresta (minuts)
 #
 0 1 3.0
 0 2 4.0
@@ -11,4 +28,4 @@
 1 3 1.0
 4 0 6.0
 3 5 40.0
-#
+*

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javafx.util.Pair;
 import org.graphstream.graph.*;
 
 public class Ruta {
@@ -33,7 +32,7 @@ public class Ruta {
     @Override
     public String toString(){
     String ruta="Vehicle de la ruta:\n"+ _vehicle.toString() + 
-            "Solicituds de la ruta: \n" + _solicituds.toString();
+            "\nSolicituds de la ruta: \n" + _solicituds.toString();
     return ruta;
     }
     

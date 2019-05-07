@@ -28,17 +28,22 @@ public class SolucionadorRuta {
                     backtracking();
                     
                 }
-                if (_actual.completa() && _actual.esMillor(_optim)) {
+                if (_actual.completa() && !_trobat) { //La primera opcio sempre es millor
                     _optim = new SolucioRuta(_actual);
-                    System.out.flush();
                     _trobat = true;
+                }
+                if (_actual.completa() && _actual.esMillor(_optim) && _trobat) { //unicament si hem trobat la primera solucio, procedim a buscar l'optim
+                    _optim = new SolucioRuta(_actual);
+                    System.out.print(".");
+                    System.out.flush();
+                    //_trobat = true;
                     _nSolucions++;
-                    /*if (_nSolucions < (_nSolucionsTotal + 100))
-                        //System.out.print(".");
+                    if (_nSolucions < (_nSolucionsTotal + 100))
+                        System.out.print(".");
                     else {
                         _nSolucionsTotal = _nSolucions;
-                        //System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
-                    } */
+                        System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
+                    }
                         
                 }
                 
@@ -98,7 +103,7 @@ public class SolucionadorRuta {
         _actual = sol;
         System.out.println("**BUSCAN SOLUCIO MILLOR**");
         backtracking();
-
+        System.out.println();
         return _trobat;
     }
 }

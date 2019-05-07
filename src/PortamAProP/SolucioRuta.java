@@ -2,7 +2,6 @@ package PortamAProP;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import javafx.util.Pair;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
@@ -83,11 +82,11 @@ public class SolucioRuta {
               }
             */
            
-            Pair<Character, Node> p1 = new Pair('O', _graf.getNode(_conversio[s.Origen()]));
+            Pair<Character, Node> p1 = new Pair('O', _graf.getNode((_conversio[s.Origen()])));
             _candidats.add(p1);
             System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(_conversio[s.Origen()]).getAttribute("Nom")
                     + " Desti: " + _graf.getNode(_conversio[s.Desti()]).getAttribute("Nom"));
-            Pair<Character, Node> p2 = new Pair('D', _graf.getNode(_conversio[s.Desti()]));
+            Pair<Character, Node> p2 = new Pair('D', _graf.getNode((_conversio[s.Desti()])));
             _candidats.add(p2);
            
         }
@@ -118,7 +117,7 @@ public class SolucioRuta {
         _cost = sol._cost;
         _nPeticions = sol._nPeticions;
         _nodes = sol._nodes;
-        _ruta = sol._ruta;
+        _ruta = (Stack<Node>)sol._ruta.clone();
         _vehicle = sol._vehicle;
         _graf = sol._graf;
     }
@@ -129,11 +128,11 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        System.out.println("TAMANY DE LA PILA: " + _ruta.size());
+        //System.out.println("TAMANY DE LA PILA: " + _ruta.size());
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
-        if (_ruta.lastElement() == p) return false;//workaround
+        //if (_ruta.lastElement() == p) return false;//workaround
         /**
          * Mirem si podem arribar al node, tenicament el voraç ja ho comprova,
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
@@ -142,8 +141,12 @@ public class SolucioRuta {
         //System.out.println("NOMBRE DE PETICIONS TRAMITADES : " + _nPeticionsTramitades + " NOMBRE DE SOLICITUDS TOTALS: " + _solicituds.size());
        
         double temps;
-        //System.out.println("Punt actual: " + p.getIndex() + tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        //System.out.println("Punt actual: " + p.getIndex());
+        //System.out.println("Punt actual: " + p.getAttribute("Nom") + "-" + tipus + " Punt anterior: " + _ruta.lastElement().getAttribute("Nom") + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
+        if (_ruta.lastElement() != p)
+            temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
@@ -230,8 +233,12 @@ public class SolucioRuta {
         //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-       _ruta.push(_candidats.get(iCan.actual()).getValue());
+        double temps;
+        if (p != _ruta.lastElement())
+            temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
+        _ruta.push(_candidats.get(iCan.actual()).getValue());
         _vehicle.descarga(temps);
         _cost += temps;
         switch (tipus) {
@@ -268,8 +275,11 @@ public class SolucioRuta {
         Node p = _ruta.pop();
          
         // System.out.println("ACTUAL: " + p + " ANTERIOR: " + _ruta.lastElement());
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-       
+        double temps;
+        if (p != _ruta.lastElement())
+            temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
         _vehicle.cargar(temps);
         _cost -= temps;
 
@@ -299,7 +309,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == (_solicituds.size() - 2);
+        return _nPeticionsTramitades == (_solicituds.size());
     }
     
     /**
@@ -316,6 +326,7 @@ public class SolucioRuta {
      * de la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
+        //System.out.println(_cost + "    ----    " + optim._cost);
         return _cost < optim._cost;
     }
     

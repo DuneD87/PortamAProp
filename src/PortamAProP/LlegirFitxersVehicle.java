@@ -33,7 +33,8 @@ public class LlegirFitxersVehicle {
 
             String linia;
             while ((linia = br.readLine()) != null) {
-                Crearvehicle(linia);
+                if(linia.charAt(0)!='#')
+                    Crearvehicle(linia);
             }
             for (Vehicle v : _vecVehicles) {
                 System.out.println(v);
@@ -59,7 +60,9 @@ public class LlegirFitxersVehicle {
      */
     private void Crearvehicle(String linia) {
         String[] parts = linia.split(" ");
+        System.out.println("capacitat persones " +Integer.parseInt(parts[1])+ "\n");
         Vehicle v = new Vehicle(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]), Integer.parseInt(parts[4]));
+        System.out.println("Creacio de vehicle\n" +v.toString() + "\n");
         _vecVehicles.add(v);
     }
     

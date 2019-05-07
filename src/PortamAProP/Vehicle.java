@@ -1,5 +1,7 @@
 package PortamAProP;
 
+import java.sql.Time;
+
 /**
  * @brief Classe encarregada de guardar dades dels vehicles
  * @author Xavier Avivar & Buenaventura Martinez
@@ -15,7 +17,7 @@ public class Vehicle {
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
     private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
     private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
-   
+    private Time _HoraUltimaSol;//@brief Temps de la emisio de la ultima solicitud assignada al vehicle
     /**
      * @brief Constructor amb parametres
      * @pre ---
@@ -23,13 +25,16 @@ public class Vehicle {
      */
     public Vehicle(int Id, int CapTotal, double AutoTot, double carga, int node){
         _identificador=Id;
+        System.out.println("Capacitat de fitxer: " + CapTotal);
         _capacitatTotal=CapTotal;
+        System.out.println("Capacitat de vehicle" + _capacitatTotal);
         _autonomiaTotal=AutoTot;
         _numPassatgers=0;
         _autonomiaRestant=AutoTot;
         _carga=carga;
         _idNodePrincipi=node;
         _idNodeActual = _idNodePrincipi;
+        _HoraUltimaSol = null;
     }
     
     
@@ -76,6 +81,7 @@ public class Vehicle {
                 + "Autonomia Restant: " + _autonomiaRestant + "\n"
                 + "CapacitatTotal " + _capacitatTotal + "\n"
                 + "Nombre de passatgers: " + _numPassatgers + "\n"
+                + "Node origen:          " + _idNodePrincipi + "\n"
                 + "=============================================";
          
         return sortida;
@@ -150,6 +156,14 @@ public class Vehicle {
      */
     public void restaurarCarrega(){
         _autonomiaRestant=_autonomiaTotal;
+    }
+    
+    public void setHoraPrimeraSol(Time t){
+        _HoraUltimaSol=t;
+    }
+    
+    public Time getHoraPrimeraSol(){
+        return _HoraUltimaSol;
     }
 }
 
