@@ -158,11 +158,11 @@ public class Vehicle {
         _autonomiaRestant=_autonomiaTotal;
     }
     
-    public void setHoraUltimaSol(Time t){
+    public void setHoraPrimeraSol(Time t){
         _HoraUltimaSol=t;
     }
     
-    public Time getHoraUltimaSol(){
+    public Time getHoraPrimeraSol(){
         return _HoraUltimaSol;
     }
 }
