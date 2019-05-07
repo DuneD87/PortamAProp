@@ -8,9 +8,9 @@ import java.util.Scanner;
 public class GeneradorSolicituds {
 
   
-    private int _maxNodes = 20;
+    private int _maxNodes = 40;
     private String _sol;
-    private static int MAX_SOL = 80;
+    private static int MAX_SOL = 120;
     private static int MAX_PERSONES = 2;
     public GeneradorSolicituds() {
 

@@ -276,10 +276,16 @@ public class Controlador {
             System.out.println("************************************************\n");
         }
     }
+    
+    /**
+     * @brief Inicialitza l'algoritme de backtracking
+     * @pre S'han assignat solicituds als vehicles dins de la finestra de temps
+     * @post S'ha trobat la millor ruta dins d'una finestra temps 
+     */
     public void algoritmeBacktracking() {
         
         int cont=0;
-        for(int i: _rutes.get(0).retornarConversio()){
+        for(int i: _rutes.get(1).retornarConversio()){
             System.out.println("Index: " + cont + "Node: " + i);
             cont++;
         }
