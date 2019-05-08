@@ -299,6 +299,7 @@ public class Controlador {
         Node first = solucio.firstElement();
         if (trobat) {
             System.out.println("Solucio trobada: ");
+            r.mostrarRuta();
         } else {
             System.out.println("No s'ha trobat solucio");
             return;

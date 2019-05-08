@@ -6,6 +6,7 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.DefaultGraph;
 
 public class Ruta {
 
@@ -115,7 +116,25 @@ public class Ruta {
      * @return 
      */
     public void mostrarRuta() {
-        
+        System.out.println("*****SOLICITUDS ATESES*****");
+        for (Solicitud s : _solCompletades)
+            s.toString();
+        Graph g = new DefaultGraph("Sol");
+        for (int i = 0; i < _nodes.size(); i++) {
+            Node n = null;
+            if (g.getNode(_nodes.get(i).getId()) == null)
+                n = g.addNode(_nodes.get(i).getId());
+            /*n.addAttribute("Tipus", _nodes.get(i).getAttribute("Tipus"));
+            n.addAttribute("Nom", _nodes.get(i).getAttribute("Nom"));*/
+            if (i < _nodes.size() - 1) {
+                if (n != null)
+                    g.addEdge("Edge" + i, n, _nodes.get(i + 1));
+            }
+        }
+        g.display();
+        System.out.println("HORA DE FINALITZACIO: " + _horaFi);
+        System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa);
+        System.out.println("TEMPS A DEPOT: " + _tempsADepot);
     }
 
     public int[] retornarConversio() {
