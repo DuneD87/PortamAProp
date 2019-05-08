@@ -1,6 +1,7 @@
 package PortamAProP;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 /**
  * @brief Classe encarregada de guardar dades dels vehicles
@@ -17,8 +18,8 @@ public class Vehicle {
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
     private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
     private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
-    private Time _HoraPrimeraSol;//@brief Temps de la emisio de la primera solicitud assignada al vehicle
-    private Time _HoraUltimaSol;//@brief Temps de arribada de la ultima solicitud del vehicle
+    private LocalTime _HoraUltimaSol;//@brief Temps de la arribada de la ultima solicitud assignada al vehicle
+    private LocalTime _HoraPrimeraSol;//@brief Temps de la emisio de la primera solicitud assignada al vehicle
     /**
      * @brief Constructor amb parametres
      * @pre ---
@@ -160,19 +161,19 @@ public class Vehicle {
         _autonomiaRestant=_autonomiaTotal;
     }
     
-    public void setHoraPrimeraSol(Time t){
+    public void setHoraPrimeraSol(LocalTime t){
         _HoraPrimeraSol=t;
     }
     
-    public Time getHoraPrimeraSol(){
+    public LocalTime getHoraPrimeraSol(){
         return _HoraPrimeraSol;
     }
     
-    public void setHoraUltimaSol(Time t){
+    public void setHoraUltimaSol(LocalTime t){
         _HoraUltimaSol=t;
     }
     
-    public Time getHoraUltimaSol(){
+    public LocalTime getHoraUltimaSol(){
         return _HoraUltimaSol;
     }
 }

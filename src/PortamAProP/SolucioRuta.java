@@ -1,6 +1,8 @@
 package PortamAProP;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -13,29 +15,33 @@ import org.graphstream.graph.Node;
 
 public class SolucioRuta {
 
-    ArrayList<Node> _nodes; //@brief Subgrup de nodes que el nostre vehicle atendra
-    ArrayList<Solicitud> _solicituds;//@breif Subgrup de solicituds que el nostre vehicle atendra
+
+    private ArrayList<Solicitud> _solicituds;//@breif Subgrup de solicituds que el nostre vehicle atendra
 
     /**
      * @brief Aquesta estructura requereix una explicacio mes elaborada. La idea
      * es la seguent: Guardem una coleccio de pairs, aquest pair conte un
      * character que ens diu si el candidat es origen, desti o depot, i
-     * seguidament una referencia a un node, per si en el cas de que es depot,
-     * poder obtenir la capacitat actual del punt de carrega.
+     * seguidament una referencia a un node, per poder comprovar pes de aresta en
+     * temps constant.
      */
+    private ArrayList<Pair<Character, Node>> _candidats;
+    private Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
+    private double _tempsEnMarxa;//@brief temps acumulat en atendre totes les peticions
+    private double _tempsADepot;//@brief temps que esta el vehicle carregan
+    private Graph _graf;//@brief Subgraph sobre el que treballem
     
-    //TODO, comprovar que tenim lloc al depot, encara que si treballem amb un 
-    //vehicle, sempre tindrem lloc ?
+    private Stack<Node> _nodes;//@brief Conjunt de nodes que representa la nostra ruta
+    private Stack<Character> _accio;//@brief accio feta a cada node
+    private Stack<Integer> _carrega;//@brief ens diu quants passatgers a carregat/descarregat a cada node
     
-    ArrayList<Pair<Character, Node>> _candidats;
-    Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
-    double _cost;//@brief temps acumulat en atendre totes les peticions
-    Graph _graf;//@brief Subgraph sobre el que treballem
-    Stack<Node> _ruta;//@brief Conjunt de nodes que representa la nostra ruta
     private int _nPeticions;//@brief Numero de peticions que estem tramitan
     private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
+    private LocalTime _horaActual; //@brief Ens diu l'hora actual
     
-    static final double FACTOR_CARREGA_CRITIC = 0.5; //@brief Constant que ens diu quan el vehicle ha de carregar
+    private Ruta _ruta;//@brief Ruta que fa el vehicle
+    
+    private static final double FACTOR_CARREGA_CRITIC = 0.5; //@brief Constant que ens diu quan el vehicle ha de carregar
     
     //Afegit per Buenaventura 
     private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
@@ -46,53 +52,53 @@ public class SolucioRuta {
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
      */
-    public SolucioRuta(Ruta r, Graph g) {
-
-        //NO COINCIDEIX CANDIDAT AMB SOLICITUD
+    public SolucioRuta(Ruta r,LocalTime horaActual) {
+       
+        //Inicialitzem les diferents estructures
         _solicituds = r.getSol();
         _vehicle = r.getVehicle();
-        _cost = 0;
+        _tempsEnMarxa = 0;
         _nPeticions = 0;
         _graf = r.getGraph();
         _conversio=r.retornarConversio();
-        _nodes = new ArrayList<>(_graf.getNodeSet());
-        System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
-                 "VEHICLE:\n" + _vehicle.toString());
+        List<Node> nodes = new ArrayList<>(_graf.getNodeSet());
         _vehicle.cargar(50000);
         _candidats = new ArrayList<>();
-        _ruta = new Stack<>();
-        _graf.display();
-        for (Node p : _nodes) {
+        _nodes = new Stack<>();
+        _horaActual = horaActual;//comencem a les 12
+        _accio = new Stack<>();
+        _carrega = new Stack<>();
+        _tempsADepot = 0;
+        _ruta = r;
+         System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
+                 "VEHICLE:\n" + _vehicle.toString());
+         
+        //Busquem la posicio del vehicle
+        for (Node p : nodes) {
             if (p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
                 System.out.println("****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****\n");
-                _ruta.push(p);
+                _nodes.push(p);
             }
                 
         }
+        
+        //Creem dins de les solicituds els origens i destinacions i els afegim a la llista de candidats
         for (Solicitud s : _solicituds) {
             s.setEstat(Solicitud.ESTAT.ESPERA);
-           /*
-            System.out.println("Origen en el graf: "+ s.Origen()+ " En el subgraf: " + _conversio[s.Origen()]);
-             System.out.println("Desti en el graf: "+ s.Desti()+ " En el subgraf: " + _conversio[s.Desti()]);
-              System.out.println("Els nodes existeixen Origen: " + _graf.getNode(_conversio[s.Origen()]).getIndex());
-              System.out.println("Desti: " + _graf.getNode(_conversio[s.Desti()]).getIndex());
-              System.out.println("=================NODES DEL SUBGRAF");
-              for(Node n: _graf){
-                  System.out.println("Node "+n+ " Index " + n.getIndex());
-              }
-            */
-           
             Pair<Character, Node> p1 = new Pair('O', _graf.getNode((_conversio[s.Origen()])));
             _candidats.add(p1);
             System.out.println("SOLICITUD: " + "Origen: " + _graf.getNode(_conversio[s.Origen()]).getAttribute("Nom")
-                    + " Desti: " + _graf.getNode(_conversio[s.Desti()]).getAttribute("Nom"));
+                    + " Desti: " + _graf.getNode(_conversio[s.Desti()]).getAttribute("Nom")
+                    + " Hora emissio: " + s.Emisio());
             Pair<Character, Node> p2 = new Pair('D', _graf.getNode((_conversio[s.Desti()])));
             _candidats.add(p2);
            
         }
         System.out.println("NOMBRE DE SOLICITUDS A ATENDRE: " + _solicituds.size());
+        
+        //Busquem els depots i els afegim a la llista de candidats
         int nDepots = 0;
-        for (Node p : _nodes) {
+        for (Node p : nodes) {
             String s = p.getAttribute("Tipus");
             if (p.getAttribute("Tipus") == "Depot" && !p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
                 Pair<Character, Node> depot = new Pair('P', p);
@@ -100,7 +106,6 @@ public class SolucioRuta {
                 nDepots++;
             }
         }
-        //System.out.println("TAMANY DELS CANDIDATS: " + _candidats.size());
         System.out.println("NOMBRE DE DEPOTS: " + nDepots +
                 "\n*********************************************************************************************************");
     }
@@ -114,12 +119,16 @@ public class SolucioRuta {
         _solicituds = sol._solicituds;
         _candidats = sol._candidats;
         _conversio = sol._conversio;
-        _cost = sol._cost;
+        _tempsEnMarxa = sol._tempsEnMarxa;
         _nPeticions = sol._nPeticions;
-        _nodes = sol._nodes;
-        _ruta = sol._ruta;
+        _nodes = (Stack<Node>)sol._nodes.clone();
         _vehicle = sol._vehicle;
         _graf = sol._graf;
+        _horaActual = sol._horaActual;
+        _accio = sol._accio;
+        _carrega = sol._carrega;
+        _tempsADepot = sol._tempsADepot;
+        _ruta = sol._ruta;
     }
 
     /**
@@ -128,30 +137,28 @@ public class SolucioRuta {
      * @post Ens diu si el candidat es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
-        //System.out.println("TAMANY DE LA PILA: " + _ruta.size());
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
-        if (_ruta.lastElement() == p) return false;//workaround
         /**
          * Mirem si podem arribar al node, tenicament el voraç ja ho comprova,
          * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
          * ruta que el bactracking no trobi ?
          */
-        //System.out.println("NOMBRE DE PETICIONS TRAMITADES : " + _nPeticionsTramitades);
        
         double temps;
-        //System.out.println("Punt actual: " + p.getIndex());
-        //System.out.println(tipus + " Punt anterior: " + _ruta.lastElement().getIndex() + " pes: " + " Carrega restant: " + _vehicle.carregaRestant());
-        temps = (Double)_ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
+        if (_nodes.lastElement() != p)
+            temps = (Double)_nodes.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
+
         if (temps < _vehicle.carregaRestant()) {
             // Podem arribar, mirem si el candidat es acceptable
             switch (tipus) {
                 case 'O':
-                    acceptable = origenAcceptable(iCan);
+                    acceptable = origenAcceptable(iCan,temps);
                     break;
                 case 'D':
-                    //TODO: El desti es acceptable si tenim gent al cotxe encara que tinguem la bateria al 50% o menys ( afegim factor nou ? factor regular + factor critic ? )
                     acceptable = destiAcceptable(iCan, p);
                     break;
                 case 'P':
@@ -159,24 +166,23 @@ public class SolucioRuta {
                     break;
             }
         }
-        //System.out.println(acceptable);
         return acceptable;
     }
-
+   
+    
     /**
      * @brief Ens diu si considerem el candidat origen com a acceptable, per
      * aixo s'han de cumplir dos condicions: 
      * ->Tenim prou espai per carregar els
      * clients que esperen. 
-     * ->La bateria del vehicle es superior al 50%, sino entraria en contradiccio amb la primera llei robotica, que obliga al
-     * automata a no agredir a cap huma.
-
+     * ->La bateria del vehicle es superior al 50%
      */
-    private boolean origenAcceptable(CandidatRuta iCan) {
+    private boolean origenAcceptable(CandidatRuta iCan, double temps) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
-        return _solicituds.get(iCan.actual()/2).NumPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
+        Solicitud actual = _solicituds.get(iCan.actual()/2);
+        return actual.NumPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
-                && _solicituds.get(iCan.actual()/2).getEstat() == Solicitud.ESTAT.ESPERA;
+                && actual.getEstat() == Solicitud.ESTAT.ESPERA;
     }
 
     /**
@@ -209,7 +215,6 @@ public class SolucioRuta {
      * -Desti: Desti d'una peticio -Depot: Punt de recarrega
      */
     public CandidatRuta iniCan() {
-        //System.out.println("Tamany candidat: "  + _candidats.size() + "Tamany solicituds: " + _solicituds.size());
         return new CandidatRuta(_candidats.size() - 1);
     }
 
@@ -227,30 +232,51 @@ public class SolucioRuta {
      * global.
      */
     public void anotar(CandidatRuta iCan) {
-        //System.out.println("ANOTEM");
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-       _ruta.push(_candidats.get(iCan.actual()).getValue());
+        double temps;
+        
+        if (p != _nodes.lastElement())
+            temps = _nodes.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
+        
+        _nodes.push(_candidats.get(iCan.actual()).getValue());
+        _accio.push(tipus);
+        
         _vehicle.descarga(temps);
-        _cost += temps;
+        _tempsEnMarxa += temps;
+        
+        Solicitud actual =  _solicituds.get(iCan.actual()/2);
+        
         switch (tipus) {
             case 'O':
                 _nPeticions++;
-                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual() / 2).NumPassatgers());
-                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                _vehicle.ModificarPassatgers(actual.NumPassatgers());
+                _carrega.push(actual.NumPassatgers());
+                actual.setEstat(Solicitud.ESTAT.ENTRANSIT);
                 
+                if (_horaActual.isBefore(actual.Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
+                    _horaActual = _horaActual.plusMinutes(actual.Emisio().toSecondOfDay()/60 + (long)temps);
+                    if (_horaActual.isBefore(actual.Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
+                        _horaActual = _horaActual.plusMinutes(15);//millorable 
+                    }
+                }
+                actual.assignarHoraRecollida(_horaActual);
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
-                _vehicle.ModificarPassatgers(-1 * _solicituds.get(iCan.actual() / 2).NumPassatgers());
-                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
-                 
+                _vehicle.ModificarPassatgers(-1 * actual.NumPassatgers());
+                _carrega.push(-1*actual.NumPassatgers());
+                actual.setEstat(Solicitud.ESTAT.FINALITZADA);
+                actual.AssignarArribada(_horaActual);
                 break;
             case 'P':
-                _vehicle.cargar(3000);
-                _cost += 30;
+                double carregaCompleta = _vehicle.carregaTotal() - _vehicle.carregaRestant();
+                _vehicle.cargar(carregaCompleta);
+                _carrega.push((int)carregaCompleta);//bad decisions.. 
+                _tempsADepot += carregaCompleta;
                 break;
         }
     }
@@ -263,31 +289,47 @@ public class SolucioRuta {
      * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
      */
     public void desanotar(CandidatRuta iCan) {
-        //System.out.println("DESANOTEM");
-        char tipus = _candidats.get(iCan.actual()).getKey();
-        Node p = _ruta.pop();
+        char tipus = _accio.pop();
+        Node p = _nodes.pop();
+        
          
-        // System.out.println("ACTUAL: " + p + " ANTERIOR: " + _ruta.lastElement());
-        double temps = _ruta.lastElement().getEdgeBetween(p).getAttribute("pes");
-       
+        double temps;
+        if (p != _nodes.lastElement())
+            temps = _nodes.lastElement().getEdgeBetween(p).getAttribute("pes");
+        else
+            temps = 0;
+        
         _vehicle.cargar(temps);
-        _cost -= temps;
+        _tempsEnMarxa -= temps;
+        
+        Solicitud actual = _solicituds.get(iCan.actual()/2);
 
         switch (tipus) {
             case 'O':
                 _nPeticions--;
-                _vehicle.ModificarPassatgers(-1*_solicituds.get(iCan.actual()/2).NumPassatgers());
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ESPERA);
+                _vehicle.ModificarPassatgers(-1*actual.NumPassatgers());
+                _carrega.pop();
+                actual.setEstat(Solicitud.ESTAT.ESPERA);
+                 if (_horaActual.isAfter(actual.Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
+                    _horaActual = _horaActual.minusMinutes(actual.Emisio().toSecondOfDay()/60 + (long)temps);
+                    if (_horaActual.isAfter(actual.Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
+                        _horaActual = _horaActual.minusMinutes(15);//millorable 
+                    }
+                }
+                actual.assignarHoraRecollida(null);
                 break;
             case 'D':
                 _nPeticions++;
                 _nPeticionsTramitades--;
-                _vehicle.ModificarPassatgers(_solicituds.get(iCan.actual()/2).NumPassatgers());
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                _vehicle.ModificarPassatgers(actual.NumPassatgers());
+                _carrega.pop();
+                actual.setEstat(Solicitud.ESTAT.ENTRANSIT);
+                actual.AssignarArribada(null);
                 break;
             case 'P':
-                _vehicle.descarga(3000);
-                _cost -= 30;
+                double carregaCompleta = (double)_carrega.pop();
+                _vehicle.descarga(carregaCompleta);
+                _tempsADepot -= carregaCompleta;
                 break;
         }
 
@@ -299,7 +341,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == _solicituds.size() - 1;
+        return _nPeticionsTramitades == (_solicituds.size());
     }
     
     /**
@@ -316,15 +358,43 @@ public class SolucioRuta {
      * de la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
-        return _cost > optim._cost;
+        return _tempsEnMarxa < optim._tempsEnMarxa;
     }
     
-    
+    /**
+     * @brief Ruta efectuada
+     * @pre ---
+     * @post Ens dona una pila de nodes que descriu el recorregut del vehicle
+     * @return 
+     */
     public Stack<Node> obtSolucio() {
-        return _ruta;
+        return _nodes;
     }
     
+    /**
+     * @brief Temps total
+     * @pre ---
+     * @post Ens diu el temps total que ha tardat el vehicle en efectuar la ruta
+     */
     public double obtCost() {
-        return _cost;
+        return _tempsEnMarxa;
+    }
+    
+    /**
+     * @brief Hora d'acabada
+     * @pre ---
+     * @post Ens diu l'hora en que ha finalitzat el vehicle
+     */
+    public LocalTime horaArribada() {
+        return _horaActual;
+    }
+    
+    /**
+     * @brief Guarda el resultat a ruta
+     * @pre ---
+     * @post S'han guardat les diferents estructures a ruta
+     */
+    public void finalitzar() {
+        _ruta.completarRuta(_nodes,_accio,_carrega,_solicituds,_horaActual,_tempsEnMarxa,_tempsADepot);
     }
 }

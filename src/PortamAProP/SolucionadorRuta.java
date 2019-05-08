@@ -28,17 +28,22 @@ public class SolucionadorRuta {
                     backtracking();
                     
                 }
-                if (_actual.completa() && _actual.esMillor(_optim)) {
+                if (_actual.completa() && !_trobat) { //La primera opcio sempre es millor
                     _optim = new SolucioRuta(_actual);
-                    System.out.flush();
                     _trobat = true;
+                }
+                if (_actual.completa() && _actual.esMillor(_optim) && _trobat) { //unicament si hem trobat la primera solucio, procedim a buscar l'optim
+                    _optim = new SolucioRuta(_actual);
+                    System.out.print(".");
+                    System.out.flush();
+                    //_trobat = true;
                     _nSolucions++;
                     if (_nSolucions < (_nSolucionsTotal + 100))
                         System.out.print(".");
                     else {
                         _nSolucionsTotal = _nSolucions;
                         System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
-                    } 
+                    }
                         
                 }
                 
@@ -85,7 +90,7 @@ public class SolucionadorRuta {
      * @return SolucioRuta, objecte que conte la solucio potencial al algoritme
      */
     public SolucioRuta obtSolucio() {
-        return _actual;
+        return _optim;
     }
 
     /**
@@ -94,11 +99,11 @@ public class SolucionadorRuta {
      * algoritme
      * @return
      */
-    public boolean existeixSolucio(SolucioRuta sol) {
-        _actual = sol;
+    public boolean existeixSolucio() {
         System.out.println("**BUSCAN SOLUCIO MILLOR**");
         backtracking();
-
+        System.out.println();
+        if (_trobat) _optim.finalitzar();
         return _trobat;
     }
 }
