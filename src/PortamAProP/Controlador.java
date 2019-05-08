@@ -102,7 +102,7 @@ public class Controlador {
                     }
                     break;
                 case 2:
-                    algoritmeBacktracking();
+                    algoritmeBacktracking(_rutes.get(0));
                     break;
                 case 3:
 
@@ -284,7 +284,7 @@ public class Controlador {
      * @pre S'han assignat solicituds als vehicles dins de la finestra de temps
      * @post S'ha trobat la millor ruta dins d'una finestra temps
      */
-    public void algoritmeBacktracking() {
+    public void algoritmeBacktracking(Ruta r) {
 
         int cont = 0;
         for (int i : _rutes.get(1).retornarConversio()) {
@@ -292,9 +292,9 @@ public class Controlador {
             cont++;
         }
         LocalTime horaActual = LocalTime.MIDNIGHT;
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),horaActual);
+        SolucioRuta solRuta = new SolucioRuta(r,horaActual);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
-        boolean trobat = soluRuta.existeixSolucio(solRuta);
+        boolean trobat = soluRuta.existeixSolucio();
         Stack<Node> solucio = soluRuta.obtSolucio().obtSolucio();
         Node first = solucio.firstElement();
         if (trobat) {
@@ -303,22 +303,7 @@ public class Controlador {
             System.out.println("No s'ha trobat solucio");
             return;
         }
-        System.out.print(first.getAttribute("Nom").toString());
-        int i = 0;
-        for (Node n : solucio) {
-            if (i > 0) {
-                System.out.print("->" + n.getAttribute("Nom"));
-            }
-            if (i > 9) {
-                System.out.println();
-                i = 1;
-            }
-            i++;
-        }
-        System.out.println();
-        System.out.println("Temps total: " + soluRuta.obtSolucio().obtCost() + " minuts");
-        System.out.println("Hora d'arribada: " + soluRuta.obtSolucio().horaArribada());
-        //System.out.println("Tamany de la solucio:" + s.size());
+     
     }
 
     /**

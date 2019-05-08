@@ -19,6 +19,7 @@ public class Solicitud implements Comparable<Solicitud> {
     private int _llocDesti; //@brief Desti de la solicitud
     private LocalTime _horaEmisio; //@brief Hora, minuts i segons en la que s'ha fet la solicitud
     private LocalTime _horaArribada; //@brief Hora, minuts i segons en que s'ha acabat el trajecte
+    private LocalTime _horaRecollida;//@brief Hora real en que recollim els clients
     private int _numPassatgers; //@brief Numero de passatgers de la solicitud
     enum ESTAT {
         ESPERA,
@@ -38,6 +39,7 @@ public class Solicitud implements Comparable<Solicitud> {
         _llocDesti = desti;
         _horaEmisio = emisio;
         _horaArribada=null;
+        _horaRecollida = null;
         _numPassatgers = numPersones;
         _estat = ESTAT.ESPERA;
     }
@@ -53,6 +55,7 @@ public class Solicitud implements Comparable<Solicitud> {
                 + "LlocOrigen: " + _llocOrigen + "\n"
                 + "LLocDesti: " + _llocDesti + "\n"
                 + "HoraEmisio: " + _horaEmisio + "\n"
+                + "HoraRecollida: " + _horaRecollida + "\n"
                 + "HoraArribada: " + _horaArribada + "\n"
                 + "NumeroPassatgers: " + _numPassatgers + "\n"
                 + "Estat: "            + _estat.toString() + "\n"
@@ -121,6 +124,15 @@ public class Solicitud implements Comparable<Solicitud> {
      */
     public void AssignarArribada(LocalTime arribada){
         _horaArribada=arribada;
+    }
+    
+    /**
+     * @brief Assigna l'hora real de recollida
+     * @pre ---
+     * @post S'ha assignat una hora de recollida real
+     */
+    public void assignarHoraRecollida(LocalTime hora) {
+        _horaRecollida = hora;
     }
     
     /**

@@ -99,11 +99,11 @@ public class SolucionadorRuta {
      * algoritme
      * @return
      */
-    public boolean existeixSolucio(SolucioRuta sol) {
-        _actual = sol;
+    public boolean existeixSolucio() {
         System.out.println("**BUSCAN SOLUCIO MILLOR**");
         backtracking();
         System.out.println();
+        if (_trobat) _optim.finalitzar();
         return _trobat;
     }
 }
