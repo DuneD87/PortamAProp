@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -85,7 +86,7 @@ public class LlegirFitxerSolicitud {
     private void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
         if(_graf.getNode(parts[1])!=null &&_graf.getNode(parts[2])!=null && _graf.getNode(parts[1]).hasEdgeBetween(parts[2])){
-        Time emisio = new Time(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
+        LocalTime emisio = LocalTime.of(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
         Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[6]));
         _vecSol.add(sol);
         }else

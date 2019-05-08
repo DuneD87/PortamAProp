@@ -6,6 +6,7 @@ package PortamAProP;
  */
 
 import java.sql.Time;
+import java.time.LocalTime;
 import org.graphstream.graph.*;
 import org.graphstream.graph.Node;
 
@@ -16,8 +17,8 @@ public class Solicitud implements Comparable<Solicitud> {
     private int _identificadorSol; //@brief Identificador de solicitud
     private int _llocOrigen; //@brief Origen de la solicitud
     private int _llocDesti; //@brief Desti de la solicitud
-    private Time _horaEmisio; //@brief Hora, minuts i segons en la que s'ha fet la solicitud
-    private Time _horaArribada; //@brief Hora, minuts i segons en que s'ha acabat el trajecte
+    private LocalTime _horaEmisio; //@brief Hora, minuts i segons en la que s'ha fet la solicitud
+    private LocalTime _horaArribada; //@brief Hora, minuts i segons en que s'ha acabat el trajecte
     private int _numPassatgers; //@brief Numero de passatgers de la solicitud
     enum ESTAT {
         ESPERA,
@@ -31,7 +32,7 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre ---
      * @post S'ha construit una nova solicitud amb els parametres donats
      */
-    public Solicitud(int id, int origen, int desti, Time emisio, int numPersones) {
+    public Solicitud(int id, int origen, int desti, LocalTime emisio, int numPersones) {
         _identificadorSol = id;
         _llocOrigen = origen;
         _llocDesti = desti;
@@ -91,7 +92,7 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre S'ha inicialitzat la solicitud
      * @return 
      */
-    public Time Emisio(){
+    public LocalTime Emisio(){
         return _horaEmisio;
     }
     
@@ -100,7 +101,7 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre S'ha finalitzat la solicitud
      * @post Ens diu l'hora d'arribada en format Time 'HH:MM:SS'
      */
-    public Time Arribada(){
+    public LocalTime Arribada(){
         return _horaArribada;
     }
     
@@ -118,7 +119,7 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre Hora valida
      * @post S'ha completat la solicitud amb hora d'arribada 'arribada'
      */
-    public void AssignarArribada(Time arribada){
+    public void AssignarArribada(LocalTime arribada){
         _horaArribada=arribada;
     }
     

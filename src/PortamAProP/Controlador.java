@@ -2,6 +2,7 @@ package PortamAProP;
 
 import java.io.File;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -40,15 +41,16 @@ public class Controlador {
     private GeneradorSolicituds _generadorSol; // @brief Objecte que ens permet generar un conjunt de solicituds aleatoriament
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
-    private String FORMAT_ENTRADA_GRAF="R";
-    private String FORMAT_ENTRADA_SOLICITUDS="R";
-    private List<Pair<Vehicle,TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
+    private String FORMAT_ENTRADA_GRAF = "R";
+    private String FORMAT_ENTRADA_SOLICITUDS = "F";
+    private List<Pair<Vehicle, TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY=1000;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY = 100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS=3600000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MILISEGONS)
+    private long LIMIT_FINESTRA_TEMPS = 3600000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MILISEGONS)
+
     /**
      * @brief Constructor per defecte
      * @pre ---
@@ -61,8 +63,8 @@ public class Controlador {
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
-        _ruta= new ArrayList<Pair<Vehicle,TreeSet<Solicitud>>>(10);
-        _rutes=new ArrayList<Ruta>();
+        _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
+        _rutes = new ArrayList<Ruta>();
     }
 
     /**
@@ -74,9 +76,9 @@ public class Controlador {
         //assignarSolicitudsAVehicles();
         mostrarMenu();
         gestionarMenu();
-        
+
     }
-    
+
     /**
      * @brief Gestiona les diferents opcions del menu
      * @pre ---
@@ -90,12 +92,12 @@ public class Controlador {
         while (opcio != 0) {
             switch (opcio) {
                 case 1:
-                    _graf.display(true); 
-                    
-                   // for(Node n: _graf){
-                     //   System.out.println("Id: " + n.getId() + " Vehicles actuals: " + n.getAttribute("VehicleActual"));
+                    _graf.display(true);
+
+                    // for(Node n: _graf){
+                    //   System.out.println("Id: " + n.getId() + " Vehicles actuals: " + n.getAttribute("VehicleActual"));
                     //}
-                    for(int i=0;i<_graf.getNodeCount();i++){
+                    for (int i = 0; i < _graf.getNodeCount(); i++) {
                         System.out.println("Id: " + _graf.getNode(i).getId() + " Vehicles actuals: " + _graf.getNode(i).getAttribute("VehiclesActual"));
                     }
                     break;
@@ -103,7 +105,7 @@ public class Controlador {
                     algoritmeBacktracking();
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
                     //_graf.display();
@@ -114,11 +116,11 @@ public class Controlador {
                 case 5:
                     mostrarSolicitudsNoAssignades();
                     break;
-                case 6: 
+                case 6:
                     mostrarRutes();
                     break;
                 case 0:
-                    return ;
+                    System.exit(1);
             }
             System.out.println("Comanda:");
             opcio = Integer.parseInt(inText.nextLine());
@@ -134,6 +136,7 @@ public class Controlador {
         System.out.println("MENU\n"
                 + "1 - Mostrar Graf\n"
                 + "2 - Algoritme Backtracking\n"
+                + "4 - Obrir finestra de temps\n"
                 + "0 - Sortir");
     }
 
@@ -146,14 +149,14 @@ public class Controlador {
     private void generarVehicles() {
         LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle();
         _vehicles = lVehicle.obtVehicles();
-        
-        for(int i=0;i<_vehicles.size();i++){//suma 1 per cada vehicle en el su depot
-            Vehicle v=_vehicles.get(i);
+
+        for (int i = 0; i < _vehicles.size(); i++) {//suma 1 per cada vehicle en el su depot
+            Vehicle v = _vehicles.get(i);
             System.out.println(v.nodeInicial());
-            Integer n=Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehiclesActual"))+1;
-            String s=n.toString();
+            Integer n = Integer.parseInt(_graf.getNode(v.nodeInicial()).getAttribute("VehiclesActual")) + 1;
+            String s = n.toString();
             _graf.getNode(v.nodeInicial()).setAttribute("VehiclesActual", s);
-        }  
+        }
     }
 
     /**
@@ -163,13 +166,13 @@ public class Controlador {
      */
     private void generarSolicituds() {
         LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(_graf);
-        if(FORMAT_ENTRADA_SOLICITUDS.equals("R")){
-        GeneradorSolicituds sol = new GeneradorSolicituds();
-        String lSol = sol.toString();
-        System.out.println(lSol);
-        lFitxer= new LlegirFitxerSolicitud(lSol, _graf);}
-        else if(FORMAT_ENTRADA_SOLICITUDS.equals("F")){
-        // Ja esta fet a la inicialitzacio del objecte lFitxer
+        if (FORMAT_ENTRADA_SOLICITUDS.equals("R")) {
+            GeneradorSolicituds sol = new GeneradorSolicituds();
+            String lSol = sol.toString();
+            System.out.println(lSol);
+            lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
+        } else if (FORMAT_ENTRADA_SOLICITUDS.equals("F")) {
+            // Ja esta fet a la inicialitzacio del objecte lFitxer
         }
         _solicituds = lFitxer.obtSol();
     }
@@ -186,13 +189,13 @@ public class Controlador {
         System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
         //Scanner teclat=new Scanner(System.in);
         //String opcio=teclat.nextLine();
-        
-        if(FORMAT_ENTRADA_GRAF.equals("R")){
+
+        if (FORMAT_ENTRADA_GRAF.equals("R")) {
             _generadorNodes = new GeneradorNodesGraf();
             _generadorNodes.GeneradorAleatoriNodes(_graf.getNodeCount());
-            String nodes=_generadorNodes.OptenirNodes();
-            mapa.ModificarGrafPerString(_graf, nodes,"Solicitud");    
-        }else if(FORMAT_ENTRADA_GRAF.equals("F")){
+            String nodes = _generadorNodes.OptenirNodes();
+            mapa.ModificarGrafPerString(_graf, nodes, "Solicitud");
+        } else if (FORMAT_ENTRADA_GRAF.equals("F")) {
             mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "Solicitud");
         }
 
@@ -201,7 +204,7 @@ public class Controlador {
 
     }
 
-     /**
+    /**
      * @brief Assigna per cada vehicle, un grup de solicituds, tambe assigna
      * tots els depots
      * @pre ---
@@ -215,7 +218,7 @@ public class Controlador {
         int anterior = numeroSolicitudsNoAssignades();
         while (numeroSolicitudsNoAssignades() != 0 && y < _vehicles.size()) { //Mentre hi hagin solicituds sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
             System.out.println(_vehicles.get(i));
-           // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
+            // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
             crearRuta(_vehicles.get(i));
             _vehicles.get(i).restaurarCarrega(); //Restarura la carga ja que ha estat modificada al crear la ruta
             i++;
@@ -231,11 +234,10 @@ public class Controlador {
             System.out.println("\n===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
 
         }
-        for(Vehicle v: _vehicles){ //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
+        for (Vehicle v : _vehicles) { //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
             v.setPosicio(v.nodeInicial());
         }
 
-        
         /*
         //GREEDY SENSILL
         int indexVehicle = 0;
@@ -256,17 +258,17 @@ public class Controlador {
             _ruta.add(subSol);
             indexVehicle++;
         }
-        */
+         */
     }
 
-     /**
+    /**
      * @brief Mostra les solicituds per cada vehicle
      * @pre ---
      * @post Mostra les solicituds per cada vehicle
      */
-    public void mostrarVehiclesSolicituds(){
-        Iterator<Pair<Vehicle,TreeSet<Solicitud>>> it= _ruta.iterator();
-        while(it.hasNext()){
+    public void mostrarVehiclesSolicituds() {
+        Iterator<Pair<Vehicle, TreeSet<Solicitud>>> it = _ruta.iterator();
+        while (it.hasNext()) {
             Pair<Vehicle, TreeSet<Solicitud>> pair = it.next();
             Vehicle v = pair.getKey();
             TreeSet<Solicitud> s = pair.getValue();
@@ -276,62 +278,66 @@ public class Controlador {
             System.out.println("************************************************\n");
         }
     }
-    
+
     /**
      * @brief Inicialitza l'algoritme de backtracking
      * @pre S'han assignat solicituds als vehicles dins de la finestra de temps
-     * @post S'ha trobat la millor ruta dins d'una finestra temps 
+     * @post S'ha trobat la millor ruta dins d'una finestra temps
      */
     public void algoritmeBacktracking() {
-        
-        int cont=0;
-        for(int i: _rutes.get(1).retornarConversio()){
+
+        int cont = 0;
+        for (int i : _rutes.get(1).retornarConversio()) {
             System.out.println("Index: " + cont + "Node: " + i);
             cont++;
         }
-        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),_graf);
+        LocalTime horaActual = LocalTime.MIDNIGHT;
+        SolucioRuta solRuta = new SolucioRuta(_rutes.get(1),horaActual);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio(solRuta);
         Stack<Node> solucio = soluRuta.obtSolucio().obtSolucio();
         Node first = solucio.firstElement();
-        if (trobat)
+        if (trobat) {
             System.out.println("Solucio trobada: ");
-        else {
+        } else {
             System.out.println("No s'ha trobat solucio");
             return;
         }
         System.out.print(first.getAttribute("Nom").toString());
         int i = 0;
         for (Node n : solucio) {
-            if (i > 0)
-                System.out.print("->" + n.getAttribute("Nom") );
-                if (i > 9) {
-                    System.out.println();
-                    i = 1;
-                }
+            if (i > 0) {
+                System.out.print("->" + n.getAttribute("Nom"));
+            }
+            if (i > 9) {
+                System.out.println();
+                i = 1;
+            }
             i++;
         }
         System.out.println();
         System.out.println("Temps total: " + soluRuta.obtSolucio().obtCost() + " minuts");
+        System.out.println("Hora d'arribada: " + soluRuta.obtSolucio().horaArribada());
         //System.out.println("Tamany de la solucio:" + s.size());
     }
-    
-     /**
+
+    /**
      * @brief crea i mostra un subgraf complet amb les soliciutds del vehicle
      * @pre ---
-     * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de llista_solicituds 
+     * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de
+     * llista_solicituds
      */
-    public Graph crearSubGraf(Vehicle v,TreeSet<Solicitud> llista_solicituds, int [] c) {
+    public Graph crearSubGraf(Vehicle v, TreeSet<Solicitud> llista_solicituds, int[] c) {
         Iterator<Solicitud> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         //Primer afegim tots els depots
-        for(int x=0;x<mapa.GetNumDepot();x++){            
-                subgraf.addNode(_graf.getNode(x).getId());
-                subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot"+x);
-                subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Tipus", "Depot");
-                subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Nom", _graf.getNode(x).getAttribute("Nom").toString());
-                c[_graf.getNode(x).getIndex()]=x;
-                
+        for (int x = 0; x < mapa.GetNumDepot(); x++) {
+            subgraf.addNode(_graf.getNode(x).getId());
+            subgraf.getNode(_graf.getNode(x).getId()).setAttribute("ui.label", "Depot" + x);
+            subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Tipus", "Depot");
+            subgraf.getNode(_graf.getNode(x).getId()).addAttribute("Nom", _graf.getNode(x).getAttribute("Nom").toString());
+            c[_graf.getNode(x).getIndex()] = x;
+
         }
         while (it.hasNext()) {
             Solicitud s = it.next();
@@ -343,71 +349,72 @@ public class Controlador {
                 subgraf.addNode(origen);
                 subgraf.getNode(origen).setAttribute("ui.label", origen);
                 subgraf.getNode(_graf.getNode(origen).getId()).addAttribute("Nom", _graf.getNode(origen).getAttribute("Nom").toString());
-                 c[_graf.getNode(origen).getIndex()]=subgraf.getNodeCount()-1;
-            
+                c[_graf.getNode(origen).getIndex()] = subgraf.getNodeCount() - 1;
+
             }
             if (subgraf.getNode(desti) == null) {
                 subgraf.addNode(desti);
                 subgraf.getNode(_graf.getNode(desti).getId()).addAttribute("Nom", _graf.getNode(desti).getAttribute("Nom").toString());
                 subgraf.getNode(desti).setAttribute("ui.label", desti);
-                c[_graf.getNode(desti).getIndex()]=subgraf.getNodeCount()-1;
+                c[_graf.getNode(desti).getIndex()] = subgraf.getNodeCount() - 1;
             }
-            
- 
+
         }
-        for(Node n: subgraf){
-            for(Node m: subgraf){
-                if(! n.hasEdgeBetween(m) && !n.equals(m)){
-                    Double pes= _graf.getNode(n.getId()).getEdgeBetween(m.getId()).getAttribute("Pes");
+        for (Node n : subgraf) {
+            for (Node m : subgraf) {
+                if (!n.hasEdgeBetween(m) && !n.equals(m)) {
+                    Double pes = _graf.getNode(n.getId()).getEdgeBetween(m.getId()).getAttribute("Pes");
                     subgraf.addEdge(Integer.toString(subgraf.getEdgeCount()), n, m);
-                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount()-1)).addAttribute("pes", pes);
-                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount()-1)).addAttribute("ui.label", pes);
+                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount() - 1)).addAttribute("pes", pes);
+                    subgraf.getEdge(Integer.toString(subgraf.getEdgeCount() - 1)).addAttribute("ui.label", pes);
                 }
             }
         }
-        subgraf=mapa.CompletarGraf(subgraf);
+        subgraf = mapa.CompletarGraf(subgraf);
         //subgraf.display();
         return subgraf;
     }
-    
+
     /**
-     * @brief Donat un vehicle, crea una ruta de solicituds que el vehicle pot completar amb la seva autonomia total
+     * @brief Donat un vehicle, crea una ruta de solicituds que el vehicle pot
+     * completar amb la seva autonomia total
      * @pre Vehicle valid
      * @post Afageix a _rutes, la ruta del vehicle v
      */
-    public void crearRuta(Vehicle v){
-        TreeSet<Solicitud> ruta=new TreeSet<Solicitud>();
-        Solicitud s=solicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
-        int contadorSolicituds=1;
-        while(s!=null && contadorSolicituds<_solicituds.size()+1){ // mentre quedin solicituds i el numero de solicituds que hem mirat no sigui mes gran que el numero de solicituds totals
+    public void crearRuta(Vehicle v) {
+        TreeSet<Solicitud> ruta = new TreeSet<Solicitud>();
+        Solicitud s = solicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
+        int contadorSolicituds = 1;
+        while (s != null && contadorSolicituds < _solicituds.size() + 1) { // mentre quedin solicituds i el numero de solicituds que hem mirat no sigui mes gran que el numero de solicituds totals
             System.out.println("*******************************");
-            if(vehiclePotAssolirSolicitud(v,s) && DinsFinestraTemps(v,s,ruta)){// si el vehicle pot assolir la solictud i esta dins la finstra de temps
+            if (vehiclePotAssolirSolicitud(v, s) && DinsFinestraTemps(v, s, ruta)) {// si el vehicle pot assolir la solictud i esta dins la finstra de temps
                 ruta.add(s);//afagim la solicitud dintre de la llista de solicituds de la ruta
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);// i posem la solicitud entransit per no tornarla a seleccionar mes tard
                 System.out.println("Solicitud entrada correctament \n");
-            }else{
+            } else {
                 s.setEstat(Solicitud.ESTAT.VISITADA); // si la solicitud no ha estat acceptada, la posem com a visitada per no tornarla a selccionar mes tard
-               // System.out.println("Solicitud visitada \n");
+                // System.out.println("Solicitud visitada \n");
             }
             contadorSolicituds++; // em mirat 1 solicitud
-            s=solicitudMesProperaDisponible(v); // tornem a seleccionar la solicitud mes propera
+            s = solicitudMesProperaDisponible(v); // tornem a seleccionar la solicitud mes propera
         }
         v.setHoraPrimeraSol(null); // "Netejem" el vehicle ja que em acabat aqeulla ruta
-        int [] conversio = new int [200];
-        Graph sub=crearSubGraf(v, ruta, conversio);
-        if(ruta.size()==0){
+        int[] conversio = new int[200];
+        Graph sub = crearSubGraf(v, ruta, conversio);
+        if (ruta.size() == 0) {
             System.out.println("\nNo hi ha solicituds per crear una ruta\n");
-        }else{
-            _rutes.add(new Ruta(v,ruta,sub,conversio));
-         }
-        
-        for(Solicitud sol: _solicituds){//"Netejem" les solicitds per les proximes rutes
-            if(sol.getEstat()==Solicitud.ESTAT.VISITADA)
-                sol.setEstat(Solicitud.ESTAT.ESPERA);
+        } else {
+            _rutes.add(new Ruta(v, ruta, sub, conversio));
         }
-        
+
+        for (Solicitud sol : _solicituds) {//"Netejem" les solicitds per les proximes rutes
+            if (sol.getEstat() == Solicitud.ESTAT.VISITADA) {
+                sol.setEstat(Solicitud.ESTAT.ESPERA);
+            }
+        }
+
     }
-    
+
     /**
      * @brief Retorna un array amb els nodes del graf
      * @pre ---
@@ -419,7 +426,7 @@ public class Controlador {
         Object[] nodes=array.toArray();
         return nodes;
     }
-    */
+     */
     /**
      * @brief Retorna un array amb les arestes del graf
      * @pre ---
@@ -431,7 +438,7 @@ public class Controlador {
         Object[] arestes=array.toArray();
         return arestes;
     }
-    */
+     */
     /**
      * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang
      * preestablert
@@ -443,9 +450,9 @@ public class Controlador {
         Solicitud s = null;
         Solicitud millorsol = null;
         boolean trobat = false;
-        double millorPes=0;
+        double millorPes = 0;
         Iterator<Solicitud> it = _solicituds.iterator();
-       // System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar solicitud mes propera\n");
+        // System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar solicitud mes propera\n");
         while (!trobat && it.hasNext()) {//mentra qudin solicituds i no hem trobat la millor
             Solicitud ss = it.next();
             //System.out.println("Bucle solicitud\n" + ss.toString());
@@ -458,36 +465,34 @@ public class Controlador {
 
             } else {//sino mirem per cada solicitud el seu pes i ens quedem amb el de pes mes petit
                 //  System.out.println("Node on esta el vehicle " + v.getPosicio());
-               //System.out.println("Node Origen solicitud " + ss.Origen());
-               //System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
+                //System.out.println("Node Origen solicitud " + ss.Origen());
+                //System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
                 double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
-             
+
                 //System.out.println("Pes entra la aresta" + pes);
-               
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
-                    if(millorsol == null){
-                        millorsol=ss;
-                        millorPes=pes;
+                    if (millorsol == null) {
+                        millorsol = ss;
+                        millorPes = pes;
+                    } else if (pes < millorPes) {
+                        millorsol = ss;
+                        millorPes = pes;
                     }
-                    else if(pes<millorPes){
-                        millorsol=ss;
-                        millorPes=pes;
-                    }
-                        
+
                 }
             }
         }
-        if(millorsol!=  null)
-             System.out.println("Solicitud mes propera\n" + millorsol.toString());
-        else{
+        if (millorsol != null) {
+            System.out.println("Solicitud mes propera\n" + millorsol.toString());
+        } else {
             System.out.println("Solicitud no trobada");
         }
         return millorsol;
     }
 
-    
     /**
-     * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i tornar al Depot mes proper
+     * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i
+     * tornar al Depot mes proper
      * @pre ---
      * @post Retorna cert si el vehicle v pot assolir la solicitud s
      */
@@ -524,23 +529,21 @@ public class Controlador {
         return valid;
     }
 
-    
-    
     /**
-     * @brief  Retorna la distancia al depot mes propera al node index
+     * @brief Retorna la distancia al depot mes propera al node index
      * @pre ---
      * @post Retorna la distancia al depot mes propera al node index
      */
-    public double buscarDepotMesProxim(int index){
-        double distancia=Integer.MAX_VALUE;
-        int numDepots=0;
-        Iterator<Node> it=_graf.iterator();
-        while(it.hasNext()){//primer miro el numero de Depts que hi ha
-            Node n=it.next();
-            if(n.getAttribute("Tipus").equals("Depot")){
+    public double buscarDepotMesProxim(int index) {
+        double distancia = Integer.MAX_VALUE;
+        int numDepots = 0;
+        Iterator<Node> it = _graf.iterator();
+        while (it.hasNext()) {//primer miro el numero de Depts que hi ha
+            Node n = it.next();
+            if (n.getAttribute("Tipus").equals("Depot")) {
                 numDepots++;
             }
-           
+
         }
 
         for (int i = 0; i < numDepots; i++) {//com els son sempre els primers nomes miro els numDepots primers
@@ -554,36 +557,33 @@ public class Controlador {
             }
         }
 
-        
-        
-        return  distancia;
+        return distancia;
     }
-    
-    
+
     /**
      * @brief Mostrar rutes
      * @pre ---
      * @post Mostra les rutes de _rutes
      */
-    public void mostrarRutes(){
-        for(Ruta r:_rutes){
+    public void mostrarRutes() {
+        for (Ruta r : _rutes) {
             System.out.println(r);
             r.MostrarGraf();
         }
     }
-    
-    public void mostrarSolicitudsNoAssignades(){
-        for(Solicitud s: _solicituds){
-            if(s.getEstat()==Solicitud.ESTAT.ESPERA){
+
+    public void mostrarSolicitudsNoAssignades() {
+        for (Solicitud s : _solicituds) {
+            if (s.getEstat() == Solicitud.ESTAT.ESPERA) {
                 System.out.println(s);
             }
         }
     }
-    
-     public int numeroSolicitudsNoAssignades(){
-        int noAssignades=0;
-        for(Solicitud s: _solicituds){
-            if(s.getEstat()==Solicitud.ESTAT.ESPERA || s.getEstat()==Solicitud.ESTAT.VISITADA){
+
+    public int numeroSolicitudsNoAssignades() {
+        int noAssignades = 0;
+        for (Solicitud s : _solicituds) {
+            if (s.getEstat() == Solicitud.ESTAT.ESPERA || s.getEstat() == Solicitud.ESTAT.VISITADA) {
                 noAssignades++;
             }
         }
@@ -598,13 +598,14 @@ public class Controlador {
             valid = true;
             System.out.println("Primera solicitud");
         } else {
-            Time limit = new Time(0);
-            limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
-            if (s.Emisio().before(limit) && s.Emisio().after(v.getHoraPrimeraSol()) ) {
+            LocalTime limit = v.getHoraPrimeraSol();
+            limit = limit.plusNanos(LIMIT_FINESTRA_TEMPS);
+            //limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
+            if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol())) {
                 valid = true;
-                 System.out.println("Dins de finestra de temps");
+                System.out.println("Dins de finestra de temps");
             } else {
-                 System.out.println("Fora finsetra de temps \n");
+                System.out.println("Fora finsetra de temps \n");
             }
         }
         return valid;
