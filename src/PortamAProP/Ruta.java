@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.DefaultGraph;
+import org.graphstream.graph.implementations.MultiGraph;
 
 public class Ruta {
 
@@ -117,18 +118,24 @@ public class Ruta {
      */
     public void mostrarRuta() {
         System.out.println("*****SOLICITUDS ATESES*****");
-        for (Solicitud s : _solCompletades)
+        for (Solicitud s : _solCompletades) {
             s.toString();
-        Graph g = new DefaultGraph("Sol");
+        }
+        Graph g = new MultiGraph("Sol");
         for (int i = 0; i < _nodes.size(); i++) {
-            Node n = null;
-            if (g.getNode(_nodes.get(i).getId()) == null)
-                n = g.addNode(_nodes.get(i).getId());
-            /*n.addAttribute("Tipus", _nodes.get(i).getAttribute("Tipus"));
-            n.addAttribute("Nom", _nodes.get(i).getAttribute("Nom"));*/
-            if (i < _nodes.size() - 1) {
-                if (n != null)
-                    g.addEdge("Edge" + i, n, _nodes.get(i + 1));
+            if(g.getNode(_nodes.get(i).getId())==null){
+                System.out.println("NODE CREAT" + _nodes.get(i).getId());
+                g.addNode(_nodes.get(i).getId());
+                g.getNode(_nodes.get(i).getId()).setAttribute("ui.label", _nodes.get(i).getId());
+            }
+        }int numaresta=1;
+        for (int i = 0; i < _nodes.size() - 1; i++) {
+            System.out.println("primer " + _nodes.get(i).getId());
+            System.out.println("segon " + _nodes.get(i + 1).getId());
+            if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
+                g.addEdge(Integer.toString(i), _nodes.get(i).getId(), _nodes.get(i + 1).getId(),true);
+                g.getEdge(Integer.toString(i)).setAttribute("ui.label", Integer.toString(numaresta));
+                numaresta++;
             }
         }
         g.display();
