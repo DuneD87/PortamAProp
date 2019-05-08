@@ -215,29 +215,46 @@ public class Controlador {
         //for (int i = 0; i < _vehicles.size(); i++) 
         int i = 0; //index del vehicle
         int y = 0; //numero de cops que es repeteix el numeor de solicituds no assignades
-        int indexruta=0;
+        int indexruta = 0;
         int anterior = numeroSolicitudsNoAssignades();
-        while (numeroSolicitudsNoAssignades() != 0 && i < _vehicles.size()) { //Mentre hi hagin solicituds sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
-            System.out.println(_vehicles.get(i));
-            // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
-            crearRuta(_vehicles.get(i));
-            _vehicles.get(i).restaurarCarrega(); //Restarura la carga ja que ha estat modificada al crear la ruta
-            i++;
-            if (anterior == numeroSolicitudsNoAssignades()) {//Si les solicituds que queden son les mateixes que el bucle anterior augmentem y, sino y=0
-                y++;
-            } else {
-                y = 0;
+        while (numeroSolicitudsNoAssignades() != 0 && y<_vehicles.size()) {
+            while (numeroSolicitudsNoAssignades() != 0 && i < _vehicles.size()) { //Mentre hi hagin solicituds sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
+                System.out.println(_vehicles.get(i));
+                // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
+                crearRuta(_vehicles.get(i));
+                _vehicles.get(i).restaurarCarrega(); //Restarura la carga ja que ha estat modificada al crear la ruta
+                i++;
+                System.out.println("\n===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
             }
-            anterior = numeroSolicitudsNoAssignades();
-            System.out.println("\n===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
+            i=0;
+            for (Vehicle v : _vehicles) { //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
+                v.setPosicio(v.nodeInicial());
+            }
+            if (anterior == numeroSolicitudsNoAssignades()) {//Si les solicituds que queden son les mateixes que el bucle anterior augmentem y, sino y=0
+                    y++;
+                } else {
+                    y = 0;
+                }
+             anterior = numeroSolicitudsNoAssignades();
+            
+            for (int k = indexruta; k < _rutes.size(); k++) {
+                algoritmeBacktracking(_rutes.get(indexruta));
+                indexruta++;
+            }
+            for (Ruta r: _rutes){
+                for(Solicitud s: r.getSol()){
+                    for(Solicitud ss: _solicituds){
+                        if(ss==s){
+                            ss.setEstat(Solicitud.ESTAT.FINALITZADA);
+                        }
+                    }
+                }
+            }
+             
+            System.out.println("Num no de assignats" + anterior);
+            System.out.println("Num de vegades que es repeteix anterior: " + y);
         }
-        for(int k=indexruta ;k<_rutes.size();k++){
-            algoritmeBacktracking(_rutes.get(indexruta));
-            indexruta++;
-        }
-        for (Vehicle v : _vehicles) { //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
-            v.setPosicio(v.nodeInicial());
-        }
+        
 
         /*
         //GREEDY SENSILL
@@ -582,15 +599,17 @@ public class Controlador {
         System.out.println("\n Solicitud dins de finestra de temps:");
         if (r.size() == 0) {
             v.setHoraPrimeraSol(s.Emisio());
+            v.setHoraUltimaSol(s.Emisio());
             valid = true;
             System.out.println("Primera solicitud");
         } else {
+            
             LocalTime limit = v.getHoraPrimeraSol();
             limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
             //limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
             System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
             System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
-            if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol())) {
+            if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol()) && s.Emisio().isAfter(v.getHoraUltimaSol())) {
                 valid = true;
                 System.out.println("Dins de finestra de temps");
             } else {
