@@ -396,5 +396,6 @@ public class SolucioRuta {
      */
     public void finalitzar() {
         _ruta.completarRuta(_nodes,_accio,_carrega,_solicituds,_horaActual,_tempsEnMarxa,_tempsADepot);
+        _vehicle.setHoraPrimeraSol(_horaActual);
     }
 }

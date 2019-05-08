@@ -166,5 +166,9 @@ public class Vehicle {
     public LocalTime getHoraPrimeraSol(){
         return _HoraUltimaSol;
     }
+    
+    public void horaUltimaSol(LocalTime t) {
+        
+    }
 }
 
