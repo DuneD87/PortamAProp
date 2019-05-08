@@ -42,14 +42,14 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF = "R";
-    private String FORMAT_ENTRADA_SOLICITUDS = "R";
+    private String FORMAT_ENTRADA_SOLICITUDS = "F";
     private List<Pair<Vehicle, TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY = 100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 3600000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MILISEGONS)
+    private long LIMIT_FINESTRA_TEMPS = 60;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
 
     /**
      * @brief Constructor per defecte
@@ -586,8 +586,10 @@ public class Controlador {
             System.out.println("Primera solicitud");
         } else {
             LocalTime limit = v.getHoraPrimeraSol();
-            limit = limit.plusNanos(LIMIT_FINESTRA_TEMPS);
+            limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
             //limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
+            System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
+            System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
             if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol())) {
                 valid = true;
                 System.out.println("Dins de finestra de temps");
