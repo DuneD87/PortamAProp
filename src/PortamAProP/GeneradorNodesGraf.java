@@ -20,7 +20,7 @@ public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions;
     private int _pesMax = 20;//Pes maxim que pot tenir una aresta
-    private static int MAX_NODES = 60;
+    private static int MAX_NODES = 20;
     private static String FITXER_UBICACIONS="PilaUbicacions.txt";
     private static String _nodes="";
    /**
