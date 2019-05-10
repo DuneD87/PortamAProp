@@ -247,30 +247,31 @@ public class SolucioRuta {
         _vehicle.descarga(temps);
         _tempsEnMarxa += temps;
         
-        Solicitud actual =  _solicituds.get(iCan.actual()/2);
+        
         
         switch (tipus) {
             case 'O':
+              
                 _nPeticions++;
-                _vehicle.ModificarPassatgers(actual.NumPassatgers());
-                _carrega.push(actual.NumPassatgers());
-                actual.setEstat(Solicitud.ESTAT.ENTRANSIT);
+                _vehicle.ModificarPassatgers( _solicituds.get(iCan.actual()/2).NumPassatgers());
+                _carrega.push( _solicituds.get(iCan.actual()/2).NumPassatgers());
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
                 
-                if (_horaActual.isBefore(actual.Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
-                    _horaActual = _horaActual.plusMinutes(actual.Emisio().toSecondOfDay()/60 + (long)temps);
-                    if (_horaActual.isBefore(actual.Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
+                if (_horaActual.isBefore( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
+                    _horaActual = _horaActual.plusMinutes( _solicituds.get(iCan.actual()/2).Emisio().toSecondOfDay()/60 + (long)temps);
+                    if (_horaActual.isBefore( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
                         _horaActual = _horaActual.plusMinutes(15);//millorable 
                     }
                 }
-                actual.assignarHoraRecollida(_horaActual);
+                 _solicituds.get(iCan.actual()/2).assignarHoraRecollida(_horaActual);
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
-                _vehicle.ModificarPassatgers(-1 * actual.NumPassatgers());
-                _carrega.push(-1*actual.NumPassatgers());
-                actual.setEstat(Solicitud.ESTAT.FINALITZADA);
-                actual.AssignarArribada(_horaActual);
+                _vehicle.ModificarPassatgers(-1 *  _solicituds.get(iCan.actual()/2).NumPassatgers());
+                _carrega.push(-1* _solicituds.get(iCan.actual()/2).NumPassatgers());
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
+                 _solicituds.get(iCan.actual()/2).AssignarArribada(_horaActual);
                 break;
             case 'P':
                 double carregaCompleta = _vehicle.carregaTotal() - _vehicle.carregaRestant();
@@ -302,17 +303,18 @@ public class SolucioRuta {
         _vehicle.cargar(temps);
         _tempsEnMarxa -= temps;
         
-        Solicitud actual = _solicituds.get(iCan.actual()/2);
+        
 
         switch (tipus) {
             case 'O':
+                Solicitud actual = _solicituds.get(iCan.actual()/2);
                 _nPeticions--;
-                _vehicle.ModificarPassatgers(-1*actual.NumPassatgers());
+                _vehicle.ModificarPassatgers(-1* _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.pop();
-                actual.setEstat(Solicitud.ESTAT.ESPERA);
-                 if (_horaActual.isAfter(actual.Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
-                    _horaActual = _horaActual.minusMinutes(actual.Emisio().toSecondOfDay()/60 + (long)temps);
-                    if (_horaActual.isAfter(actual.Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ESPERA);
+                 if (_horaActual.isAfter( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
+                    _horaActual = _horaActual.minusMinutes( _solicituds.get(iCan.actual()/2).Emisio().toSecondOfDay()/60 + (long)temps);
+                    if (_horaActual.isAfter( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
                         _horaActual = _horaActual.minusMinutes(15);//millorable 
                     }
                 }
@@ -321,10 +323,10 @@ public class SolucioRuta {
             case 'D':
                 _nPeticions++;
                 _nPeticionsTramitades--;
-                _vehicle.ModificarPassatgers(actual.NumPassatgers());
+                _vehicle.ModificarPassatgers( _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.pop();
-                actual.setEstat(Solicitud.ESTAT.ENTRANSIT);
-                actual.AssignarArribada(null);
+                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                 _solicituds.get(iCan.actual()/2).AssignarArribada(null);
                 break;
             case 'P':
                 double carregaCompleta = (double)_carrega.pop();
