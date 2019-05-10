@@ -42,14 +42,14 @@ public class Controlador {
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF = "R";
-    private String FORMAT_ENTRADA_SOLICITUDS = "F";
+    private String FORMAT_ENTRADA_SOLICITUDS = "R";
     private List<Pair<Vehicle, TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY = 100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 60;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
+    private long LIMIT_FINESTRA_TEMPS = 200;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
 
     /**
      * @brief Constructor per defecte
@@ -251,8 +251,6 @@ public class Controlador {
                 }
             }
              
-            System.out.println("Num no de assignats" + anterior);
-            System.out.println("Num de vegades que es repeteix anterior: " + y);
         }
         
 
@@ -304,17 +302,11 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-        int cont = 0;
-        for (int i : _rutes.get(1).retornarConversio()) {
-            System.out.println("Index: " + cont + "Node: " + i);
-            cont++;
-        }
+
         LocalTime horaActual = LocalTime.MIDNIGHT;
         SolucioRuta solRuta = new SolucioRuta(r,horaActual);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio();
-        Stack<Node> solucio = soluRuta.obtSolucio().obtSolucio();
-        Node first = solucio.firstElement();
         if (trobat) {
             System.out.println("Solucio trobada: ");
             r.mostrarRuta();
@@ -390,11 +382,11 @@ public class Controlador {
         Solicitud s = solicitudMesProperaDisponible(v); //Busquem la solicitud mes propera al vehicle
         int contadorSolicituds = 1;
         while (s != null && contadorSolicituds < _solicituds.size() + 1) { // mentre quedin solicituds i el numero de solicituds que hem mirat no sigui mes gran que el numero de solicituds totals
-            System.out.println("*******************************");
+            //System.out.println("*******************************");
             if (vehiclePotAssolirSolicitud(v, s) && DinsFinestraTemps(v, s, ruta)) {// si el vehicle pot assolir la solictud i esta dins la finstra de temps
                 ruta.add(s);//afagim la solicitud dintre de la llista de solicituds de la ruta
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);// i posem la solicitud entransit per no tornarla a seleccionar mes tard
-                System.out.println("Solicitud entrada correctament \n");
+                //System.out.println("Solicitud entrada correctament \n");
             } else {
                 s.setEstat(Solicitud.ESTAT.VISITADA); // si la solicitud no ha estat acceptada, la posem com a visitada per no tornarla a selccionar mes tard
                 // System.out.println("Solicitud visitada \n");
@@ -406,7 +398,7 @@ public class Controlador {
         int[] conversio = new int[200];
         Graph sub = crearSubGraf(v, ruta, conversio);
         if (ruta.size() == 0) {
-            System.out.println("\nNo hi ha solicituds per crear una ruta\n");
+            //System.out.println("\nNo hi ha solicituds per crear una ruta\n");
         } else {
             _rutes.add(new Ruta(v, ruta, sub, conversio));
         }
@@ -487,9 +479,9 @@ public class Controlador {
             }
         }
         if (millorsol != null) {
-            System.out.println("Solicitud mes propera\n" + millorsol.toString());
+            //System.out.println("Solicitud mes propera\n" + millorsol.toString());
         } else {
-            System.out.println("Solicitud no trobada");
+            //System.out.println("Solicitud no trobada");
         }
         return millorsol;
     }
@@ -596,24 +588,24 @@ public class Controlador {
 
     public boolean DinsFinestraTemps(Vehicle v, Solicitud s, TreeSet<Solicitud> r) {
         boolean valid = false;
-        System.out.println("\n Solicitud dins de finestra de temps:");
+        //System.out.println("\n Solicitud dins de finestra de temps:");
         if (r.size() == 0) {
             v.setHoraPrimeraSol(s.Emisio());
             v.setHoraUltimaSol(s.Emisio());
             valid = true;
-            System.out.println("Primera solicitud");
+            //System.out.println("Primera solicitud");
         } else {
             
             LocalTime limit = v.getHoraPrimeraSol();
             limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
             //limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
-            System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
-            System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
+            //System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
+            //System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
             if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol()) && s.Emisio().isAfter(v.getHoraUltimaSol())) {
                 valid = true;
-                System.out.println("Dins de finestra de temps");
+              //  System.out.println("Dins de finestra de temps");
             } else {
-                System.out.println("Fora finsetra de temps \n");
+                //System.out.println("Fora finsetra de temps \n");
             }
         }
         return valid;

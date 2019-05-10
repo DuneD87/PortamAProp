@@ -124,22 +124,23 @@ public class Ruta {
         Graph g = new MultiGraph("Sol");
         for (int i = 0; i < _nodes.size(); i++) {
             if(g.getNode(_nodes.get(i).getId())==null){
-                System.out.println("NODE CREAT" + _nodes.get(i).getId());
                 g.addNode(_nodes.get(i).getId());
                 g.getNode(_nodes.get(i).getId()).setAttribute("ui.label", _nodes.get(i).getId());
             }
         }int numaresta=1;
         for (int i = 0; i < _nodes.size() - 1; i++) {
-            System.out.println("primer " + _nodes.get(i).getId());
-            System.out.println("segon " + _nodes.get(i + 1).getId());
             if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
                 g.addEdge(Integer.toString(i), _nodes.get(i).getId(), _nodes.get(i + 1).getId(),true);
                 g.getEdge(Integer.toString(i)).setAttribute("ui.label", Integer.toString(numaresta));
                 numaresta++;
             }
         }
-        g.display();
-        System.out.println("HORA DE FINALITZACIO: " + _horaFi);
+        //g.display();
+        System.out.println("RUTA DE NODES");
+        for(Node n:_nodes){
+            System.out.print("-"+n.getId());
+        }
+        System.out.println("\nHORA DE FINALITZACIO: " + _horaFi);
         System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa);
         System.out.println("TEMPS A DEPOT: " + _tempsADepot);
     }

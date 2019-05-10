@@ -341,7 +341,7 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == (_solicituds.size());
+        return _nPeticionsTramitades == (_solicituds.size()-1);
     }
     
     /**
