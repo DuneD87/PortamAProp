@@ -153,9 +153,9 @@ public class Solicitud implements Comparable<Solicitud> {
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true; // Es la mateixa referencia
-        if (!(obj instanceof Solicitud)) return false; //L'objecte no pertany a la classe Naip
-        Solicitud s = (Solicitud)obj;//Hem arribat fins aqui, fem casting del objecte a Naip;
-        return _horaEmisio.equals(s._horaEmisio) && _identificadorSol == s._identificadorSol; //Tenen el mateix pal i son del mateix tipus ?
+        if (!(obj instanceof Solicitud)) return false; //L'objecte no pertany a la classe Solicitud
+        Solicitud s = (Solicitud)obj;//Hem arribat fins aqui, fem casting del objecte a Solicitud;
+        return _horaEmisio.equals(s._horaEmisio) && _identificadorSol == s._identificadorSol; //Tenen la mateixa hora i identificador ?
     }
     
     /**

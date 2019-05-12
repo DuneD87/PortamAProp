@@ -49,7 +49,7 @@ public class Controlador {
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY = 100;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 200;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
+    private long LIMIT_FINESTRA_TEMPS = 100;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
 
     /**
      * @brief Constructor per defecte

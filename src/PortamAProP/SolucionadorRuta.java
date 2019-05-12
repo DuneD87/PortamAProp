@@ -38,9 +38,10 @@ public class SolucionadorRuta {
                     System.out.flush();
                     //_trobat = true;
                     _nSolucions++;
-                    if (_nSolucions < (_nSolucionsTotal + 100))
+                    if (_nSolucions < (_nSolucionsTotal + 100)) {
+                        System.out.flush();
                         System.out.print(".");
-                    else {
+                    } else {
                         _nSolucionsTotal = _nSolucions;
                         System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
                     }

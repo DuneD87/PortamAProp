@@ -62,7 +62,7 @@ public class SolucioRuta {
         _graf = r.getGraph();
         _conversio=r.retornarConversio();
         List<Node> nodes = new ArrayList<>(_graf.getNodeSet());
-        _vehicle.cargar(50000);
+        //_vehicle.cargar(50000);
         _candidats = new ArrayList<>();
         _nodes = new Stack<>();
         _horaActual = horaActual;//comencem a les 12
@@ -212,7 +212,8 @@ public class SolucioRuta {
      * @brief Inicialitza el candidat i possa com a maxim el maxim del vector de
      * candidats. Els nostres candidats son: 
      * -Origen: Origen d'una peticio
-     * -Desti: Desti d'una peticio -Depot: Punt de recarrega
+     * -Desti: Desti d'una peticio 
+     * -Depot: Punt de recarrega
      */
     public CandidatRuta iniCan() {
         return new CandidatRuta(_candidats.size() - 1);
@@ -232,6 +233,7 @@ public class SolucioRuta {
      * global.
      */
     public void anotar(CandidatRuta iCan) {
+        
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         double temps;

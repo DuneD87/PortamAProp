@@ -135,7 +135,7 @@ public class Ruta {
                 numaresta++;
             }
         }
-        //g.display();
+        g.display();
         System.out.println("RUTA DE NODES");
         for(Node n:_nodes){
             System.out.print("-"+n.getId());
