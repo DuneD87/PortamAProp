@@ -1,6 +1,9 @@
 package PortamAProP;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeMap;
@@ -8,6 +11,7 @@ import java.util.TreeSet;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.DefaultGraph;
 import org.graphstream.graph.implementations.MultiGraph;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class Ruta {
 
@@ -143,9 +147,84 @@ public class Ruta {
         System.out.println("\nHORA DE FINALITZACIO: " + _horaFi);
         System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa);
         System.out.println("TEMPS A DEPOT: " + _tempsADepot);
+        System.out.println("MITJANA DE PASSATGERS:" + mitjanaPassatgers());
+        System.out.println("MITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes());
+        //mitjanaTempsEsperaRecorregut();
+        nodesMesMenysConcurreguts();
+        
     }
 
     public int[] retornarConversio() {
         return _conversio;
     }
+    public int mitjanaPassatgers(){
+        int mitjana=0;
+        for(Solicitud s:_solicituds){
+            mitjana+=s.NumPassatgers();
+        }
+        mitjana=mitjana/_solicituds.size();
+        
+        
+        
+        
+        return mitjana;
+    }
+    public double mitjanaDistanciaNodes(){
+        double mitjana=0;
+        for(int i=0;i<_nodes.size()-1;i++){
+            if(_nodes.get(i).getId().equals(_nodes.get(i+1).getId()))
+                mitjana+=0;
+            else{
+                double pes=_graf.getNode(_nodes.get(i).getId()).getEdgeBetween(_nodes.get(i+1).getId()).getAttribute("pes");
+                mitjana+=pes;
+            }
+        }     
+        return mitjana/_nodes.size();
+    }
+    /*
+    public void mitjanaTempsEsperaRecorregut(){
+        long mitjanaEspera=0;
+        long mitjanaRecorregut=0;
+        for(Solicitud s:_solicituds){
+            //if (s.getRecollida() != null) {
+                System.out.println("Hora Emisio " + s.Emisio());
+                System.out.println("Hora Recollida " + s.getRecollida());
+                long tempsEspera = s.Emisio().until(s.getRecollida(), MINUTES);
+                mitjanaEspera += tempsEspera;
+                long tempsRecorregut = MINUTES.between(s.getRecollida(), s.Arribada());
+                mitjanaRecorregut += tempsRecorregut;
+           // }
+        }
+        long resultatMitjanaEspera=mitjanaEspera/_solCompletades.size();
+        long resultatMitjanaRecorrecut=mitjanaRecorregut/_solCompletades.size();
+        System.out.println("MITJANA D'ESPERA DE CLIENT:" + resultatMitjanaEspera);
+        System.out.println("MITJANA DE RECORRECUT DE CLIENT: " + resultatMitjanaRecorrecut);
+        
+       
+    }
+    */
+    public void nodesMesMenysConcurreguts(){
+     int [] histOrigen= new int [200];
+     int [] histDesti= new int [200];
+     for(int i=0;i<_solCompletades.size();i++){
+         histOrigen[_solCompletades.get(i).Origen()]++;
+         histDesti[_solCompletades.get(i).Desti()]++;
+     }
+    int minimOrigen=Integer.MAX_VALUE;
+    int maximOrigen=0;
+    int minimDesti=Integer.MAX_VALUE;
+    int maximDesti=0;
+    for(int i=199;i>0;i--){
+        if(histOrigen[i]>=histOrigen[maximOrigen]){
+            maximOrigen=i;
+        }
+        
+        if(histDesti[i]>=histDesti[maximDesti]){
+            maximDesti=i;
+        }
+    }
+    System.out.println("NODE AMB MES ORIGEN: "+ maximOrigen);
+    System.out.println("NODE AMB MES DESTI: "+ maximDesti);
+    }
+    
 }

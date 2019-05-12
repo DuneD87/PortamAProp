@@ -135,6 +135,9 @@ public class Solicitud implements Comparable<Solicitud> {
         _horaRecollida = hora;
     }
     
+    public LocalTime getRecollida(){
+        return _horaRecollida;
+    }
     /**
      * @brief Sobrecarrega del metode compareTo
      * @pre ---
