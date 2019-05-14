@@ -32,13 +32,13 @@ public class LlegirFitxerGraf {
         String[] lines = text.split("\r\n|\r|\n");
         int contador=0;
         for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
-            System.out.println(lines[i]);
+            //System.out.println(lines[i]);
             CrearNode(lines[i], graf, format);
             contador=i;
         }
             contador+=2;
          for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
-             System.out.println(lines[i]);
+            // System.out.println(lines[i]);
              DefinirAresta(lines[i], graf.getEdgeCount(), graf);
 
         }
@@ -178,7 +178,7 @@ public class LlegirFitxerGraf {
         Stack<Node> pila = new Stack<Node>();
         for (Node n : graf) {
             contador = 0;
-            System.out.println(n.getId());
+            //System.out.println(n.getId());
             for (Node m : graf) {
                 if (n.hasEdgeFrom(m.getId())) {
                     Object valor = n.getEdgeBetween(m).getAttribute("Pes");
@@ -189,7 +189,7 @@ public class LlegirFitxerGraf {
                 }
             }
             if (contador == graf.getNodeCount() - 1 || contador == graf.getNodeCount() - 2) {
-                System.out.println(n.getAttribute("Nom").toString());
+                //System.out.println(n.getAttribute("Nom").toString());
 
                 pila.push(n);
             }

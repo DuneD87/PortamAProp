@@ -151,6 +151,7 @@ public class Ruta {
         System.out.println("MITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes());
         //mitjanaTempsEsperaRecorregut();
         nodesMesMenysConcurreguts();
+        System.out.println("\n");
         
     }
 
@@ -181,14 +182,15 @@ public class Ruta {
         }     
         return mitjana/_nodes.size();
     }
-    /*
+    
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
         long mitjanaRecorregut=0;
-        for(Solicitud s:_solicituds){
+        for(Solicitud s:_solCompletades){
             //if (s.getRecollida() != null) {
                 System.out.println("Hora Emisio " + s.Emisio());
                 System.out.println("Hora Recollida " + s.getRecollida());
+                System.out.println("Hora Arribada " + s.Arribada());
                 long tempsEspera = s.Emisio().until(s.getRecollida(), MINUTES);
                 mitjanaEspera += tempsEspera;
                 long tempsRecorregut = MINUTES.between(s.getRecollida(), s.Arribada());
@@ -202,7 +204,7 @@ public class Ruta {
         
        
     }
-    */
+    
     public void nodesMesMenysConcurreguts(){
      int [] histOrigen= new int [200];
      int [] histDesti= new int [200];

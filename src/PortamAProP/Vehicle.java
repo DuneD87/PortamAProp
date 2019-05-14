@@ -27,9 +27,9 @@ public class Vehicle {
      */
     public Vehicle(int Id, int CapTotal, double AutoTot, double carga, int node){
         _identificador=Id;
-        System.out.println("Capacitat de fitxer: " + CapTotal);
+        //System.out.println("Capacitat de fitxer: " + CapTotal);
         _capacitatTotal=CapTotal;
-        System.out.println("Capacitat de vehicle" + _capacitatTotal);
+        //System.out.println("Capacitat de vehicle" + _capacitatTotal);
         _autonomiaTotal=AutoTot;
         _numPassatgers=0;
         _autonomiaRestant=AutoTot;

@@ -48,7 +48,7 @@ public class LlegirFitxerSolicitud {
 
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Nom del fitxer de solicituds:");
+            //System.out.println("Nom del fitxer de solicituds:");
             //String nom = sc.nextLine();
             String nom=NOM_FITXER_SOL;
             fitxer = new File(nom);
@@ -62,7 +62,7 @@ public class LlegirFitxerSolicitud {
          
             }
             for (Solicitud s : _vecSol) {
-                System.out.println(s);
+                //System.out.println(s);
             }
         } catch (Exception e) {
             e.printStackTrace();

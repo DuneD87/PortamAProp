@@ -20,7 +20,7 @@ public class GeneradorSolicituds {
         //numero = Integer.parseInt(teclado.nextLine());
         numero = MAX_SOL;
         _sol = Crear_solicituds(numero);
-        System.out.print(_sol);
+        //System.out.print(_sol);
         /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S/N]");
         String eleccio = teclado.nextLine();
         if (eleccio.equals("S")) {
