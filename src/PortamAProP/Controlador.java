@@ -46,9 +46,9 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY = 10000;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY = 50;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 100000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
+    private long LIMIT_FINESTRA_TEMPS = 60;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
     private Greedy voras;
     /**
      * @brief Constructor per defecte
@@ -254,9 +254,10 @@ public class Controlador {
              
         }
         
+        
 
-        /*
-        //GREEDY SENSILL
+        
+/*        //GREEDY SENSILL
         int indexVehicle = 0;
         int divisor = _vehicles.size();
         int numerador = _solicituds.size();
@@ -274,8 +275,11 @@ public class Controlador {
             Pair<Vehicle, TreeSet<Solicitud>> subSol = new Pair<Vehicle, TreeSet<Solicitud>>(ve, solici);
             _ruta.add(subSol);
             indexVehicle++;
+            TreeSet<Solicitud> sss= _ruta.get(1).getValue();
+            Vehicle v=_ruta.get(1).getKey();
+            Ruta r=new Ruta(v,sss, crearSubGraf(v,sss, ), mapa);
         }
-         */
+*/
     }
 
     /**
