@@ -28,8 +28,10 @@ public class LlegirFitxerSolicitud {
         _graf=graf;
         _vecSol = new TreeSet<Solicitud>();
         String[] lines = text.split("\r\n|\r|\n");
-        for (int i = 0; i < lines.length; i++) 
+        for (int i = 0; i < lines.length; i++) {
             CrearSolicitud(lines[i]);
+        }
+        
         System.out.println("Solicituds creades");
         
     }

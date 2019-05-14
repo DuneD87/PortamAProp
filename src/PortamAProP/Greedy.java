@@ -13,27 +13,32 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class Greedy {
     private long LIMIT_FINESTRA_TEMPS;
     private int MAX_DISTANCIA_GREEDY;
+    
     public Greedy(long limitTemps,int distanciaMaxima){
-        limitTemps=LIMIT_FINESTRA_TEMPS;
-        distanciaMaxima=MAX_DISTANCIA_GREEDY;        
+        LIMIT_FINESTRA_TEMPS=limitTemps;
+        MAX_DISTANCIA_GREEDY=distanciaMaxima;     
     }
     
     public void crearRuta(Vehicle v, ArrayList<Ruta> _rutes, SortedSet<Solicitud> _solicituds, Graph _graf,LlegirFitxerGraf mapa) {
+       //System.out.println("###");
         TreeSet<Solicitud> ruta = new TreeSet<Solicitud>();
         Solicitud s = solicitudMesProperaDisponible(v,_solicituds,_graf); //Busquem la solicitud mes propera al vehicle
         int contadorSolicituds = 1;
-        while (s != null && contadorSolicituds < _solicituds.size() + 1) { // mentre quedin solicituds i el numero de solicituds que hem mirat no sigui mes gran que el numero de solicituds totals
+        while (s != null&& contadorSolicituds < _solicituds.size() + 1) { // mentre quedin solicituds i el numero de solicituds que hem mirat no sigui mes gran que el numero de solicituds totals
             //System.out.println("*******************************");
+            //System.out.println("Contador solicituds: " + contadorSolicituds);
+            //System.out.println("Mida solicituds: " + _solicituds.size());
+            
             if (vehiclePotAssolirSolicitud(v, s,_graf) && DinsFinestraTemps(v, s, ruta)) {// si el vehicle pot assolir la solictud i esta dins la finstra de temps
                 ruta.add(s);//afagim la solicitud dintre de la llista de solicituds de la ruta
                 s.setEstat(Solicitud.ESTAT.ENTRANSIT);// i posem la solicitud entransit per no tornarla a seleccionar mes tard
-                //System.out.println("Solicitud entrada correctament \n");
+              //  System.out.println("Solicitud entrada correctament \n");
             } else {
                 s.setEstat(Solicitud.ESTAT.VISITADA); // si la solicitud no ha estat acceptada, la posem com a visitada per no tornarla a selccionar mes tard
                 // System.out.println("Solicitud visitada \n");
             }
             contadorSolicituds++; // em mirat 1 solicitud
-            s = solicitudMesProperaDisponible(v,_solicituds,_graf); // tornem a seleccionar la solicitud mes propera
+            s = solicitudMesProperaDisponible(v,_solicituds,_graf);// tornem a seleccionar la solicitud mes propera
         }
         v.setHoraPrimeraSol(null); // "Netejem" el vehicle ja que em acabat aqeulla ruta
         int[] conversio = new int[200];
@@ -53,24 +58,26 @@ public class Greedy {
     }
      public boolean DinsFinestraTemps(Vehicle v, Solicitud s, TreeSet<Solicitud> r) {
         boolean valid = false;
-        //System.out.println("\n Solicitud dins de finestra de temps:");
+       // System.out.println("\n Solicitud dins de finestra de temps:");
+        //System.out.println(s);
         if (r.size() == 0) {
             v.setHoraPrimeraSol(s.Emisio());
             v.setHoraUltimaSol(s.Emisio());
             valid = true;
-            //System.out.println("Primera solicitud");
+          // System.out.println("Primera solicitud");
         } else {
             
             LocalTime limit = v.getHoraPrimeraSol();
             limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
-            //limit.setTime(v.getHoraPrimeraSol().getTime() + LIMIT_FINESTRA_TEMPS);
-            //System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
-            //System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
+          //  System.out.println(LIMIT_FINESTRA_TEMPS);
+          //  System.out.println(limit);
+          // System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
+          // System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
             if (s.Emisio().isBefore(limit) && s.Emisio().isAfter(v.getHoraPrimeraSol()) && s.Emisio().isAfter(v.getHoraUltimaSol())) {
                 valid = true;
-              //  System.out.println("Dins de finestra de temps");
+                //System.out.println("Dins de finestra de temps");
             } else {
-                //System.out.println("Fora finsetra de temps \n");
+               // System.out.println("Fora finsetra de temps \n");
             }
         }
         return valid;
@@ -87,9 +94,9 @@ public class Greedy {
     public boolean vehiclePotAssolirSolicitud(Vehicle v, Solicitud s,Graph _graf) {
         boolean valid = false;
         double anar_solicitud;
-        //System.out.println("=======================================\nPot assolir soliciutd? \n" + s.toString() + "\n");
+        //System.out.println("==============VEHICLE POT =========================\nPot assolir soliciutd? \n" + s.toString() + "\n");
         if (v.nodeInicial() == s.Origen()) {//Si l'origen de la solicitud es on esta el vehicle, no s'haura de desplasar
-            //System.out.println("Node inicial es origen de la solictud");
+          //  System.out.println("Node inicial es origen de la solictud");
             anar_solicitud = 0;
 
         } else {//si no coincidex es calcula el pes fins anar a l'origen de la solicitud
@@ -98,8 +105,8 @@ public class Greedy {
         double completar_solicitud = _graf.getNode(s.Origen()).getEdgeBetween(s.Desti()).getAttribute("Pes");// es calcula el pes de assolir la solicitud
         double depot_proxim = buscarDepotMesProxim(s.Desti(),_graf);//es calcula el pes de tornar al depot mes proper
         double autonomia = v.carregaRestant();
-        //boolean resultat = anar_solicitud + completar_solicitud + depot_proxim < autonomia;
-        //boolean pass = s.NumPassatgers() <= v.nPassTotal();
+        boolean resultat = anar_solicitud + completar_solicitud + depot_proxim < autonomia;
+        boolean pass = s.NumPassatgers() <= v.nPassTotal();
         //System.out.println("Anar solicitud: " + anar_solicitud);
         //System.out.println("completar solicitud: " + completar_solicitud);
         //System.out.println("depot proxim: " + depot_proxim);
@@ -119,13 +126,12 @@ public class Greedy {
     
     
      public Solicitud solicitudMesProperaDisponible(Vehicle v, SortedSet<Solicitud> _solicituds, Graph _graf ) {
-        Solicitud s = null;
         Solicitud millorsol = null;
         boolean trobat = false;
         double millorPes = 0;
         Iterator<Solicitud> it = _solicituds.iterator();
-        // System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar solicitud mes propera\n");
-        while (!trobat && it.hasNext()) {//mentra qudin solicituds i no hem trobat la millor
+         //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar solicitud mes propera\n");
+        while (!trobat && it.hasNext()) {//mentra quedin solicituds i no hem trobat la millor
             Solicitud ss = it.next();
             //System.out.println("Bucle solicitud\n" + ss.toString());
             if (v.getPosicio() == ss.Origen()) {// si origen de la solicitud esta al mateix node que vehicle no fa falta que mirem mes
@@ -136,19 +142,21 @@ public class Greedy {
                 }
 
             } else {//sino mirem per cada solicitud el seu pes i ens quedem amb el de pes mes petit
-                //  System.out.println("Node on esta el vehicle " + v.getPosicio());
-                //System.out.println("Node Origen solicitud " + ss.Origen());
-                //System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
+               // System.out.println("Node on esta el vehicle " + v.getPosicio());
+               // System.out.println("Node Origen solicitud " + ss.Origen());
+               // System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
                 double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()).getAttribute("Pes");
 
-                //System.out.println("Pes entra la aresta" + pes);
+                //System.out.println("Pes entra la aresta " + pes);
                 if (pes < MAX_DISTANCIA_GREEDY && ss.getEstat() == Solicitud.ESTAT.ESPERA) {
                     if (millorsol == null) {
                         millorsol = ss;
                         millorPes = pes;
+                       // System.out.println("primer");
                     } else if (pes < millorPes) {
                         millorsol = ss;
                         millorPes = pes;
+                        //System.out.println("millor");
                     }
 
                 }
@@ -157,7 +165,7 @@ public class Greedy {
         if (millorsol != null) {
             //System.out.println("Solicitud mes propera\n" + millorsol.toString());
         } else {
-            //System.out.println("Solicitud no trobada");
+           // System.out.println("Solicitud no trobada");
         }
         return millorsol;
     }

@@ -46,9 +46,9 @@ public class Controlador {
     private LlegirFitxerGraf mapa;
     private Object[] _nodes;
     private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY = 100;//@brief distancia maxima acceptada pel greedy
+    private int MAX_DISTANCIA_GREEDY = 10000;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 500;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
+    private long LIMIT_FINESTRA_TEMPS = 100000;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
     private Greedy voras;
     /**
      * @brief Constructor per defecte
@@ -446,3 +446,4 @@ public class Controlador {
     }
 
 }
+
