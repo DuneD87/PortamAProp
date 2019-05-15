@@ -108,7 +108,7 @@ public class Ruta {
         _nodes = new ArrayList<>(n);
         _accions = new ArrayList<>(a);
         _carrega = new ArrayList<>(c);
-        _solCompletades = s;
+        _solCompletades = new ArrayList<>(s);
         _horaFi = h;
         _tempsEnMarxa = tm;
         _tempsADepot = tp;
@@ -123,7 +123,7 @@ public class Ruta {
     public void mostrarRuta() {
         System.out.println("*****SOLICITUDS ATESES*****");
         for (Solicitud s : _solCompletades) {
-            s.toString();
+            System.out.println(s.toString());
         }
         Graph g = new MultiGraph("Sol");
         for (int i = 0; i < _nodes.size(); i++) {
@@ -152,7 +152,7 @@ public class Ruta {
         //mitjanaTempsEsperaRecorregut();
         nodesMesMenysConcurreguts();
         System.out.println("\n");
-        
+       
     }
 
     public int[] retornarConversio() {
@@ -186,7 +186,7 @@ public class Ruta {
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
         long mitjanaRecorregut=0;
-        for(Solicitud s:_solCompletades){
+        for(Solicitud s: _solCompletades){
             //if (s.getRecollida() != null) {
                 System.out.println("Hora Emisio " + s.Emisio());
                 System.out.println("Hora Recollida " + s.getRecollida());
@@ -229,4 +229,7 @@ public class Ruta {
     System.out.println("NODE AMB MES DESTI: "+ maximDesti);
     }
     
+    public LocalTime obtHoraPrimeraPeticio() {
+        return _solicituds.first().Emisio();
+    }
 }

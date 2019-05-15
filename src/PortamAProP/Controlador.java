@@ -48,7 +48,7 @@ public class Controlador {
     private Object[] _arestes;
     private int MAX_DISTANCIA_GREEDY = 50;//@brief distancia maxima acceptada pel greedy
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 60;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
+    private long LIMIT_FINESTRA_TEMPS = 100;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
     private Greedy voras;
     /**
      * @brief Constructor per defecte
@@ -307,9 +307,7 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-
-        LocalTime horaActual = LocalTime.MIDNIGHT;
-        SolucioRuta solRuta = new SolucioRuta(r,horaActual);
+        SolucioRuta solRuta = new SolucioRuta(r);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio();
         if (trobat) {

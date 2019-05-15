@@ -34,10 +34,13 @@ public class SolucioRuta {
     private Stack<Node> _nodes;//@brief Conjunt de nodes que representa la nostra ruta
     private Stack<Character> _accio;//@brief accio feta a cada node
     private Stack<Integer> _carrega;//@brief ens diu quants passatgers a carregat/descarregat a cada node
+    private ArrayList<Pair<LocalTime,LocalTime>> _horesPeticio; //@brief workaround ja que LocalTime no es un objecte i dona molts de problemes amb pas per referencia
     
     private int _nPeticions;//@brief Numero de peticions que estem tramitan
     private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
     private LocalTime _horaActual; //@brief Ens diu l'hora actual
+    private int _maximEspera;//@brief Temps maxim d'espera que estem disposats a esperar
+    private int _minimLegal;//@brief Temps establer per la llei que ha d'esperar minim tota peticio
     
     private Ruta _ruta;//@brief Ruta que fa el vehicle
     
@@ -52,7 +55,7 @@ public class SolucioRuta {
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
      */
-    public SolucioRuta(Ruta r,LocalTime horaActual) {
+    public SolucioRuta(Ruta r) {
        
         //Inicialitzem les diferents estructures
         _solicituds = r.getSol();
@@ -65,11 +68,14 @@ public class SolucioRuta {
         _vehicle.cargar(50000);
         _candidats = new ArrayList<>();
         _nodes = new Stack<>();
-        _horaActual = horaActual;//comencem a les 12
+        _horaActual = r.obtHoraPrimeraPeticio();
         _accio = new Stack<>();
         _carrega = new Stack<>();
         _tempsADepot = 0;
         _ruta = r;
+        _horesPeticio = new ArrayList<>();
+        _maximEspera = 10;//30 mins d'espera maxim
+        _minimLegal = 15; 
          System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
                  "VEHICLE:\n" + _vehicle.toString());
          
@@ -116,7 +122,7 @@ public class SolucioRuta {
      * @post S'ha construit una nova SolucioRuta a partir de la solucio anterior
      */
     public SolucioRuta(SolucioRuta sol) {
-        _solicituds = sol._solicituds;
+        _solicituds = new ArrayList<>(sol._solicituds);
         _candidats = sol._candidats;
         _conversio = sol._conversio;
         _tempsEnMarxa = sol._tempsEnMarxa;
@@ -124,8 +130,8 @@ public class SolucioRuta {
         _nodes = (Stack<Node>)sol._nodes.clone();
         _vehicle = sol._vehicle;
         _graf = sol._graf;
-        _horaActual = sol._horaActual;
-        _accio = sol._accio;
+        //_horaActual = new LocalTime(sol._horaActual);
+        _accio = (Stack<Character>)sol._accio.clone();
         _carrega = sol._carrega;
         _tempsADepot = sol._tempsADepot;
         _ruta = sol._ruta;
@@ -176,13 +182,15 @@ public class SolucioRuta {
      * ->Tenim prou espai per carregar els
      * clients que esperen. 
      * ->La bateria del vehicle es superior al 50%
+     * ->L'hora actual es inferior a l'hora de l'emissio + el minim temps legal d'espera + el maxim temps que el client vol esperar + el temps d'arribada
      */
     private boolean origenAcceptable(CandidatRuta iCan, double temps) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
         Solicitud actual = _solicituds.get(iCan.actual()/2);
         return actual.NumPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
-                && actual.getEstat() == Solicitud.ESTAT.ESPERA;
+                && actual.getEstat() == Solicitud.ESTAT.ESPERA
+                && _horaActual.isBefore(actual.Emisio().plusMinutes((long)(_minimLegal + _maximEspera + temps)));
     }
 
     /**
@@ -255,23 +263,24 @@ public class SolucioRuta {
                 _nPeticions++;
                 _vehicle.ModificarPassatgers( _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.push( _solicituds.get(iCan.actual()/2).NumPassatgers());
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
-                
-                if (_horaActual.isBefore( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
-                    _horaActual = _horaActual.plusMinutes( _solicituds.get(iCan.actual()/2).Emisio().toSecondOfDay()/60 + (long)temps);
-                    if (_horaActual.isBefore( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
-                        _horaActual = _horaActual.plusMinutes(15);//millorable 
-                    }
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                if (_horaActual.isBefore(_solicituds.get(iCan.actual() /2).Emisio())) { //Si l'hora actual es abans que l'hora d' emissio
+                    _horaActual = _solicituds.get(iCan.actual() / 2).Emisio();//Esperem fins l'hora d emissio
+                    
                 }
-                 _solicituds.get(iCan.actual()/2).assignarHoraRecollida(_horaActual);
+                 _horaActual = _horaActual.plusMinutes((long)temps);
+                _solicituds.get(iCan.actual()/2).assignarHoraRecollida(_horaActual.getMinute());
+                
                 break;
             case 'D':
                 _nPeticions--;
                 _nPeticionsTramitades++;
                 _vehicle.ModificarPassatgers(-1 *  _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.push(-1* _solicituds.get(iCan.actual()/2).NumPassatgers());
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
-                 _solicituds.get(iCan.actual()/2).AssignarArribada(_horaActual);
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.FINALITZADA);
+                _horaActual = _horaActual.plusMinutes((long)temps);
+                _solicituds.get(iCan.actual()/2).AssignarArribada(_horaActual.getMinute());
+                 
                 break;
             case 'P':
                 double carregaCompleta = _vehicle.carregaTotal() - _vehicle.carregaRestant();
@@ -302,31 +311,31 @@ public class SolucioRuta {
         
         _vehicle.cargar(temps);
         _tempsEnMarxa -= temps;
-        
+       
         
 
         switch (tipus) {
             case 'O':
-                Solicitud actual = _solicituds.get(iCan.actual()/2);
                 _nPeticions--;
                 _vehicle.ModificarPassatgers(-1* _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.pop();
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ESPERA);
-                 if (_horaActual.isAfter( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes((long) temps))) {//Si l'hora actual es abans que l'hora d emisio + el temps d'arribada
-                    _horaActual = _horaActual.minusMinutes( _solicituds.get(iCan.actual()/2).Emisio().toSecondOfDay()/60 + (long)temps);
-                    if (_horaActual.isAfter( _solicituds.get(iCan.actual()/2).Emisio().plusMinutes(15))) {//Si l'hora actual es abans que l'hora d'emisio + el temps d'arribada + 15
-                        _horaActual = _horaActual.minusMinutes(15);//millorable 
-                    }
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ESPERA);
+                if (_horaActual.isAfter(_solicituds.get(iCan.actual() /2).Emisio())) { //Si l'hora actual es abans que l'hora d' emissio
+                    _horaActual = _solicituds.get(iCan.actual() / 2).Emisio();//Esperem fins l'hora d emissio
+                   
                 }
-                actual.assignarHoraRecollida(null);
+                
+                 _horaActual = _horaActual.minusMinutes((long)temps);
+                _solicituds.get(iCan.actual()/2).assignarHoraRecollida(_horaActual.getMinute());
                 break;
             case 'D':
                 _nPeticions++;
                 _nPeticionsTramitades--;
                 _vehicle.ModificarPassatgers( _solicituds.get(iCan.actual()/2).NumPassatgers());
                 _carrega.pop();
-                 _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
-                 _solicituds.get(iCan.actual()/2).AssignarArribada(null);
+                _solicituds.get(iCan.actual()/2).setEstat(Solicitud.ESTAT.ENTRANSIT);
+                _solicituds.get(iCan.actual()/2).AssignarArribada(0);
+                 _horaActual = _horaActual.minusMinutes((long)temps);
                 break;
             case 'P':
                 double carregaCompleta = (double)_carrega.pop();
@@ -343,7 +352,8 @@ public class SolucioRuta {
      * peticions que teniem en una primera instancia
      */
     public boolean completa() {
-        return _nPeticionsTramitades == (_solicituds.size()-1);
+      
+        return _nPeticionsTramitades == (_solicituds.size());
     }
     
     /**
@@ -398,5 +408,6 @@ public class SolucioRuta {
      */
     public void finalitzar() {
         _ruta.completarRuta(_nodes,_accio,_carrega,_solicituds,_horaActual,_tempsEnMarxa,_tempsADepot);
+        
     }
 }

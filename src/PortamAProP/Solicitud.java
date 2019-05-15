@@ -44,6 +44,17 @@ public class Solicitud implements Comparable<Solicitud> {
         _estat = ESTAT.ESPERA;
     }
     
+    public Solicitud(Solicitud sol) {
+        _identificadorSol = sol._identificadorSol;
+        _llocOrigen = sol._llocOrigen;
+        _llocDesti = sol._llocDesti;
+        _horaEmisio = sol._horaEmisio;
+        _estat = sol._estat;
+        _horaRecollida = sol._horaRecollida;
+        _horaArribada = sol._horaArribada;
+        _numPassatgers = sol._numPassatgers;
+    }
+    
     /**
      * @brief Converteix l'objecte en text
      * @pre ---
@@ -122,8 +133,8 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre Hora valida
      * @post S'ha completat la solicitud amb hora d'arribada 'arribada'
      */
-    public void AssignarArribada(LocalTime arribada){
-        _horaArribada=arribada;
+    public void AssignarArribada(int minut){
+        _horaArribada = _horaRecollida.plusMinutes(minut);
     }
     
     /**
@@ -131,8 +142,9 @@ public class Solicitud implements Comparable<Solicitud> {
      * @pre ---
      * @post S'ha assignat una hora de recollida real
      */
-    public void assignarHoraRecollida(LocalTime hora) {
-        _horaRecollida = hora;
+    public void assignarHoraRecollida(int minut) {
+        
+        _horaRecollida = _horaEmisio.plusMinutes(minut);
     }
     
     public LocalTime getRecollida(){
