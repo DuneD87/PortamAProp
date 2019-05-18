@@ -25,6 +25,8 @@ public class Ruta {
     private ArrayList<Node> _nodes;//@brief Llistat de nodes que descriuen la ruta efectuada
     private ArrayList<Character> _accions;//@brief Llistat d'accions que s'ha efectuat a cada node
     private ArrayList<Integer> _carrega;//@brief Llistat de persones que han baixat o pujat en peticions, o temps a depot
+    private boolean _finalitzada;//@brief Ens diu si el bactracking ha trobat una solucio a la ruta
+    private ArrayList<PeticioEnTramit> _peticionsCompletades;//@brief Llista de les peticions completades
     
     private double _tempsEnMarxa;//@brief Temps que el vehicle esta en marxa
     private double _tempsADepot;//@brief Temps que el vehicle esta a depot
@@ -42,6 +44,8 @@ public class Ruta {
         _solicituds = sol;
         _graf = g;
         _conversio = c;
+        _finalitzada = false;
+        _peticionsCompletades = new ArrayList<>();
     }
 
     /**
@@ -101,11 +105,12 @@ public class Ruta {
      * @param h Hora de finalitzacio de la ruta
      * @param tm Temps en marxa del vehicle
      * @param tp Temps a depot
+     * @param pComp Llistat de peticions tramitades
      * @brief Completa la ruta
      * @pre S'ha cridat l'algoritme de backtracking previament
      * @post Completa la ruta amb les diferents dades obtenides per l'algoritme de backtracking
      */
-    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Peticio> s,LocalTime h,double tm, double tp) {
+    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Peticio> s,LocalTime h,double tm, double tp,ArrayList<PeticioEnTramit> pComp) {
         _nodes = new ArrayList<>(n);
         _accions = new ArrayList<>(a);
         _carrega = new ArrayList<>(c);
@@ -113,6 +118,8 @@ public class Ruta {
         _horaFi = h;
         _tempsEnMarxa = tm;
         _tempsADepot = tp;
+        _peticionsCompletades = pComp;
+        _finalitzada = true;
     }
     
     /**
@@ -121,7 +128,7 @@ public class Ruta {
      * @post S'ha mostrat la ruta..TO COMPLETE
      */
     public void mostrarRuta() {
-        System.out.println("*****SOLICITUDS ATESES*****");
+        System.out.println("*****PETICIONS ATESES*****");
         for (Peticio s : _solCompletades) {
             System.out.println(s.toString());
         }
