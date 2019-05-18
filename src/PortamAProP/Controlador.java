@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.text.StyledEditorKit;
 import jdk.nashorn.internal.objects.NativeJava;
 import org.graphstream.algorithm.Dijkstra;
@@ -23,6 +24,13 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 import scala.Int;
 
 /*
@@ -97,6 +105,8 @@ public class Controlador {
         _randomNode = randomNode;
         
         _graf = new SingleGraph("MAPA");
+        _graf.setAutoCreate(true);
+        
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();
@@ -359,6 +369,7 @@ public class Controlador {
         double  mitjanaPassatgers=estadistic.mitjanaPassatgers();
         double mitjanaEsperaClient = estadistic.mitjanaTempsEsperaClient();
         double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
+        
         System.out.println("====================ESTADISTICS GENERLAS====================");
         System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + mitjanaRutaVehicle + "\n"
                             + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + mitjanaCarragaVehicle + "\n" 
@@ -370,6 +381,24 @@ public class Controlador {
             if(r.finalitzada())
                 r.mostrarRutaSugraf();
         }
+        int finalitzades=0;
+        int noFinalitzades=0;
+        for(Ruta r: _rutes){
+            if(r.finalitzada())
+                finalitzades++;
+            else
+                noFinalitzades++;
+        }
+        DefaultPieDataset dataset = new DefaultPieDataset() ;
+        dataset.setValue("Finalitzades", finalitzades);
+        dataset.setValue("No Finalitzades", noFinalitzades);
+        JFreeChart chart = ChartFactory.createPieChart("Finalitzades/NoFinalitzades",dataset);
+        ChartPanel panel = new ChartPanel(chart);
+        JFrame ventana = new JFrame("Grafic");
+        ventana.getContentPane().add(panel);
+        ventana.pack();
+        ventana.setVisible(true);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
 
