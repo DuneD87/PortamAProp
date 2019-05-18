@@ -68,7 +68,7 @@ public class GeneradorNodesGraf {
         }
         _nodes += "#\n";
         //System.out.println(_nodes);
-        /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S|n]");
+        /*System.out.println("Vols fer un fitxer amb aqustes peticions? [S|n]");
         String eleccio = teclat.nextLine();
         if (eleccio.equals("S")) {
             System.out.println("Nom del fitxer:");

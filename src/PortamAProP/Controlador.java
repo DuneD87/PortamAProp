@@ -35,14 +35,14 @@ import scala.Int;
 public class Controlador {
 
     private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
-    private SortedSet<Solicitud> _solicituds; // @brief Vector de solicituds, el fem servir en els diferents algoritmes
+    private SortedSet<Peticio> _peticions; // @brief Vector de peticions, el fem servir en els diferents algoritmes
     private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private String NOM_FITXER_D = "Depots.txt";
     private String NOM_FITXER_G = "Graf.txt";
     private String FORMAT_ENTRADA_GRAF = "R";
     private String FORMAT_ENTRADA_SOLICITUDS = "R";
-    private List<Pair<Vehicle, TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
+    private List<Pair<Vehicle, TreeSet<Peticio>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
     private LlegirFitxerGraf mapa;
 
     private ArrayList<Ruta> _rutes;
@@ -76,7 +76,7 @@ public class Controlador {
      * @param pesMaxim Ens diu el pes maxim de les arestes
      * @param nFitxerGraf Ens diu el nom del fitxer del graf
      * @param maxGreedy Ens diu la distancia maxima del greedy
-     * @param randomSol Ens diu si la generacio de solicituds sera aleatoria
+     * @param randomSol Ens diu si la generacio de peticions sera aleatoria
      * @param randomNode Ens diu si la generacio de nodes sera aleatoria
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions , int maxPersones
@@ -97,11 +97,11 @@ public class Controlador {
         
         _graf = new SingleGraph("MAPA");
         generarGraf();
-        _solicituds = new TreeSet<>();
+        _peticions = new TreeSet<>();
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
-        _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
+        _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
         _rutes = new ArrayList<Ruta>();
         voras=new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
         
@@ -137,19 +137,19 @@ public class Controlador {
     }
 
     /**
-     * @brief Inicialitza les solicituds
+     * @brief Inicialitza les peticions
      * @pre ---
-     * @post S'han inicialitzats les solicituds
+     * @post S'han inicialitzats les peticions
      */
     private void generarSolicituds() {
-        LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(_graf);
+        LlegirFitxerPeticions lFitxer = new LlegirFitxerPeticions(_graf);
         if (_randomSol) {
-            GeneradorSolicituds sol = new GeneradorSolicituds(_nPeticions,_maxPersones, _nNodes);
+            GeneradorPeticions sol = new GeneradorPeticions(_nPeticions,_maxPersones, _nNodes);
             String lSol = sol.toString();
             //System.out.println(lSol);
-            lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
+            lFitxer = new LlegirFitxerPeticions(lSol, _graf);
         }
-        _solicituds = lFitxer.obtSol();
+        _peticions = lFitxer.obtSol();
     }
 
     /**
@@ -166,9 +166,9 @@ public class Controlador {
             _generadorNodes = new GeneradorNodesGraf(_pesMaxim, _nNodes);
             _generadorNodes.generadorAleatoriNodes(_graf.getNodeCount());
             String nodes = _generadorNodes.OptenirNodes();
-            mapa.ModificarGrafPerString(_graf, nodes, "Solicitud");
+            mapa.ModificarGrafPerString(_graf, nodes, "peticions");
         } else {
-            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "Solicitud");
+            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "peticions");
         }
 
         _graf = mapa.obtGraph();
@@ -177,32 +177,32 @@ public class Controlador {
     }
 
     /**
-     * @brief Assigna per cada vehicle, un grup de solicituds, tambe assigna
+     * @brief Assigna per cada vehicle, un grup de peticions, tambe assigna
      * tots els depots
      * @pre ---
-     * @post Afageix a _ruta, vehicles amb unes solicituds
+     * @post Afageix a _ruta, vehicles amb unes peticions
      */
     public void assignarSolicitudsAVehicles() {
 
         //for (int i = 0; i < _vehicles.size(); i++) 
         int i = 0; //index del vehicle
-        int y = 0; //numero de cops que es repeteix el numeor de solicituds no assignades
+        int y = 0; //numero de cops que es repeteix el numeor de peticions no assignades
         int indexruta = 0;
         int anterior = numeroSolicitudsNoAssignades();
         while (numeroSolicitudsNoAssignades() != 0 && y<_vehicles.size()) {
-            while (numeroSolicitudsNoAssignades() != 0 && i < _vehicles.size()) { //Mentre hi hagin solicituds sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
+            while (numeroSolicitudsNoAssignades() != 0 && i < _vehicles.size()) { //Mentre hi hagin peticions sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
                 //System.out.println(_vehicles.get(i));
                 // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
-                voras.crearRuta(_vehicles.get(i), _rutes, _solicituds, _graf, mapa);
+                voras.crearRuta(_vehicles.get(i), _rutes, _peticions, _graf, mapa);
                 _vehicles.get(i).restaurarCarrega(); //Restarura la carga ja que ha estat modificada al crear la ruta
                 i++;
-                //System.out.println("\n===============================\n Numero de solicituds restants: " + numeroSolicitudsNoAssignades());
+                //System.out.println("\n===============================\n Numero de peticions restants: " + numeroSolicitudsNoAssignades());
             }
             i=0;
             for (Vehicle v : _vehicles) { //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
                 v.setPosicio(v.nodeInicial());
             }
-            if (anterior == numeroSolicitudsNoAssignades()) {//Si les solicituds que queden son les mateixes que el bucle anterior augmentem y, sino y=0
+            if (anterior == numeroSolicitudsNoAssignades()) {//Si les peticions que queden son les mateixes que el bucle anterior augmentem y, sino y=0
                     y++;
                 } else {
                     y = 0;
@@ -213,12 +213,12 @@ public class Controlador {
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
             }
-            //Assignacio de totes els solicituds en rutes com a finalitzades
+            //Assignacio de totes els peticions en rutes com a finalitzades
             for (Ruta r: _rutes){
-                for(Solicitud s: r.getSol()){
-                    for(Solicitud ss: _solicituds){
+                for(Peticio s: r.getSol()){
+                    for(Peticio ss: _peticions){
                         if(ss==s){
-                            ss.setEstat(Solicitud.ESTAT.FINALITZADA);
+                            ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
                         }
                     }
                 }
@@ -228,16 +228,16 @@ public class Controlador {
     }
 
     /**
-     * @brief Mostra les solicituds per cada vehicle
+     * @brief Mostra les peticions per cada vehicle
      * @pre ---
-     * @post Mostra les solicituds per cada vehicle
+     * @post Mostra les peticions per cada vehicle
      */
     public void mostrarVehiclesSolicituds() {
-        Iterator<Pair<Vehicle, TreeSet<Solicitud>>> it = _ruta.iterator();
+        Iterator<Pair<Vehicle, TreeSet<Peticio>>> it = _ruta.iterator();
         while (it.hasNext()) {
-            Pair<Vehicle, TreeSet<Solicitud>> pair = it.next();
+            Pair<Vehicle, TreeSet<Peticio>> pair = it.next();
             Vehicle v = pair.getKey();
-            TreeSet<Solicitud> s = pair.getValue();
+            TreeSet<Peticio> s = pair.getValue();
             System.out.println("************************************************\n Vehicle:");
             System.out.println(v.toString() + "\n Solicitds del vehicle:");
             System.out.println("\t" + s);
@@ -247,7 +247,7 @@ public class Controlador {
 
     /**
      * @brief Inicialitza l'algoritme de backtracking
-     * @pre S'han assignat solicituds als vehicles dins de la finestra de temps
+     * @pre S'han assignat peticions als vehicles dins de la finestra de temps
      * @post S'ha trobat la millor ruta dins d'una finestra temps
      */
     public void algoritmeBacktracking(Ruta r) {
@@ -267,11 +267,11 @@ public class Controlador {
     /**
      * @brief crea i mostra un subgraf complet amb les soliciutds del vehicle
      * @pre ---
-     * @post Crea un subgraf amb node d'origen de Vehicle v i solicituds de
+     * @post Crea un subgraf amb node d'origen de Vehicle v i peticions de
      * llista_solicituds
      */
-    public Graph crearSubGraf(Vehicle v, TreeSet<Solicitud> llista_solicituds, int[] c) {
-        Iterator<Solicitud> it = llista_solicituds.iterator();
+    public Graph crearSubGraf(Vehicle v, TreeSet<Peticio> llista_solicituds, int[] c) {
+        Iterator<Peticio> it = llista_solicituds.iterator();
         Graph subgraf = new SingleGraph("Ruta");
         //Primer afegim tots els depots
         for (int x = 0; x < mapa.GetNumDepot(); x++) {
@@ -283,9 +283,9 @@ public class Controlador {
 
         }
         while (it.hasNext()) {
-            Solicitud s = it.next();
-            int o = s.Origen();
-            int d = s.Desti();
+            Peticio s = it.next();
+            int o = s.origen();
+            int d = s.desti();
             String origen = Integer.toString(o);
             String desti = Integer.toString(d);
             if (subgraf.getNode(origen) == null) {
@@ -332,8 +332,8 @@ public class Controlador {
     }
 
     public void mostrarSolicitudsNoAssignades() {
-        for (Solicitud s : _solicituds) {
-            if (s.getEstat() == Solicitud.ESTAT.ESPERA) {
+        for (Peticio s : _peticions) {
+            if (s.obtenirEstat() == Peticio.ESTAT.ESPERA) {
                 System.out.println(s);
             }
         }
@@ -341,8 +341,8 @@ public class Controlador {
 
     public int numeroSolicitudsNoAssignades() {
         int noAssignades = 0;
-        for (Solicitud s : _solicituds) {
-            if (s.getEstat() == Solicitud.ESTAT.ESPERA || s.getEstat() == Solicitud.ESTAT.VISITADA) {
+        for (Peticio s : _peticions) {
+            if (s.obtenirEstat() == Peticio.ESTAT.ESPERA || s.obtenirEstat() == Peticio.ESTAT.VISITADA) {
                 noAssignades++;
             }
         }

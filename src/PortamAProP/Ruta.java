@@ -16,15 +16,15 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 public class Ruta {
 
     private Vehicle _vehicle;//@brief Vehicle que fa la ruta
-    private TreeSet<Solicitud> _solicituds;//@brief Conjunt solicituds ordenades decreixement per data, 
+    private TreeSet<Peticio> _solicituds;//@brief Conjunt peticions ordenades decreixement per data, 
     private Graph _graf;//@brief Subgraph per on es moura el nostre vehicle
     private Stack<Node> _ruta;//@brief Solucio obtenida per l'algoritme de backtracking
     private int[] _conversio; // @brief array de pairs que assosia l'index dels nodes del subgraf de la ruta amb l'index del graf complet
     
-    private ArrayList<Solicitud> _solCompletades;//@brief Llistat de les solicituds completades
+    private ArrayList<Peticio> _solCompletades;//@brief Llistat de les peticions completades
     private ArrayList<Node> _nodes;//@brief Llistat de nodes que descriuen la ruta efectuada
     private ArrayList<Character> _accions;//@brief Llistat d'accions que s'ha efectuat a cada node
-    private ArrayList<Integer> _carrega;//@brief Llistat de persones que han baixat o pujat en solicituds, o temps a depot
+    private ArrayList<Integer> _carrega;//@brief Llistat de persones que han baixat o pujat en peticions, o temps a depot
     
     private double _tempsEnMarxa;//@brief Temps que el vehicle esta en marxa
     private double _tempsADepot;//@brief Temps que el vehicle esta a depot
@@ -35,9 +35,9 @@ public class Ruta {
     /**
      * @brief Constructor
      * @post Construim una nova ruta fen servir un vehicle, un conjunt de
-     * solicituds i un subgraph
+     * peticions i un subgraph
      */
-    public Ruta(Vehicle vehicle, TreeSet<Solicitud> sol, Graph g, int[] c) {
+    public Ruta(Vehicle vehicle, TreeSet<Peticio> sol, Graph g, int[] c) {
         _vehicle = vehicle;
         _solicituds = sol;
         _graf = g;
@@ -47,7 +47,7 @@ public class Ruta {
     /**
      * @brief toString metode
      * @return Cadena de caracters que ens dona informacio sobre la ruta (quin
-     * vehicle la fa i les solicituds acceptades)
+     * vehicle la fa i les peticions acceptades)
      */
     @Override
     public String toString() {
@@ -71,9 +71,9 @@ public class Ruta {
     }
 
     /**
-     * @post Conjunt de solicituds
+     * @post Conjunt de peticions
      */
-    public ArrayList<Solicitud> getSol() {
+    public ArrayList<Peticio> getSol() {
         return new ArrayList<>(_solicituds);
     }
 
@@ -97,7 +97,7 @@ public class Ruta {
      * @param n Pila de nodes que descriu la ruta del vehicle
      * @param a Pila d'accions que s'han efecuat a cada node
      * @param c Pila de persones que han baixat/pujat a cada node o temps carregan
-     * @param s Llista de solicituds completades
+     * @param s Llista de peticions completades
      * @param h Hora de finalitzacio de la ruta
      * @param tm Temps en marxa del vehicle
      * @param tp Temps a depot
@@ -105,7 +105,7 @@ public class Ruta {
      * @pre S'ha cridat l'algoritme de backtracking previament
      * @post Completa la ruta amb les diferents dades obtenides per l'algoritme de backtracking
      */
-    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Solicitud> s,LocalTime h,double tm, double tp) {
+    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Peticio> s,LocalTime h,double tm, double tp) {
         _nodes = new ArrayList<>(n);
         _accions = new ArrayList<>(a);
         _carrega = new ArrayList<>(c);
@@ -122,7 +122,7 @@ public class Ruta {
      */
     public void mostrarRuta() {
         System.out.println("*****SOLICITUDS ATESES*****");
-        for (Solicitud s : _solCompletades) {
+        for (Peticio s : _solCompletades) {
             System.out.println(s.toString());
         }
         Graph g = new MultiGraph("Sol");
@@ -160,8 +160,8 @@ public class Ruta {
     }
     public int mitjanaPassatgers(){
         int mitjana=0;
-        for(Solicitud s:_solicituds){
-            mitjana+=s.NumPassatgers();
+        for(Peticio s:_solicituds){
+            mitjana+=s.numPassatgers();
         }
         mitjana=mitjana/_solicituds.size();
         
@@ -186,14 +186,14 @@ public class Ruta {
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
         long mitjanaRecorregut=0;
-        for(Solicitud s: _solCompletades){
+        for(Peticio s: _solCompletades){
             //if (s.getRecollida() != null) {
-                System.out.println("Hora Emisio " + s.Emisio());
-                System.out.println("Hora Recollida " + s.getRecollida());
-                System.out.println("Hora Arribada " + s.Arribada());
-                long tempsEspera = s.Emisio().until(s.getRecollida(), MINUTES);
+                System.out.println("Hora Emisio " + s.emissio());
+                System.out.println("Hora Recollida " + s.obtenirHoraRecollida());
+                System.out.println("Hora Arribada " + s.arribada());
+                long tempsEspera = s.emissio().until(s.obtenirHoraRecollida(), MINUTES);
                 mitjanaEspera += tempsEspera;
-                long tempsRecorregut = MINUTES.between(s.getRecollida(), s.Arribada());
+                long tempsRecorregut = MINUTES.between(s.obtenirHoraRecollida(), s.arribada());
                 mitjanaRecorregut += tempsRecorregut;
            // }
         }
@@ -209,8 +209,8 @@ public class Ruta {
      int [] histOrigen= new int [200];
      int [] histDesti= new int [200];
      for(int i=0;i<_solCompletades.size();i++){
-         histOrigen[_solCompletades.get(i).Origen()]++;
-         histDesti[_solCompletades.get(i).Desti()]++;
+         histOrigen[_solCompletades.get(i).origen()]++;
+         histDesti[_solCompletades.get(i).desti()]++;
      }
     int minimOrigen=Integer.MAX_VALUE;
     int maximOrigen=0;
@@ -230,6 +230,6 @@ public class Ruta {
     }
     
     public LocalTime obtHoraPrimeraPeticio() {
-        return _solicituds.first().Emisio();
+        return _solicituds.first().emissio();
     }
 }

@@ -1,7 +1,7 @@
 package PortamAProP;
 
 /**
- * @brief Objecte encarregat de llegir les solicituds i afegirles a la estructura de dades
+ * @brief Objecte encarregat de llegir les peticions i afegirles a la estructura de dades
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
@@ -14,35 +14,35 @@ import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.graphstream.graph.*;
-public class LlegirFitxerSolicitud {
+public class LlegirFitxerPeticions {
 
-    private SortedSet<Solicitud> _vecSol; //@brief Estructura on ens guardem les solicituds ordenades per data d'emissio decreixent
+    private SortedSet<Peticio> _vecSol; //@brief Estructura on ens guardem les peticions ordenades per data d'emissio decreixent
     private Graph _graf;
-    private String NOM_FITXER_SOL="Solicituds.txt"; //@brief Nom del fitxer d'on es llegeixen les solicituds
+    private String NOM_FITXER_SOL="peticions.txt"; //@brief Nom del fitxer d'on es llegeixen les peticions
     /**
-     * @brief Inicialitza la lectura de solicituds
+     * @brief Inicialitza la lectura de peticions
      * @pre Cadena de caracters amb el format implicit
-     * @post S'han llegit les solicituds desde cadena de caracters
+     * @post S'han llegit les peticions desde cadena de caracters
      */
-    public LlegirFitxerSolicitud(String text, Graph graf) {
+    public LlegirFitxerPeticions(String text, Graph graf) {
         _graf=graf;
-        _vecSol = new TreeSet<Solicitud>();
+        _vecSol = new TreeSet<Peticio>();
         String[] lines = text.split("\r\n|\r|\n");
         for (int i = 0; i < lines.length; i++) {
             CrearSolicitud(lines[i]);
         }
         
-        System.out.println("Solicituds creades");
+        System.out.println("peticions creades");
         
     }
     
     /**
-     * @brief Inicialitza la lectura de solicituds
+     * @brief Inicialitza la lectura de peticions
      * @pre ---
-     * @post S'han llegit les solicituds desde fitxer
+     * @post S'han llegit les peticions desde fitxer
      */
-    public LlegirFitxerSolicitud(Graph graf) {
-        _vecSol = new TreeSet<Solicitud>();
+    public LlegirFitxerPeticions(Graph graf) {
+        _vecSol = new TreeSet<Peticio>();
         _graf=graf;
         File fitxer = null;
         FileReader fr = null;
@@ -50,7 +50,7 @@ public class LlegirFitxerSolicitud {
 
         try {
             Scanner sc = new Scanner(System.in);
-            //System.out.println("Nom del fitxer de solicituds:");
+            //System.out.println("Nom del fitxer de peticions:");
             //String nom = sc.nextLine();
             String nom=NOM_FITXER_SOL;
             fitxer = new File(nom);
@@ -63,7 +63,7 @@ public class LlegirFitxerSolicitud {
                     CrearSolicitud(linia);
          
             }
-            for (Solicitud s : _vecSol) {
+            for (Peticio s : _vecSol) {
                 //System.out.println(s);
             }
         } catch (Exception e) {
@@ -81,27 +81,27 @@ public class LlegirFitxerSolicitud {
     }
     
     /**
-     * @brief Crea una solicitud
-     * @pre s valid per a configuracio de solicitud
-     * @post S'ha creat una nova solicitud i s'ha afegit a l'estructura
+     * @brief Crea una peticio
+     * @pre s valid per a configuracio de peticio
+     * @post S'ha creat una nova peticio i s'ha afegit a l'estructura
      */
     private void CrearSolicitud(String s) {
         String[] parts = s.split(" ");
         if(_graf.getNode(parts[1])!=null &&_graf.getNode(parts[2])!=null && _graf.getNode(parts[1]).hasEdgeBetween(parts[2])){
         LocalTime emisio = LocalTime.of(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]));
-        Solicitud sol = new Solicitud(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[6]));
+        Peticio sol = new Peticio(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), emisio, Integer.parseInt(parts[6]));
         _vecSol.add(sol);
         }else
-            System.out.println("Solicitud no creada perque els nodes no existeixen");
+            System.out.println("peticions no creada perque els nodes no existeixen");
 
     }
     
     /**
-     * @brief Estructura de solicituds
+     * @brief Estructura de peticions
      * @pre S'ha cridat initText o initFitxer
-     * @post Ens dona l'estructura ordenada que conte les solicituds
+     * @post Ens dona l'estructura ordenada que conte les peticions
      */
-    public SortedSet<Solicitud> obtSol() {
+    public SortedSet<Peticio> obtSol() {
         return _vecSol;
     }
 }

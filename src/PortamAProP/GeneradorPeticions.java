@@ -2,7 +2,7 @@ package PortamAProP;
 
 /**
  * @class GeneradorSolicituds
- * @brief Generador intern de Solicituds aleatories.
+ * @brief Generador intern de peticions aleatories.
  * -Donat 3 numeros, determinem:
  * --maxSol: Ens diu el nombre maxim de peticions que es crearan de forma aleatoria
  * --maxPersones: Ens diu el nombre maxim de persones per peticio
@@ -15,13 +15,13 @@ import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GeneradorSolicituds {
+public class GeneradorPeticions {
 
   
     private final int _maxNodes;//@brief nombre maxim de nodes
-    private String _sol;//@brief Cadena de caracters que guarda el contingut de generar solicituds aleatories
-    private final int _maxSol;//@brief Maxim nombre de solicituds a crear
-    private final int _maxPersones;//@brief Maxim nombre de persones per solicitud
+    private String _sol;//@brief Cadena de caracters que guarda el contingut de generar peticions aleatories
+    private final int _maxSol;//@brief Maxim nombre de peticions a crear
+    private final int _maxPersones;//@brief Maxim nombre de persones per peticio
     
     /**
      * @brief Constructor per defecte
@@ -29,7 +29,7 @@ public class GeneradorSolicituds {
      * @param maxPersones Ens diu el nombre maxim de persones per peticio
      * @param nNodes Ens dona el nombre maxim de nodes amb el que treballarem
      */
-    public GeneradorSolicituds(int maxSol, int maxPersones, int nNodes) {
+    public GeneradorPeticions(int maxSol, int maxPersones, int nNodes) {
         _maxSol = maxSol;
         _maxPersones = maxPersones;
         _maxNodes = nNodes;
@@ -37,7 +37,7 @@ public class GeneradorSolicituds {
     }
 
     //Pre: 0<numero
-    //Post: Retorna un string amb una llista de solicituds creades
+    //Post: Retorna un string amb una llista de peticions creades
     
     private String crearSolicituds() {
         Random random = new Random();
@@ -87,9 +87,9 @@ public class GeneradorSolicituds {
         }
     }
     /**
-     * @brief Ens dona les solicituds generades aleatoriament
+     * @brief Ens dona les peticions generades aleatoriament
      * @pre ---
-     * @return Cadena de caracters amb les solicituds
+     * @return Cadena de caracters amb les peticions
      */
     @Override
     public String toString() {

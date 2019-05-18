@@ -18,8 +18,8 @@ public class Vehicle {
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
     private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
     private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
-    private LocalTime _HoraUltimaSol;//@brief Temps de la arribada de la ultima solicitud assignada al vehicle
-    private LocalTime _HoraPrimeraSol;//@brief Temps de la emisio de la primera solicitud assignada al vehicle
+    private LocalTime _HoraUltimaSol;//@brief Temps de la arribada de la ultima peticio assignada al vehicle
+    private LocalTime _HoraPrimeraSol;//@brief Temps de la emisio de la primera peticio assignada al vehicle
     /**
      * @brief Constructor amb parametres
      * @pre ---

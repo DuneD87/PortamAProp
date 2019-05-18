@@ -1,14 +1,14 @@
 #
-#   Format de fitxer per la creacio de Solicituds
+#   Format de fitxer per la creacio de peticions
 #   =============================================
-#   Creacio de Solicituds (una per linia):
-#   1r parametre: Id de la solicitud
+#   Creacio de peticions (una per linia):
+#   1r parametre: Id de la peticio
 #   2n parametre: Id node origen
 #   3r parametre: Id node desti
 #   4t parametre: Hora emisio
 #   5e parametre: Minut emisio
 #   6e parametre: Segon emisio
-#   7e parametre: Numero de passatgers de la solicitud
+#   7e parametre: Numero de passatgers de la peticio
 #
 #   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
 #   l'ultima linia de paramentres
