@@ -352,7 +352,20 @@ public class Controlador {
     }
     public void estadistic(){
         estadistic=new Estadistics(_rutes);
-        estadistic.mostrarMitjanaDistanciaNodes();
+        double mitjanaRutaVehicle=estadistic.mitjanaTempsMarxaVehicle();
+        double mitjanaCarragaVehicle=estadistic.mitjanaTempsCarregaVehicle();
+        double mitjanaDistancia=estadistic.mitjanaDistanciaNodes();
+        double  mitjanaPassatgers=estadistic.mitjanaPassatgers();
+        double mitjanaEsperaClient = estadistic.mitjanaTempsEsperaClient();
+        double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
+        System.out.println("====================ESTADISTICS GENERLAS====================");
+        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + mitjanaRutaVehicle + "\n"
+                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + mitjanaCarragaVehicle + "\n" 
+                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + mitjanaDistancia + "\n"
+                            + "MITJANA DE PASSATGERS: " + mitjanaPassatgers + " \n" 
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR" + mitjanaEsperaClient + "\n"
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT" + mitjanaMarxaClient + "\n");
+        
     }
 
 }
