@@ -12,6 +12,7 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.DefaultGraph;
 import org.graphstream.graph.implementations.MultiGraph;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import javafx.util.converter.LocalTimeStringConverter;
 
 public class Ruta {
 
@@ -208,9 +209,44 @@ public class Ruta {
                // System.out.println("Hora Emisio " + s.horaEmissio());
                 //System.out.println("Hora Recollida " + s.obtenirHoraRecollida());
                 //System.out.println("Hora Arribada " + s.obtenirHoraArribada());
-                long tempsEspera = s.horaEmissio().until(s.obtenirHoraRecollida(), MINUTES);
+                LocalTime mitjanit=LocalTime.of(0, 0);
+                LocalTime casimit=LocalTime.of(23, 59,59);
+                long tempsEspera=0;
+                if(s.horaEmissio().isBefore(casimit) && s.obtenirHoraRecollida().isAfter(mitjanit)){
+                    tempsEspera+=MINUTES.between(s.horaEmissio(), casimit);
+                    tempsEspera+=MINUTES.between(mitjanit, s.obtenirHoraRecollida());
+                    if(tempsEspera>180){
+                         long diasencer=MINUTES.between(mitjanit, casimit);
+                         tempsEspera-=(diasencer);
+                         if(tempsEspera<0){
+                             tempsEspera*=-1;
+                         }
+                    }
+                }
+                
                 mitjanaEspera += tempsEspera;
-                long tempsRecorregut = MINUTES.between(s.obtenirHoraRecollida(), s.obtenirHoraArribada());
+                long tempsRecorregut=0;
+                 //System.out.println(mitjanit);
+                 //System.out.println(s.obtenirHoraRecollida());
+                 //System.out.println(s.obtenirHoraArribada());
+                 //System.out.println(s.obtenirHoraRecollida().isBefore(casimit));
+                 //System.out.println(s.obtenirHoraArribada().isAfter(mitjanit));
+                if(s.obtenirHoraRecollida().isBefore(casimit) && s.obtenirHoraArribada().isAfter(mitjanit)){
+                    tempsRecorregut+=MINUTES.between(s.obtenirHoraRecollida(), casimit);
+                    //System.out.println("Temps1 " + tempsRecorregut);
+                    tempsRecorregut+=MINUTES.between(mitjanit, s.obtenirHoraArribada());
+                    // System.out.println(MINUTES.between(mitjanit, s.obtenirHoraArribada()));
+                    //System.out.println("Temps2 " + tempsRecorregut);
+                    if(tempsRecorregut>180){
+                        long diasencer=MINUTES.between(mitjanit, casimit);
+                       tempsRecorregut-=(diasencer);
+                       if(tempsRecorregut<0)
+                           tempsRecorregut*=-1;
+                        //System.out.println(diasencer);
+                         //System.out.println("Temps3" + tempsRecorregut);
+                    }
+                }
+                //System.out.println("Temps" + tempsRecorregut);
                 mitjanaRecorregut += tempsRecorregut;
            // }
         }
