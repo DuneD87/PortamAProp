@@ -96,20 +96,20 @@ public class PeticioEnTramit {
      * @brief Assigna hora recollida
      * @pre Peticio en estat ESPERA
      * @post S'ha assignat l'hora de recollida a la peticio en tramit
-     * @param minut Ens diu quant de temps ha passat desde l'emissio fins la recollida
+     * @param horaRecollida Ens diu l'hora de recollida en format LocalTime
      */
-    public void assignarRecollida(int minut) {
-        _horaRecollida = _instancia.emissio().plusMinutes(minut);
+    public void assignarRecollida(LocalTime horaRecollida) {
+        _horaRecollida = horaRecollida;
     }
     
     /**
      * @brief Assigna hora d'arribada
      * @pre Peticio en estat ENTRANSIT i s'ha assignat una hora de recollida previament
      * @post S'ha assignat l'hora d'arribada
-     * @param minut Ens diu quant de temps ha passat desde la recollida fins l'arribada
+     * @param horaArribada Ens diu l'hora d'arribada en format LocalTime
      */
-    public void assignarArribada(int minut) {
-        _horaArribada = _horaRecollida.plusMinutes(minut);
+    public void assignarArribada(LocalTime horaArribada) {
+        _horaArribada = horaArribada;
     }
     
     /**
