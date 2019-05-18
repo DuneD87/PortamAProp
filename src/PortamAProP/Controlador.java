@@ -44,6 +44,7 @@ public class Controlador {
     private String FORMAT_ENTRADA_SOLICITUDS = "R";
     private List<Pair<Vehicle, TreeSet<Peticio>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
     private LlegirFitxerGraf mapa;
+    private Estadistics estadistic;
 
     private ArrayList<Ruta> _rutes;
     private Greedy voras;
@@ -114,6 +115,7 @@ public class Controlador {
      */
     public void init() {
          assignarSolicitudsAVehicles();
+         estadistic();
     }
 
  
@@ -347,6 +349,10 @@ public class Controlador {
             }
         }
         return noAssignades;
+    }
+    public void estadistic(){
+        estadistic=new Estadistics(_rutes);
+        estadistic.mostrarMitjanaDistanciaNodes();
     }
 
 }

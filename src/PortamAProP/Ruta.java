@@ -172,6 +172,9 @@ public class Ruta {
     }
     public double mitjanaDistanciaNodes(){
         double mitjana=0;
+        if(_nodes.isEmpty()){
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        }
         for(int i=0;i<_nodes.size()-1;i++){
             if(_nodes.get(i).getId().equals(_nodes.get(i+1).getId()))
                 mitjana+=0;
@@ -231,5 +234,9 @@ public class Ruta {
     
     public LocalTime obtHoraPrimeraPeticio() {
         return _solicituds.first().emissio();
+    }
+    
+    public double tempsEnMarxa(){
+        return _tempsEnMarxa;
     }
 }
