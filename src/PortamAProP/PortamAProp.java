@@ -19,15 +19,15 @@ public class PortamAProp {
         
         /**VARIABLES DE CONTROL*/
         int tamanyFinestra = 150;
-        int maximEspera = 30;
+        int maximEspera = 60;
         int minimLegal = 15;
         int nPeticions = 120;
         int maxPersones = 2;
         String nFitxerSol = "";
         int nNodes = 60;
-        int pesMaxim = 20;
+        int pesMaxim = 60;
         String nFitxerGraf = "";
-        int maxGreedy = 50;
+        int maxGreedy = 200;
         boolean randomSol = true;
         boolean randomNode = true;
         

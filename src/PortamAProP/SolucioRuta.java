@@ -31,6 +31,7 @@ public class SolucioRuta {
     private Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
     private double _tempsEnMarxa;//@brief temps acumulat en atendre totes les peticions
     private double _tempsADepot;//@brief temps que esta el vehicle carregan
+    private double _tempsTotal;//@brief Temps total, suma de temps en marxa i temps a depot
     private Graph _graf;//@brief Subgraph sobre el que treballem
     private ArrayList<Peticio> _peticio;//@breif Subgrup de peticions que el nostre vehicle atendra
     
@@ -49,7 +50,7 @@ public class SolucioRuta {
     
     private Ruta _ruta;//@brief Ruta que fa el vehicle
     
-    private static final double FACTOR_CARREGA_CRITIC = 0.5; //@brief Constant que ens diu quan el vehicle ha de carregar
+    private static final double FACTOR_CARREGA_CRITIC = 0.9; //@brief Constant que ens diu quan el vehicle ha de carregar
     
     //Afegit per Buenaventura 
     private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
@@ -69,6 +70,7 @@ public class SolucioRuta {
         _peticio = r.getSol();
         _vehicle = r.getVehicle();
         _tempsEnMarxa = 0;
+        _tempsTotal = 0;
         _nPeticions = 0;
         _graf = r.getGraph();
         _conversio=r.retornarConversio();
@@ -92,6 +94,7 @@ public class SolucioRuta {
             if (p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
                 System.out.println("****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****\n");
                 _nodes.push(p);
+                _accio.push('P');
             }
                 
         }
@@ -209,7 +212,7 @@ public class SolucioRuta {
         return actual.nPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
                 && actual.obtenirEstat() == PeticioEnTramit.ESTAT.ESPERA
-                && actual.horaEmissio().isBefore(_horaActual.plusMinutes(_maximEspera));
+                ;
     }
 
     /**
@@ -232,7 +235,8 @@ public class SolucioRuta {
     private boolean depotAcceptable(CandidatRuta iCan) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
         return _vehicle.carregaRestant() < mitjaBat
-                && _nPeticions == 0;
+                && _nPeticions == 0
+                && _accio.lastElement() != 'P';
     }
 
     /**
@@ -274,7 +278,7 @@ public class SolucioRuta {
         
         _vehicle.descarga(temps);
         _tempsEnMarxa += temps;
-        
+        _tempsTotal += temps;
          
         
         switch (tipus) {
@@ -288,10 +292,11 @@ public class SolucioRuta {
                     _horaActual = _peticionsTramit.get(iCan.actual() / 2).horaEmissio();//Esperem fins l'hora d emissio
                     
                 }
-                if (_horaActual.isBefore(_peticionsTramit.get(iCan.actual()/2).horaEmissio().plusMinutes(_minimLegal))) {
+                if (_horaActual.isAfter(_peticionsTramit.get(iCan.actual()/2).horaEmissio().plusMinutes(_minimLegal))) {
                     _horaActual = _horaActual.plusMinutes(_minimLegal);
                 }
-                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(_horaActual);
+                int diff = _minimLegal + (int)temps;
+                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(diff);
                 
                 break;
             case 'D':
@@ -301,7 +306,7 @@ public class SolucioRuta {
                 _vehicle.ModificarPassatgers(-1 *  _peticionsTramit.get(iCan.actual()/2).nPassatgers());
                 _carrega.push(-1* _peticionsTramit.get(iCan.actual()/2).nPassatgers());
                 _peticionsTramit.get(iCan.actual()/2).actualitzarEstat(PeticioEnTramit.ESTAT.FINALITZADA);
-                _peticionsTramit.get(iCan.actual()/2).assignarArribada(_horaActual);
+                _peticionsTramit.get(iCan.actual()/2).assignarArribada((int)temps);
                  
                 break;
             case 'P':
@@ -310,6 +315,7 @@ public class SolucioRuta {
                 _carrega.push((int)carregaCompleta);//bad decisions.. 
                 _horaActual = _horaActual.plusMinutes((long)carregaCompleta);
                 _tempsADepot += carregaCompleta;
+                _tempsTotal += carregaCompleta;
                 break;
         }
     }
@@ -333,7 +339,7 @@ public class SolucioRuta {
         
         _vehicle.cargar(temps);
         _tempsEnMarxa -= temps;
-       
+        _tempsTotal -= temps;
         
          
          
@@ -353,7 +359,7 @@ public class SolucioRuta {
                 if (_horaActual.isAfter(_peticionsTramit.get(iCan.actual()/2).horaEmissio().plusMinutes(_minimLegal))) {
                     _horaActual = _horaActual.minusMinutes(_minimLegal);
                 }
-                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(null);
+                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(-1*(int)temps);
                 break;
             case 'D':
                 _horaActual = _horaActual.minusMinutes((long)temps);
@@ -362,13 +368,14 @@ public class SolucioRuta {
                 _vehicle.ModificarPassatgers(_peticionsTramit.get(iCan.actual()/2).nPassatgers());
                 _carrega.pop();
                 _peticionsTramit.get(iCan.actual()/2).actualitzarEstat(PeticioEnTramit.ESTAT.ENTRANSIT);
-                _peticionsTramit.get(iCan.actual()/2).assignarArribada(null);
+                _peticionsTramit.get(iCan.actual()/2).assignarArribada(-1*(int)temps);
                 
                 break;
             case 'P':
                 double carregaCompleta = (double)_carrega.pop();
                 _vehicle.descarga(carregaCompleta);
                 _tempsADepot -= carregaCompleta;
+                _tempsTotal -= carregaCompleta;
                 _horaActual.minusMinutes((long)carregaCompleta);
                 break;
         }
@@ -399,7 +406,7 @@ public class SolucioRuta {
      * es inferior al temps que ha estat en marxa el vehicle a la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
-        return _tempsEnMarxa < optim._tempsEnMarxa;
+        return _tempsTotal < optim._tempsTotal;
     }
     
     /**
