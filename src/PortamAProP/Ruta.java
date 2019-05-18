@@ -56,6 +56,7 @@ public class Ruta {
         _mitjanaEsperaClient=0;
         _mitjanaMarxaClient=0;
         _mitjanaPassatgers=0;
+        _graf.addAttribute("ui.stylesheet", styleSheet);
         
     }
 
@@ -139,6 +140,7 @@ public class Ruta {
      * @post S'ha mostrat la ruta..TO COMPLETE
      */
     public void mostrarRuta() {
+        _graf.display();
         System.out.println("*****PETICIONS ATESES*****");
         for (PeticioEnTramit s : _peticionsCompletades) {
             System.out.println(s.toString());
@@ -293,4 +295,32 @@ public class Ruta {
     public double gmitjanaTempsMarxaClient(){
         return _mitjanaMarxaClient;
     }
+    
+    public void mostrarRutaSugraf(){
+        for (int i = 0; i < _nodes.size() - 1; i++) {
+            if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
+                 _graf.getNode(i).getEdgeBetween(i+1).setAttribute("ui.class", "marked");
+                 _graf.getNode(i).setAttribute("ui.class", "marked");
+                 _graf.getNode(i+1).setAttribute("ui.class", "marked");
+            }
+        }
+        _graf.display();
+    }
+    
+    protected String styleSheet= 
+         "edge{" +
+        "	fill-color: black;" +
+        "}" +
+        "edge.marked {" +
+        "	fill-color: red;"
+            + " size: 5;" +
+        "}" +  "node{" +
+        "	fill-color: black;" +
+        "}" +
+        "node.marked {" +
+        "	fill-color: blue;"
+            + "size: 15;" +
+        "}";
+    
+  
 }

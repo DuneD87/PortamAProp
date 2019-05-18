@@ -116,6 +116,7 @@ public class Controlador {
     public void init() {
          assignarSolicitudsAVehicles();
          estadistic();
+         
     }
 
  
@@ -365,6 +366,10 @@ public class Controlador {
                             + "MITJANA DE PASSATGERS: " + mitjanaPassatgers + " \n" 
                             + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR" + mitjanaEsperaClient + "\n"
                             + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT" + mitjanaMarxaClient + "\n");
+        for(Ruta r: _rutes){
+            if(r.finalitzada())
+                r.mostrarRutaSugraf();
+        }
         
     }
 
