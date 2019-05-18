@@ -1,5 +1,15 @@
 package PortamAProP;
 
+/**
+ * @class GeneradorSolicituds
+ * @brief Generador intern de Solicituds aleatories.
+ * -Donat 3 numeros, determinem:
+ * --maxSol: Ens diu el nombre maxim de peticions que es crearan de forma aleatoria
+ * --maxPersones: Ens diu el nombre maxim de persones per peticio
+ * --nNodes: Ens dona el nombre maxim de nodes amb el que treballarem
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Random;
@@ -8,37 +18,31 @@ import java.util.Scanner;
 public class GeneradorSolicituds {
 
   
-    private int _maxNodes = 40;
-    private String _sol;
-    private static int MAX_SOL = 120;
-    private static int MAX_PERSONES = 2;
-    public GeneradorSolicituds() {
-
-        int numero;
-        //Scanner teclado = new Scanner(System.in);
-        //System.out.println("Quantes solicituds vols fer?");
-        //numero = Integer.parseInt(teclado.nextLine());
-        numero = MAX_SOL;
-        _sol = Crear_solicituds(numero);
-        //System.out.print(_sol);
-        /*System.out.println("Vols fer un fitxer amb aqustes solicituds? [S/N]");
-        String eleccio = teclado.nextLine();
-        if (eleccio.equals("S")) {
-            System.out.println("Nom del fitxer:");
-            String nomf = teclado.nextLine();
-            CrearFitxer(nomf, _sol);
-
-        }*/
-
+    private final int _maxNodes;//@brief nombre maxim de nodes
+    private String _sol;//@brief Cadena de caracters que guarda el contingut de generar solicituds aleatories
+    private final int _maxSol;//@brief Maxim nombre de solicituds a crear
+    private final int _maxPersones;//@brief Maxim nombre de persones per solicitud
+    
+    /**
+     * @brief Constructor per defecte
+     * @param maxSol Ens diu el nombre maxim de peticions que es crearan de forma aleatoria
+     * @param maxPersones Ens diu el nombre maxim de persones per peticio
+     * @param nNodes Ens dona el nombre maxim de nodes amb el que treballarem
+     */
+    public GeneradorSolicituds(int maxSol, int maxPersones, int nNodes) {
+        _maxSol = maxSol;
+        _maxPersones = maxPersones;
+        _maxNodes = nNodes;
+        _sol = crearSolicituds();
     }
 
     //Pre: 0<numero
     //Post: Retorna un string amb una llista de solicituds creades
-    private String Crear_solicituds(int numero) {
+    
+    private String crearSolicituds() {
         Random random = new Random();
         String llistat = "";
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < numero; i++) {
+        for (int i = 0; i < _maxSol; i++) {
             llistat += i + " ";
             int random1 = random.nextInt(_maxNodes);
             int random2;
@@ -50,7 +54,7 @@ public class GeneradorSolicituds {
             llistat += random.nextInt(24) + " ";//hora emisio
             llistat += random.nextInt(60) + " ";//minut emisio
             llistat += random.nextInt(60) + " ";//segon emisio
-            llistat += random.nextInt(MAX_PERSONES) + 1;//numero de passatgers, entre 1 i 9
+            llistat += random.nextInt(_maxPersones) + 1;//numero de passatgers, entre 1 i 9
             llistat += "\n";
 
         }

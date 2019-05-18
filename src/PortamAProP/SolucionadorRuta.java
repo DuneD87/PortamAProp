@@ -4,8 +4,6 @@ package PortamAProP;
  * @class SolucionadorRuta
  * @brief Algoritme recursiu que s'encarrega de trobar la millor solucio.
  * @author Xavier Avivar & Buenaventura Martinez
- * @TODO Adaptar l'algoritme perque retorni la millor solucio, comencem per fer
- * que retorni una unica solucio
  */
 public class SolucionadorRuta {
 
@@ -14,10 +12,13 @@ public class SolucionadorRuta {
     private boolean _trobat;
     private int _nSolucions;
     private int _nSolucionsTotal;
+    
     /**
      * @brief Algoritme de backtracking
      * @pre ---
-     * @post Busca una unica solucio al problema, plega quan la trobat
+     * @post Computa la millor solucio possible al problema.Es proven totes
+     * les possibles combinacions del conjunt de candidats, i escollim la combinacio
+     * amb un pes total menor
      */
     private void backtracking() {
         CandidatRuta iCan = _actual.iniCan();
@@ -53,26 +54,7 @@ public class SolucionadorRuta {
             iCan.seguent();
         }
     }
-    /*private void backtracking() {
-        //backtracking una solucio
-        CandidatRuta iCan = _actual.iniCan();
-        while (!iCan.esFi() && !_trobat) {
-            if (_actual.acceptable(iCan)) {
-                _actual.anotar(iCan);
-                if (!_actual.completa()) {
-                    backtracking();
-                    //std::cout<<"sup"<<'\n';
-                    if (!_trobat) {
-                        _actual.desanotar(iCan);
-                    }
-                } else {
-                    _trobat = true;
-                }
-            }
-            iCan.seguent();
-        }
-    }*/
-
+    
     /**
      * @brief Constructor
      * @param inicial Solucio inicial amb la q treballem
@@ -86,18 +68,10 @@ public class SolucionadorRuta {
     }
 
     /**
-     * @brief Ens dona la solucio trobada
-     * @return SolucioRuta, objecte que conte la solucio potencial al algoritme
-     */
-    public SolucioRuta obtSolucio() {
-        return _optim;
-    }
-
-    /**
      * @brief Ens diu si existeix solucio
-     * @param sol SolucioRuta, objecte que conte la solucio potencial al
-     * algoritme
-     * @return
+     * @post Executa l'algoritme recursiu de backtracking per determinar si el
+     * problema te solucio, en cas de trobar solucio, finalitza la ruta que ha 
+     * efectuat el vehicle.
      */
     public boolean existeixSolucio() {
         System.out.println("**BUSCAN SOLUCIO MILLOR**");

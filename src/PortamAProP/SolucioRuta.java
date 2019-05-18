@@ -16,7 +16,7 @@ import org.graphstream.graph.Node;
 public class SolucioRuta {
 
 
-    private ArrayList<Solicitud> _solicituds;//@breif Subgrup de solicituds que el nostre vehicle atendra
+    
 
     /**
      * @brief Aquesta estructura requereix una explicacio mes elaborada. La idea
@@ -26,16 +26,21 @@ public class SolucioRuta {
      * temps constant.
      */
     private ArrayList<Pair<Character, Node>> _candidats;
+    
+    /**MAPA, VEHICLES Y SOLICITUDS*/
     private Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
     private double _tempsEnMarxa;//@brief temps acumulat en atendre totes les peticions
     private double _tempsADepot;//@brief temps que esta el vehicle carregan
     private Graph _graf;//@brief Subgraph sobre el que treballem
+    private ArrayList<Solicitud> _solicituds;//@breif Subgrup de solicituds que el nostre vehicle atendra
     
+    /**ESTRUCTURES ON GUARDEM LA SOLUCIO*/
     private Stack<Node> _nodes;//@brief Conjunt de nodes que representa la nostra ruta
     private Stack<Character> _accio;//@brief accio feta a cada node
     private Stack<Integer> _carrega;//@brief ens diu quants passatgers a carregat/descarregat a cada node
     private ArrayList<Pair<LocalTime,LocalTime>> _horesPeticio; //@brief workaround ja que LocalTime no es un objecte i dona molts de problemes amb pas per referencia
     
+    /**VARIABLES DE CONTROL*/
     private int _nPeticions;//@brief Numero de peticions que estem tramitan
     private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
     private LocalTime _horaActual; //@brief Ens diu l'hora actual
@@ -54,8 +59,11 @@ public class SolucioRuta {
      * @post A partir d'una ruta generada per el voraç, obtenim les diferents
      * estructures de dades, i completem la ruta, intentan millorar la solucio
      * obtenida.
+     * @param r La ruta que ens dona el voraç
+     * @param minimLegal Minim temps legal d'espera per atendre una peticio
+     * @param maximEspera Maxim temps que els clients estan disposats a esperar
      */
-    public SolucioRuta(Ruta r) {
+    public SolucioRuta(Ruta r, int minimLegal, int maximEspera) {
        
         //Inicialitzem les diferents estructures
         _solicituds = r.getSol();
@@ -74,8 +82,8 @@ public class SolucioRuta {
         _tempsADepot = 0;
         _ruta = r;
         _horesPeticio = new ArrayList<>();
-        _maximEspera = 10;//30 mins d'espera maxim
-        _minimLegal = 15; 
+        _maximEspera = minimLegal;//30 mins d'espera maxim
+        _minimLegal = maximEspera; 
          System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
                  "VEHICLE:\n" + _vehicle.toString());
          
@@ -140,7 +148,10 @@ public class SolucioRuta {
     /**
      * @brief Candidat acceptable
      * @pre 0 <= iCan.actual() <= nNodes - 1 
-     * @post Ens diu si el candidat es acceptable
+     * @post Ens diu si el candidat es acceptable:
+     * Determinem el tipus de candidat del que es tracta ( origen, desti, depot )
+     * i mirem si pot arribar al node. En cas afirmatiu, tractem el candidat per el
+     * seu tipus i determinem si es acceptable
      */
     public boolean acceptable(CandidatRuta iCan) {
         char tipus = _candidats.get(iCan.actual()).getKey();
@@ -179,10 +190,11 @@ public class SolucioRuta {
     /**
      * @brief Ens diu si considerem el candidat origen com a acceptable, per
      * aixo s'han de cumplir dos condicions: 
-     * ->Tenim prou espai per carregar els
+     * Tenim prou espai per carregar els
      * clients que esperen. 
-     * ->La bateria del vehicle es superior al 50%
-     * ->L'hora actual es inferior a l'hora de l'emissio + el minim temps legal d'espera + el maxim temps que el client vol esperar + el temps d'arribada
+     * La bateria del vehicle es superior al 50%.
+     * L'hora actual es inferior a l'hora de l'emissio + el minim temps legal d'espera 
+     * + el maxim temps que el client vol esperar + el temps d'arribada.
      */
     private boolean origenAcceptable(CandidatRuta iCan, double temps) {
         double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
@@ -196,7 +208,7 @@ public class SolucioRuta {
     /**
      * @brief Ens diu si considerem el candidat desti com a acceptable, per aixo
      * s'ha de cumplir: 
-     * ->Els passatgers que portem hagin de baixar al node
+     * Els passatgers que portem hagin de baixar al node
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
         //double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;//Justifico repeticio de codi perque se que l'esquema global funcionara be, pero els individuals poder no
@@ -207,7 +219,7 @@ public class SolucioRuta {
     /**
      * @brief Ens diu si considerem el candidat depot com aceptable, per aixo
      * s'ha de cumplir: 
-     * ->No hi ha cap peticio en curs, i la bateria del vehicle
+     * No hi ha cap peticio en curs, i la bateria del vehicle
      * esta per sota del factor de carrega critic
      */
     private boolean depotAcceptable(CandidatRuta iCan) {
@@ -219,8 +231,9 @@ public class SolucioRuta {
     /**
      * @brief Inicialitza el candidat i possa com a maxim el maxim del vector de
      * candidats. Els nostres candidats son: 
-     * -Origen: Origen d'una peticio
-     * -Desti: Desti d'una peticio -Depot: Punt de recarrega
+     * Origen: Origen d'una peticio
+     * Desti: Desti d'una peticio 
+     * Depot: Punt de recarrega
      */
     public CandidatRuta iniCan() {
         return new CandidatRuta(_candidats.size() - 1);
@@ -233,10 +246,10 @@ public class SolucioRuta {
      *
      * Independenment de la postcondicio hem de tractar 3 casos:
      *
-     * -> Origen i desti: Modifiquem el nombre de passatges del vehicle i
+     * Origen i desti: Modifiquem el nombre de passatges del vehicle i
      * actualitzem el rellotge global.
      *
-     * -> Depot: Carreguem el cotxe durant 30min i actualitzem el rellotge
+     * Depot: Carreguem el cotxe durant 30min i actualitzem el rellotge
      * global.
      */
     public void anotar(CandidatRuta iCan) {
@@ -254,8 +267,6 @@ public class SolucioRuta {
         
         _vehicle.descarga(temps);
         _tempsEnMarxa += temps;
-        
-        
         
         switch (tipus) {
             case 'O':
@@ -301,7 +312,6 @@ public class SolucioRuta {
     public void desanotar(CandidatRuta iCan) {
         char tipus = _accio.pop();
         Node p = _nodes.pop();
-        
          
         double temps;
         if (p != _nodes.lastElement())
@@ -324,9 +334,8 @@ public class SolucioRuta {
                     _horaActual = _solicituds.get(iCan.actual() / 2).Emisio();//Esperem fins l'hora d emissio
                    
                 }
-                
                  _horaActual = _horaActual.minusMinutes((long)temps);
-                _solicituds.get(iCan.actual()/2).assignarHoraRecollida(_horaActual.getMinute());
+                _solicituds.get(iCan.actual()/2).assignarHoraRecollida(0);
                 break;
             case 'D':
                 _nPeticions++;
@@ -358,7 +367,7 @@ public class SolucioRuta {
     
     /**
      * @brief Pot ser millor
-     * @post Sempre potser millor, tot es precios
+     * @post NO IMPLEMENTAT
      */
     public boolean potSerMillor(SolucioRuta optim) {
         return true;
@@ -366,45 +375,19 @@ public class SolucioRuta {
     
     /**
      * @brief Es millor
-     * @post Ens diu si el cost de de la solucio actual, es inferior al cost 
-     * de la solucio anterior.
+     * @post Ens diu si el temps que ha estat en marxa el vehicle en aquesta solucio
+     * es inferior al temps que ha estat en marxa el vehicle a la solucio anterior.
      */
     public boolean esMillor(SolucioRuta optim) {
         return _tempsEnMarxa < optim._tempsEnMarxa;
     }
     
     /**
-     * @brief Ruta efectuada
-     * @pre ---
-     * @post Ens dona una pila de nodes que descriu el recorregut del vehicle
-     * @return 
-     */
-    public Stack<Node> obtSolucio() {
-        return _nodes;
-    }
-    
-    /**
-     * @brief Temps total
-     * @pre ---
-     * @post Ens diu el temps total que ha tardat el vehicle en efectuar la ruta
-     */
-    public double obtCost() {
-        return _tempsEnMarxa;
-    }
-    
-    /**
-     * @brief Hora d'acabada
-     * @pre ---
-     * @post Ens diu l'hora en que ha finalitzat el vehicle
-     */
-    public LocalTime horaArribada() {
-        return _horaActual;
-    }
-    
-    /**
      * @brief Guarda el resultat a ruta
      * @pre ---
-     * @post S'han guardat les diferents estructures a ruta
+     * @post S'han afegit el conjunt de nodes, accions, carrega i peticions a la ruta.
+     * A mes, hem afegit l'hora en que el vehicle ha finalitzat, el temps que ha estat en marxa
+     * i el temps que ha estat carregant.
      */
     public void finalitzar() {
         _ruta.completarRuta(_nodes,_accio,_carrega,_solicituds,_horaActual,_tempsEnMarxa,_tempsADepot);

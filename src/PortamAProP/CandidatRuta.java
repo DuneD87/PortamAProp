@@ -2,7 +2,13 @@ package PortamAProP;
 
 /**
  * @class CandidatRuta
- * @brief Els nostres candidats seran els diferents nodes del graf
+ * @brief Els nostres candidats son els nodes del graf, i els cataloguem en 3
+ * tipus:
+ * 
+ * Origen: Origen d'una peticio.
+ * Desti: Desti d'una peticio.
+ * Depot: Punt de carrega.
+ * 
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
@@ -13,7 +19,7 @@ public class CandidatRuta {
     
     /**
      * @brief Constructor
-     * @param max ens diu el nombre de nodes que tractem
+     * @param max ens diu el nombre de peticions
      */
     public CandidatRuta(int max) {
         _max = max;

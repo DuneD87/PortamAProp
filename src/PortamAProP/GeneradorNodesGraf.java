@@ -19,17 +19,18 @@ import java.util.TreeSet;
 public class GeneradorNodesGraf {
 
     private SortedSet<String> _ubicacions;
-    private int _pesMax = 20;//Pes maxim que pot tenir una aresta
-    private static int MAX_NODES = 60;
-    private static String FITXER_UBICACIONS="PilaUbicacions.txt";
-    private static String _nodes="";
+    private final int _pesMax;//Pes maxim que pot tenir una aresta
+    private final int _maxNodes;
+    private final String _fitxerUbicacions="PilaUbicacions.txt";
+    private  String _nodes="";
    /**
     * @brief Inicialitza la generacio de nodes 
     * @pre ---
     * @post S'ha inicialitzat la generacio de nodes
     */
-    public GeneradorNodesGraf() {
-        
+    public GeneradorNodesGraf(int pesMax, int maxNodes) {
+        _pesMax = pesMax;
+        _maxNodes = maxNodes;
     }
     
     /**
@@ -37,14 +38,14 @@ public class GeneradorNodesGraf {
      * @pre ---
      * @post S'ha generat un String amb nodes aleatoris
      */
-    public void  GeneradorAleatoriNodes(int NodesExistents){
+    public void  generadorAleatoriNodes(int NodesExistents){
         _ubicacions = new TreeSet<>();
-        Llegir_ubicacions();
+        llegirUbicacions();
 
         //System.out.println("Quants nodes vols crear?");
         //Scanner teclat = new Scanner(System.in);
         //int numNodes = Integer.parseInt(teclat.nextLine());
-        int numNodes = MAX_NODES;
+        int numNodes = _maxNodes;
         _nodes = "";
         for (int i = NodesExistents; i <= numNodes+NodesExistents; i++) {//Per cada node assignar id i etiqueta
             _nodes += Integer.toString(i) + " ";
@@ -82,14 +83,14 @@ public class GeneradorNodesGraf {
      * @pre ---
      * @post S'han llegit les ubicacions i s'han guardat en una estructura de dades
      */
-    private void Llegir_ubicacions() {
+    private void llegirUbicacions() {
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
            
-            fitxer = new File(FITXER_UBICACIONS).getAbsoluteFile();
+            fitxer = new File(_fitxerUbicacions).getAbsoluteFile();
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
             String linia;
@@ -116,7 +117,7 @@ public class GeneradorNodesGraf {
      * @pre ---
      * @post S'ha creat un fitxer al directori local amb format TFG 
      */
-    public void CrearFitxer(String nomf, String sol) {
+    public void crearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {

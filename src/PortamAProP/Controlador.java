@@ -44,18 +44,57 @@ public class Controlador {
     private String FORMAT_ENTRADA_SOLICITUDS = "R";
     private List<Pair<Vehicle, TreeSet<Solicitud>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
     private LlegirFitxerGraf mapa;
-    private Object[] _nodes;
-    private Object[] _arestes;
-    private int MAX_DISTANCIA_GREEDY = 50;//@brief distancia maxima acceptada pel greedy
+
     private ArrayList<Ruta> _rutes;
-    private long LIMIT_FINESTRA_TEMPS = 100;//@brief Temps de la finestra de temps en algoritme greedy (Temps en MINUTS)
     private Greedy voras;
+    
+    /**VARIABLES DE CONTROL*/
+    private final int _maxDistanciaGreedy;
+    private final long _maxFinestraTemps;
+    private final int _maximEspera;
+    private final int _minimLegal;
+    private final int _nPeticions;
+    private final int _maxPersones;
+    private final String _nFitxerSol;
+    private final int _nNodes;
+    private final int _pesMaxim;
+    private final String _nFitxerGraf;
+    private final boolean _randomSol;
+    private final boolean _randomNode;
+    
     /**
-     * @brief Constructor per defecte
+     * @brief Constructor amb parametres
      * @pre ---
-     * @post S'ha construit un objecte controlador per defecte
+     * @post S'ha construit un objecte controlador amb parametres:
+     * @param tamanyFinestra Ens dona el tamany de la finestra de temps
+     * @param maximEspera Ens diu quant de temps volen esperar maxim els clients
+     * @param minimLegal Ens diu quin es el minim temps per poder atendre una peticio dictat per llei
+     * @param nPeticions Ens diu el nombre de peticions que volem generar
+     * @param maxPersones Ens diu el nombre maxim de persones per peticio a generar
+     * @param nFitxerSol Ens diu el nom del fitxer on anar a buscar les peticions
+     * @param nNodes Ens diu el nombre maxim de nodes que volem generar
+     * @param pesMaxim Ens diu el pes maxim de les arestes
+     * @param nFitxerGraf Ens diu el nom del fitxer del graf
+     * @param maxGreedy Ens diu la distancia maxima del greedy
+     * @param randomSol Ens diu si la generacio de solicituds sera aleatoria
+     * @param randomNode Ens diu si la generacio de nodes sera aleatoria
      */
-    public Controlador() {
+    public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions , int maxPersones
+    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode) {
+        
+        _maxFinestraTemps = tamanyFinestra;
+        _maxDistanciaGreedy = maxGreedy;
+        _maximEspera = maximEspera;
+        _minimLegal = minimLegal;
+        _nPeticions = nPeticions;
+        _maxPersones = maxPersones;
+        _nFitxerSol = nFitxerSol;
+        _nNodes = nNodes;
+        _pesMaxim = pesMaxim;
+        _nFitxerGraf = nFitxerGraf;
+        _randomSol = randomSol;
+        _randomNode = randomNode;
+        
         _graf = new SingleGraph("MAPA");
         generarGraf();
         _solicituds = new TreeSet<>();
@@ -64,7 +103,8 @@ public class Controlador {
         generarVehicles();
         _ruta = new ArrayList<Pair<Vehicle, TreeSet<Solicitud>>>(10);
         _rutes = new ArrayList<Ruta>();
-        voras=new Greedy(LIMIT_FINESTRA_TEMPS, MAX_DISTANCIA_GREEDY);
+        voras=new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
+        
     }
 
     /**
@@ -73,73 +113,10 @@ public class Controlador {
      * @post S'ha inicialitzat el programa
      */
     public void init() {
-        //assignarSolicitudsAVehicles();
-        mostrarMenu();
-        gestionarMenu();
-
+         assignarSolicitudsAVehicles();
     }
 
-    /**
-     * @brief Gestiona les diferents opcions del menu
-     * @pre ---
-     * @post S'han executat les diferents comandes (provisional)
-     */
-    public void gestionarMenu() {
-
-        Scanner inText = new Scanner(System.in);
-        System.out.println("Comanda:");
-        int opcio = Integer.parseInt(inText.nextLine());
-        while (opcio != 0) {
-            switch (opcio) {
-                case 1:
-                    _graf.display(true);
-
-                    // for(Node n: _graf){
-                    //   System.out.println("Id: " + n.getId() + " Vehicles actuals: " + n.getAttribute("VehicleActual"));
-                    //}
-                    for (int i = 0; i < _graf.getNodeCount(); i++) {
-                        System.out.println("Id: " + _graf.getNode(i).getId() + " Vehicles actuals: " + _graf.getNode(i).getAttribute("VehiclesActual"));
-                    }
-                    break;
-                case 2:
-                    algoritmeBacktracking(_rutes.get(0));
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-                    //_graf.display();
-                    assignarSolicitudsAVehicles();
-                    //mostrarVehiclesSolicituds();
-                    //mostrarSolicitudsNoAssignades();
-                    break;
-                case 5:
-                    mostrarSolicitudsNoAssignades();
-                    break;
-                case 6:
-                    mostrarRutes();
-                    break;
-                case 0:
-                    System.exit(1);
-            }
-            System.out.println("Comanda:");
-            opcio = Integer.parseInt(inText.nextLine());
-        }
-    }
-
-    /**
-     * @brief Mostra el menu
-     * @pre ---
-     * @post Menu provisional
-     */
-    public void mostrarMenu() {
-        System.out.println("MENU\n"
-                + "1 - Mostrar Graf\n"
-                + "2 - Algoritme Backtracking\n"
-                + "4 - Obrir finestra de temps\n"
-                + "0 - Sortir");
-    }
-
+ 
     /**
      * @brief Inicialitza els vehicles
      * @pre ---
@@ -166,13 +143,11 @@ public class Controlador {
      */
     private void generarSolicituds() {
         LlegirFitxerSolicitud lFitxer = new LlegirFitxerSolicitud(_graf);
-        if (FORMAT_ENTRADA_SOLICITUDS.equals("R")) {
-            GeneradorSolicituds sol = new GeneradorSolicituds();
+        if (_randomSol) {
+            GeneradorSolicituds sol = new GeneradorSolicituds(_nPeticions,_maxPersones, _nNodes);
             String lSol = sol.toString();
             //System.out.println(lSol);
             lFitxer = new LlegirFitxerSolicitud(lSol, _graf);
-        } else if (FORMAT_ENTRADA_SOLICITUDS.equals("F")) {
-            // Ja esta fet a la inicialitzacio del objecte lFitxer
         }
         _solicituds = lFitxer.obtSol();
     }
@@ -186,16 +161,13 @@ public class Controlador {
 
         mapa = new LlegirFitxerGraf();
         mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D, "Depot");//Els Depots sempre es Generer primer i a partir de un fitxer
-        System.out.println("Com vols generar la resta del graf? Random o Fitxer [R/F]:");
-        //Scanner teclat=new Scanner(System.in);
-        //String opcio=teclat.nextLine();
 
-        if (FORMAT_ENTRADA_GRAF.equals("R")) {
-            _generadorNodes = new GeneradorNodesGraf();
-            _generadorNodes.GeneradorAleatoriNodes(_graf.getNodeCount());
+        if (_randomNode) {
+            _generadorNodes = new GeneradorNodesGraf(_pesMaxim, _nNodes);
+            _generadorNodes.generadorAleatoriNodes(_graf.getNodeCount());
             String nodes = _generadorNodes.OptenirNodes();
             mapa.ModificarGrafPerString(_graf, nodes, "Solicitud");
-        } else if (FORMAT_ENTRADA_GRAF.equals("F")) {
+        } else {
             mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "Solicitud");
         }
 
@@ -253,33 +225,6 @@ public class Controlador {
             }
              
         }
-        
-        
-
-        
-/*        //GREEDY SENSILL
-        int indexVehicle = 0;
-        int divisor = _vehicles.size();
-        int numerador = _solicituds.size();
-        int blocs = numerador / divisor;
-        Iterator<Solicitud> iterador = _solicituds.iterator();
-        for (int i = 0; i < divisor;i++) {
-            Vehicle ve = _vehicles.get(indexVehicle);
-            TreeSet<Solicitud> solici = new TreeSet<Solicitud>();
-            int y = 0;
-            while (iterador.hasNext() && y < blocs) {
-                Solicitud s=iterador.next();
-                solici.add(s);
-                y++;
-            }
-            Pair<Vehicle, TreeSet<Solicitud>> subSol = new Pair<Vehicle, TreeSet<Solicitud>>(ve, solici);
-            _ruta.add(subSol);
-            indexVehicle++;
-            TreeSet<Solicitud> sss= _ruta.get(1).getValue();
-            Vehicle v=_ruta.get(1).getKey();
-            Ruta r=new Ruta(v,sss, crearSubGraf(v,sss, ), mapa);
-        }
-*/
     }
 
     /**
@@ -307,7 +252,7 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-        SolucioRuta solRuta = new SolucioRuta(r);
+        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio();
         if (trobat) {
@@ -315,7 +260,6 @@ public class Controlador {
             r.mostrarRuta();
         } else {
             System.out.println("No s'ha trobat solucio");
-            return;
         }
      
     }
@@ -373,48 +317,6 @@ public class Controlador {
         //subgraf.display();
         return subgraf;
     }
-
-
-
-    /**
-     * @brief Retorna un array amb els nodes del graf
-     * @pre ---
-     * @post Retorna un array de nodes del graf g
-     */
-    /*
-    public Object[] retornarArrayNodes(Graph g){
-        Collection<Node> array= g.getNodeSet();
-        Object[] nodes=array.toArray();
-        return nodes;
-    }
-     */
-    /**
-     * @brief Retorna un array amb les arestes del graf
-     * @pre ---
-     * @post Retorna un array d'arestes del graf g
-     */
-    /*
-    public Object[] retornarArrayArestes(Graph g){
-        Collection<Node> array= g.getNodeSet();
-        Object[] arestes=array.toArray();
-        return arestes;
-    }
-     */
-    /**
-     * @brief Retorna la solicitud mes propera de vehicle v dins d'un rang
-     * preestablert
-     * @pre ---
-     * @post Retorna la solicitud mes propera de vehicle v dins d'un rang
-     * preestablert
-     */
-
-
-    /**
-     * @brief Diu si el vehicle pot anar a la solicitud, fer la solicitud, i
-     * tornar al Depot mes proper
-     * @pre ---
-     * @post Retorna cert si el vehicle v pot assolir la solicitud s
-     */
 
 
     /**

@@ -45,6 +45,7 @@ public class Ruta {
     }
 
     /**
+     * @brief toString metode
      * @return Cadena de caracters que ens dona informacio sobre la ruta (quin
      * vehicle la fa i les solicituds acceptades)
      */
@@ -118,7 +119,6 @@ public class Ruta {
      * @brief Mostra la ruta i detalls
      * @pre ---
      * @post S'ha mostrat la ruta..TO COMPLETE
-     * @return 
      */
     public void mostrarRuta() {
         System.out.println("*****SOLICITUDS ATESES*****");
