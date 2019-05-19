@@ -162,7 +162,9 @@ public class Controlador {
             GeneradorPeticions sol = new GeneradorPeticions(_nPeticions,_maxPersones, _nNodes);
             String lSol = sol.toString();
             //System.out.println(lSol);
-            lFitxer = new LlegirFitxerPeticions(lSol, _graf);
+            lFitxer.LlegirDeText(lSol);
+        }else{
+            lFitxer.LlegirDeFitxer(_nFitxerSol);
         }
         _peticions = lFitxer.obtSol();
     }
@@ -183,7 +185,7 @@ public class Controlador {
             String nodes = _generadorNodes.OptenirNodes();
             mapa.ModificarGrafPerString(_graf, nodes, "peticions");
         } else {
-            mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_G, "peticions");
+            mapa.ModificarGrafPerFitxer(_graf, _nFitxerGraf, "peticions");
         }
 
         _graf = mapa.obtGraph();
