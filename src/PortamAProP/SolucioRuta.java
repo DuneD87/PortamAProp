@@ -102,12 +102,17 @@ public class SolucioRuta {
         //Creem dins de les peticions els origens i destinacions i els afegim a la llista de candidats
         for (Peticio s : _peticio) {
             s.modificarEstat(Peticio.ESTAT.ESPERA);
-            Pair<Character, Node> p1 = new Pair('O', _graf.getNode((_conversio[s.origen()])));
+            Node origen = _graf.getNode(_conversio[s.origen()]);
+            Node desti = _graf.getNode(_conversio[s.desti()]);
+            Pair<Character, Node> p1 = new Pair('O', origen);
             _candidats.add(p1);
-            System.out.println("Peticio: " + "Origen: " + _graf.getNode(_conversio[s.origen()]).getAttribute("Nom")
-                    + " Desti: " + _graf.getNode(_conversio[s.desti()]).getAttribute("Nom")
-                    + " Hora emissio: " + s.emissio());
-            Pair<Character, Node> p2 = new Pair('D', _graf.getNode((_conversio[s.desti()])));
+            System.out.println("Peticio: " + s.identificador()
+                    + "\n--Origen: " + origen.getAttribute("Nom")
+                    + "\n--Desti: " + desti.getAttribute("Nom")
+                    + "\n--Hora emissio: " + s.emissio()
+                    + "\n--Nombre de passatgers: " + s.numPassatgers()
+                    + "\n--Temps estimat: " + origen.getEdgeBetween(desti).getAttribute("pes") + " minuts" );
+            Pair<Character, Node> p2 = new Pair('D', desti);
             _candidats.add(p2);
             PeticioEnTramit p = new PeticioEnTramit(s);
             _peticionsTramit.add(p);
@@ -212,7 +217,7 @@ public class SolucioRuta {
         return actual.nPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
                 && actual.obtenirEstat() == PeticioEnTramit.ESTAT.ESPERA
-                ;
+                && _horaActual.plusMinutes((int)temps).isBefore(actual.horaEmissio().plusMinutes((int)(_minimLegal + _maximEspera)));
     }
 
     /**
@@ -292,12 +297,10 @@ public class SolucioRuta {
                     _horaActual = _peticionsTramit.get(iCan.actual() / 2).horaEmissio();//Esperem fins l'hora d emissio
                     
                 }
-                if (_horaActual.isAfter(_peticionsTramit.get(iCan.actual()/2).horaEmissio().plusMinutes(_minimLegal))) {
-                    _horaActual = _horaActual.plusMinutes(_minimLegal);
-                }
-                int diff = _minimLegal + (int)temps;
+               
+                int diff = Math.abs(_minimLegal - (int)temps);
                 _peticionsTramit.get(iCan.actual()/2).assignarRecollida(diff);
-                
+                _horaActual = _horaActual.plusMinutes(diff);
                 break;
             case 'D':
                 _horaActual = _horaActual.plusMinutes((long)temps);
@@ -355,11 +358,10 @@ public class SolucioRuta {
                     _horaActual = _peticionsTramit.get(iCan.actual() / 2).horaEmissio();//Esperem fins l'hora d emissio
                    
                 }
-                
-                if (_horaActual.isAfter(_peticionsTramit.get(iCan.actual()/2).horaEmissio().plusMinutes(_minimLegal))) {
-                    _horaActual = _horaActual.minusMinutes(_minimLegal);
-                }
-                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(-1*(int)temps);
+             
+                int diff = Math.abs(_minimLegal - (int)temps);
+                _peticionsTramit.get(iCan.actual()/2).assignarRecollida(-1*diff);
+                _horaActual = _horaActual.minusMinutes(diff);
                 break;
             case 'D':
                 _horaActual = _horaActual.minusMinutes((long)temps);
