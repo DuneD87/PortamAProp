@@ -12,6 +12,7 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.DefaultGraph;
 import org.graphstream.graph.implementations.MultiGraph;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import javafx.util.converter.LocalTimeStringConverter;
 
 public class Ruta {
 
@@ -34,6 +35,11 @@ public class Ruta {
     private LocalTime _horaFi;//@brief Hora on finalitza la ruta
     private LocalTime _horaInici;//@brief Hora en que iniciem la ruta
 
+    
+    private int _mitjanaPassatgers;
+    private double _mitjanaDistanciaNodes;
+    private double _mitjanaEsperaClient;
+    private double _mitjanaMarxaClient;
     /**
      * @brief Constructor
      * @post Construim una nova ruta fen servir un vehicle, un conjunt de
@@ -46,6 +52,12 @@ public class Ruta {
         _conversio = c;
         _finalitzada = false;
         _peticionsCompletades = new ArrayList<>();
+        _mitjanaDistanciaNodes=0;
+        _mitjanaEsperaClient=0;
+        _mitjanaMarxaClient=0;
+        _mitjanaPassatgers=0;
+        _graf.addAttribute("ui.stylesheet", styleSheet);
+        
     }
 
     /**
@@ -128,8 +140,9 @@ public class Ruta {
      * @post S'ha mostrat la ruta..TO COMPLETE
      */
     public void mostrarRuta() {
+        _graf.display();
         System.out.println("*****PETICIONS ATESES*****");
-        for (Peticio s : _solCompletades) {
+        for (PeticioEnTramit s : _peticionsCompletades) {
             System.out.println(s.toString());
         }
         Graph g = new MultiGraph("Sol");
@@ -156,8 +169,7 @@ public class Ruta {
         System.out.println("TEMPS A DEPOT: " + _tempsADepot);
         System.out.println("MITJANA DE PASSATGERS:" + mitjanaPassatgers());
         System.out.println("MITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes());
-        //mitjanaTempsEsperaRecorregut();
-        nodesMesMenysConcurreguts();
+        mitjanaTempsEsperaRecorregut();
         System.out.println("\n");
        
     }
@@ -171,7 +183,7 @@ public class Ruta {
             mitjana+=s.numPassatgers();
         }
         mitjana=mitjana/_solicituds.size();
-        
+        _mitjanaPassatgers=mitjana;
         
         
         
@@ -187,56 +199,128 @@ public class Ruta {
                 mitjana+=pes;
             }
         }     
+        _mitjanaDistanciaNodes=mitjana/_nodes.size();
         return mitjana/_nodes.size();
     }
     
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
         long mitjanaRecorregut=0;
-        for(Peticio s: _solCompletades){
+        for(PeticioEnTramit s: _peticionsCompletades){
             //if (s.getRecollida() != null) {
-                System.out.println("Hora Emisio " + s.emissio());
-                System.out.println("Hora Recollida " + s.obtenirHoraRecollida());
-                System.out.println("Hora Arribada " + s.arribada());
-                long tempsEspera = s.emissio().until(s.obtenirHoraRecollida(), MINUTES);
+               // System.out.println("Hora Emisio " + s.horaEmissio());
+                //System.out.println("Hora Recollida " + s.obtenirHoraRecollida());
+                //System.out.println("Hora Arribada " + s.obtenirHoraArribada());
+                LocalTime mitjanit=LocalTime.of(0, 0);
+                LocalTime casimit=LocalTime.of(23, 59,59);
+                long tempsEspera=0;
+                if(s.horaEmissio().isBefore(casimit) && s.obtenirHoraRecollida().isAfter(mitjanit)){
+                    tempsEspera+=MINUTES.between(s.horaEmissio(), casimit);
+                    tempsEspera+=MINUTES.between(mitjanit, s.obtenirHoraRecollida());
+                    if(tempsEspera>180){
+                         long diasencer=MINUTES.between(mitjanit, casimit);
+                         tempsEspera-=(diasencer);
+                         if(tempsEspera<0){
+                             tempsEspera*=-1;
+                         }
+                    }
+                }
+                
                 mitjanaEspera += tempsEspera;
-                long tempsRecorregut = MINUTES.between(s.obtenirHoraRecollida(), s.arribada());
+                long tempsRecorregut=0;
+                 //System.out.println(mitjanit);
+                 //System.out.println(s.obtenirHoraRecollida());
+                 //System.out.println(s.obtenirHoraArribada());
+                 //System.out.println(s.obtenirHoraRecollida().isBefore(casimit));
+                 //System.out.println(s.obtenirHoraArribada().isAfter(mitjanit));
+                if(s.obtenirHoraRecollida().isBefore(casimit) && s.obtenirHoraArribada().isAfter(mitjanit)){
+                    tempsRecorregut+=MINUTES.between(s.obtenirHoraRecollida(), casimit);
+                    //System.out.println("Temps1 " + tempsRecorregut);
+                    tempsRecorregut+=MINUTES.between(mitjanit, s.obtenirHoraArribada());
+                    // System.out.println(MINUTES.between(mitjanit, s.obtenirHoraArribada()));
+                    //System.out.println("Temps2 " + tempsRecorregut);
+                    if(tempsRecorregut>180){
+                        long diasencer=MINUTES.between(mitjanit, casimit);
+                       tempsRecorregut-=(diasencer);
+                       if(tempsRecorregut<0)
+                           tempsRecorregut*=-1;
+                        //System.out.println(diasencer);
+                         //System.out.println("Temps3" + tempsRecorregut);
+                    }
+                }
+                //System.out.println("Temps" + tempsRecorregut);
                 mitjanaRecorregut += tempsRecorregut;
            // }
         }
-        long resultatMitjanaEspera=mitjanaEspera/_solCompletades.size();
-        long resultatMitjanaRecorrecut=mitjanaRecorregut/_solCompletades.size();
+        long resultatMitjanaEspera=mitjanaEspera/_peticionsCompletades.size();
+        long resultatMitjanaRecorrecut=mitjanaRecorregut/_peticionsCompletades.size();
+        _mitjanaEsperaClient=resultatMitjanaEspera;
+        _mitjanaMarxaClient=resultatMitjanaRecorrecut;
         System.out.println("MITJANA D'ESPERA DE CLIENT:" + resultatMitjanaEspera);
         System.out.println("MITJANA DE RECORRECUT DE CLIENT: " + resultatMitjanaRecorrecut);
         
        
     }
     
-    public void nodesMesMenysConcurreguts(){
-     int [] histOrigen= new int [200];
-     int [] histDesti= new int [200];
-     for(int i=0;i<_solCompletades.size();i++){
-         histOrigen[_solCompletades.get(i).origen()]++;
-         histDesti[_solCompletades.get(i).desti()]++;
-     }
-    int minimOrigen=Integer.MAX_VALUE;
-    int maximOrigen=0;
-    int minimDesti=Integer.MAX_VALUE;
-    int maximDesti=0;
-    for(int i=199;i>0;i--){
-        if(histOrigen[i]>=histOrigen[maximOrigen]){
-            maximOrigen=i;
-        }
-        
-        if(histDesti[i]>=histDesti[maximDesti]){
-            maximDesti=i;
-        }
-    }
-    System.out.println("NODE AMB MES ORIGEN: "+ maximOrigen);
-    System.out.println("NODE AMB MES DESTI: "+ maximDesti);
-    }
     
+  
     public LocalTime obtHoraPrimeraPeticio() {
         return _solicituds.first().emissio();
     }
+    
+    public double tempsEnMarxa(){
+        return _tempsEnMarxa;
+    }
+    
+    public double tempsDepot(){
+        return _tempsADepot;
+    }
+    
+    public boolean finalitzada(){
+        return _finalitzada;
+    }
+    
+    public double gmitjanaDistanciaNodes(){
+        return _mitjanaDistanciaNodes;
+    }
+    
+    public double gmitjanaPassatgers(){
+        return _mitjanaPassatgers;
+    }
+    
+    public double gmitjanaTempsEsperaClient(){
+        return _mitjanaEsperaClient;
+    }
+    
+    public double gmitjanaTempsMarxaClient(){
+        return _mitjanaMarxaClient;
+    }
+    
+    public void mostrarRutaSugraf(){
+        for (int i = 0; i < _nodes.size() - 1; i++) {
+            if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
+                 _graf.getNode(i).getEdgeBetween(i+1).setAttribute("ui.class", "marked");
+                 _graf.getNode(i).setAttribute("ui.class", "marked");
+                 _graf.getNode(i+1).setAttribute("ui.class", "marked");
+            }
+        }
+        _graf.display();
+    }
+    
+    protected String styleSheet= 
+         "edge{" +
+        "	fill-color: black;" +
+        "}" +
+        "edge.marked {" +
+        "	fill-color: red;"
+            + " size: 5;" +
+        "}" +  "node{" +
+        "	fill-color: black;" +
+        "}" +
+        "node.marked {" +
+        "	fill-color: blue;"
+            + "size: 15;" +
+        "}";
+    
+  
 }
