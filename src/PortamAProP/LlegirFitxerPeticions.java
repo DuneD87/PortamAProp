@@ -24,9 +24,7 @@ public class LlegirFitxerPeticions {
      * @pre Cadena de caracters amb el format implicit
      * @post S'han llegit les peticions desde cadena de caracters
      */
-    public LlegirFitxerPeticions(String text, Graph graf) {
-        _graf=graf;
-        _vecSol = new TreeSet<Peticio>();
+    public void LlegirDeText(String text){
         String[] lines = text.split("\r\n|\r|\n");
         for (int i = 0; i < lines.length; i++) {
             CrearSolicitud(lines[i]);
@@ -44,15 +42,17 @@ public class LlegirFitxerPeticions {
     public LlegirFitxerPeticions(Graph graf) {
         _vecSol = new TreeSet<Peticio>();
         _graf=graf;
+        
+    }
+    public void LlegirDeFitxer(String nFitxer){
         File fitxer = null;
         FileReader fr = null;
         BufferedReader br = null;
-
         try {
             Scanner sc = new Scanner(System.in);
             //System.out.println("Nom del fitxer de peticions:");
             //String nom = sc.nextLine();
-            String nom=NOM_FITXER_SOL;
+            String nom=nFitxer;
             fitxer = new File(nom);
             fr = new FileReader(fitxer);
             br = new BufferedReader(fr);
