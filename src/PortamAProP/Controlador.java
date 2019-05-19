@@ -373,12 +373,12 @@ public class Controlador {
         double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
         
         System.out.println("====================ESTADISTICS GENERLAS====================");
-        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + mitjanaRutaVehicle + "\n"
-                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + mitjanaCarragaVehicle + "\n" 
-                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + mitjanaDistancia + "\n"
-                            + "MITJANA DE PASSATGERS: " + mitjanaPassatgers + " \n" 
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR" + mitjanaEsperaClient + "\n"
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT" + mitjanaMarxaClient + "\n");
+        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f",mitjanaRutaVehicle) + "\n"
+                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + "\n" 
+                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + "\n"
+                            + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " \n" 
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + "\n"
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + "\n");
         for(Ruta r: _rutes){
             if(r.finalitzada())
                 r.mostrarRutaSugraf();

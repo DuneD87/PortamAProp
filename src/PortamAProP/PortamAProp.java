@@ -24,12 +24,12 @@ public class PortamAProp {
         int minimLegal = 15;
         int nPeticions = 60;
         int maxPersones = 2;
-        String nFitxerSol = "";
+        String nFitxerSol = "peticions.txt";
         int nNodes = 60;
         int pesMaxim = 20;
-        String nFitxerGraf = "";
+        String nFitxerGraf = "Graf.txt";
         int maxGreedy = 50;
-        boolean randomSol = true;
+        boolean randomSol = false;
         boolean randomNode = true;
         double minCarga = 0.9;
         /**TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
