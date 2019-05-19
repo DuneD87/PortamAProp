@@ -50,7 +50,7 @@ public class SolucioRuta {
     
     private Ruta _ruta;//@brief Ruta que fa el vehicle
     
-    private static final double FACTOR_CARREGA_CRITIC = 0.9; //@brief Constant que ens diu quan el vehicle ha de carregar
+    private double _minCarga; //@brief ens diu quan el vehicle ha d'anar a carregar
     
     //Afegit per Buenaventura 
     private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
@@ -63,8 +63,9 @@ public class SolucioRuta {
      * @param r La ruta que ens dona el voraç
      * @param minimLegal Minim temps legal d'espera per atendre una peticio
      * @param maximEspera Maxim temps que els clients estan disposats a esperar
+     * @param minCarga Minim de bateria que el vehicle considera apropiat abans d'anar a carregar
      */
-    public SolucioRuta(Ruta r, int minimLegal, int maximEspera) {
+    public SolucioRuta(Ruta r, int minimLegal, int maximEspera,double minCarga) {
        
         //Inicialitzem les diferents estructures
         _peticio = r.getSol();
@@ -86,6 +87,7 @@ public class SolucioRuta {
         _peticionsTramit = new ArrayList<>();
         _maximEspera = minimLegal;//30 mins d'espera maxim
         _minimLegal = maximEspera; 
+        _minCarga = minCarga;
          System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
                  "VEHICLE:\n" + _vehicle.toString());
          
@@ -138,6 +140,9 @@ public class SolucioRuta {
      * @brief Constructor de copia
      * @pre ---
      * @post S'ha construit una nova SolucioRuta a partir de la solucio anterior
+     * Es fa copia de totes aquelles estructures que guarden solucions parcials al
+     * problema, la resta, copiem la seva referencia.
+     * @param sol Ens dona la solucio anterior
      */
     public SolucioRuta(SolucioRuta sol) {
         _peticio = new ArrayList<>(sol._peticio);
@@ -153,16 +158,17 @@ public class SolucioRuta {
         _nodes = (Stack<Node>)sol._nodes.clone();
         _vehicle = sol._vehicle;
         _graf = sol._graf;
-        //_horaActual = new LocalTime(sol._horaActual);
+        _horaActual = sol._horaActual;
         _accio = (Stack<Character>)sol._accio.clone();
-        _carrega = sol._carrega;
+        _carrega = (Stack<Integer>)sol._carrega.clone();
         _tempsADepot = sol._tempsADepot;
         _ruta = sol._ruta;
+        _tempsTotal = sol._tempsTotal;
     }
 
     /**
      * @brief Candidat acceptable
-     * @pre 0 <= iCan.actual() <= nNodes - 1 
+     * @pre 0 <= iCan.actual() < nNodes - 1 
      * @post Ens diu si el candidat es acceptable:
      * Determinem el tipus de candidat del que es tracta ( origen, desti, depot )
      * i mirem si pot arribar al node. En cas afirmatiu, tractem el candidat per el
@@ -172,11 +178,6 @@ public class SolucioRuta {
         char tipus = _candidats.get(iCan.actual()).getKey();
         Node p = _candidats.get(iCan.actual()).getValue();
         boolean acceptable = false;
-        /**
-         * Mirem si podem arribar al node, tenicament el voraç ja ho comprova,
-         * pero fem la comprovacio igualment (cas raro en que el voraç trobi una
-         * ruta que el bactracking no trobi ?
-         */
        
         double temps;
         if (_nodes.lastElement() != p)
@@ -212,7 +213,7 @@ public class SolucioRuta {
      * + el maxim temps que el client vol esperar + el temps d'arribada.
      */
     private boolean origenAcceptable(CandidatRuta iCan, double temps) {
-        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
+        double mitjaBat = _vehicle.carregaTotal() * _minCarga;
         PeticioEnTramit actual = _peticionsTramit.get(iCan.actual()/2);
         return actual.nPassatgers() < (_vehicle.nPassTotal() -_vehicle.nPassatgers())
                 && _vehicle.carregaRestant() > mitjaBat
@@ -238,7 +239,7 @@ public class SolucioRuta {
      * esta per sota del factor de carrega critic
      */
     private boolean depotAcceptable(CandidatRuta iCan) {
-        double mitjaBat = _vehicle.carregaTotal() * FACTOR_CARREGA_CRITIC;
+        double mitjaBat = _vehicle.carregaTotal() * _minCarga;
         return _vehicle.carregaRestant() < mitjaBat
                 && _nPeticions == 0
                 && _accio.lastElement() != 'P';
@@ -419,9 +420,7 @@ public class SolucioRuta {
      * i el temps que ha estat carregant.
      */
     public void finalitzar() {
-        System.out.println("***PETICIONS TRAMITADES AL BACKTRACKING***");
-        for (PeticioEnTramit p : _peticionsTramit)
-            System.out.println(p.toString());
+       
         _ruta.completarRuta(_nodes,_accio,_carrega,_peticio,_horaActual,_tempsEnMarxa,_tempsADepot,_peticionsTramit);
         
     }

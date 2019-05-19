@@ -70,6 +70,7 @@ public class Controlador {
     private final String _nFitxerGraf;
     private final boolean _randomSol;
     private final boolean _randomNode;
+    private final double _minCarga;
     
     /**
      * @brief Constructor amb parametres
@@ -87,9 +88,10 @@ public class Controlador {
      * @param maxGreedy Ens diu la distancia maxima del greedy
      * @param randomSol Ens diu si la generacio de peticions sera aleatoria
      * @param randomNode Ens diu si la generacio de nodes sera aleatoria
+     * @param minCarga Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com acceptable
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions , int maxPersones
-    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode) {
+    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga) {
         
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
@@ -103,7 +105,7 @@ public class Controlador {
         _nFitxerGraf = nFitxerGraf;
         _randomSol = randomSol;
         _randomNode = randomNode;
-        
+        _minCarga = minCarga;
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
         
@@ -265,7 +267,7 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera);
+        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera,_minCarga);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio();
         if (trobat) {
