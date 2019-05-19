@@ -98,8 +98,8 @@ public class PeticioEnTramit {
      * @post S'ha assignat l'hora de recollida a la peticio en tramit
      * @param horaRecollida Ens diu l'hora de recollida en format LocalTime
      */
-    public void assignarRecollida(LocalTime horaRecollida) {
-        _horaRecollida = horaRecollida;
+    public void assignarRecollida(int temps) {
+        _horaRecollida = _instancia.emissio().plusMinutes(temps);
     }
     
     /**
@@ -108,8 +108,8 @@ public class PeticioEnTramit {
      * @post S'ha assignat l'hora d'arribada
      * @param horaArribada Ens diu l'hora d'arribada en format LocalTime
      */
-    public void assignarArribada(LocalTime horaArribada) {
-        _horaArribada = horaArribada;
+    public void assignarArribada(int temps) {
+        _horaArribada = _horaRecollida.plusMinutes(temps);
     }
     
     /**

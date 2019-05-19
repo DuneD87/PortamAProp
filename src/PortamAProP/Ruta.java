@@ -161,8 +161,10 @@ public class Ruta {
         }
         //g.display();
         System.out.println("RUTA DE NODES");
-        for(Node n:_nodes){
-            System.out.print("-"+n.getId());
+        Node q = _nodes.get(0);
+        System.out.print(q.getAttribute("Nom").toString());
+        for(int i = 1; i < _nodes.size(); i++){
+            System.out.print("->"+_nodes.get(i).getAttribute("Nom"));
         }
         System.out.println("\nHORA DE FINALITZACIO: " + _horaFi);
         System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa);

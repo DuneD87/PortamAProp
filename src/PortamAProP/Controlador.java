@@ -70,6 +70,7 @@ public class Controlador {
     private final String _nFitxerGraf;
     private final boolean _randomSol;
     private final boolean _randomNode;
+    private final double _minCarga;
     
     /**
      * @brief Constructor amb parametres
@@ -87,9 +88,10 @@ public class Controlador {
      * @param maxGreedy Ens diu la distancia maxima del greedy
      * @param randomSol Ens diu si la generacio de peticions sera aleatoria
      * @param randomNode Ens diu si la generacio de nodes sera aleatoria
+     * @param minCarga Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com acceptable
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions , int maxPersones
-    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode) {
+    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga) {
         
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
@@ -103,7 +105,7 @@ public class Controlador {
         _nFitxerGraf = nFitxerGraf;
         _randomSol = randomSol;
         _randomNode = randomNode;
-        
+        _minCarga = minCarga;
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
         
@@ -265,7 +267,7 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera);
+        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera,_minCarga);
         SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
         boolean trobat = soluRuta.existeixSolucio();
         if (trobat) {
@@ -371,12 +373,12 @@ public class Controlador {
         double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
         
         System.out.println("====================ESTADISTICS GENERLAS====================");
-        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + mitjanaRutaVehicle + "\n"
-                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + mitjanaCarragaVehicle + "\n" 
-                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + mitjanaDistancia + "\n"
-                            + "MITJANA DE PASSATGERS: " + mitjanaPassatgers + " \n" 
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR" + mitjanaEsperaClient + "\n"
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT" + mitjanaMarxaClient + "\n");
+        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f",mitjanaRutaVehicle) + "\n"
+                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + "\n" 
+                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + "\n"
+                            + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " \n" 
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + "\n"
+                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + "\n");
         for(Ruta r: _rutes){
             if(r.finalitzada())
                 r.mostrarRutaSugraf();
