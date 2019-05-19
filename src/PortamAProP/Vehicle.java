@@ -5,6 +5,9 @@ import java.time.LocalTime;
 
 /**
  * @brief Classe encarregada de guardar dades dels vehicles
+ *      El vehicle es un objecte que es mou pels diferents nodes del 
+ *      graf amb la finalitat de transportar clients que ho han solicitat 
+ *      mitjantçant una peticio
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
@@ -20,6 +23,7 @@ public class Vehicle {
     private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
     private LocalTime _HoraUltimaSol;//@brief Temps de la arribada de la ultima peticio assignada al vehicle
     private LocalTime _HoraPrimeraSol;//@brief Temps de la emisio de la primera peticio assignada al vehicle
+    
     /**
      * @brief Constructor amb parametres
      * @pre ---
@@ -27,9 +31,7 @@ public class Vehicle {
      */
     public Vehicle(int Id, int CapTotal, double AutoTot, double carga, int node){
         _identificador=Id;
-        //System.out.println("Capacitat de fitxer: " + CapTotal);
         _capacitatTotal=CapTotal;
-        //System.out.println("Capacitat de vehicle" + _capacitatTotal);
         _autonomiaTotal=AutoTot;
         _numPassatgers=0;
         _autonomiaRestant=AutoTot;
@@ -39,8 +41,7 @@ public class Vehicle {
         _HoraUltimaSol = null;
         _HoraPrimeraSol = null;
     }
-    
-    
+   
     /**
      * @brief Canvia el numero de passatges
      * @pre 0<Abs(variacio)<= _CapacitatTotal
@@ -160,19 +161,39 @@ public class Vehicle {
     public void restaurarCarrega(){
         _autonomiaRestant=_autonomiaTotal;
     }
-    
+    /**
+     * @brief Assigna el temps  de la primera peticio que accepta el vehicle com a t
+     * @pre ---
+     * @post El temps de la primera peticio s'ha actualitzat a t
+     */
     public void setHoraPrimeraSol(LocalTime t){
         _HoraPrimeraSol=t;
     }
+    
+    /**
+     * @brief Retorna el temps de la primera peticio que ha acceptat el vehicle
+     * @pre --
+     * @post Retorna el temps de la primera peticio que ha acceptat el vehicle
+     */
     
     public LocalTime getHoraPrimeraSol(){
         return _HoraPrimeraSol;
     }
     
+     /**
+     * @brief Assigna el temps  de la ultima peticio que accepta el vehicle com a t
+     * @pre ---
+     * @post El temps de la ultima peticio s'ha actualitzat a t
+     */
     public void setHoraUltimaSol(LocalTime t){
         _HoraUltimaSol=t;
     }
     
+     /**
+     * @brief Retorna el temps de l'ultima peticio que ha acceptat el vehicle
+     * @pre --
+     * @post Retorna el temps de l'ultima peticio que ha acceptat el vehicle
+     */
     public LocalTime getHoraUltimaSol(){
         return _HoraUltimaSol;
     }
