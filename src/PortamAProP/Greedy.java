@@ -48,6 +48,7 @@ public class Greedy {
      * @post Ruta inserida _rutes correctament 
      */
     public void crearRuta(Vehicle v, ArrayList<Ruta> _rutes, SortedSet<Peticio> _solicituds, Graph _graf,LlegirFitxerGraf mapa) {
+        _graf.setAutoCreate(true);
         TreeSet<Peticio> ruta = new TreeSet<Peticio>();
         Peticio s = solicitudMesProperaDisponible(v,_solicituds,_graf); //Busquem la peticio mes propera al vehicle
         int contadorSolicituds = 1;
@@ -96,14 +97,14 @@ public class Greedy {
         boolean valid = false;
         if (r.isEmpty()) {
             v.setHoraPrimeraSol(s.emissio());
+            v.setHoraUltimaSol(s.emissio());
             valid = true;
         } else {
             
             LocalTime limit = v.getHoraPrimeraSol();
             limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
-            if (s.emissio().isBefore(limit) && s.emissio().isAfter(v.getHoraPrimeraSol())) {
+            if (s.emissio().isBefore(limit) && s.emissio().isAfter(v.getHoraPrimeraSol()) && s.emissio().isAfter(v.getHoraUltimaSol())) {
                 valid = true;
-            } else {
             }
         }
         return valid;

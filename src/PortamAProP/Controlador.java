@@ -111,7 +111,7 @@ public class Controlador {
         _minCarga = minCarga;
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
-
+        
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();
@@ -231,6 +231,16 @@ public class Controlador {
             for (int k = indexruta; k < _rutes.size(); k++) {
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
+            }
+            
+             for (Ruta r: _rutes){
+                for(Peticio s: r.getSol()){
+                    for(Peticio ss: _peticions){
+                        if(ss==s){
+                            ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
+                        }
+                    }
+                }
             }
 
         }

@@ -22,14 +22,14 @@ public class PortamAProp {
         int tamanyFinestra = 150;
         int maximEspera = 30;
         int minimLegal = 15;
-        int nPeticions = 120;
+        int nPeticions = 100;
         int maxPersones = 2;
         String nFitxerSol = "peticions.txt";
-        int nNodes = 150;
+        int nNodes = 100;
         int pesMaxim = 20;
         String nFitxerGraf = "Graf.txt";
         int maxGreedy = 50;
-        boolean randomSol = false;
+        boolean randomSol = true;
         boolean randomNode = true;
         double minCarga = 0.9;
         /**TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
@@ -65,6 +65,7 @@ public class PortamAProp {
         Controlador c = new Controlador(tamanyFinestra,maximEspera,minimLegal,nPeticions,maxPersones,nFitxerSol,nNodes,pesMaxim,nFitxerGraf,maxGreedy,randomSol, randomNode,minCarga);
         c.init();
     }
+  
 
 }
 
