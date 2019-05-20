@@ -113,8 +113,8 @@ public class Controlador {
 
     /**
      * @brief Inicialitza el nostre programa
-     * @pre ---
-     * @post S'ha inicialitzat el programa
+     * @pre Nom del fitxer de sortida valid
+     * @post S'ha inicialitzat el programa i s'ha guardat la solucio al fitxer de sortida
      */
     public void init() {
         assignarSolicitudsAVehicles();
@@ -142,7 +142,12 @@ public class Controlador {
         }
         gestionarMenu();
     }
-
+    /**
+     * @brief Mostra el submenu de estadistics
+     * @pre ---
+     * @post Mostra les diferents opcions que tenim per mostrar graficament els 
+     * diferents estadistics i veura mes clarament els diferents resultats
+     */
     public void mostrarSubMenuEstad() {
         System.out.println("----DIAGRAMES DISPONIBLES----\n" 
                             + "1: Mitjana de temps en marxa del vehicle\n"
@@ -154,7 +159,12 @@ public class Controlador {
         
 
     }
-
+    
+    /**
+     * @brief Mostra el submenu de rutes
+     * @pre ---
+     * @post Mostra les diferents rutes realitzades per mostrar graficament
+     */
     public void mostrarSubMenuRutes() {
         System.out.println("----RUTES DISPONIBLES----");
         for (int i = 0; i < _rutes.size(); i++) {
@@ -163,14 +173,24 @@ public class Controlador {
             }
         }
     }
-
+    
+    /**
+     * @brief Mostra el menu principal
+     * @pre ---
+     * @post Mostra les diferents opcions per mostrar graficament rutes o estadistics
+     */
     public void mostrarMenu() {
         System.out.println("----OPCIONS DEL MENU----\n"
                 + "1: Menu rutes\n"
                 + "2: Menu estadistics\n"
                 + "0: Sortir");
     }
-
+    
+    /**
+     * @brief Gestiona el menu
+     * @pre 0 >= index inicial < 2 && 0 >= index rutes < rutes.size() -1 && 1 >= index estadistics <= 6
+     * @post S'ha escollit la ruta o estadistic per mostrar
+     */
     public void gestionarMenu() {
         mostrarMenu();
         Scanner keyb = new Scanner(System.in);
