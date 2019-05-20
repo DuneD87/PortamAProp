@@ -26,7 +26,12 @@ public class Estadistics {
     private int _distanciaNodes;//@brief Mitjana de la distancia (en minuts) que hi ha entre els nodes de la ruta
     private int _mitjanaTempsEsperaClient; //@brief Mitjana de temps que els clients esperen a ser recollits pel vehicle
     private int _mitjanaTempsRecorregutClient;//@brief Mitjana de temps que el client esta al vehicle, desde que el recull fins que el deixa
-    
+    private JFreeChart chartMitjanaTempsMarxaVehicle;
+    private JFreeChart chartMitjanaTempsCarregaVehicle;
+    private JFreeChart chartMitjanaDistanciaNodes;
+    private JFreeChart chartMitjanaPersonesVehicle;
+    private JFreeChart chartMitjanaEsperaClient;
+    private JFreeChart chartMitjanaRecorregutClient;
     
     /**
      * @brief Constructor de la classe
@@ -70,8 +75,8 @@ public class Estadistics {
             }
         }
         _mitjanaTempsRutaVehicle/=finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Temps Marxa Vehicle", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        generarFinestra(chart);
+        chartMitjanaTempsMarxaVehicle = ChartFactory.createBarChart("Temps Marxa Vehicle", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        //generarFinestra(chartMitjanaTempsMarxaVehicle);
         return _mitjanaTempsRutaVehicle;
     }
     
@@ -101,8 +106,8 @@ public class Estadistics {
             }
         }
         _mitjanaTempsCarregaVehicle/=finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Temps Carrega Vehicle", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        generarFinestra(chart);
+        chartMitjanaTempsCarregaVehicle = ChartFactory.createBarChart("Temps Carrega Vehicle", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        //generarFinestra(chartMitjanaTempsCarregaVehicle);
         return _mitjanaTempsCarregaVehicle;
     }
     
@@ -130,8 +135,8 @@ public class Estadistics {
             }
         }
         _mitjanaPassatgersVehicle /= finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Nombre Passatgers", "", "Num. Passatgers", dataset, PlotOrientation.VERTICAL, true, true, false);
-        generarFinestra(chart);
+        chartMitjanaPersonesVehicle= ChartFactory.createBarChart("Nombre Passatgers", "", "Num. Passatgers", dataset, PlotOrientation.VERTICAL, true, true, false);
+        //generarFinestra(chartMitjanaPersonesVehicle);
         return _mitjanaPassatgersVehicle;
 
     }
@@ -162,9 +167,8 @@ public class Estadistics {
             }
         }
         _distanciaNodes/=finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Distancia entre Nodes", "", "Minuts", dataset,PlotOrientation.VERTICAL,true,true,false);
-        ChartPanel panel = new ChartPanel(chart);
-        generarFinestra(chart);
+        chartMitjanaDistanciaNodes = ChartFactory.createBarChart("Distancia entre Nodes", "", "Minuts", dataset,PlotOrientation.VERTICAL,true,true,false);
+        //generarFinestra(chartMitjanaDistanciaNodes);
         return _distanciaNodes;
     }
     
@@ -194,8 +198,8 @@ public class Estadistics {
             }
         }
         _mitjanaTempsEsperaClient/=finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Temps Espera Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        generarFinestra(chart);
+        chartMitjanaEsperaClient = ChartFactory.createBarChart("Temps Espera Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        //generarFinestra(chartMitjanaEsperaClient);
         return _mitjanaTempsEsperaClient;
     }
     
@@ -225,8 +229,8 @@ public class Estadistics {
             }
         }
         _mitjanaTempsRecorregutClient/=finalitzades;
-        JFreeChart chart = ChartFactory.createBarChart("Temps Marxa Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        generarFinestra(chart);
+        chartMitjanaRecorregutClient = ChartFactory.createBarChart("Temps Marxa Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        //generarFinestra(chartMitjanaRecorregutClient);
         return _mitjanaTempsRecorregutClient;
     }
             /**
@@ -243,7 +247,29 @@ public class Estadistics {
         ventana.getContentPane().add(panel);
         ventana.pack();
         ventana.setVisible(true);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
+    public void mostrarEstadistic(int format){
+        switch(format){
+            case 1: 
+                generarFinestra(chartMitjanaTempsMarxaVehicle);
+                break;
+            case 2:
+                generarFinestra(chartMitjanaTempsCarregaVehicle);
+                break;
+            case 3:
+                generarFinestra(chartMitjanaPersonesVehicle);
+                break;
+            case 4:
+                generarFinestra(chartMitjanaDistanciaNodes);
+                break;
+            case 5:
+                generarFinestra(chartMitjanaRecorregutClient);
+                break;
+            case 6:
+                generarFinestra(chartMitjanaEsperaClient);
+        }
     }
     
     

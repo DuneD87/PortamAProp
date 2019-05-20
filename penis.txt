@@ -14,65 +14,55 @@ Node origen:          1
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 25
---Origen: Depot3
---Desti: Camídel'EscoladeMontjuïc
---Hora emissio: 05:12:34
+Peticio: 29
+--Origen: Depot1
+--Desti: Carrerd'AgustíRieraiPau
+--Hora emissio: 03:30:23
+--Nombre de passatgers: 1
+--Temps estimat: 9.0 minuts
+Peticio: 47
+--Origen: Carrerd'Ibèria
+--Desti: BaixadadelaFontdelBisbe
+--Hora emissio: 03:38:18
 --Nombre de passatgers: 1
 --Temps estimat: 1.0 minuts
-Peticio: 23
---Origen: Carrerd'Avel·líArtísiGener,"Tísner"
---Desti: Carrerd'EmiliGrahit
---Hora emissio: 06:22:23
+Peticio: 30
+--Origen: Carrerd'EnricClaudiGirbaliNadal
+--Desti: Carrerd'Albacete
+--Hora emissio: 03:50:21
 --Nombre de passatgers: 2
---Temps estimat: 3.0 minuts
-Peticio: 33
---Origen: CarrerCentral
+--Temps estimat: 20.0 minuts
+Peticio: 21
+--Origen: Carrerd'Astúries
+--Desti: Depo0
+--Hora emissio: 04:01:11
+--Nombre de passatgers: 2
+--Temps estimat: 5.0 minuts
+Peticio: 49
+--Origen: Camídel'EscoladeMontjuïc
+--Desti: Carrerd'AntonAgullana
+--Hora emissio: 04:20:06
+--Nombre de passatgers: 2
+--Temps estimat: 6.0 minuts
+Peticio: 46
+--Origen: Carrerd'EmíliaXargayiPagès
 --Desti: CarrerMedieval
---Hora emissio: 06:50:20
---Nombre de passatgers: 2
---Temps estimat: 2.0 minuts
-Peticio: 57
---Origen: Carrerd'AntoniVarésiMartinell
---Desti: AvingudadeMarianoÁlvarezdeCastro
---Hora emissio: 07:03:15
+--Hora emissio: 05:46:57
 --Nombre de passatgers: 1
+--Temps estimat: 6.0 minuts
+Peticio: 35
+--Origen: Carrerd'EmiliGrahit
+--Desti: Avingudadel'AmicalMauthausen
+--Hora emissio: 05:47:30
+--Nombre de passatgers: 2
 --Temps estimat: 7.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 4
+NOMBRE DE PETICIONS A ATENDRE: 7
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
 
 
-Solucio trobada: 
-Ruta actual: 1
-
-*****PETICIONS ATESES*****
-Hora emissio: 05:12:34
-Hora recollida: 05:41:34
-Hora arribada: 05:42:34
-Estat: FINALITZADA
-Hora emissio: 06:22:23
-Hora recollida: 06:46:23
-Hora arribada: 06:49:23
-Estat: FINALITZADA
-Hora emissio: 06:50:20
-Hora recollida: 07:14:20
-Hora arribada: 07:16:20
-Estat: FINALITZADA
-Hora emissio: 07:03:15
-Hora recollida: 07:27:15
-Hora arribada: 07:34:15
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Depot3->Camídel'EscoladeMontjuïc->Carrerd'Avel·líArtísiGener,"Tísner"->Carrerd'EmiliGrahit->CarrerCentral->CarrerMedieval->Carrerd'AntoniVarésiMartinell->AvingudadeMarianoÁlvarezdeCastro
-HORA DE FINALITZACIO: 07:58:23
-TEMPS TOTAL EN RUTA: 32.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 3.5555555555555554 minuts
-MITJANA D'ESPERA DE CLIENT:25 minuts
-MITJANA DE RECORRECUT DE CLIENT: 3 minuts
+No s'ha trobat solucio
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -85,19 +75,65 @@ Node origen:          2
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 27
---Origen: Depot2
---Desti: AvingudadeRamonFolch
---Hora emissio: 23:46:32
+Peticio: 52
+--Origen: Carrerd'EmiliGrahit
+--Desti: CarrerNoudelTeatre
+--Hora emissio: 09:38:45
+--Nombre de passatgers: 1
+--Temps estimat: 5.0 minuts
+Peticio: 33
+--Origen: CamídeCanCarreres
+--Desti: Carrerd'Aragó
+--Hora emissio: 09:59:39
+--Nombre de passatgers: 1
+--Temps estimat: 3.0 minuts
+Peticio: 39
+--Origen: CarrerNou
+--Desti: Carrerd'Albacete
+--Hora emissio: 10:45:33
 --Nombre de passatgers: 2
---Temps estimat: 7.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
+--Temps estimat: 18.0 minuts
+Peticio: 9
+--Origen: AvingudadeMontilivi
+--Desti: Carrerd'AlfredNobel
+--Hora emissio: 11:30:25
+--Nombre de passatgers: 2
+--Temps estimat: 14.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 4
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
+....
 
+Solucio trobada: 
+Ruta actual: 1
 
-No s'ha trobat solucio
+*****PETICIONS ATESES*****
+Hora emissio: 09:38:45
+Hora recollida: 10:07:45
+Hora arribada: 10:12:45
+Estat: FINALITZADA
+Hora emissio: 09:59:39
+Hora recollida: 10:25:39
+Hora arribada: 10:30:39
+Estat: FINALITZADA
+Hora emissio: 10:45:33
+Hora recollida: 11:10:33
+Hora arribada: 11:15:33
+Estat: FINALITZADA
+Hora emissio: 11:30:25
+Hora recollida: 11:51:25
+Hora arribada: 11:52:25
+Estat: FINALITZADA
+RUTA DE NODES
+Depot2->Carrerd'EmiliGrahit->CarrerNoudelTeatre->CamídeCanCarreres->CarrerNou->Carrerd'Aragó->AvingudadeMontilivi->Carrerd'Albacete->Carrerd'AlfredNobel
+HORA DE FINALITZACIO: 11:57:25
+TEMPS TOTAL EN RUTA: 35.0 minuts
+TEMPS A DEPOT: 0.0 minuts
+MITJANA DE PASSATGERS:1 passatgers
+MITJANA DISTANCIA ENTRE NODES 3.888888888888889 minuts
+MITJANA D'ESPERA DE CLIENT:25 minuts
+MITJANA DE RECORRECUT DE CLIENT: 4 minuts
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -110,110 +146,25 @@ Node origen:          1
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 17
---Origen: Depot3
---Desti: Carrerd'EnricMarquèsiRibalta
---Hora emissio: 10:07:15
---Nombre de passatgers: 1
---Temps estimat: 7.0 minuts
-Peticio: 31
---Origen: BaixadadelaFontdelBisbe
---Desti: Carrerd'EnricClaudiGirbaliNadal
---Hora emissio: 10:28:12
+Peticio: 16
+--Origen: Carrerd'Astúries
+--Desti: Carrerd'AntoniVarésiMartinell
+--Hora emissio: 02:29:57
 --Nombre de passatgers: 1
 --Temps estimat: 3.0 minuts
-Peticio: 7
---Origen: Carrerd'Empúries
---Desti: Carrerd'AndreuTuyetiSantamaria
---Hora emissio: 11:18:13
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 3
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 3
-
-*****PETICIONS ATESES*****
-Hora emissio: 10:07:15
-Hora recollida: 10:36:15
-Hora arribada: 10:43:15
-Estat: FINALITZADA
-Hora emissio: 10:28:12
-Hora recollida: 10:55:12
-Hora arribada: 10:58:12
-Estat: FINALITZADA
-Hora emissio: 11:18:13
-Hora recollida: 11:40:13
-Hora arribada: 11:46:13
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Depot3->Carrerd'EnricMarquèsiRibalta->BaixadadelaFontdelBisbe->Carrerd'EnricClaudiGirbaliNadal->Carrerd'Empúries->Carrerd'AndreuTuyetiSantamaria
-HORA DE FINALITZACIO: 11:53:15
-TEMPS TOTAL EN RUTA: 28.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.0 minuts
-MITJANA D'ESPERA DE CLIENT:26 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 2
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          2
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 47
---Origen: Carrerd'Aragó
---Desti: BaixadadelaFontdelCanó
---Hora emissio: 15:22:43
+Peticio: 27
+--Origen: AvingudadeSantFrancesc
+--Desti: AvingudadelaHispanitat
+--Hora emissio: 02:32:55
+--Nombre de passatgers: 2
+--Temps estimat: 18.0 minuts
+Peticio: 18
+--Origen: CarrerNoudelTeatre
+--Desti: Carrerd'AntoniBarnésiGultresa
+--Hora emissio: 02:33:55
 --Nombre de passatgers: 1
 --Temps estimat: 4.0 minuts
-Peticio: 28
---Origen: Carrerd'AnticRoca
---Desti: Carrerd'AntoniBarnésiGultresa
---Hora emissio: 15:56:50
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-Peticio: 44
---Origen: Carrerd'AndreuTuyetiSantamaria
---Desti: Carrerd'AnselmClavéiCamps
---Hora emissio: 16:00:09
---Nombre de passatgers: 2
---Temps estimat: 6.0 minuts
-Peticio: 5
---Origen: Carrerd'AntoniVarésiMartinell
---Desti: Carrerd'AntoniGaudíiCornet
---Hora emissio: 17:08:26
---Nombre de passatgers: 1
---Temps estimat: 3.0 minuts
-Peticio: 8
---Origen: CamídeCanCarreres
---Desti: Depot3
---Hora emissio: 17:13:35
---Nombre de passatgers: 1
---Temps estimat: 12.0 minuts
-Peticio: 59
---Origen: Avingudadel'AmicalMauthausen
---Desti: AvingudadeMarianoÁlvarezdeCastro
---Hora emissio: 17:39:13
---Nombre de passatgers: 2
---Temps estimat: 5.0 minuts
-Peticio: 54
---Origen: Carrerd'EmíliaXargayiPagès
---Desti: CamídelPladeDalt
---Hora emissio: 17:51:10
---Nombre de passatgers: 2
---Temps estimat: 7.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 7
+NOMBRE DE PETICIONS A ATENDRE: 3
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
@@ -223,149 +174,82 @@ Solucio trobada:
 Ruta actual: 3
 
 *****PETICIONS ATESES*****
-Hora emissio: 15:22:43
-Hora recollida: 15:50:43
-Hora arribada: 15:54:43
+Hora emissio: 02:29:57
+Hora recollida: 02:57:57
+Hora arribada: 03:01:57
 Estat: FINALITZADA
-Hora emissio: 15:56:50
-Hora recollida: 16:20:50
-Hora arribada: 16:26:50
+Hora emissio: 02:32:55
+Hora recollida: 02:58:55
+Hora arribada: 03:01:55
 Estat: FINALITZADA
-Hora emissio: 16:00:09
-Hora recollida: 16:24:09
-Hora arribada: 16:30:09
-Estat: FINALITZADA
-Hora emissio: 17:08:26
-Hora recollida: 17:31:26
-Hora arribada: 17:34:26
-Estat: FINALITZADA
-Hora emissio: 17:13:35
-Hora recollida: 17:37:35
-Hora arribada: 17:49:35
-Estat: FINALITZADA
-Hora emissio: 17:39:13
-Hora recollida: 18:07:13
-Hora arribada: 18:12:13
-Estat: FINALITZADA
-Hora emissio: 17:51:10
-Hora recollida: 18:14:10
-Hora arribada: 18:21:10
+Hora emissio: 02:33:55
+Hora recollida: 03:01:55
+Hora arribada: 03:08:55
 Estat: FINALITZADA
 RUTA DE NODES
-Depot2->Carrerd'Aragó->BaixadadelaFontdelCanó->Carrerd'AnticRoca->Carrerd'AntoniBarnésiGultresa->Carrerd'AndreuTuyetiSantamaria->Carrerd'AnselmClavéiCamps->Carrerd'AntoniVarésiMartinell->Carrerd'AntoniGaudíiCornet->CamídeCanCarreres->Depot3->Depot3->Carrerd'EmíliaXargayiPagès->CamídelPladeDalt->Avingudadel'AmicalMauthausen->AvingudadeMarianoÁlvarezdeCastro
-HORA DE FINALITZACIO: 18:56:10
-TEMPS TOTAL EN RUTA: 79.0 minuts
-TEMPS A DEPOT: 87.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.9375 minuts
-MITJANA D'ESPERA DE CLIENT:24 minuts
-MITJANA DE RECORRECUT DE CLIENT: 6 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 56
---Origen: Carrerd'AuroraBertranaiSalazar
---Desti: AvingudadeJosepTarradellasiJoan
---Hora emissio: 14:07:07
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-Peticio: 53
---Origen: Carrerd'AntonAgullana
---Desti: Carrerd'Albacete
---Hora emissio: 14:29:45
---Nombre de passatgers: 2
---Temps estimat: 5.0 minuts
-Peticio: 50
---Origen: AvingudadeFrança
---Desti: CamídelaFontdel'Abat
---Hora emissio: 14:54:42
---Nombre de passatgers: 1
---Temps estimat: 16.0 minuts
-Peticio: 16
---Origen: CarrerCentral
---Desti: Carrerd'AntoniCanet
---Hora emissio: 15:19:32
---Nombre de passatgers: 1
---Temps estimat: 4.0 minuts
-Peticio: 0
---Origen: Carrerd'AuroraBertranaiSalazar
---Desti: Carrerd'EnricClaudiGirbaliNadal
---Hora emissio: 15:22:19
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 5
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-....
-
-Solucio trobada: 
-Ruta actual: 4
-
-*****PETICIONS ATESES*****
-Hora emissio: 14:07:07
-Hora recollida: 14:36:07
-Hora arribada: 14:42:07
-Estat: FINALITZADA
-Hora emissio: 14:29:45
-Hora recollida: 14:52:45
-Hora arribada: 14:56:45
-Estat: FINALITZADA
-Hora emissio: 14:54:42
-Hora recollida: 15:23:42
-Hora arribada: 15:28:42
-Estat: FINALITZADA
-Hora emissio: 15:19:32
-Hora recollida: 15:46:32
-Hora arribada: 15:50:32
-Estat: FINALITZADA
-Hora emissio: 15:22:19
-Hora recollida: 15:49:19
-Hora arribada: 15:55:19
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Carrerd'AuroraBertranaiSalazar->AvingudadeJosepTarradellasiJoan->Carrerd'AntonAgullana->AvingudadeFrança->Carrerd'Albacete->CamídelaFontdel'Abat->CarrerCentral->Carrerd'AuroraBertranaiSalazar->Carrerd'EnricClaudiGirbaliNadal->Carrerd'AntoniCanet
-HORA DE FINALITZACIO: 16:42:42
-TEMPS TOTAL EN RUTA: 40.0 minuts
+Depot1->Carrerd'Astúries->CarrerNoudelTeatre->AvingudadeSantFrancesc->Carrerd'AntoniBarnésiGultresa->Carrerd'AntoniVarésiMartinell->AvingudadelaHispanitat
+HORA DE FINALITZACIO: 03:45:55
+TEMPS TOTAL EN RUTA: 22.0 minuts
 TEMPS A DEPOT: 0.0 minuts
 MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 3.6363636363636362 minuts
+MITJANA DISTANCIA ENTRE NODES 3.142857142857143 minuts
 MITJANA D'ESPERA DE CLIENT:27 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
+MITJANA DE RECORRECUT DE CLIENT: 4 minuts
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
-Identificador: 1
+Identificador: 2
 Autonomia Total: 300.0
 Autonomia Restant: 300.0
 CapacitatTotal 5
 Nombre de passatgers: 0
-Node origen:          1
+Node origen:          2
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 30
---Origen: Carrerd'AntoniRoviraiVirgili
---Desti: Carrerd'EnricClaudiGirbaliNadal
---Hora emissio: 21:20:41
---Nombre de passatgers: 2
---Temps estimat: 6.0 minuts
-Peticio: 3
+Peticio: 40
+--Origen: BaixadadelaFontdelCanó
+--Desti: AvingudadeLluísPericot
+--Hora emissio: 12:20:23
+--Nombre de passatgers: 1
+--Temps estimat: 20.0 minuts
+Peticio: 56
 --Origen: Avingudadel'AmicalMauthausen
---Desti: Depot3
---Hora emissio: 23:40:06
+--Desti: Depot5
+--Hora emissio: 12:23:24
 --Nombre de passatgers: 2
+--Temps estimat: 10.0 minuts
+Peticio: 37
+--Origen: Carrerd'AntoniCanet
+--Desti: Carrerd'Elx
+--Hora emissio: 12:53:20
+--Nombre de passatgers: 1
+--Temps estimat: 7.0 minuts
+Peticio: 31
+--Origen: Carrerd'Adri
+--Desti: AvingudadelaFontdelaPólvora
+--Hora emissio: 13:17:11
+--Nombre de passatgers: 2
+--Temps estimat: 3.0 minuts
+Peticio: 5
+--Origen: AvingudadeSantNarcís
+--Desti: Carrerd'Astúries
+--Hora emissio: 13:45:03
+--Nombre de passatgers: 1
 --Temps estimat: 16.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 2
+Peticio: 51
+--Origen: Carrerd'Empúries
+--Desti: Carrerd'Ibèria
+--Hora emissio: 14:08
+--Nombre de passatgers: 2
+--Temps estimat: 4.0 minuts
+Peticio: 4
+--Origen: CarrerNou
+--Desti: Carrerd'Empúries
+--Hora emissio: 14:44:55
+--Nombre de passatgers: 1
+--Temps estimat: 3.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 7
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
@@ -375,317 +259,74 @@ No s'ha trobat solucio
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
-Identificador: 2
+Identificador: 1
 Autonomia Total: 300.0
 Autonomia Restant: 300.0
 CapacitatTotal 5
 Nombre de passatgers: 0
-Node origen:          2
+Node origen:          1
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 6
---Origen: Carrerd'EmiliGrahit
---Desti: Carrerd'AntonAgullana
---Hora emissio: 09:19:52
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
 Peticio: 32
---Origen: Carrerd'Albí
---Desti: Carrerd'Albacete
---Hora emissio: 09:33:54
---Nombre de passatgers: 1
---Temps estimat: 5.0 minuts
-Peticio: 24
---Origen: Carrerd'AnselmClavéiCamps
---Desti: Carrerd'Andalusia
---Hora emissio: 09:38:37
---Nombre de passatgers: 2
---Temps estimat: 10.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 3
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-..
-
-Solucio trobada: 
-Ruta actual: 6
-
-*****PETICIONS ATESES*****
-Hora emissio: 09:19:52
-Hora recollida: 09:46:52
-Hora arribada: 09:52:52
-Estat: FINALITZADA
-Hora emissio: 09:33:54
-Hora recollida: 10:00:54
-Hora arribada: 10:06:54
-Estat: FINALITZADA
-Hora emissio: 09:38:37
-Hora recollida: 10:02:37
-Hora arribada: 10:06:37
-Estat: FINALITZADA
-RUTA DE NODES
-Depot2->Carrerd'EmiliGrahit->Carrerd'AntonAgullana->Carrerd'AnselmClavéiCamps->Carrerd'Albí->Carrerd'Andalusia->Carrerd'Albacete
-HORA DE FINALITZACIO: 10:42:37
-TEMPS TOTAL EN RUTA: 28.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.0 minuts
-MITJANA D'ESPERA DE CLIENT:26 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 10
---Origen: CarrerCentral
---Desti: Carrerd'Albacete
---Hora emissio: 02:08:18
+--Origen: CamídelPladeDalt
+--Desti: AvingudadeSantNarcís
+--Hora emissio: 06:25:42
 --Nombre de passatgers: 1
 --Temps estimat: 6.0 minuts
-Peticio: 51
---Origen: AvingudadeMarianoÁlvarezdeCastro
---Desti: CamídeCanCarreres
---Hora emissio: 02:39:38
---Nombre de passatgers: 1
---Temps estimat: 7.0 minuts
-Peticio: 41
---Origen: AvingudadeMarianoÁlvarezdeCastro
---Desti: Carrerd'Adri
---Hora emissio: 02:52:55
---Nombre de passatgers: 1
---Temps estimat: 8.0 minuts
-Peticio: 9
---Origen: CamídelPalcodelsSastres
---Desti: Carrerd'AnticRoca
---Hora emissio: 03:58:26
---Nombre de passatgers: 2
---Temps estimat: 8.0 minuts
-Peticio: 40
---Origen: Carrerd'AntòniaAdroheriPascual
---Desti: Avingudadel20deJuny
---Hora emissio: 04:08:19
---Nombre de passatgers: 2
---Temps estimat: 18.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 5
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-..
-
-Solucio trobada: 
-Ruta actual: 8
-
-*****PETICIONS ATESES*****
-Hora emissio: 02:08:18
-Hora recollida: 02:36:18
-Hora arribada: 02:42:18
-Estat: FINALITZADA
-Hora emissio: 02:39:38
-Hora recollida: 03:00:38
-Hora arribada: 03:07:38
-Estat: FINALITZADA
-Hora emissio: 02:52:55
-Hora recollida: 03:15:55
-Hora arribada: 03:23:55
-Estat: FINALITZADA
-Hora emissio: 03:58:26
-Hora recollida: 04:26:26
-Hora arribada: 04:31:26
-Estat: FINALITZADA
-Hora emissio: 04:08:19
-Hora recollida: 04:34:19
-Hora arribada: 04:41:19
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->CarrerCentral->Carrerd'Albacete->AvingudadeMarianoÁlvarezdeCastro->CamídeCanCarreres->AvingudadeMarianoÁlvarezdeCastro->Carrerd'Adri->CamídelPalcodelsSastres->Carrerd'AntòniaAdroheriPascual->Carrerd'AnticRoca->Avingudadel20deJuny
-HORA DE FINALITZACIO: 04:46:19
-TEMPS TOTAL EN RUTA: 57.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 5.181818181818182 minuts
-MITJANA D'ESPERA DE CLIENT:25 minuts
-MITJANA DE RECORRECUT DE CLIENT: 6 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 2
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          2
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 42
---Origen: Carrerd'Elx
---Desti: Carrerd'AntoniBarnésiGultresa
---Hora emissio: 12:42:53
---Nombre de passatgers: 2
---Temps estimat: 7.0 minuts
-Peticio: 22
---Origen: AvingudadeJosepTarradellasiJoan
---Desti: Depot4
---Hora emissio: 12:43:53
---Nombre de passatgers: 1
---Temps estimat: 9.0 minuts
-Peticio: 49
---Origen: Carrerd'Ibèria
---Desti: Depot3
---Hora emissio: 12:58:59
---Nombre de passatgers: 1
---Temps estimat: 4.0 minuts
-Peticio: 20
---Origen: AvingudadelaHispanitat
---Desti: CamídelPladeDalt
---Hora emissio: 13:41:12
---Nombre de passatgers: 1
---Temps estimat: 4.0 minuts
-Peticio: 1
---Origen: Carrerd'EnricPratdelaRiba
+Peticio: 36
+--Origen: Carrerd'Astúries
 --Desti: Carrerd'Alacant
---Hora emissio: 14:04:12
+--Hora emissio: 06:49:38
 --Nombre de passatgers: 2
---Temps estimat: 6.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 5
+--Temps estimat: 20.0 minuts
+Peticio: 10
+--Origen: Depo0
+--Desti: Carrerd'AnticRoca
+--Hora emissio: 06:55:44
+--Nombre de passatgers: 1
+--Temps estimat: 8.0 minuts
+Peticio: 53
+--Origen: Carrerd'AgustíRieraiPau
+--Desti: Carrerd'EmíliaXargayiPagès
+--Hora emissio: 07:51:04
+--Nombre de passatgers: 1
+--Temps estimat: 2.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 4
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
-..
+......
 
 Solucio trobada: 
-Ruta actual: 8
+Ruta actual: 5
 
 *****PETICIONS ATESES*****
-Hora emissio: 12:42:53
-Hora recollida: 13:09:53
-Hora arribada: 13:16:53
+Hora emissio: 06:25:42
+Hora recollida: 06:53:42
+Hora arribada: 06:59:42
 Estat: FINALITZADA
-Hora emissio: 12:43:53
-Hora recollida: 13:07:53
-Hora arribada: 13:16:53
+Hora emissio: 06:49:38
+Hora recollida: 07:14:38
+Hora arribada: 07:20:38
 Estat: FINALITZADA
-Hora emissio: 12:58:59
-Hora recollida: 13:22:59
-Hora arribada: 13:27:59
+Hora emissio: 06:55:44
+Hora recollida: 07:15:44
+Hora arribada: 07:20:44
 Estat: FINALITZADA
-Hora emissio: 13:41:12
-Hora recollida: 14:03:12
-Hora arribada: 14:07:12
-Estat: FINALITZADA
-Hora emissio: 14:04:12
-Hora recollida: 14:21:12
-Hora arribada: 14:27:12
+Hora emissio: 07:51:04
+Hora recollida: 08:18:04
+Hora arribada: 08:20:04
 Estat: FINALITZADA
 RUTA DE NODES
-Depot2->Carrerd'Elx->Carrerd'AntoniBarnésiGultresa->Carrerd'Ibèria->Carrerd'EnricPratdelaRiba->Carrerd'Alacant->AvingudadeJosepTarradellasiJoan->Depot4->AvingudadelaHispanitat->CamídelPladeDalt->Depot3
-HORA DE FINALITZACIO: 14:36:12
-TEMPS TOTAL EN RUTA: 67.0 minuts
+Depot1->CamídelPladeDalt->AvingudadeSantNarcís->Depo0->Carrerd'Astúries->Carrerd'AgustíRieraiPau->Carrerd'EmíliaXargayiPagès->Carrerd'AnticRoca->Carrerd'Alacant
+HORA DE FINALITZACIO: 08:31:04
+TEMPS TOTAL EN RUTA: 39.0 minuts
 TEMPS A DEPOT: 0.0 minuts
 MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 6.090909090909091 minuts
-MITJANA D'ESPERA DE CLIENT:22 minuts
-MITJANA DE RECORRECUT DE CLIENT: 6 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 43
---Origen: CarrerMedieval
---Desti: Carrerd'EmiliGrahit
---Hora emissio: 08:15:43
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-Peticio: 35
---Origen: AvingudadeSantFrancesc
---Desti: AvingudadeJosepTarradellasiJoan
---Hora emissio: 08:26:35
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-Peticio: 19
---Origen: Carrerd'Avel·líArtísiGener,"Tísner"
---Desti: AvingudadeFrança
---Hora emissio: 08:43:57
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
-Peticio: 13
---Origen: Carrerd'Avel·líArtísiGener,"Tísner"
---Desti: Carrerd'Adri
---Hora emissio: 08:46:21
---Nombre de passatgers: 1
---Temps estimat: 10.0 minuts
-Peticio: 46
---Origen: AvingudadeLluísPericot
---Desti: AvingudadeMarianoÁlvarezdeCastro
---Hora emissio: 08:58:04
---Nombre de passatgers: 1
---Temps estimat: 4.0 minuts
-Peticio: 38
---Origen: Camídel'EscoladeMontjuïc
---Desti: Carrerd'AlfredNobel
---Hora emissio: 09:18:25
---Nombre de passatgers: 2
---Temps estimat: 5.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 6
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 10
-
-*****PETICIONS ATESES*****
-Hora emissio: 08:15:43
-Hora recollida: 08:43:43
-Hora arribada: 08:49:43
-Estat: FINALITZADA
-Hora emissio: 08:26:35
-Hora recollida: 08:42:35
-Hora arribada: 08:50:35
-Estat: FINALITZADA
-Hora emissio: 08:43:57
-Hora recollida: 09:08:57
-Hora arribada: 09:27:57
-Estat: FINALITZADA
-Hora emissio: 08:46:21
-Hora recollida: 09:08:21
-Hora arribada: 09:18:21
-Estat: FINALITZADA
-Hora emissio: 08:58:04
-Hora recollida: 09:19:04
-Hora arribada: 09:23:04
-Estat: FINALITZADA
-Hora emissio: 09:18:25
-Hora recollida: 09:44:25
-Hora arribada: 09:49:25
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->CarrerMedieval->Carrerd'EmiliGrahit->AvingudadeSantFrancesc->Carrerd'Avel·líArtísiGener,"Tísner"->AvingudadeJosepTarradellasiJoan->Carrerd'Avel·líArtísiGener,"Tísner"->Carrerd'Adri->AvingudadeFrança->Depot4->AvingudadeLluísPericot->AvingudadeMarianoÁlvarezdeCastro->Camídel'EscoladeMontjuïc->Carrerd'AlfredNobel
-HORA DE FINALITZACIO: 09:58:04
-TEMPS TOTAL EN RUTA: 104.0 minuts
-TEMPS A DEPOT: 141.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 7.428571428571429 minuts
-MITJANA D'ESPERA DE CLIENT:23 minuts
-MITJANA DE RECORRECUT DE CLIENT: 8 minuts
+MITJANA DISTANCIA ENTRE NODES 4.333333333333333 minuts
+MITJANA D'ESPERA DE CLIENT:25 minuts
+MITJANA DE RECORRECUT DE CLIENT: 4 minuts
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -698,187 +339,19 @@ Node origen:          2
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 55
---Origen: Carrerd'Avel·líArtísiGener,"Tísner"
---Desti: Carrerd'AntoniBarnésiGultresa
---Hora emissio: 07:52:17
---Nombre de passatgers: 1
---Temps estimat: 9.0 minuts
+Peticio: 19
+--Origen: Carrerd'EmiliGrahit
+--Desti: Carrerd'Adri
+--Hora emissio: 23:47:29
+--Nombre de passatgers: 2
+--Temps estimat: 13.0 minuts
 NOMBRE DE PETICIONS A ATENDRE: 1
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
 
 
-Solucio trobada: 
-Ruta actual: 10
-
-*****PETICIONS ATESES*****
-Hora emissio: 07:52:17
-Hora recollida: 08:18:17
-Hora arribada: 08:27:17
-Estat: FINALITZADA
-RUTA DE NODES
-Depot2->Carrerd'Avel·líArtísiGener,"Tísner"->Carrerd'AntoniBarnésiGultresa
-HORA DE FINALITZACIO: 08:31:17
-TEMPS TOTAL EN RUTA: 13.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.333333333333333 minuts
-MITJANA D'ESPERA DE CLIENT:26 minuts
-MITJANA DE RECORRECUT DE CLIENT: 9 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 11
---Origen: Carrerd'Ibèria
---Desti: Carrerd'Alacant
---Hora emissio: 00:26:48
---Nombre de passatgers: 1
---Temps estimat: 14.0 minuts
-Peticio: 34
---Origen: AvingudadeSantFrancesc
---Desti: Camídel'EscoladeMontjuïc
---Hora emissio: 00:46:37
---Nombre de passatgers: 1
---Temps estimat: 14.0 minuts
-Peticio: 12
---Origen: BaixadadelaFontdelBisbe
---Desti: Carrerd'AuroraBertranaiSalazar
---Hora emissio: 00:53:43
---Nombre de passatgers: 2
---Temps estimat: 7.0 minuts
-Peticio: 29
---Origen: Carrerd'AnselmClavéiCamps
---Desti: CarrerCentral
---Hora emissio: 00:58:26
---Nombre de passatgers: 2
---Temps estimat: 2.0 minuts
-Peticio: 21
---Origen: AvingudadeMarianoÁlvarezdeCastro
---Desti: Carrerd'AlfredNobel
---Hora emissio: 01:29:58
---Nombre de passatgers: 1
---Temps estimat: 5.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 5
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-............
-
-Solucio trobada: 
-Ruta actual: 12
-
-*****PETICIONS ATESES*****
-Hora emissio: 00:26:48
-Hora recollida: 00:52:48
-Hora arribada: 01:06:48
-Estat: FINALITZADA
-Hora emissio: 00:46:37
-Hora recollida: 01:12:37
-Hora arribada: 01:16:37
-Estat: FINALITZADA
-Hora emissio: 00:53:43
-Hora recollida: 01:17:43
-Hora arribada: 01:22:43
-Estat: FINALITZADA
-Hora emissio: 00:58:26
-Hora recollida: 01:23:26
-Hora arribada: 01:25:26
-Estat: FINALITZADA
-Hora emissio: 01:29:58
-Hora recollida: 01:53:58
-Hora arribada: 01:57:58
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Carrerd'Ibèria->Carrerd'Alacant->AvingudadeSantFrancesc->Carrerd'AnselmClavéiCamps->CarrerCentral->Camídel'EscoladeMontjuïc->BaixadadelaFontdelBisbe->AvingudadeMarianoÁlvarezdeCastro->Carrerd'AuroraBertranaiSalazar->Carrerd'AlfredNobel
-HORA DE FINALITZACIO: 02:02:58
-TEMPS TOTAL EN RUTA: 54.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.909090909090909 minuts
-MITJANA D'ESPERA DE CLIENT:25 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 2
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          2
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 48
---Origen: AvingudadeSantNarcís
---Desti: Avingudadel20deJuny
---Hora emissio: 19:46:24
---Nombre de passatgers: 2
---Temps estimat: 7.0 minuts
-Peticio: 26
---Origen: CamídelPladeDalt
---Desti: AvingudadelaHispanitat
---Hora emissio: 20:04:39
---Nombre de passatgers: 2
---Temps estimat: 4.0 minuts
-Peticio: 36
---Origen: Carrerd'EnricPratdelaRiba
---Desti: Carrerd'Albí
---Hora emissio: 21:43:23
---Nombre de passatgers: 2
---Temps estimat: 4.0 minuts
-Peticio: 2
---Origen: AvingudadeLluísPericot
---Desti: Carrerd'AndreuTuyetiSantamaria
---Hora emissio: 22:10:07
---Nombre de passatgers: 2
---Temps estimat: 5.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 4
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 12
-
-*****PETICIONS ATESES*****
-Hora emissio: 19:46:24
-Hora recollida: 20:11:24
-Hora arribada: 20:18:24
-Estat: FINALITZADA
-Hora emissio: 20:04:39
-Hora recollida: 20:27:39
-Hora arribada: 20:31:39
-Estat: FINALITZADA
-Hora emissio: 21:43:23
-Hora recollida: 22:12:23
-Hora arribada: 22:16:23
-Estat: FINALITZADA
-Hora emissio: 22:10:07
-Hora recollida: 22:38:07
-Hora arribada: 22:43:07
-Estat: FINALITZADA
-RUTA DE NODES
-Depot2->AvingudadeSantNarcís->Avingudadel20deJuny->CamídelPladeDalt->AvingudadelaHispanitat->Carrerd'EnricPratdelaRiba->Carrerd'Albí->AvingudadeLluísPericot->Carrerd'AndreuTuyetiSantamaria
-HORA DE FINALITZACIO: 22:51:23
-TEMPS TOTAL EN RUTA: 35.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:2 passatgers
-MITJANA DISTANCIA ENTRE NODES 3.888888888888889 minuts
-MITJANA D'ESPERA DE CLIENT:26 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
+No s'ha trobat solucio
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -892,100 +365,64 @@ Node origen:          1
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
 Peticio: 45
---Origen: Carrerd'AntoniCanet
---Desti: Carrerd'AntonAgullana
---Hora emissio: 19:14:22
---Nombre de passatgers: 1
---Temps estimat: 17.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 14
-
-*****PETICIONS ATESES*****
-Hora emissio: 19:14:22
-Hora recollida: 19:39:22
-Hora arribada: 19:56:22
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Carrerd'AntoniCanet->Carrerd'AntonAgullana
-HORA DE FINALITZACIO: 20:01:22
-TEMPS TOTAL EN RUTA: 22.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 7.333333333333333 minuts
-MITJANA D'ESPERA DE CLIENT:25 minuts
-MITJANA DE RECORRECUT DE CLIENT: 17 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 2
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          2
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 37
---Origen: AvingudadeSantNarcís
---Desti: Avingudadel20deJuny
---Hora emissio: 23:43:23
+--Origen: CamídelPladeDalt
+--Desti: Carrerd'AndreuTuyetiSantamaria
+--Hora emissio: 19:35:47
+--Nombre de passatgers: 2
+--Temps estimat: 5.0 minuts
+Peticio: 59
+--Origen: Carrerd'Adri
+--Desti: Carrerd'EmiliGrahit
+--Hora emissio: 19:55:21
+--Nombre de passatgers: 2
+--Temps estimat: 13.0 minuts
+Peticio: 24
+--Origen: CamídelPladeDalt
+--Desti: Carrerd'EnricPratdelaRiba
+--Hora emissio: 20:45:03
 --Nombre de passatgers: 2
 --Temps estimat: 7.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-No s'ha trobat solucio
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 18
+Peticio: 58
 --Origen: CamídelPalcodelsSastres
---Desti: AvingudadeRamonFolch
---Hora emissio: 23:58:35
+--Desti: Depot1
+--Hora emissio: 21:30:17
 --Nombre de passatgers: 1
---Temps estimat: 18.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
+--Temps estimat: 9.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 4
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
-
+......
 
 Solucio trobada: 
-Ruta actual: 16
+Ruta actual: 7
 
 *****PETICIONS ATESES*****
-Hora emissio: 23:58:35
-Hora recollida: 00:23:35
-Hora arribada: 00:41:35
+Hora emissio: 19:35:47
+Hora recollida: 20:03:47
+Hora arribada: 20:08:47
+Estat: FINALITZADA
+Hora emissio: 19:55:21
+Hora recollida: 20:21:21
+Hora arribada: 20:24:21
+Estat: FINALITZADA
+Hora emissio: 20:45:03
+Hora recollida: 21:12:03
+Hora arribada: 21:19:03
+Estat: FINALITZADA
+Hora emissio: 21:30:17
+Hora recollida: 21:54:17
+Hora arribada: 22:03:17
 Estat: FINALITZADA
 RUTA DE NODES
-Depot1->CamídelPalcodelsSastres->AvingudadeRamonFolch
-HORA DE FINALITZACIO: 00:41:35
-TEMPS TOTAL EN RUTA: 23.0 minuts
+Depot1->CamídelPladeDalt->Carrerd'AndreuTuyetiSantamaria->Carrerd'Adri->CamídelPladeDalt->Carrerd'EmiliGrahit->CamídelPalcodelsSastres->Depot1->Carrerd'EnricPratdelaRiba
+HORA DE FINALITZACIO: 22:10:17
+TEMPS TOTAL EN RUTA: 39.0 minuts
 TEMPS A DEPOT: 0.0 minuts
 MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 7.666666666666667 minuts
-MITJANA D'ESPERA DE CLIENT:24 minuts
-MITJANA DE RECORRECUT DE CLIENT: 18 minuts
+MITJANA DISTANCIA ENTRE NODES 4.333333333333333 minuts
+MITJANA D'ESPERA DE CLIENT:26 minuts
+MITJANA DE RECORRECUT DE CLIENT: 6 minuts
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -998,101 +435,115 @@ Node origen:          2
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 4
---Origen: Carrerd'Alacant
---Desti: Carrerd'Albacete
---Hora emissio: 18:36:01
+Peticio: 38
+--Origen: BaixadadelaFontdelBisbe
+--Desti: CarrerNoudelTeatre
+--Hora emissio: 15:16:03
 --Nombre de passatgers: 2
---Temps estimat: 5.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 16
-
-*****PETICIONS ATESES*****
-Hora emissio: 18:36:01
-Hora recollida: 18:59:01
-Hora arribada: 19:04:01
-Estat: FINALITZADA
-RUTA DE NODES
-Depot2->Carrerd'Alacant->Carrerd'Albacete
-HORA DE FINALITZACIO: 19:11:01
-TEMPS TOTAL EN RUTA: 12.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:2 passatgers
-MITJANA DISTANCIA ENTRE NODES 4.0 minuts
-MITJANA D'ESPERA DE CLIENT:23 minuts
-MITJANA DE RECORRECUT DE CLIENT: 5 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 1
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          1
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 39
---Origen: Carrerd'EnricMarquèsiRibalta
---Desti: Depot4
---Hora emissio: 22:29:38
---Nombre de passatgers: 2
---Temps estimat: 8.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
-NOMBRE DE DEPOTS: 5
-*********************************************************************************************************
-**BUSCAN SOLUCIO MILLOR**
-
-
-Solucio trobada: 
-Ruta actual: 18
-
-*****PETICIONS ATESES*****
-Hora emissio: 22:29:38
-Hora recollida: 22:52:38
-Hora arribada: 23:00:38
-Estat: FINALITZADA
-RUTA DE NODES
-Depot1->Carrerd'EnricMarquèsiRibalta->Depot4
-HORA DE FINALITZACIO: 23:07:38
-TEMPS TOTAL EN RUTA: 15.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:2 passatgers
-MITJANA DISTANCIA ENTRE NODES 5.0 minuts
-MITJANA D'ESPERA DE CLIENT:23 minuts
-MITJANA DE RECORRECUT DE CLIENT: 8 minuts
-
-*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
-VEHICLE:
-Identificador: 2
-Autonomia Total: 300.0
-Autonomia Restant: 300.0
-CapacitatTotal 5
-Nombre de passatgers: 0
-Node origen:          2
-=============================================
-****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
-
-Peticio: 14
---Origen: Carrerd'EnricMarquèsiRibalta
---Desti: AvingudadelaFontdelaPólvora
---Hora emissio: 23:51:58
+--Temps estimat: 20.0 minuts
+Peticio: 34
+--Origen: Carrerd'AlfredNobel
+--Desti: Carrerd'Aiguaviva
+--Hora emissio: 15:19:05
+--Nombre de passatgers: 1
+--Temps estimat: 4.0 minuts
+Peticio: 17
+--Origen: Carrerd'AndreuTuyetiSantamaria
+--Desti: Carrerd'Empúries
+--Hora emissio: 15:29:31
+--Nombre de passatgers: 1
+--Temps estimat: 11.0 minuts
+Peticio: 42
+--Origen: CarrerCentral
+--Desti: Avingudadel20deJuny
+--Hora emissio: 15:47:39
+--Nombre de passatgers: 1
+--Temps estimat: 18.0 minuts
+Peticio: 54
+--Origen: AvingudadeMontilivi
+--Desti: Carrerd'AgustíRieraiPau
+--Hora emissio: 15:59:01
 --Nombre de passatgers: 1
 --Temps estimat: 5.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
+Peticio: 0
+--Origen: Carrerd'Alacant
+--Desti: AvingudadeMarianoÁlvarezdeCastro
+--Hora emissio: 17:14:25
+--Nombre de passatgers: 1
+--Temps estimat: 3.0 minuts
+Peticio: 2
+--Origen: Carrerd'AntoniVarésiMartinell
+--Desti: CamídelPladeDalt
+--Hora emissio: 17:19:22
+--Nombre de passatgers: 2
+--Temps estimat: 4.0 minuts
+Peticio: 57
+--Origen: Carrerd'AndreuTuyetiSantamaria
+--Desti: Carrerd'Alacant
+--Hora emissio: 17:41:05
+--Nombre de passatgers: 2
+--Temps estimat: 12.0 minuts
+Peticio: 3
+--Origen: Carrerd'AlfredNobel
+--Desti: Carrerd'EnricPratdelaRiba
+--Hora emissio: 17:44:23
+--Nombre de passatgers: 2
+--Temps estimat: 6.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 9
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
 
 
-No s'ha trobat solucio
+Solucio trobada: 
+Ruta actual: 7
+
+*****PETICIONS ATESES*****
+Hora emissio: 15:16:03
+Hora recollida: 15:42:03
+Hora arribada: 16:02:03
+Estat: FINALITZADA
+Hora emissio: 15:19:05
+Hora recollida: 15:45:05
+Hora arribada: 15:49:05
+Estat: FINALITZADA
+Hora emissio: 15:29:31
+Hora recollida: 15:57:31
+Hora arribada: 16:08:31
+Estat: FINALITZADA
+Hora emissio: 15:47:39
+Hora recollida: 16:12:39
+Hora arribada: 16:30:39
+Estat: FINALITZADA
+Hora emissio: 15:59:01
+Hora recollida: 16:24:01
+Hora arribada: 16:29:01
+Estat: FINALITZADA
+Hora emissio: 17:14:25
+Hora recollida: 17:41:25
+Hora arribada: 17:44:25
+Estat: FINALITZADA
+Hora emissio: 17:19:22
+Hora recollida: 17:35:22
+Hora arribada: 17:39:22
+Estat: FINALITZADA
+Hora emissio: 17:41:05
+Hora recollida: 18:07:05
+Hora arribada: 18:24:05
+Estat: FINALITZADA
+Hora emissio: 17:44:23
+Hora recollida: 18:09:23
+Hora arribada: 18:16:23
+Estat: FINALITZADA
+RUTA DE NODES
+Depot2->BaixadadelaFontdelBisbe->CarrerNoudelTeatre->Carrerd'AndreuTuyetiSantamaria->Carrerd'Empúries->Carrerd'Alacant->AvingudadeMarianoÁlvarezdeCastro->Carrerd'AndreuTuyetiSantamaria->Carrerd'AlfredNobel->Carrerd'Alacant->Carrerd'EnricPratdelaRiba->Depot4->Carrerd'AlfredNobel->Carrerd'Aiguaviva->CarrerCentral->Avingudadel20deJuny->AvingudadeMontilivi->Carrerd'AgustíRieraiPau->Carrerd'AntoniVarésiMartinell->CamídelPladeDalt
+HORA DE FINALITZACIO: 17:46:05
+TEMPS TOTAL EN RUTA: 152.0 minuts
+TEMPS A DEPOT: 114.0 minuts
+MITJANA DE PASSATGERS:1 passatgers
+MITJANA DISTANCIA ENTRE NODES 7.6 minuts
+MITJANA D'ESPERA DE CLIENT:24 minuts
+MITJANA DE RECORRECUT DE CLIENT: 9 minuts
 
 *********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
 VEHICLE:
@@ -1105,33 +556,93 @@ Node origen:          1
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 58
---Origen: Carrerd'EmíliaXargayiPagès
---Desti: Carrerd'AnticRoca
---Hora emissio: 22:30:16
+Peticio: 12
+--Origen: Carrerd'AlfredNobel
+--Desti: Carrerd'EnricMarquèsiRibalta
+--Hora emissio: 18:41:09
 --Nombre de passatgers: 2
---Temps estimat: 8.0 minuts
-NOMBRE DE PETICIONS A ATENDRE: 1
+--Temps estimat: 4.0 minuts
+Peticio: 15
+--Origen: AvingudadeJosepTarradellasiJoan
+--Desti: Depot1
+--Hora emissio: 18:48:40
+--Nombre de passatgers: 2
+--Temps estimat: 15.0 minuts
+Peticio: 44
+--Origen: CarrerNou
+--Desti: BaixadadelaFontdelCanó
+--Hora emissio: 18:54:50
+--Nombre de passatgers: 1
+--Temps estimat: 17.0 minuts
+Peticio: 13
+--Origen: CamídelaFontdel'Abat
+--Desti: Carrerd'AntoniVarésiMartinell
+--Hora emissio: 19:13:08
+--Nombre de passatgers: 1
+--Temps estimat: 5.0 minuts
+Peticio: 26
+--Origen: Carrerd'EnricClaudiGirbaliNadal
+--Desti: AvingudadeRamonFolch
+--Hora emissio: 19:14:25
+--Nombre de passatgers: 2
+--Temps estimat: 14.0 minuts
+Peticio: 48
+--Origen: AvingudadeMontilivi
+--Desti: Carrerd'AntoniRoviraiVirgili
+--Hora emissio: 19:26:37
+--Nombre de passatgers: 2
+--Temps estimat: 19.0 minuts
+Peticio: 20
+--Origen: AvingudadeRamonFolch
+--Desti: Carrerd'EnricMarquèsiRibalta
+--Hora emissio: 19:35:18
+--Nombre de passatgers: 2
+--Temps estimat: 9.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 7
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
-
+......
 
 Solucio trobada: 
-Ruta actual: 20
+Ruta actual: 9
 
 *****PETICIONS ATESES*****
-Hora emissio: 22:30:16
-Hora recollida: 22:52:16
-Hora arribada: 23:00:16
+Hora emissio: 18:41:09
+Hora recollida: 19:08:09
+Hora arribada: 19:12:09
+Estat: FINALITZADA
+Hora emissio: 18:48:40
+Hora recollida: 19:09:40
+Hora arribada: 19:24:40
+Estat: FINALITZADA
+Hora emissio: 18:54:50
+Hora recollida: 19:06:50
+Hora arribada: 19:15:50
+Estat: FINALITZADA
+Hora emissio: 19:13:08
+Hora recollida: 19:38:08
+Hora arribada: 19:43:08
+Estat: FINALITZADA
+Hora emissio: 19:14:25
+Hora recollida: 19:37:25
+Hora arribada: 19:42:25
+Estat: FINALITZADA
+Hora emissio: 19:26:37
+Hora recollida: 19:49:37
+Hora arribada: 20:08:37
+Estat: FINALITZADA
+Hora emissio: 19:35:18
+Hora recollida: 20:02:18
+Hora arribada: 20:07:18
 Estat: FINALITZADA
 RUTA DE NODES
-Depot1->Carrerd'EmíliaXargayiPagès->Carrerd'AnticRoca
-HORA DE FINALITZACIO: 23:08:16
-TEMPS TOTAL EN RUTA: 16.0 minuts
-TEMPS A DEPOT: 0.0 minuts
-MITJANA DE PASSATGERS:2 passatgers
-MITJANA DISTANCIA ENTRE NODES 5.333333333333333 minuts
+Depot1->Carrerd'AlfredNobel->Carrerd'EnricMarquèsiRibalta->AvingudadeJosepTarradellasiJoan->Depot1->AvingudadeRamonFolch->AvingudadeMontilivi->Carrerd'AntoniRoviraiVirgili->Carrerd'EnricMarquèsiRibalta->Depot3->CarrerNou->Carrerd'EnricClaudiGirbaliNadal->BaixadadelaFontdelCanó->CamídelaFontdel'Abat->Carrerd'AntoniVarésiMartinell->AvingudadeRamonFolch
+HORA DE FINALITZACIO: 20:26:25
+TEMPS TOTAL EN RUTA: 116.0 minuts
+TEMPS A DEPOT: 78.0 minuts
+MITJANA DE PASSATGERS:1 passatgers
+MITJANA DISTANCIA ENTRE NODES 7.25 minuts
 MITJANA D'ESPERA DE CLIENT:22 minuts
 MITJANA DE RECORRECUT DE CLIENT: 8 minuts
 
@@ -1146,13 +657,62 @@ Node origen:          2
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 15
---Origen: Carrerd'EmíliaXargayiPagès
---Desti: CamídelPalcodelsSastres
---Hora emissio: 23:50:47
+Peticio: 11
+--Origen: CarrerNou
+--Desti: Carrerd'Elx
+--Hora emissio: 23:47:45
 --Nombre de passatgers: 1
---Temps estimat: 4.0 minuts
+--Temps estimat: 6.0 minuts
 NOMBRE DE PETICIONS A ATENDRE: 1
+NOMBRE DE DEPOTS: 5
+*********************************************************************************************************
+**BUSCAN SOLUCIO MILLOR**
+
+
+No s'ha trobat solucio
+
+*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
+VEHICLE:
+Identificador: 2
+Autonomia Total: 300.0
+Autonomia Restant: 300.0
+CapacitatTotal 5
+Nombre de passatgers: 0
+Node origen:          2
+=============================================
+****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
+
+Peticio: 25
+--Origen: Carrerd'EnricMarquèsiRibalta
+--Desti: CarrerNoudelTeatre
+--Hora emissio: 00:26:41
+--Nombre de passatgers: 1
+--Temps estimat: 20.0 minuts
+Peticio: 28
+--Origen: AvingudadeSantNarcís
+--Desti: Carrerd'AntoniBarnésiGultresa
+--Hora emissio: 00:45:25
+--Nombre de passatgers: 1
+--Temps estimat: 8.0 minuts
+Peticio: 8
+--Origen: CarrerCentral
+--Desti: Carrerd'AntonAgullana
+--Hora emissio: 01:11:40
+--Nombre de passatgers: 1
+--Temps estimat: 5.0 minuts
+Peticio: 50
+--Origen: AvingudadeMontilivi
+--Desti: Camídel'EscoladeMontjuïc
+--Hora emissio: 01:46:58
+--Nombre de passatgers: 2
+--Temps estimat: 6.0 minuts
+Peticio: 23
+--Origen: Carrerd'Avel·líArtísiGener,"Tísner"
+--Desti: AvingudadelaFontdelaPólvora
+--Hora emissio: 02:08:41
+--Nombre de passatgers: 1
+--Temps estimat: 7.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 5
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
 **BUSCAN SOLUCIO MILLOR**
@@ -1171,12 +731,12 @@ Node origen:          1
 =============================================
 ****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
 
-Peticio: 52
---Origen: Depot5
---Desti: AvingudadeLluísPericot
---Hora emissio: 22:59:09
---Nombre de passatgers: 1
---Temps estimat: 6.0 minuts
+Peticio: 43
+--Origen: Carrerd'EnricAdroheriPascual
+--Desti: Carrerd'AntoniGaudíiCornet
+--Hora emissio: 06:13:26
+--Nombre de passatgers: 2
+--Temps estimat: 1.0 minuts
 NOMBRE DE PETICIONS A ATENDRE: 1
 NOMBRE DE DEPOTS: 5
 *********************************************************************************************************
@@ -1184,30 +744,224 @@ NOMBRE DE DEPOTS: 5
 
 
 Solucio trobada: 
-Ruta actual: 21
+Ruta actual: 12
 
 *****PETICIONS ATESES*****
-Hora emissio: 22:59:09
-Hora recollida: 23:10:09
-Hora arribada: 23:16:09
+Hora emissio: 06:13:26
+Hora recollida: 06:39:26
+Hora arribada: 06:40:26
 Estat: FINALITZADA
 RUTA DE NODES
-Depot1->Depot5->AvingudadeLluísPericot
-HORA DE FINALITZACIO: 23:57:09
-TEMPS TOTAL EN RUTA: 47.0 minuts
+Depot1->Carrerd'EnricAdroheriPascual->Carrerd'AntoniGaudíiCornet
+HORA DE FINALITZACIO: 06:44:26
+TEMPS TOTAL EN RUTA: 5.0 minuts
+TEMPS A DEPOT: 0.0 minuts
+MITJANA DE PASSATGERS:2 passatgers
+MITJANA DISTANCIA ENTRE NODES 1.6666666666666667 minuts
+MITJANA D'ESPERA DE CLIENT:26 minuts
+MITJANA DE RECORRECUT DE CLIENT: 1 minuts
+
+*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
+VEHICLE:
+Identificador: 2
+Autonomia Total: 300.0
+Autonomia Restant: 300.0
+CapacitatTotal 5
+Nombre de passatgers: 0
+Node origen:          2
+=============================================
+****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
+
+Peticio: 6
+--Origen: Carrerd'Empúries
+--Desti: CarrerNou
+--Hora emissio: 14:52:33
+--Nombre de passatgers: 1
+--Temps estimat: 3.0 minuts
+Peticio: 14
+--Origen: Carrerd'Alacant
+--Desti: CamídelPalcodelsSastres
+--Hora emissio: 15:13:36
+--Nombre de passatgers: 1
+--Temps estimat: 20.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 2
+NOMBRE DE DEPOTS: 5
+*********************************************************************************************************
+**BUSCAN SOLUCIO MILLOR**
+..
+
+Solucio trobada: 
+Ruta actual: 12
+
+*****PETICIONS ATESES*****
+Hora emissio: 14:52:33
+Hora recollida: 15:16:33
+Hora arribada: 15:25:33
+Estat: FINALITZADA
+Hora emissio: 15:13:36
+Hora recollida: 15:40:36
+Hora arribada: 15:54:36
+Estat: FINALITZADA
+RUTA DE NODES
+Depot2->Carrerd'Empúries->Carrerd'Alacant->CarrerNou->CamídelPalcodelsSastres
+HORA DE FINALITZACIO: 16:03:36
+TEMPS TOTAL EN RUTA: 32.0 minuts
 TEMPS A DEPOT: 0.0 minuts
 MITJANA DE PASSATGERS:1 passatgers
-MITJANA DISTANCIA ENTRE NODES 15.666666666666666 minuts
-MITJANA D'ESPERA DE CLIENT:11 minuts
-MITJANA DE RECORRECUT DE CLIENT: 6 minuts
+MITJANA DISTANCIA ENTRE NODES 6.4 minuts
+MITJANA D'ESPERA DE CLIENT:25 minuts
+MITJANA DE RECORRECUT DE CLIENT: 11 minuts
+
+*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
+VEHICLE:
+Identificador: 1
+Autonomia Total: 300.0
+Autonomia Restant: 300.0
+CapacitatTotal 5
+Nombre de passatgers: 0
+Node origen:          1
+=============================================
+****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
+
+Peticio: 41
+--Origen: Carrerd'EmíliaXargayiPagès
+--Desti: AvingudadeSantNarcís
+--Hora emissio: 17:49:19
+--Nombre de passatgers: 2
+--Temps estimat: 13.0 minuts
+Peticio: 1
+--Origen: AvingudadeLluísPericot
+--Desti: Depo0
+--Hora emissio: 18:28:59
+--Nombre de passatgers: 2
+--Temps estimat: 7.0 minuts
+Peticio: 55
+--Origen: Carrerd'Albacete
+--Desti: CamídelPalcodelsSastres
+--Hora emissio: 18:32:27
+--Nombre de passatgers: 2
+--Temps estimat: 11.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 3
+NOMBRE DE DEPOTS: 5
+*********************************************************************************************************
+**BUSCAN SOLUCIO MILLOR**
+........
+
+Solucio trobada: 
+Ruta actual: 14
+
+*****PETICIONS ATESES*****
+Hora emissio: 17:49:19
+Hora recollida: 18:15:19
+Hora arribada: 18:21:19
+Estat: FINALITZADA
+Hora emissio: 18:28:59
+Hora recollida: 18:54:59
+Hora arribada: 19:04:59
+Estat: FINALITZADA
+Hora emissio: 18:32:27
+Hora recollida: 18:58:27
+Hora arribada: 19:09:27
+Estat: FINALITZADA
+RUTA DE NODES
+Depot1->Carrerd'EmíliaXargayiPagès->Carrerd'Albacete->CamídelPalcodelsSastres->AvingudadeLluísPericot->AvingudadeSantNarcís->Depo0
+HORA DE FINALITZACIO: 19:55:27
+TEMPS TOTAL EN RUTA: 39.0 minuts
+TEMPS A DEPOT: 0.0 minuts
+MITJANA DE PASSATGERS:2 passatgers
+MITJANA DISTANCIA ENTRE NODES 5.571428571428571 minuts
+MITJANA D'ESPERA DE CLIENT:26 minuts
+MITJANA DE RECORRECUT DE CLIENT: 9 minuts
+
+*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
+VEHICLE:
+Identificador: 2
+Autonomia Total: 300.0
+Autonomia Restant: 300.0
+CapacitatTotal 5
+Nombre de passatgers: 0
+Node origen:          2
+=============================================
+****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
+
+Peticio: 22
+--Origen: Carrerd'Avel·líArtísiGener,"Tísner"
+--Desti: Carrerd'AgustíRieraiPau
+--Hora emissio: 22:27:50
+--Nombre de passatgers: 1
+--Temps estimat: 7.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 1
+NOMBRE DE DEPOTS: 5
+*********************************************************************************************************
+**BUSCAN SOLUCIO MILLOR**
+
+
+Solucio trobada: 
+Ruta actual: 14
+
+*****PETICIONS ATESES*****
+Hora emissio: 22:27:50
+Hora recollida: 22:50:50
+Hora arribada: 22:57:50
+Estat: FINALITZADA
+RUTA DE NODES
+Depot2->Carrerd'Avel·líArtísiGener,"Tísner"->Carrerd'AgustíRieraiPau
+HORA DE FINALITZACIO: 23:04:50
+TEMPS TOTAL EN RUTA: 14.0 minuts
+TEMPS A DEPOT: 0.0 minuts
+MITJANA DE PASSATGERS:1 passatgers
+MITJANA DISTANCIA ENTRE NODES 4.666666666666667 minuts
+MITJANA D'ESPERA DE CLIENT:23 minuts
+MITJANA DE RECORRECUT DE CLIENT: 7 minuts
+
+*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************
+VEHICLE:
+Identificador: 1
+Autonomia Total: 300.0
+Autonomia Restant: 300.0
+CapacitatTotal 5
+Nombre de passatgers: 0
+Node origen:          1
+=============================================
+****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****
+
+Peticio: 7
+--Origen: Carrerd'AnticRoca
+--Desti: Carrerd'Adri
+--Hora emissio: 22:42:56
+--Nombre de passatgers: 2
+--Temps estimat: 5.0 minuts
+NOMBRE DE PETICIONS A ATENDRE: 1
+NOMBRE DE DEPOTS: 5
+*********************************************************************************************************
+**BUSCAN SOLUCIO MILLOR**
+
+
+Solucio trobada: 
+Ruta actual: 15
+
+*****PETICIONS ATESES*****
+Hora emissio: 22:42:56
+Hora recollida: 22:59:56
+Hora arribada: 23:04:56
+Estat: FINALITZADA
+RUTA DE NODES
+Depot1->Carrerd'AnticRoca->Carrerd'Adri
+HORA DE FINALITZACIO: 23:17:56
+TEMPS TOTAL EN RUTA: 18.0 minuts
+TEMPS A DEPOT: 0.0 minuts
+MITJANA DE PASSATGERS:2 passatgers
+MITJANA DISTANCIA ENTRE NODES 6.0 minuts
+MITJANA D'ESPERA DE CLIENT:17 minuts
+MITJANA DE RECORRECUT DE CLIENT: 5 minuts
 
 ====================ESTADISTICS GENERLAS====================
-MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: 39,53 minuts
-MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: 13,41 minuts
-MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: 7,00minuts
-MITJANA DE PASSATGERS: 1,24 passatgers
-MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: 23,00 minuts
-MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: 7,00 minuts
-Nombre de rutes finalitzades: 17
+MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: 46,45 minuts
+MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: 17,45 minuts
+MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: 5,00minuts
+MITJANA DE PASSATGERS: 1,27 passatgers
+MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: 24,00 minuts
+MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: 6,00 minuts
+Nombre de rutes finalitzades: 11
 Nombre de rutes no finalitzades: 5
 

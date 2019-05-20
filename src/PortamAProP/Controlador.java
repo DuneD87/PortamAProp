@@ -81,7 +81,7 @@ public class Controlador {
      * % abans de considerar un punt de carrega com acceptable
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions, int maxPersones,
-             String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga,String nFitxerSortida) {
+            String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga, String nFitxerSortida) {
 
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
@@ -108,7 +108,7 @@ public class Controlador {
         _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
         _rutes = new ArrayList<Ruta>();
         voras = new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
-        
+
     }
 
     /**
@@ -142,44 +142,64 @@ public class Controlador {
         }
         gestionarMenu();
     }
-    
+
     public void mostrarSubMenuEstad() {
-        System.out.println("----ESTADISTICS DISPONIBLES----");
+        System.out.println("----DIAGRAMES DISPONIBLES----\n" 
+                            + "1: Temps en marxa del client\n"
+                            + "2: Temps espera del client\n"
+                            + "3: Nombre de passatgers\n"
+                            + "4: Distancia entre nodes\n"
+                            + "5: Temps en carrega del vehicle\n"
+                            + "6: Temps en marxa del vehicle\n");
         
+
     }
-    
+
     public void mostrarSubMenuRutes() {
         System.out.println("----RUTES DISPONIBLES----");
         for (int i = 0; i < _rutes.size(); i++) {
-            System.out.println("RUTA [" + i + "]");
+            if (_rutes.get(i).finalitzada()) {
+                System.out.println("RUTA [" + i + "]");
+            }
         }
     }
-    
+
     public void mostrarMenu() {
         System.out.println("----OPCIONS DEL MENU----\n"
-                            + "1: Menu rutes\n"
-                            + "2: Menu estadistics\n"
-                            + "0: Sortir");
+                + "1: Menu rutes\n"
+                + "2: Menu estadistics\n"
+                + "0: Sortir");
     }
-    
+
     public void gestionarMenu() {
         mostrarMenu();
         Scanner keyb = new Scanner(System.in);
         int key = keyb.nextInt();
         while (key != 0) {
-            switch(key) {
-                case 0:
-                    System.exit(0);
+            switch (key) {
+
                 case 1:
                     mostrarSubMenuRutes();
+                    System.out.println("Selecciona una ruta de la llista anterior per mostrar");
                     key = keyb.nextInt();
                     _rutes.get(key).mostrarRutaSugraf();
                     break;
+                case 2:
+                    mostrarSubMenuEstad();
+                    System.out.println("Selecciona un estadistic de la llista anterior per mostrar");
+                    key = keyb.nextInt();
+                    estadistic.mostrarEstadistic(key);
+                    break;
+                case 0:
+                    System.exit(0);
+                    break;
+                    
             }
             mostrarMenu();
             key = keyb.nextInt();
         }
     }
+
     /**
      * @brief Inicialitza els vehicles
      * @pre ---
@@ -249,7 +269,7 @@ public class Controlador {
      * @post Afageix a _ruta, vehicles amb unes peticions
      */
     public void assignarSolicitudsAVehicles() {
-        
+
         //for (int i = 0; i < _vehicles.size(); i++) 
         int i = 0; //index del vehicle
         int y = 0; //numero de cops que es repeteix el numeor de peticions no assignades
@@ -291,7 +311,6 @@ public class Controlador {
         }
     }
 
-    
     /**
      * @brief Inicialitza l'algoritme de backtracking
      * @pre S'han assignat peticions als vehicles dins de la finestra de temps
@@ -426,7 +445,7 @@ public class Controlador {
                 + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + " minuts\n");
 
         System.out.println("====================ESTADISTICS GENERLAS====================");
-        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f", mitjanaRutaVehicle) +  " minuts\n"
+        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f", mitjanaRutaVehicle) + " minuts\n"
                 + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + " minuts\n"
                 + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + " minuts\n"
                 + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " passatgers\n"
