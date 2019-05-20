@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
+import java.util.Scanner;
 import javax.swing.JFrame;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -54,6 +55,7 @@ public class Controlador {
     private final boolean _randomSol;
     private final boolean _randomNode;
     private final double _minCarga;
+    private final String _nFitxerSortida;
     private StringBuilder _log;
 
     /**
@@ -79,13 +81,14 @@ public class Controlador {
      * % abans de considerar un punt de carrega com acceptable
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions, int maxPersones,
-             String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga) {
+             String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga,String nFitxerSortida) {
 
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
         _maximEspera = maximEspera;
         _minimLegal = minimLegal;
         _nPeticions = nPeticions;
+        _nFitxerSortida = nFitxerSortida;
         _maxPersones = maxPersones;
         _nFitxerSol = nFitxerSol;
         _nNodes = nNodes;
@@ -119,7 +122,7 @@ public class Controlador {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("output.txt");
+            fichero = new FileWriter(_nFitxerSortida);
             pw = new PrintWriter(fichero);
 
             pw.println(_log.toString());
@@ -137,8 +140,46 @@ public class Controlador {
                 e2.printStackTrace();
             }
         }
+        gestionarMenu();
     }
-
+    
+    public void mostrarSubMenuEstad() {
+        System.out.println("----ESTADISTICS DISPONIBLES----");
+        
+    }
+    
+    public void mostrarSubMenuRutes() {
+        System.out.println("----RUTES DISPONIBLES----");
+        for (int i = 0; i < _rutes.size(); i++) {
+            System.out.println("RUTA [" + i + "]");
+        }
+    }
+    
+    public void mostrarMenu() {
+        System.out.println("----OPCIONS DEL MENU----\n"
+                            + "1: Menu rutes\n"
+                            + "2: Menu estadistics\n"
+                            + "0: Sortir");
+    }
+    
+    public void gestionarMenu() {
+        mostrarMenu();
+        Scanner keyb = new Scanner(System.in);
+        int key = keyb.nextInt();
+        while (key != 0) {
+            switch(key) {
+                case 0:
+                    System.exit(0);
+                case 1:
+                    mostrarSubMenuRutes();
+                    key = keyb.nextInt();
+                    _rutes.get(key).mostrarRutaSugraf();
+                    break;
+            }
+            mostrarMenu();
+            key = keyb.nextInt();
+        }
+    }
     /**
      * @brief Inicialitza els vehicles
      * @pre ---

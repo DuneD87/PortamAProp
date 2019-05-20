@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.MultiGraph;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import org.graphstream.ui.view.Viewer;
 
 public class Ruta {
 
@@ -339,16 +340,17 @@ public class Ruta {
      */
     
     public void mostrarRutaSugraf(){
-        for (int i = 0; i < _nodes.size() - 1; i++) {
+        for (int i = 0; i < _nodes.size()-1; i++) {
             if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
-                 _graf.getNode(i).getEdgeBetween(i+1).setAttribute("ui.class", "marked");
-                 _graf.getNode(i).setAttribute("ui.class", "marked");
-                 _graf.getNode(i+1).setAttribute("ui.class", "marked");
+                 _graf.getNode(_nodes.get(i).getId()).getEdgeBetween(_nodes.get(i+1).getId()).setAttribute("ui.class", "marked");
+                 _graf.getNode(_nodes.get(i).getId()).setAttribute("ui.class", "marked");
+                 _graf.getNode(_nodes.get(i+1).getId()).setAttribute("ui.class", "marked");
             }
         }
-        //_graf.display();
+        
+        Viewer display = _graf.display(true);
+        display.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
     }
-    
     protected String styleSheet= 
          "edge{" +
         "	fill-color: black;" +
