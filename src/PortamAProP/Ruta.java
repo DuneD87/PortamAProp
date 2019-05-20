@@ -341,7 +341,7 @@ public class Ruta {
      */
     
     public void mostrarRutaSugraf(){
-        for (int i = 0; i < _nodes.size() - 1; i++) {
+        for (int i = _nodes.size(); i > 1; i--) {
             if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
                  _graf.getNode(i).getEdgeBetween(i+1).setAttribute("ui.class", "marked");
                  _graf.getNode(i).setAttribute("ui.class", "marked");
