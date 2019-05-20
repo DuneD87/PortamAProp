@@ -1,5 +1,10 @@
 package PortamAProP;
 
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Random;
+
 /**
  * @class GeneradorSolicituds
  * @brief Generador intern de peticions aleatories.
@@ -9,11 +14,6 @@ package PortamAProP;
  * --nNodes: Ens dona el nombre maxim de nodes amb el que treballarem
  * @author Xavier Avivar & Buenaventura Martinez
  */
-
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Random;
-import java.util.Scanner;
 
 public class GeneradorPeticions {
 
@@ -36,8 +36,16 @@ public class GeneradorPeticions {
         _sol = crearSolicituds();
     }
 
-    //Pre: 0<numero
-    //Post: Retorna un string amb una llista de peticions creades
+    /**
+     * @brief Metode que genera un String complet amb peticionsAleatories
+     * 
+     *      Per generar peticions de forma aleatoria, el metode crea un bucle entre 0 i el maxim de solicituds (_maxSol):
+     *      Per cada iteracio genera dos index diferents de nodes, els posa en un string, siguidament concatena en el string el 
+     *      temps de emisio generat aleatoriament i el nombre de passatgers de la peticio tambe
+     *      generat aleatoriament, finalment isereix un salt de linia
+     * 
+     * @post Retorna un String amb el format correcte de peticions
+     */
     
     private String crearSolicituds() {
         Random random = new Random();
@@ -60,9 +68,11 @@ public class GeneradorPeticions {
         }
         return llistat;
     }
-
-    //Pre: -
-    //Post: Crea un fitxer de nom nomf i amb el contingut de sol
+     /**
+      * @brief El metode Crea un fitxer amb peticions amb el format correcte
+      * @param nomf Nom del fitxer de sortida
+      * @param sol  String amb les peticions
+      */
     private void CrearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
         PrintWriter pw = null;

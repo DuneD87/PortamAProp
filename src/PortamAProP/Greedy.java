@@ -9,33 +9,57 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
-
+/**
+ * @class Greedy
+ * @brief Classe que a partir de un vehicle i una llista de peticions genera una ruta que el vehicle pot assolir amb la seva autonimia sense haver de anar a carregar 
+ * -Donat 2 numeros, determinam:
+ * --limitTemps: Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud
+ * --distanciaMaxima: Ens diu la distancia(en minuts) que el vehicle pot buscar peticions
+ * 
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
 public class Greedy {
     private long LIMIT_FINESTRA_TEMPS;
     private int MAX_DISTANCIA_GREEDY;
     
+    /**
+     * @brief Constructor de la classe Gready
+     * @param limitTemps  Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud
+     * @param distanciaMaxima Ens diu la distancia(en minuts) que el vehicle pot buscar peticions
+     */
     public Greedy(long limitTemps,int distanciaMaxima){
         LIMIT_FINESTRA_TEMPS=limitTemps;
         MAX_DISTANCIA_GREEDY=distanciaMaxima;     
     }
     
+    /**
+     * @brief Metode encarregat de generar una ruta per el vehicle v a partir de _solicituds
+     * 
+     *      Per crear la ruta per el vehicle, el primer es buscar la peticio mes propera al vehicle,
+     *      Mentre la solicitud sigui acceptada( !=null) i el contador de solicituds no superi al numero de solicituds,
+     *      mirem si el vehicle pot assolir la solicitud tant per autonomia com per finestra de temps, si es aixi afagim la peticio a la ruta, restem el cost del  la  peticio
+     *      a l'autonomia i posem el vehicle al desti de la peticio, i modifiquem l'estat de la peticio a ENTRANSIT
+     *      si per alguna cosa no es acceptada o per autonomia o per finstra de temps, modifiquem l'estat de la peticio a VISITADA,
+     *      sumem 1 al contador de peticions i tornem a buscar la seguent peticio disponible.
+     *      Un cop finalitzat el bucle, reseteixo el temps de la primera peticio atesa per el vehicle,
+     *      creo el subraf de la ruta, i si la ruta te alguna peticio, la afageixo a la llita de rutes, sino ho ignoro( una ruta sense peticions no te sentit)
+     *      Finalment canvio el estat de totes les peticions VISITADES A ESPERA
+     * 
+     * @post Ruta inserida _rutes correctament 
+     */
     public void crearRuta(Vehicle v, ArrayList<Ruta> _rutes, SortedSet<Peticio> _solicituds, Graph _graf,LlegirFitxerGraf mapa) {
-       //System.out.println("###");
         TreeSet<Peticio> ruta = new TreeSet<Peticio>();
         Peticio s = solicitudMesProperaDisponible(v,_solicituds,_graf); //Busquem la peticio mes propera al vehicle
         int contadorSolicituds = 1;
         while (s != null&& contadorSolicituds < _solicituds.size() + 1) { // mentre quedin peticions i el numero de peticions que hem mirat no sigui mes gran que el numero de peticions totals
-            //System.out.println("*******************************");
-            //System.out.println("Contador peticions: " + contadorSolicituds);
-            //System.out.println("Mida peticions: " + _solicituds.size());
-            
-            if (vehiclePotAssolirSolicitud(v, s,_graf) && DinsFinestraTemps(v, s, ruta)) {// si el vehicle pot assolir la solictud i esta dins la finstra de temps
+            double valid=vehiclePotAssolirSolicitud(v, s, _graf);
+            if (valid>0 && DinsFinestraTemps(v, s, ruta)) {// si el vehicle pot assolir la solictud i esta dins la finstra de temps
                 ruta.add(s);//afagim la peticio dintre de la llista de peticions de la ruta
+                v.descarga(valid);
+                v.setPosicio(s.desti());
                 s.modificarEstat(Peticio.ESTAT.ENTRANSIT);// i posem la peticio entransit per no tornarla a seleccionar mes tard
-              //  System.out.println("peticions entrada correctament \n");
             } else {
                 s.modificarEstat(Peticio.ESTAT.VISITADA); // si la peticio no ha estat acceptada, la posem com a visitada per no tornarla a selccionar mes tard
-                // System.out.println("peticions visitada \n");
             }
             contadorSolicituds++; // em mirat 1 peticio
             s = solicitudMesProperaDisponible(v,_solicituds,_graf);// tornem a seleccionar la peticio mes propera
@@ -43,8 +67,8 @@ public class Greedy {
         v.setHoraPrimeraSol(null); // "Netejem" el vehicle ja que em acabat aqeulla ruta
         int[] conversio = new int[200];
         Graph sub = crearSubGraf(v, ruta, conversio,_graf,mapa);
-        if (ruta.size() == 0) {
-            //System.out.println("\nNo hi ha peticions per crear una ruta\n");
+        if (ruta.isEmpty()) {
+            
         } else {
             _rutes.add(new Ruta(v, ruta, sub, conversio));
         }
@@ -56,28 +80,30 @@ public class Greedy {
         }
 
     }
+    
+    /**
+     * @brief Metode que ens diu si la peticio esta dins la finestra de temps acceptable pel vehicle
+     *      
+     *        Per determinar si la peticio esta dins de la finstra de temps del vehicle, el primer que es fa
+     *         es mirar si el vehicle te alguna peticio acceptada, sino es aixi, inicialitzem el temps de la primera peticio
+     *          acceptada per el vehilce. Si ja hi han peticions, es mira si la peticio s'ha emes despres de la primera que ha acceptat 
+     *          el vehicle i abans del limit que accepta el vehicle.
+     *        
+     * @post Retorna verdades si la peticio esta dins de la finestra de temps acceptable pel vehicle
+     * @return Verdades si la peticio esta dins la finestra de temps acceptable pel vehicle
+     */
      public boolean DinsFinestraTemps(Vehicle v, Peticio s, TreeSet<Peticio> r) {
         boolean valid = false;
-       // System.out.println("\n peticions dins de finestra de temps:");
-        //System.out.println(s);
-        if (r.size() == 0) {
+        if (r.isEmpty()) {
             v.setHoraPrimeraSol(s.emissio());
-            v.setHoraUltimaSol(s.emissio());
             valid = true;
-          // System.out.println("Primera peticio");
         } else {
             
             LocalTime limit = v.getHoraPrimeraSol();
             limit = limit.plusMinutes(LIMIT_FINESTRA_TEMPS);
-          //  System.out.println(LIMIT_FINESTRA_TEMPS);
-          //  System.out.println(limit);
-          // System.out.println("emesio abans de limit: " + s.Emisio().isBefore(limit) );
-          // System.out.println("emesio despres del primer del vehicle: " + s.Emisio().isAfter(v.getHoraPrimeraSol()) );
-            if (s.emissio().isBefore(limit) && s.emissio().isAfter(v.getHoraPrimeraSol()) && s.emissio().isAfter(v.getHoraUltimaSol())) {
+            if (s.emissio().isBefore(limit) && s.emissio().isAfter(v.getHoraPrimeraSol())) {
                 valid = true;
-                //System.out.println("Dins de finestra de temps");
             } else {
-               // System.out.println("Fora finsetra de temps \n");
             }
         }
         return valid;
@@ -86,17 +112,18 @@ public class Greedy {
      
      
     /**
-     * @brief Diu si el vehicle pot anar a la peticio, fer la peticio, i
-     * tornar al Depot mes proper
+     * @brief Metode que ens diu si el vehicle pot assolir la peticio, si pot anar a l'origen de la peticio
+     *        si la pot fer i si pot tornar al depot mes proper sense anar a carregar
+     * 
+     *      Per detrminar si el vehicle pot assolir la peticio calculem les distancies i les sumem, si 
+     *      la suma es menor que l'autonomia actual, la peticio es valida.
      * @pre ---
      * @post Retorna cert si el vehicle v pot assolir la peticio s
      */
-    public boolean vehiclePotAssolirSolicitud(Vehicle v, Peticio s,Graph _graf) {
-        boolean valid = false;
+    public double vehiclePotAssolirSolicitud(Vehicle v, Peticio s,Graph _graf) {
+        double valid = -1;
         double anar_solicitud;
-        //System.out.println("==============VEHICLE POT =========================\nPot assolir soliciutd? \n" + s.toString() + "\n");
         if (v.nodeInicial() == s.origen()) {//Si l'origen de la peticio es on esta el vehicle, no s'haura de desplasar
-          //  System.out.println("Node inicial es origen de la solictud");
             anar_solicitud = 0;
 
         } else {//si no coincidex es calcula el pes fins anar a l'origen de la peticio
@@ -105,72 +132,66 @@ public class Greedy {
         double completar_solicitud = _graf.getNode(s.origen()).getEdgeBetween(s.desti()).getAttribute("Pes");// es calcula el pes de assolir la peticio
         double depot_proxim = buscarDepotMesProxim(s.desti(),_graf);//es calcula el pes de tornar al depot mes proper
         double autonomia = v.carregaRestant();
-        boolean resultat = anar_solicitud + completar_solicitud + depot_proxim < autonomia;
-        boolean pass = s.numPassatgers() <= v.nPassTotal();
-        //System.out.println("Anar peticio: " + anar_solicitud);
-        //System.out.println("completar peticio: " + completar_solicitud);
-        //System.out.println("depot proxim: " + depot_proxim);
-        //System.out.println("autonomia: " + autonomia);
-        //System.out.println("Resultat:" + resultat);
-        //System.out.println("Passatgers solcitud:" + s.NumPassatgers());
-        //System.out.println("Passatgers vehicle:" + v.nPassTotal());
-        //System.out.println("Passatgers:" + pass);
         if (anar_solicitud + completar_solicitud + depot_proxim < autonomia && s.numPassatgers() <= v.nPassTotal()) {// si pot assolir la peticio tant per autonomia com per nombre de passatgers
-            valid = true;
-            v.descarga(anar_solicitud + completar_solicitud + depot_proxim);
-            v.setPosicio(s.desti());
+            valid = anar_solicitud + completar_solicitud + depot_proxim;
         }
-        //System.out.println("=================================");
         return valid;
     }
     
+    /**
+     *@breif Metode que retorna la peticio disponible mes propera al vehicle
+     *      
+     *      Per determinar quina es la peticio disponible mes propera busca per totes les solicituds en estat ESPERA:
+     *      si troba una que l'inici es el node on esta el vehicle la dona com a valida, 
+     *      sino busca per totes les peticios la mes propera dins del rang MAX_DISTNACIA_GREEDY
+     *      i la retorna
+     * 
+     * @post: --
+     * @post: Retorna la peticio valida mes propera
+     */
     
      public Peticio solicitudMesProperaDisponible(Vehicle v, SortedSet<Peticio> _solicituds, Graph _graf ) {
         Peticio millorsol = null;
         boolean trobat = false;
         double millorPes = 0;
         Iterator<Peticio> it = _solicituds.iterator();
-         //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n Buscar peticio mes propera\n");
         while (!trobat && it.hasNext()) {//mentra quedin peticions i no hem trobat la millor
             Peticio ss = it.next();
-            //System.out.println("Bucle peticio\n" + ss.toString());
             if (v.getPosicio() == ss.origen()) {// si origen de la peticio esta al mateix node que vehicle no fa falta que mirem mes
                 if (ss.obtenirEstat() == Peticio.ESTAT.ESPERA) {
                     trobat = true;
                     millorsol = ss;
-                    //System.out.println("Origen peticio al nodel del vhehicle");
                 }
 
             } else {//sino mirem per cada peticio el seu pes i ens quedem amb el de pes mes petit
-               // System.out.println("Node on esta el vehicle " + v.getPosicio());
-               // System.out.println("Node Origen peticio " + ss.Origen());
-               // System.out.println("Aresta " +  _graf.getNode(v.getPosicio()).getEdgeBetween(ss.Origen()) );
                 double pes = _graf.getNode(v.getPosicio()).getEdgeBetween(ss.origen()).getAttribute("Pes");
-
-                //System.out.println("Pes entra la aresta " + pes);
                 if (pes < MAX_DISTANCIA_GREEDY && ss.obtenirEstat() == Peticio.ESTAT.ESPERA) {
                     if (millorsol == null) {
                         millorsol = ss;
                         millorPes = pes;
-                       // System.out.println("primer");
                     } else if (pes < millorPes) {
                         millorsol = ss;
                         millorPes = pes;
-                        //System.out.println("millor");
                     }
 
                 }
             }
         }
-        if (millorsol != null) {
-            //System.out.println("peticions mes propera\n" + millorsol.toString());
-        } else {
-           // System.out.println("peticions no trobada");
-        }
         return millorsol;
     }
      
      
+     /**
+      * 
+      * @breif Metode que retorna la distancia fins al depot mes proper
+      * 
+      *     Per determinal la distancia fins al depot mes proper, primer detrmino el numero
+      *     de depots que hi ha al graf
+      *     Com els depots sempre son els primers al graf, per cada index de 0 fins el numero de depots:
+      *     miro la distancia que hi ha respecte el vehicle i em quedo amb el minim i el retorno
+      * @pre: Els depots han de ser els primers nodes
+      * @post: Retoro la distancia entre el node amb index(index) i el depot mes proper
+      */
      public double buscarDepotMesProxim(int index,Graph _graf) {
         double distancia = Integer.MAX_VALUE;
         int numDepots = 0;
@@ -196,7 +217,16 @@ public class Greedy {
 
         return distancia;
     }
-     
+     /**
+      * 
+      * @brief Metode que crea i retorna un graf a partir de una llista de peticions 
+      * 
+      *     Per crer un subgraf a partr de la llista de peticions, primer creo el graph i li afageixo tots els depots, 
+      *     despres per cada peticio afageixo al graf el origen i el desti.
+      *     Per detrminar els pesos de les arestes del subgraf, i copia el pes del graf complet al subgraf
+      * 
+      * @post: Retorna el subgraf creat a partir de la llista de peticions
+      */
      
      
       public Graph crearSubGraf(Vehicle v, TreeSet<Peticio> llista_solicituds, int[] c,Graph _graf,LlegirFitxerGraf mapa) {
@@ -243,7 +273,6 @@ public class Greedy {
             }
         }
         subgraf = mapa.CompletarGraf(subgraf);
-        //subgraf.display();
         return subgraf;
     }
 

@@ -159,7 +159,6 @@ public class Ruta {
                 numaresta++;
             }
         }
-        //g.display();
         System.out.println("RUTA DE NODES");
         Node q = _nodes.get(0);
         System.out.print(q.getAttribute("Nom").toString());
@@ -175,10 +174,20 @@ public class Ruta {
         System.out.println("\n");
        
     }
-
+    /**
+     * @brief Retorna el array de conversio
+     * @post: Retorna _conversio
+     */
     public int[] retornarConversio() {
         return _conversio;
     }
+    /**
+     * @brief Retorna la mitjana de passatgers de la ruta
+     *        Per determinar la mitjana de passatgers de la ruta,
+     *        suma tots els clients de les peticions i els divideix pel numero 
+     *        de peticions
+     * @post Retorna la mitjana de clients per peticio
+     */
     public int mitjanaPassatgers(){
         int mitjana=0;
         for(Peticio s:_solicituds){
@@ -191,28 +200,40 @@ public class Ruta {
         
         return mitjana;
     }
+     /**
+     * @brief Retorna la distancia promig entre els nodes del graf
+     *        Per determinar la distancia promig entre els nodes del graf
+     *        sumem tots els pessos de les aresetes del graf i ho dividim per
+     *        per el numeo de arestes
+     * @post Retorna la distancia promig entre nodes del graf
+     */
     public double mitjanaDistanciaNodes(){
         double mitjana=0;
+        double arestes=0;
         for(int i=0;i<_nodes.size()-1;i++){
-            if(_nodes.get(i).getId().equals(_nodes.get(i+1).getId()))
+            if(_nodes.get(i).getId().equals(_nodes.get(i+1).getId())){
                 mitjana+=0;
-            else{
+                arestes++;
+            }else{
                 double pes=_graf.getNode(_nodes.get(i).getId()).getEdgeBetween(_nodes.get(i+1).getId()).getAttribute("pes");
                 mitjana+=pes;
+                arestes++;
             }
         }     
-        _mitjanaDistanciaNodes=mitjana/_nodes.size();
+        _mitjanaDistanciaNodes=mitjana/arestes;
         return mitjana/_nodes.size();
     }
     
+    /**
+     * @breif Metode que detmina la mitjana de temps que el client esta esperant i la mitjana de temps que el client esta al vehicle
+     * 
+     *      Per determinar les mitjanes de temps, Per cada peticio:sumo els minuts entre temps de emisio de la peticio o el temps de recollida del client i les 23:59:59, i els minuts entre
+     *      el temps de recollida de la petcio o el temps d'arribada del client i mitjanit(00:00) i despres li resto un dia sencer, finalment divideixo les sumes per el nombre de peticions
+     */
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
         long mitjanaRecorregut=0;
         for(PeticioEnTramit s: _peticionsCompletades){
-            //if (s.getRecollida() != null) {
-               // System.out.println("Hora Emisio " + s.horaEmissio());
-                //System.out.println("Hora Recollida " + s.obtenirHoraRecollida());
-                //System.out.println("Hora Arribada " + s.obtenirHoraArribada());
                 LocalTime mitjanit=LocalTime.of(0, 0);
                 LocalTime casimit=LocalTime.of(23, 59,59);
                 long tempsEspera=0;
@@ -227,30 +248,18 @@ public class Ruta {
                          }
                     }
                 }
-                
                 mitjanaEspera += tempsEspera;
                 long tempsRecorregut=0;
-                 //System.out.println(mitjanit);
-                 //System.out.println(s.obtenirHoraRecollida());
-                 //System.out.println(s.obtenirHoraArribada());
-                 //System.out.println(s.obtenirHoraRecollida().isBefore(casimit));
-                 //System.out.println(s.obtenirHoraArribada().isAfter(mitjanit));
                 if(s.obtenirHoraRecollida().isBefore(casimit) && s.obtenirHoraArribada().isAfter(mitjanit)){
                     tempsRecorregut+=MINUTES.between(s.obtenirHoraRecollida(), casimit);
-                    //System.out.println("Temps1 " + tempsRecorregut);
                     tempsRecorregut+=MINUTES.between(mitjanit, s.obtenirHoraArribada());
-                    // System.out.println(MINUTES.between(mitjanit, s.obtenirHoraArribada()));
-                    //System.out.println("Temps2 " + tempsRecorregut);
                     if(tempsRecorregut>180){
                         long diasencer=MINUTES.between(mitjanit, casimit);
                        tempsRecorregut-=(diasencer);
                        if(tempsRecorregut<0)
                            tempsRecorregut*=-1;
-                        //System.out.println(diasencer);
-                         //System.out.println("Temps3" + tempsRecorregut);
                     }
                 }
-                //System.out.println("Temps" + tempsRecorregut);
                 mitjanaRecorregut += tempsRecorregut;
            // }
         }
@@ -265,38 +274,71 @@ public class Ruta {
     }
     
     
-  
+  /**
+   * @brief Retrona el temps d'emisio de la primera peticio
+   * @post Retorna el temps d'emisio de la primera solicitud
+   */
     public LocalTime obtHoraPrimeraPeticio() {
         return _solicituds.first().emissio();
     }
-    
+    /**
+   * @brief Retrona el temps en marxa del vehicle a la ruta
+   * @post Retorna _tempsEnMarxa
+   */
     public double tempsEnMarxa(){
         return _tempsEnMarxa;
     }
-    
+      /**
+   * @brief Retrona el temps de carga del vehicle a la ruta
+   * @post Retorna _tempsADepot
+   */
     public double tempsDepot(){
         return _tempsADepot;
     }
-    
+      /**
+   * @brief Ens diu si la ruta ha estat finalitzada o no
+   * @post Retorna _finalitzada
+   */
     public boolean finalitzada(){
         return _finalitzada;
     }
     
+      /**
+   * @brief Ens diu la distancia promig entre entre els nodes del graf
+   * @post Retorna _mitjanaDistanciaNodes
+   */
     public double gmitjanaDistanciaNodes(){
         return _mitjanaDistanciaNodes;
     }
-    
+
+    /**
+     * @brief Ens diu la mitjana de passatgers de les peticions de la ruta
+     * @post Retorna _mitjanaPassatgers
+     */
     public double gmitjanaPassatgers(){
         return _mitjanaPassatgers;
     }
-    
+    /**
+     * @brief Ens diu la mitjana de temps d'espera del client 
+     * @post Retorna _mitjanaEsperaClient
+     */
     public double gmitjanaTempsEsperaClient(){
         return _mitjanaEsperaClient;
     }
-    
+    /**
+     * @brief Ens diu la mitjana de temps que el client esta al vehicle
+     * @post Retorna _mitjanaMarxaClient
+     */
     public double gmitjanaTempsMarxaClient(){
         return _mitjanaMarxaClient;
     }
+    /**
+     * @brief Metode que marca la ruta del vehicle en el graf complet
+     * 
+     *      Per Marcar la ruta en el graf, les arestes i nodes que partanyen a la ruta 
+     *      els posem un atribut marked que modifica el especte determinat al styleSheet
+     * @post Modifica el graf per poder mostrar la ruta
+     */
     
     public void mostrarRutaSugraf(){
         for (int i = 0; i < _nodes.size() - 1; i++) {
