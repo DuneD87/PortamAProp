@@ -227,16 +227,6 @@ public class Controlador {
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
             }
-            //Assignacio de totes els peticions en rutes com a finalitzades
-            for (Ruta r: _rutes){
-                for(Peticio s: r.getSol()){
-                    for(Peticio ss: _peticions){
-                        if(ss==s){
-                            ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
-                        }
-                    }
-                }
-            }
              
         }
     }
@@ -344,7 +334,9 @@ public class Controlador {
             r.MostrarGraf();
         }
     }
-
+    /**
+     * @breif Mostra les peticions que no han estat assignades a cap ruta
+     */
     public void mostrarSolicitudsNoAssignades() {
         for (Peticio s : _peticions) {
             if (s.obtenirEstat() == Peticio.ESTAT.ESPERA) {
@@ -352,7 +344,10 @@ public class Controlador {
             }
         }
     }
-
+    /**
+     * @brief Ens diu el numero de peticions que no han estat assignades a cap ruta
+     * @post: Retorna el numero de peticions no assignades
+     */
     public int numeroSolicitudsNoAssignades() {
         int noAssignades = 0;
         for (Peticio s : _peticions) {
@@ -362,15 +357,20 @@ public class Controlador {
         }
         return noAssignades;
     }
+    /**
+     * @breif Metode que mostra els estadistics mitjos respecte totes les rutes
+     * @post: Mostra tots els estadistics de les rutes
+     */
     public void estadistic(){
         estadistic=new Estadistics(_rutes);
+        //Gurada totes les mitjanes
         double mitjanaRutaVehicle=estadistic.mitjanaTempsMarxaVehicle();
         double mitjanaCarragaVehicle=estadistic.mitjanaTempsCarregaVehicle();
         double mitjanaDistancia=estadistic.mitjanaDistanciaNodes();
         double  mitjanaPassatgers=estadistic.mitjanaPassatgers();
         double mitjanaEsperaClient = estadistic.mitjanaTempsEsperaClient();
         double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
-        
+        //Mostra les mitjanes
         System.out.println("====================ESTADISTICS GENERLAS====================");
         System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f",mitjanaRutaVehicle) + "\n"
                             + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + "\n" 
@@ -378,10 +378,12 @@ public class Controlador {
                             + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " \n" 
                             + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + "\n"
                             + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + "\n");
+        //Mostra les rutes al graf
         for(Ruta r: _rutes){
             if(r.finalitzada())
                 r.mostrarRutaSugraf();
         }
+        //Calcula quantes rutes han finalitzat i quante no
         int finalitzades=0;
         int noFinalitzades=0;
         for(Ruta r: _rutes){
@@ -390,6 +392,7 @@ public class Controlador {
             else
                 noFinalitzades++;
         }
+        //Crea i mostra el grafic
         DefaultPieDataset dataset = new DefaultPieDataset() ;
         dataset.setValue("Finalitzades", finalitzades);
         dataset.setValue("No Finalitzades", noFinalitzades);
