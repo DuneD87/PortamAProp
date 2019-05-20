@@ -73,7 +73,7 @@ public class GeneradorPeticions {
       * @param nomf Nom del fitxer de sortida
       * @param sol  String amb les peticions
       */
-    private void CrearFitxer(String nomf, String sol) {
+    public void crearFitxer(String nomf, String sol) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {

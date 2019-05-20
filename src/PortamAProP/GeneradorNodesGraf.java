@@ -158,12 +158,13 @@ public class GeneradorNodesGraf {
             }
         }
     }
+    
     /**
-     * @brief Retorna el string de nodes
+     * @brief Llista amb els nodes generats
      * @pre ---
-     * @post Retorna string _nodes
+     * @post Retorna una cadena de caracters amb un llistat dels nodes generats
      */
-    public String OptenirNodes(){
+    public String obtenirNodes(){
         return _nodes;
     }
 

@@ -31,6 +31,7 @@ public class Controlador {
     private SortedSet<Peticio> _peticions; // @brief Vector de peticions, el fem servir en els diferents algoritmes
     private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
+    private GeneradorPeticions _generadorPeticions;
     private String NOM_FITXER_D = "Depots.txt";
     private List<Pair<Vehicle, TreeSet<Peticio>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
     private LlegirFitxerGraf mapa;
@@ -100,6 +101,7 @@ public class Controlador {
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
         _log = new StringBuilder();
+        System.out.println("NOOOOM DEL FITXEEEER: " + _nFitxerSol);
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();
@@ -138,6 +140,26 @@ public class Controlador {
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
+            }
+        }
+        if (_randomNode) {
+            System.out.println("Vols crear un fitxer amb el resultat aleatori dels nodes ? Y/N");
+            Scanner keyb = new Scanner(System.in);
+            String c = keyb.nextLine();
+            if ("Y".equals(c)) {
+                System.out.println("Introdueix el nom del fitxer");
+                c = keyb.nextLine();
+                _generadorNodes.crearFitxer(c, _generadorNodes.obtenirNodes());
+            }
+        }
+        if (_randomSol) {
+            System.out.println("Vols crear un fitxer amb el resultat aleatori de les peticions ? Y/N");
+            Scanner keyb = new Scanner(System.in);
+            String c = keyb.nextLine();
+            if ("Y".equals(c)) {
+                System.out.println("Introdueix el nom del fitxer");
+                c = keyb.nextLine();
+                _generadorPeticions.crearFitxer(c, _generadorPeticions.toString());
             }
         }
         gestionarMenu();
@@ -188,7 +210,7 @@ public class Controlador {
     
     /**
      * @brief Gestiona el menu
-     * @pre 0 >= index inicial < 2 && 0 >= index rutes < rutes.size() -1 && 1 >= index estadistics <= 6
+     * @pre 0 >= index inicial <= 2 && 0 >= index rutes < rutes.size() -1 && 1 >= index estadistics <= 6
      * @post S'ha escollit la ruta o estadistic per mostrar
      */
     public void gestionarMenu() {
@@ -248,8 +270,8 @@ public class Controlador {
     private void generarSolicituds() {
         LlegirFitxerPeticions lFitxer = new LlegirFitxerPeticions(_graf);
         if (_randomSol) {
-            GeneradorPeticions sol = new GeneradorPeticions(_nPeticions, _maxPersones, _nNodes);
-            String lSol = sol.toString();
+            _generadorPeticions = new GeneradorPeticions(_nPeticions, _maxPersones, _nNodes);
+            String lSol = _generadorPeticions.toString();
             //System.out.println(lSol);
             lFitxer.LlegirDeText(lSol);
         } else {
@@ -271,7 +293,7 @@ public class Controlador {
         if (_randomNode) {
             _generadorNodes = new GeneradorNodesGraf(_pesMaxim, _nNodes);
             _generadorNodes.generadorAleatoriNodes(_graf.getNodeCount());
-            String nodes = _generadorNodes.OptenirNodes();
+            String nodes = _generadorNodes.obtenirNodes();
             mapa.ModificarGrafPerString(_graf, nodes, "peticions");
         } else {
             mapa.ModificarGrafPerFitxer(_graf, _nFitxerGraf, "peticions");
