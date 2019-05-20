@@ -22,10 +22,10 @@ public class PortamAProp {
         int tamanyFinestra = 150;
         int maximEspera = 30;
         int minimLegal = 15;
-        int nPeticions = 60;
+        int nPeticions = 120;
         int maxPersones = 2;
         String nFitxerSol = "peticions.txt";
-        int nNodes = 60;
+        int nNodes = 150;
         int pesMaxim = 20;
         String nFitxerGraf = "Graf.txt";
         int maxGreedy = 50;

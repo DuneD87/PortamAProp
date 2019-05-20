@@ -47,9 +47,6 @@ public class Controlador {
     private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
     private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
     private String NOM_FITXER_D = "Depots.txt";
-    private String NOM_FITXER_G = "Graf.txt";
-    private String FORMAT_ENTRADA_GRAF = "R";
-    private String FORMAT_ENTRADA_SOLICITUDS = "R";
     private List<Pair<Vehicle, TreeSet<Peticio>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
     private LlegirFitxerGraf mapa;
     private Estadistics estadistic;
