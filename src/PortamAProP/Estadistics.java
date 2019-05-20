@@ -272,5 +272,27 @@ public class Estadistics {
         }
     }
     
+    public void mostrarEstadistic(int format){
+        switch(format){
+            case 1: 
+                generarFinestra(chartMitjanaTempsMarxaVehicle);
+                break;
+            case 2:
+                generarFinestra(chartMitjanaTempsCarregaVehicle);
+                break;
+            case 3:
+                generarFinestra(chartMitjanaPersonesVehicle);
+                break;
+            case 4:
+                generarFinestra(chartMitjanaDistanciaNodes);
+                break;
+            case 5:
+                generarFinestra(chartMitjanaRecorregutClient);
+                break;
+            case 6:
+                generarFinestra(chartMitjanaEsperaClient);
+        }
+    }
+    
     
 }
