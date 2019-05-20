@@ -1,37 +1,21 @@
 package PortamAProP;
 
-import java.io.File;
-import java.sql.Time;
-import java.time.LocalTime;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
-import java.util.Set;
-import java.util.Stack;
-import java.util.TreeMap;
-import java.util.Vector;
 import javax.swing.JFrame;
-import javax.swing.text.StyledEditorKit;
-import jdk.nashorn.internal.objects.NativeJava;
-import org.graphstream.algorithm.Dijkstra;
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import scala.Int;
 
 /*
  * @brief Classe controladora, es dedica a gestionar les diferents opcions del
@@ -53,8 +37,10 @@ public class Controlador {
 
     private ArrayList<Ruta> _rutes;
     private Greedy voras;
-    
-    /**VARIABLES DE CONTROL*/
+
+    /**
+     * VARIABLES DE CONTROL
+     */
     private final int _maxDistanciaGreedy;
     private final long _maxFinestraTemps;
     private final int _maximEspera;
@@ -68,28 +54,33 @@ public class Controlador {
     private final boolean _randomSol;
     private final boolean _randomNode;
     private final double _minCarga;
-    
+    private StringBuilder _log;
+
     /**
      * @brief Constructor amb parametres
      * @pre ---
      * @post S'ha construit un objecte controlador amb parametres:
      * @param tamanyFinestra Ens dona el tamany de la finestra de temps
      * @param maximEspera Ens diu quant de temps volen esperar maxim els clients
-     * @param minimLegal Ens diu quin es el minim temps per poder atendre una peticio dictat per llei
+     * @param minimLegal Ens diu quin es el minim temps per poder atendre una
+     * peticio dictat per llei
      * @param nPeticions Ens diu el nombre de peticions que volem generar
-     * @param maxPersones Ens diu el nombre maxim de persones per peticio a generar
-     * @param nFitxerSol Ens diu el nom del fitxer on anar a buscar les peticions
+     * @param maxPersones Ens diu el nombre maxim de persones per peticio a
+     * generar
+     * @param nFitxerSol Ens diu el nom del fitxer on anar a buscar les
+     * peticions
      * @param nNodes Ens diu el nombre maxim de nodes que volem generar
      * @param pesMaxim Ens diu el pes maxim de les arestes
      * @param nFitxerGraf Ens diu el nom del fitxer del graf
      * @param maxGreedy Ens diu la distancia maxima del greedy
      * @param randomSol Ens diu si la generacio de peticions sera aleatoria
      * @param randomNode Ens diu si la generacio de nodes sera aleatoria
-     * @param minCarga Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com acceptable
+     * @param minCarga Ens diu el minim de carrega que el vehicle ha de tenir en
+     * % abans de considerar un punt de carrega com acceptable
      */
-    public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions , int maxPersones
-    , String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga) {
-        
+    public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions, int maxPersones,
+             String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga) {
+
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
         _maximEspera = maximEspera;
@@ -105,15 +96,15 @@ public class Controlador {
         _minCarga = minCarga;
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
-        
+        _log = new StringBuilder();
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
-        _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
-        _rutes = new ArrayList<Ruta>();
-        voras=new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
+        _ruta = new ArrayList<>(10);
+        _rutes = new ArrayList<>();
+        voras = new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
         
     }
 
@@ -123,12 +114,31 @@ public class Controlador {
      * @post S'ha inicialitzat el programa
      */
     public void init() {
-         assignarSolicitudsAVehicles();
-         estadistic();
-         
+        assignarSolicitudsAVehicles();
+        estadistic();
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter("output.txt");
+            pw = new PrintWriter(fichero);
+
+            pw.println(_log.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
     }
 
- 
     /**
      * @brief Inicialitza els vehicles
      * @pre ---
@@ -146,6 +156,7 @@ public class Controlador {
             String s = n.toString();
             _graf.getNode(v.nodeInicial()).setAttribute("VehiclesActual", s);
         }
+        _log.append("\nVehicles creats correctament\n");
     }
 
     /**
@@ -156,11 +167,11 @@ public class Controlador {
     private void generarSolicituds() {
         LlegirFitxerPeticions lFitxer = new LlegirFitxerPeticions(_graf);
         if (_randomSol) {
-            GeneradorPeticions sol = new GeneradorPeticions(_nPeticions,_maxPersones, _nNodes);
+            GeneradorPeticions sol = new GeneradorPeticions(_nPeticions, _maxPersones, _nNodes);
             String lSol = sol.toString();
             //System.out.println(lSol);
             lFitxer.LlegirDeText(lSol);
-        }else{
+        } else {
             lFitxer.LlegirDeFitxer(_nFitxerSol);
         }
         _peticions = lFitxer.obtSol();
@@ -186,13 +197,13 @@ public class Controlador {
         }
 
         _graf = mapa.obtGraph();
-        System.out.println("Nodes inserits correctament");
+        _log.append("\nNodes inserits correctament\n");
 
     }
 
     /**
-     * @brief Assigna per cada vehicle, un grup de peticions, tambe assigna
-     * tots els depots
+     * @brief Assigna per cada vehicle, un grup de peticions, tambe assigna tots
+     * els depots
      * @pre ---
      * @post Afageix a _ruta, vehicles amb unes peticions
      */
@@ -203,7 +214,7 @@ public class Controlador {
         int y = 0; //numero de cops que es repeteix el numeor de peticions no assignades
         int indexruta = 0;
         int anterior = numeroSolicitudsNoAssignades();
-        while (numeroSolicitudsNoAssignades() != 0 && y<_vehicles.size()) {
+        while (numeroSolicitudsNoAssignades() != 0 && y < _vehicles.size()) {
             while (numeroSolicitudsNoAssignades() != 0 && i < _vehicles.size()) { //Mentre hi hagin peticions sense assignar i, y sigui mes petit que el numero de vechiles ( ha mirat tots els vehicles)
                 //System.out.println(_vehicles.get(i));
                 // System.out.println("Iteracio/Id vehicle :\n" + _vehicles.get(i).toString());
@@ -212,53 +223,36 @@ public class Controlador {
                 i++;
                 //System.out.println("\n===============================\n Numero de peticions restants: " + numeroSolicitudsNoAssignades());
             }
-            i=0;
+            i = 0;
             for (Vehicle v : _vehicles) { //un cop la ruta ha estat creada, el vehicle torna al seu node inicial
                 v.setPosicio(v.nodeInicial());
             }
             if (anterior == numeroSolicitudsNoAssignades()) {//Si les peticions que queden son les mateixes que el bucle anterior augmentem y, sino y=0
-                    y++;
-                } else {
-                    y = 0;
-                }
-             anterior = numeroSolicitudsNoAssignades();
-            
+                y++;
+            } else {
+                y = 0;
+            }
+            anterior = numeroSolicitudsNoAssignades();
+
             for (int k = indexruta; k < _rutes.size(); k++) {
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
             }
             //Assignacio de totes els peticions en rutes com a finalitzades
-            for (Ruta r: _rutes){
-                for(Peticio s: r.getSol()){
-                    for(Peticio ss: _peticions){
-                        if(ss==s){
+            for (Ruta r : _rutes) {
+                for (Peticio s : r.getSol()) {
+                    for (Peticio ss : _peticions) {
+                        if (ss == s) {
                             ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
                         }
                     }
                 }
             }
-             
+
         }
     }
 
-    /**
-     * @brief Mostra les peticions per cada vehicle
-     * @pre ---
-     * @post Mostra les peticions per cada vehicle
-     */
-    public void mostrarVehiclesSolicituds() {
-        Iterator<Pair<Vehicle, TreeSet<Peticio>>> it = _ruta.iterator();
-        while (it.hasNext()) {
-            Pair<Vehicle, TreeSet<Peticio>> pair = it.next();
-            Vehicle v = pair.getKey();
-            TreeSet<Peticio> s = pair.getValue();
-            System.out.println("************************************************\n Vehicle:");
-            System.out.println(v.toString() + "\n Solicitds del vehicle:");
-            System.out.println("\t" + s);
-            System.out.println("************************************************\n");
-        }
-    }
-
+    
     /**
      * @brief Inicialitza l'algoritme de backtracking
      * @pre S'han assignat peticions als vehicles dins de la finestra de temps
@@ -266,16 +260,17 @@ public class Controlador {
      */
     public void algoritmeBacktracking(Ruta r) {
 
-        SolucioRuta solRuta = new SolucioRuta(r,_minimLegal,_maximEspera,_minCarga);
-        SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta);
+        SolucioRuta solRuta = new SolucioRuta(r, _minimLegal, _maximEspera, _minCarga, _log);
+        SolucionadorRuta soluRuta = new SolucionadorRuta(solRuta, _log);
         boolean trobat = soluRuta.existeixSolucio();
         if (trobat) {
-            System.out.println("Solucio trobada: ");
+            _log.append("Solucio trobada: \n");
+            _log.append("Ruta actual: " + (_rutes.size() - 1) + "\n");
             r.mostrarRuta();
         } else {
-            System.out.println("No s'ha trobat solucio");
+            _log.append("No s'ha trobat solucio\n");
         }
-     
+
     }
 
     /**
@@ -332,7 +327,6 @@ public class Controlador {
         return subgraf;
     }
 
-
     /**
      * @brief Mostrar rutes
      * @pre ---
@@ -362,46 +356,56 @@ public class Controlador {
         }
         return noAssignades;
     }
-    public void estadistic(){
-        estadistic=new Estadistics(_rutes);
-        double mitjanaRutaVehicle=estadistic.mitjanaTempsMarxaVehicle();
-        double mitjanaCarragaVehicle=estadistic.mitjanaTempsCarregaVehicle();
-        double mitjanaDistancia=estadistic.mitjanaDistanciaNodes();
-        double  mitjanaPassatgers=estadistic.mitjanaPassatgers();
+
+    public void estadistic() {
+        estadistic = new Estadistics(_rutes);
+        double mitjanaRutaVehicle = estadistic.mitjanaTempsMarxaVehicle();
+        double mitjanaCarragaVehicle = estadistic.mitjanaTempsCarregaVehicle();
+        double mitjanaDistancia = estadistic.mitjanaDistanciaNodes();
+        double mitjanaPassatgers = estadistic.mitjanaPassatgers();
         double mitjanaEsperaClient = estadistic.mitjanaTempsEsperaClient();
         double mitjanaMarxaClient = estadistic.mitjanaTempsMarxaClient();
-        
+        _log.append("\n====================ESTADISTICS GENERLAS====================\n");
+        _log.append("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f", mitjanaRutaVehicle) + " minuts\n"
+                + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + " minuts\n"
+                + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + "minuts\n"
+                + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " passatgers\n"
+                + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + " minuts\n"
+                + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + " minuts\n");
+
         System.out.println("====================ESTADISTICS GENERLAS====================");
-        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f",mitjanaRutaVehicle) + "\n"
-                            + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + "\n" 
-                            + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + "\n"
-                            + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " \n" 
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + "\n"
-                            + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + "\n");
-        for(Ruta r: _rutes){
-            if(r.finalitzada())
-                r.mostrarRutaSugraf();
+        System.out.println("MITJANA DE TEMPS QUE ELS VEHICLES ESTAN A LA CARRATERA: " + String.format("%.2f", mitjanaRutaVehicle) +  " minuts\n"
+                + "MITJANA DE TEMPS QUE ELS VEHILCES ESTAN CARREGAN: " + String.format("%.2f", mitjanaCarragaVehicle) + " minuts\n"
+                + "MITJANA DE TEMPS QUE HI HA ENTRE ELS NODES: " + String.format("%.2f", mitjanaDistancia) + " minuts\n"
+                + "MITJANA DE PASSATGERS: " + String.format("%.2f", mitjanaPassatgers) + " passatgers\n"
+                + "MITJANA DE TEMPS QUE ELS CLIENTS HAN DE ESPERAR: " + String.format("%.2f", mitjanaEsperaClient) + " minuts\n"
+                + "MITJANA DE TEMPS QUE ELS CLIENTS TARDEN A FER EL RECORREGUT: " + String.format("%.2f", mitjanaMarxaClient) + " minuts\n");
+        for (Ruta r : _rutes) {
+            if (r.finalitzada()) {
+                //r.mostrarRutaSugraf();
+            }
         }
-        int finalitzades=0;
-        int noFinalitzades=0;
-        for(Ruta r: _rutes){
-            if(r.finalitzada())
+        int finalitzades = 0;
+        int noFinalitzades = 0;
+        for (Ruta r : _rutes) {
+            if (r.finalitzada()) {
                 finalitzades++;
-            else
+            } else {
                 noFinalitzades++;
+            }
         }
-        DefaultPieDataset dataset = new DefaultPieDataset() ;
+        DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("Finalitzades", finalitzades);
         dataset.setValue("No Finalitzades", noFinalitzades);
-        JFreeChart chart = ChartFactory.createPieChart("Rutes",dataset);
+        JFreeChart chart = ChartFactory.createPieChart("Rutes", dataset);
         ChartPanel panel = new ChartPanel(chart);
         JFrame ventana = new JFrame("Grafic");
         ventana.getContentPane().add(panel);
         ventana.pack();
         ventana.setVisible(true);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        _log.append("Nombre de rutes finalitzades: " + finalitzades + "\n");
+        _log.append("Nombre de rutes no finalitzades: " + noFinalitzades + "\n");
     }
 
 }
-

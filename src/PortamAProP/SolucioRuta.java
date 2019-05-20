@@ -54,7 +54,9 @@ public class SolucioRuta {
     
     //Afegit per Buenaventura 
     private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
-
+    
+    private StringBuilder _log;
+    
     /**
      * @brief Constructor
      * @post A partir d'una ruta generada per el voraç, obtenim les diferents
@@ -65,7 +67,7 @@ public class SolucioRuta {
      * @param maximEspera Maxim temps que els clients estan disposats a esperar
      * @param minCarga Minim de bateria que el vehicle considera apropiat abans d'anar a carregar
      */
-    public SolucioRuta(Ruta r, int minimLegal, int maximEspera,double minCarga) {
+    public SolucioRuta(Ruta r, int minimLegal, int maximEspera,double minCarga, StringBuilder log) {
        
         //Inicialitzem les diferents estructures
         _peticio = r.getSol();
@@ -88,13 +90,14 @@ public class SolucioRuta {
         _maximEspera = minimLegal;//30 mins d'espera maxim
         _minimLegal = maximEspera; 
         _minCarga = minCarga;
-         System.out.println("*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
+        _log = log;
+        _log.append("\n*********************************** INICIAN ALGORITME DE BACKTRACKING ***********************************\n" + 
                  "VEHICLE:\n" + _vehicle.toString());
          
         //Busquem la posicio del vehicle
         for (Node p : nodes) {
             if (p.getId().equals(Integer.toString(_vehicle.nodeInicial()))) {
-                System.out.println("****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****\n");
+                _log.append("\n****POSICIO DEL VEHICLE AFEGIDA A LA RUTA****\n");
                 _nodes.push(p);
                 _accio.push('P');
             }
@@ -108,7 +111,7 @@ public class SolucioRuta {
             Node desti = _graf.getNode(_conversio[s.desti()]);
             Pair<Character, Node> p1 = new Pair('O', origen);
             _candidats.add(p1);
-            System.out.println("Peticio: " + s.identificador()
+            _log.append("\nPeticio: " + s.identificador()
                     + "\n--Origen: " + origen.getAttribute("Nom")
                     + "\n--Desti: " + desti.getAttribute("Nom")
                     + "\n--Hora emissio: " + s.emissio()
@@ -120,7 +123,7 @@ public class SolucioRuta {
             _peticionsTramit.add(p);
            
         }
-        System.out.println("NOMBRE DE PETICIONS A ATENDRE: " + _peticio.size());
+        _log.append("\nNOMBRE DE PETICIONS A ATENDRE: " + _peticio.size());
         
         //Busquem els depots i els afegim a la llista de candidats
         int nDepots = 0;
@@ -132,8 +135,8 @@ public class SolucioRuta {
                 nDepots++;
             }
         }
-        System.out.println("NOMBRE DE DEPOTS: " + nDepots +
-                "\n*********************************************************************************************************");
+        _log.append("\nNOMBRE DE DEPOTS: " + nDepots +
+                "\n*********************************************************************************************************\n");
     }
     
     /**
@@ -164,6 +167,7 @@ public class SolucioRuta {
         _tempsADepot = sol._tempsADepot;
         _ruta = sol._ruta;
         _tempsTotal = sol._tempsTotal;
+        _log = sol._log;
     }
 
     /**
@@ -421,7 +425,7 @@ public class SolucioRuta {
      */
     public void finalitzar() {
        
-        _ruta.completarRuta(_nodes,_accio,_carrega,_peticio,_horaActual,_tempsEnMarxa,_tempsADepot,_peticionsTramit);
+        _ruta.completarRuta(_nodes,_accio,_carrega,_peticio,_horaActual,_tempsEnMarxa,_tempsADepot,_peticionsTramit,_log);
         
     }
 }

@@ -12,6 +12,7 @@ public class SolucionadorRuta {
     private boolean _trobat;
     private int _nSolucions;
     private int _nSolucionsTotal;
+    private StringBuilder _log;
     
     /**
      * @brief Algoritme de backtracking
@@ -35,15 +36,15 @@ public class SolucionadorRuta {
                 }
                 if (_actual.completa() && _actual.esMillor(_optim) && _trobat) { //unicament si hem trobat la primera solucio, procedim a buscar l'optim
                     _optim = new SolucioRuta(_actual);
-                    System.out.print(".");
+                    _log.append(".");
                     System.out.flush();
                     //_trobat = true;
                     _nSolucions++;
                     if (_nSolucions < (_nSolucionsTotal + 100))
-                        System.out.print(".");
+                        _log.append(".");
                     else {
                         _nSolucionsTotal = _nSolucions;
-                        System.out.println("SOLUCIONS TROBADES: " + _nSolucionsTotal);
+                        _log.append("SOLUCIONS TROBADES: " + _nSolucionsTotal + "\n");
                     }
                         
                 }
@@ -59,12 +60,13 @@ public class SolucionadorRuta {
      * @brief Constructor
      * @param inicial Solucio inicial amb la q treballem
      */
-    public SolucionadorRuta(SolucioRuta inicial) {
+    public SolucionadorRuta(SolucioRuta inicial,StringBuilder log) {
         _actual = inicial;
         _optim = new SolucioRuta(_actual);
         _trobat = false;
         _nSolucions = 0;
         _nSolucionsTotal = 0;
+        _log = log;
     }
 
     /**
@@ -74,9 +76,9 @@ public class SolucionadorRuta {
      * efectuat el vehicle.
      */
     public boolean existeixSolucio() {
-        System.out.println("**BUSCAN SOLUCIO MILLOR**");
+        _log.append("**BUSCAN SOLUCIO MILLOR**\n");
         backtracking();
-        System.out.println();
+        _log.append("\n\n");
         if (_trobat) _optim.finalitzar();
         return _trobat;
     }

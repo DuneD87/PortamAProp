@@ -37,7 +37,7 @@ public class LlegirFitxersVehicle {
                     Crearvehicle(linia);
                  
             }
-            System.out.println("Vehicles creats correctament");
+           
             
         } catch (Exception e) {
             e.printStackTrace();

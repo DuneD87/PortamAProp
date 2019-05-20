@@ -1,18 +1,12 @@
 package PortamAProP;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.DefaultGraph;
 import org.graphstream.graph.implementations.MultiGraph;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import javafx.util.converter.LocalTimeStringConverter;
 
 public class Ruta {
 
@@ -40,6 +34,8 @@ public class Ruta {
     private double _mitjanaDistanciaNodes;
     private double _mitjanaEsperaClient;
     private double _mitjanaMarxaClient;
+    
+    private StringBuilder _log;
     /**
      * @brief Constructor
      * @post Construim una nova ruta fen servir un vehicle, un conjunt de
@@ -118,11 +114,12 @@ public class Ruta {
      * @param tm Temps en marxa del vehicle
      * @param tp Temps a depot
      * @param pComp Llistat de peticions tramitades
+     * @param log Fitxer que guarda informacio sobre l'execucio
      * @brief Completa la ruta
      * @pre S'ha cridat l'algoritme de backtracking previament
      * @post Completa la ruta amb les diferents dades obtenides per l'algoritme de backtracking
      */
-    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Peticio> s,LocalTime h,double tm, double tp,ArrayList<PeticioEnTramit> pComp) {
+    public void completarRuta(Stack<Node> n, Stack<Character> a,Stack<Integer> c, ArrayList<Peticio> s,LocalTime h,double tm, double tp,ArrayList<PeticioEnTramit> pComp, StringBuilder log) {
         _nodes = new ArrayList<>(n);
         _accions = new ArrayList<>(a);
         _carrega = new ArrayList<>(c);
@@ -132,6 +129,7 @@ public class Ruta {
         _tempsADepot = tp;
         _peticionsCompletades = pComp;
         _finalitzada = true;
+        _log = log;
     }
     
     /**
@@ -140,10 +138,10 @@ public class Ruta {
      * @post S'ha mostrat la ruta..TO COMPLETE
      */
     public void mostrarRuta() {
-        _graf.display();
-        System.out.println("*****PETICIONS ATESES*****");
+        //_graf.display();
+        _log.append("\n*****PETICIONS ATESES*****\n");
         for (PeticioEnTramit s : _peticionsCompletades) {
-            System.out.println(s.toString());
+            _log.append(s.toString() + "\n");
         }
         Graph g = new MultiGraph("Sol");
         for (int i = 0; i < _nodes.size(); i++) {
@@ -159,19 +157,19 @@ public class Ruta {
                 numaresta++;
             }
         }
-        System.out.println("RUTA DE NODES");
+        _log.append("RUTA DE NODES\n");
         Node q = _nodes.get(0);
-        System.out.print(q.getAttribute("Nom").toString());
+        _log.append(q.getAttribute("Nom").toString());
         for(int i = 1; i < _nodes.size(); i++){
-            System.out.print("->"+_nodes.get(i).getAttribute("Nom"));
+            _log.append("->"+_nodes.get(i).getAttribute("Nom"));
         }
-        System.out.println("\nHORA DE FINALITZACIO: " + _horaFi);
-        System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa);
-        System.out.println("TEMPS A DEPOT: " + _tempsADepot);
-        System.out.println("MITJANA DE PASSATGERS:" + mitjanaPassatgers());
-        System.out.println("MITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes());
+        _log.append("\nHORA DE FINALITZACIO: " + _horaFi);
+        _log.append("\nTEMPS TOTAL EN RUTA: " + _tempsEnMarxa + " minuts");
+        _log.append("\nTEMPS A DEPOT: " + _tempsADepot + " minuts");
+        _log.append("\nMITJANA DE PASSATGERS:" + mitjanaPassatgers() + " passatgers");
+        _log.append("\nMITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes() + " minuts");
         mitjanaTempsEsperaRecorregut();
-        System.out.println("\n");
+        _log.append("\n");
        
     }
     /**
@@ -267,8 +265,8 @@ public class Ruta {
         long resultatMitjanaRecorrecut=mitjanaRecorregut/_peticionsCompletades.size();
         _mitjanaEsperaClient=resultatMitjanaEspera;
         _mitjanaMarxaClient=resultatMitjanaRecorrecut;
-        System.out.println("MITJANA D'ESPERA DE CLIENT:" + resultatMitjanaEspera);
-        System.out.println("MITJANA DE RECORRECUT DE CLIENT: " + resultatMitjanaRecorrecut);
+        _log.append("\nMITJANA D'ESPERA DE CLIENT:" + resultatMitjanaEspera + " minuts");
+        _log.append("\nMITJANA DE RECORRECUT DE CLIENT: " + resultatMitjanaRecorrecut + " minuts");
         
        
     }
@@ -348,7 +346,7 @@ public class Ruta {
                  _graf.getNode(i+1).setAttribute("ui.class", "marked");
             }
         }
-        _graf.display();
+        //_graf.display();
     }
     
     protected String styleSheet= 
