@@ -145,12 +145,12 @@ public class Controlador {
 
     public void mostrarSubMenuEstad() {
         System.out.println("----DIAGRAMES DISPONIBLES----\n" 
-                            + "1: Temps en marxa del client\n"
-                            + "2: Temps espera del client\n"
-                            + "3: Nombre de passatgers\n"
+                            + "1: Mitjana de temps en marxa del vehicle\n"
+                            + "2: Mitjana de temps en carrega del vehicle\n"
+                            + "3: Mitjana de passatgers\n"
                             + "4: Distancia entre nodes\n"
-                            + "5: Temps en carrega del vehicle\n"
-                            + "6: Temps en marxa del vehicle\n");
+                            + "5: Mitjana de temps del recorregut del client\n"
+                            + "6: Mitjana de temps d'espera del client\n");
         
 
     }
