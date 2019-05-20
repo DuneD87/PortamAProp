@@ -393,7 +393,7 @@ public class Controlador {
         DefaultPieDataset dataset = new DefaultPieDataset() ;
         dataset.setValue("Finalitzades", finalitzades);
         dataset.setValue("No Finalitzades", noFinalitzades);
-        JFreeChart chart = ChartFactory.createPieChart("Finalitzades/NoFinalitzades",dataset);
+        JFreeChart chart = ChartFactory.createPieChart("Rutes",dataset);
         ChartPanel panel = new ChartPanel(chart);
         JFrame ventana = new JFrame("Grafic");
         ventana.getContentPane().add(panel);

@@ -125,7 +125,7 @@ public class Estadistics {
             if (_rutes.get(i).finalitzada()) {
                 double pass = _rutes.get(i).gmitjanaPassatgers();
                 dataset.setValue(pass, "Rutes", "" + i);
-                _mitjanaPassatgersVehicle = +pass;
+                _mitjanaPassatgersVehicle += pass;
                 finalitzades++;
             }
         }
@@ -195,9 +195,8 @@ public class Estadistics {
         }
         _mitjanaTempsEsperaClient/=finalitzades;
         JFreeChart chart = ChartFactory.createBarChart("Temps Espera Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel panel = new ChartPanel(chart);
         generarFinestra(chart);
-        return _mitjanaTempsCarregaVehicle;
+        return _mitjanaTempsEsperaClient;
     }
     
             /**
@@ -228,7 +227,7 @@ public class Estadistics {
         _mitjanaTempsRecorregutClient/=finalitzades;
         JFreeChart chart = ChartFactory.createBarChart("Temps Marxa Client", "", "Minuts", dataset, PlotOrientation.VERTICAL, true, true, false);
         generarFinestra(chart);
-        return _mitjanaTempsCarregaVehicle;
+        return _mitjanaTempsRecorregutClient;
     }
             /**
      * @brief Metode que mostra en un grafic per pantalla les dades emmagatzemades a chart
