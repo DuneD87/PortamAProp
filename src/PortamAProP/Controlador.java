@@ -235,11 +235,18 @@ public class Controlador {
             anterior = numeroSolicitudsNoAssignades();
 
             for (int k = indexruta; k < _rutes.size(); k++) {
-                System.out.println("bucle infinit" + _rutes.size());
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
             }
-
+            for (Ruta r : _rutes) {
+                for (Peticio s : r.getSol()) {
+                    for (Peticio ss : _peticions) {
+                        if (ss == s) {
+                            ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
+                        }
+                    }
+                }
+            }
         }
     }
 
