@@ -102,8 +102,8 @@ public class Controlador {
         generarSolicituds();
         _vehicles = new ArrayList<>();
         generarVehicles();
-        _ruta = new ArrayList<>(10);
-        _rutes = new ArrayList<>();
+        _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
+        _rutes = new ArrayList<Ruta>();
         voras = new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
         
     }
@@ -208,7 +208,7 @@ public class Controlador {
      * @post Afageix a _ruta, vehicles amb unes peticions
      */
     public void assignarSolicitudsAVehicles() {
-
+        
         //for (int i = 0; i < _vehicles.size(); i++) 
         int i = 0; //index del vehicle
         int y = 0; //numero de cops que es repeteix el numeor de peticions no assignades
@@ -235,18 +235,9 @@ public class Controlador {
             anterior = numeroSolicitudsNoAssignades();
 
             for (int k = indexruta; k < _rutes.size(); k++) {
+                System.out.println("bucle infinit" + _rutes.size());
                 algoritmeBacktracking(_rutes.get(indexruta));
                 indexruta++;
-            }
-            //Assignacio de totes els peticions en rutes com a finalitzades
-            for (Ruta r : _rutes) {
-                for (Peticio s : r.getSol()) {
-                    for (Peticio ss : _peticions) {
-                        if (ss == s) {
-                            ss.modificarEstat(Peticio.ESTAT.FINALITZADA);
-                        }
-                    }
-                }
             }
 
         }
@@ -339,6 +330,9 @@ public class Controlador {
         }
     }
 
+    /**
+     * @breif Mostra les peticions que no han estat assignades a cap ruta
+     */
     public void mostrarSolicitudsNoAssignades() {
         for (Peticio s : _peticions) {
             if (s.obtenirEstat() == Peticio.ESTAT.ESPERA) {
@@ -347,6 +341,11 @@ public class Controlador {
         }
     }
 
+    /**
+     * @brief Ens diu el numero de peticions que no han estat assignades a cap
+     * ruta
+     * @post: Retorna el numero de peticions no assignades
+     */
     public int numeroSolicitudsNoAssignades() {
         int noAssignades = 0;
         for (Peticio s : _peticions) {
@@ -357,8 +356,13 @@ public class Controlador {
         return noAssignades;
     }
 
+    /**
+     * @breif Metode que mostra els estadistics mitjos respecte totes les rutes
+     * @post: Mostra tots els estadistics de les rutes
+     */
     public void estadistic() {
         estadistic = new Estadistics(_rutes);
+        //Gurada totes les mitjanes
         double mitjanaRutaVehicle = estadistic.mitjanaTempsMarxaVehicle();
         double mitjanaCarragaVehicle = estadistic.mitjanaTempsCarregaVehicle();
         double mitjanaDistancia = estadistic.mitjanaDistanciaNodes();
@@ -385,6 +389,7 @@ public class Controlador {
                 //r.mostrarRutaSugraf();
             }
         }
+        //Calcula quantes rutes han finalitzat i quante no
         int finalitzades = 0;
         int noFinalitzades = 0;
         for (Ruta r : _rutes) {
@@ -394,6 +399,7 @@ public class Controlador {
                 noFinalitzades++;
             }
         }
+        //Crea i mostra el grafic
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("Finalitzades", finalitzades);
         dataset.setValue("No Finalitzades", noFinalitzades);

@@ -37,12 +37,14 @@ public class SolucionadorRuta {
                 if (_actual.completa() && _actual.esMillor(_optim) && _trobat) { //unicament si hem trobat la primera solucio, procedim a buscar l'optim
                     _optim = new SolucioRuta(_actual);
                     _log.append(".");
-                    System.out.flush();
+                    //System.out.print(".");
+                    //System.out.flush();
                     //_trobat = true;
                     _nSolucions++;
-                    if (_nSolucions < (_nSolucionsTotal + 100))
+                    if (_nSolucions < (_nSolucionsTotal + 100)) {
+                        //System.out.print(".");
                         _log.append(".");
-                    else {
+                    }else {
                         _nSolucionsTotal = _nSolucions;
                         _log.append("SOLUCIONS TROBADES: " + _nSolucionsTotal + "\n");
                     }
@@ -77,6 +79,7 @@ public class SolucionadorRuta {
      */
     public boolean existeixSolucio() {
         _log.append("**BUSCAN SOLUCIO MILLOR**\n");
+        //System.out.println("**BUSCAN SOLUCIO MILLOR**");
         backtracking();
         _log.append("\n\n");
         if (_trobat) _optim.finalitzar();
