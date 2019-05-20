@@ -74,7 +74,7 @@ public class GeneradorNodesGraf {
             _nodes += _ubicacions.first() + "\n";
             _ubicacions.remove(_ubicacions.first());
         }
-        _nodes += "#\n";
+        _nodes += "*\n";
         int maximArestes = numNodes * (numNodes - 1) / 2;
         Random random = new Random();
         int numArestes = random.nextInt(maximArestes) + 1;
@@ -86,9 +86,9 @@ public class GeneradorNodesGraf {
             } while (origen == desti);
             _nodes += Integer.toString(origen) + " ";
             _nodes += Integer.toString(desti) + " ";
-            _nodes += Integer.toString(random.nextInt(_pesMax) + 1) + "\n";
+            _nodes += Integer.toString(random.nextInt(_pesMax) + 1)+ "\n";
         }
-        _nodes += "#\n";
+        _nodes += "*";
     }
 
     /**
