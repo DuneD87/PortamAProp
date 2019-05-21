@@ -11,16 +11,15 @@ public class PortamAProp {
      */
     public static void mostrarAjuda() {
         StringBuilder ajuda = new StringBuilder();
-        ajuda.append("Forma d'us: PortamAProp [RANDOM PETICIONS | FITXER PETICIONS].. [RANDOM NODES | FITXER NODES].. [OPCIONS]..\n");
-        ajuda.append("Genera diversos estadistics a partir de unes dades d'entrada\n"
+        ajuda.append("Forma d'us: PortamAProp [RANDOM | FITXER].. [OPCIONS]..\n");
+        ajuda.append("Genera diversos estadistics a partir de unes dades d'entrada *NO ES VALIDARAN PARAMETRES, MANUAL ESPECIFICA RANGS ACCEPTABLES*\n"
                 + "que poden venir desde fitxer o generades aleatoriament."
                 + "Tots les opcions son opcionals, pero algunes son contradictoris, ej.\n"
                 + "no podem llegir de forma aleatoria i de fitxer a la mateixa vegada.\n"
                 + "Ocions disponibles: \n"
-                + "     [-rp | -fp]\n"
+                + "     [-rp -rn | -fp -fn]\n"
                 + "     -rp n,k Creara maxim n peticions aleatories per el paquet actual, amb k persones maxim (DEFAULT: ON : 60 peticions : 2 persones maxim per peticio) \n"
                 + "     -fp f   Treballarem sobre un paquet de peticions que venen de fitxer (DEFAULT: OFF)\n"
-                + "     [-rn | -fn]\n"
                 + "     -rn n,k Creara n nodes aleatoris per el nostre graf amb k pes maxim (DEFAULT: ON : 60 nodes : 20 pes maxim)\n"
                 + "     -fn f   Creara un graf llegit desde fitxer (DEFAULT: OFF)\n\n"
                 + "     -tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)\n"
