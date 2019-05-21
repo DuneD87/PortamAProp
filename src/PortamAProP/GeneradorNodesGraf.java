@@ -165,7 +165,7 @@ public class GeneradorNodesGraf {
      * @post Retorna una cadena de caracters amb un llistat dels nodes generats
      */
     public String obtenirNodes(){
-        return _nodes;
+        return _nodes+"\n";
     }
 
 }
