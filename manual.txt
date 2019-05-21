@@ -1,0 +1,188 @@
+NOM
+	PortamAProp - Donat un conjunt de vehicles i peticions, i un mapa, genera diferents rutes i estadistics sobre aquestes rutes.
+	
+SINOPSIS
+	PortamAProp [opcions]
+
+DESCRIPCIO
+	PortamAProp es una aplicacio que donat un conjunt de vehicles en format de fitxer *.txt, un conjunt de peticions, que poden ser
+	aleatories o per fitxer *.txt i un graf, amb la mateixa entrada que peticions i un fitxer obligatori amb els punts de carrega,
+	genera diferents rutes que efectuen els vehicles dintre d'una finestra de temps determinada, exigin un temps maxim d'espera 
+	que asumim dels clients i respectant el minim legal recenment impossat.
+	
+	El funcionament dels diferents algoritmes esta mes ben explicat a els requeriments, aqui ens centrarem en les diferents opcions 
+	que pot tenir el programa i en el format dels fitxers.
+	
+	Format del fitxer de vehicles:
+		Creacio de vehicle (un per linia):
+   		1r paramentre: Id del vehicle
+	   	2n paramentre: Maxim de passatgers (Conductor inclos)
+	    3r paramentre: Autonomia total (= Autonomia Restant al començament del programa)
+	    4t paramentre: Index Efectivitat de carga 
+	    5e paramentre: Id node on comença
+	 
+	    Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+	    l'ultima linia de paramentres
+		
+		EXEMPLE: 1 5 300 0.4 1
+	
+	Format del fitxer de depots:
+		Creacio de Nodes:
+		1r parametre: Id del node
+		2n parametre: Nom del node
+		3r paramentre (opcional): Numero de cotxes que permet recargar simultaniament
+
+		Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+		l'ultima linia de paramentres
+
+		EXEMPLE: 0 Depo0 5
+		
+	   	Creacio d'Arestes:
+	   	1r paramentre: Id node origen
+	   	2n paramentre: Id node desti
+	   	3r paramentre: Pes de l'aresta (minuts)
+	   
+	   	EXEMPLE: 0 1 3.0
+		
+	Format del fitxer de peticions:
+	   	Creacio de peticions (una per linia):
+		1r parametre: Id de la peticio
+		2n parametre: Id node origen
+		3r parametre: Id node desti
+		4t parametre: Hora emisio
+		5e parametre: Minut emisio
+		6e parametre: Segon emisio
+		7e parametre: Numero de passatgers de la peticio
+
+		Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+		l'ultima linia de paramentres
+		
+		EXEMPLE: 1 1 2 12 40 11 2
+		
+	Format del fitxer de grafs:
+	   	Creacio de Nodes:
+		1r parametre: Id del node
+	    2n parametre: Nom del node
+	    3r paramentre (opcional): Numero de cotxes que permet recargar simultaniament
+	 
+	    Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+	    l'ultima linia de paramentres
+		
+		EXEMPLE: 6 LLoc7
+		
+	Format del fitxer d'ubicacions:
+		Llistat d'ubicacions sense espais.
+
+OPCIONS
+	[-rp -rn | -fp -fn]	Descripcio: peticions aleatories i nodes aleatoris o peticions per fitxer i nodes per fitxer.
+						EL FORMAT DEL FITXER HA DE TENIR SENTIT: Si diem que una peticio comença o acaba en un determinat node,
+						el fitxer de nodes ha de contenir tal node.
+	
+	-rp n,k Creara maxim n peticions aleatories per el paquet actual, amb k passatgers 
+			(DEFAULT: ON : 60 peticions : 2 passatgers maxim per peticio)
+			Rangs de les variables:
+				[20..300] peticions: Mes o menys i el programa es pot comportar de forma inesperada, o fins i tot, que es penji 
+				l'aplicacio.
+				
+				[1..5] passatgers: Es podria treballar amb mes, si es configuren adecuadament els vehicles per poder portar mes 
+				passatgers, per defecte, el maxim que poden assolir son 5 passatgers.
+			
+    -fp f   Treballarem sobre un paquet de peticions que venen de fitxer (DEFAULT: OFF)
+			El rang de les variables ha de ser consistent amb els altres fitxers (ex. tot peticions de 10 passatgers amb vehicles de
+			5 passatgers i l'algoritme es comportara de forma erronea).
+	
+	-rn n,k Creara n nodes aleatoris per el nostre graf amb k pes maxim (DEFAULT: ON : 60 nodes : 20 pes maxim)
+			Rang de les variables:
+				[20..300] nodes: Mes o menys i el programa es comportara de forma inadecuada, el propi graphstream ja causa excepcions
+				per evitar que el programa continui funcionant malament.
+				
+				[1..n] pes maxim: Amb el pes maxim es pot jugar bastant, dona lloc a diferents resultats interessants, pero s'ha de
+				ser conscient que si possem pocs punts de carrega, amb vehicles en que la bateria pot assolir un maxim de n, segurament 
+				l'algoritme no trobara solucio.
+				
+	
+	-fn f   Creara un graf llegit desde fitxer (DEFAULT: OFF)
+			El rang de les variables ha de ser consistent amb els altres fitxer (ex. si existeix una peticio amb origen 5, el nostre
+			fitxer de graf ha de contenir un node 5.
+	
+	-tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)
+			Rang de les variables:
+				[10..n] minuts de finestra: Amb aixo tambe es pot jugar bastant, pero si es fan finestres molt grans amb moltes peticions 
+				l'algoritme de backtracking rebra paquets de peticions molt grans i no trobara una solucio.
+	
+	-me n   Temps maxim d'espera de les peticions (DEFAULT : 30min)
+			Rang de les variables:
+				[1..n] minuts que el client esta disposat a esperar: Si incrementem, l'algoritme trobara mes solucions, si decrementem 
+				en troba menys.
+	
+	-ml n   Temps minim legal per atendre una peticio (DEFAULT : 15min)
+			Rang de les variables:
+				[1..n] minuts de minim temps per atendre: Pot entrar en conflicte amb el temps maxim d'espera si n<=k on n es el temps 
+				maxim d'espera i k el minim legal.
+	
+	-mg n   Distancia maxima que el l'algoritme per assignar peticions posara com a restriccio (DEFAULT: 50min)
+			Rang de les variables:
+				[10..n] minuts: Per modificar aquet parametre s'ha de fer en funcio al pes maxim que tenen les arestes, l'algoritme greedy 
+				assignara peticions a vehicles que estiguin dins d'aquesta distancia.
+	
+	-mc n   Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com 
+			acceptable (DEFAULT: 0.8(80% de bateria))
+			Rang de les variables:
+				[0.5..1.0] % de carrega: Modifican aquet parametre fa que l'algoritme de backtracking treballi mes a nivells inferiors, 
+				es podria dir que amb un % baix, com el 50%, l'algoritme treballara amb un nombre mes elevat de candidats, i acabara troban 
+				mes solucions, tambe es pot donar el cas de que amb un nombre elevat de peticions, l'algoritme no acabi mai. 
+				
+				Determino el 50% com el minim en funcio als parametres que hi han per defecte, si s'incrementa el nombre de peticions 
+				o el tamany de les finestres, fet que pot produir que s'assignin mes peticions al vehicle, el minim canviara en funcio
+				d'aquets valors.
+			
+	-o  f   Escriura la sortida al fitxer amb nom f (DEFAULT: output.txt)
+			Escriura la sortida del funcionament del programa a fitxer, detallant amb claredat que fa l'algoritme en cada moment, les 
+			diferents rutes que es completen, informacio sobre aquelles rutes que no han pogut ser completades, estadistics individuals
+			de cada ruta, informacio individual de cada ruta (numero de peticions, el vehicle que les fa, hores d'arribada i recollida de
+			cada peticio, el temps estimat de cada peticio...) i finalment els estadistics generals i el nombre de rutes completades/no 
+			completades.
+			
+			Nom del fitxer ha de contenir caracters valids, caracters invalids: [ \ / : * ? " < > |]
+	
+	-v  f   Llegira els vehicles del fitxer amb nom f (DEFAULT: Vehicles.txt)
+			S'ha de ser consistent amb el format del fitxer de vehicles:	
+				ex1. Si tenim tot peticions amb 5 passatgers, no posar vehicles de 3 persones, ja que mai trobara solucio).
+				ex2. Si diem que l'origen d'un vehicle comença al node 5, hi ha d'haver un depot al fitxer de depots amb id 5.
+			
+	
+	-d  f   Llegira els punts de carrega del fitxer amb nom f (DEFAULT: Depots.txt)
+			S'ha de ser consistent amb el format del fitxer de depots:
+				*Mirar ex2 -v f
+				
+MENU
+	Al finalitzar l'execucio dels algoritmes, si la simulacio ha funcionat correctament, es mostrara un menu amb 3 opcions i s'obrira
+	una finestra amb una chart pie mostran les rutes finalitzades i no finalitzades.
+	
+	A continuacio, si s'ha iniciat el programa amb dades aleatories, el programa demanara al usuari si vol crear un fitxer amb le dades
+	aleatories. Aquesta opcio te una utilitat molt bona, perque es pot guardar la solucio generada i fer mes execucions de l'algoritme
+	amb aquesta solucio i parametres diferents, per obtenir resultats diferents.
+	
+	Opcions del menu:
+		Opcio 0: Finalitza el programa, pero s'haura de tancar la finestra per acabar l'execucio real.
+		
+		Opcio 1: Menu rutes:
+				-Es motrara un llistat de rutes indexades per numero i el programa demanara introduir una ruta per visualitzar. Seguidament 
+				es mostrara un subgraf del graf original, on es pot veure la ruta que fa el vehicle. Diferenciem els elements per colors:
+					-VERD: Node origen de la ruta.
+					-GROC: Node desti de la ruta.
+					-VERMELL: Nodes per on passa el vehicle.
+					-BLAU: Visualitzacio de la ruta en les diferents arestes.
+		
+		Opcio 2: Menu estadistics:
+				-Es mostraran els diferents diagrames de barres dels estadistics generals, per una millor visualitzacio de les diferents
+				mitjanes de cada ruta individual.
+					-1: Mitjana de temps en marxa del vehicle: Per cada ruta, es mostra el temps en marxa del vehicle que la ha efectuat.
+					-2: Mitjana de temps en carrega del vehicle: Per cada ruta, es mostra el temps en carrega del vehicle que ha efectuat.
+					-3: Mitjana de passatgers: Per cada ruta, la mitjana de passatgers que ha portat cada vehicle.
+					-4: Distancia entre nodes: Per cada ruta, la distancia maxima que hi ha entre els nodes.
+					-5: Mitjana de temps del recorregut del client: Per cada ruta, el promig que els clients han estat viatjant.
+					-6: Mitjana de temps d'espera del client: Per cada ruta, la mitjana de temps que han esperat els clients.
+					
+					
+	
