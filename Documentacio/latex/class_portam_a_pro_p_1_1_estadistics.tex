@@ -1,0 +1,179 @@
+\hypertarget{class_portam_a_pro_p_1_1_estadistics}{}\section{Portam\+A\+Pro\+P.\+Estadistics Class Reference}
+\label{class_portam_a_pro_p_1_1_estadistics}\index{Portam\+A\+Pro\+P.\+Estadistics@{Portam\+A\+Pro\+P.\+Estadistics}}
+
+
+Classe encarregada de generar els estadistics globals de totes les rutes solucionades pel backtraking.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_estadistics_a94e45c99d004023042769c71eed2fd1e}{Estadistics} (Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} $>$ rutes)
+\begin{DoxyCompactList}\small\item\em Constructor de la classe. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_a6c53fd82b51c9383aa70b876d5ac7eb0}{mitjana\+Temps\+Marxa\+Vehicle} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, del temps que el vehicle esta circulant amb clients. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_ae909ba27083df99420a17cc0b47c9e81}{mitjana\+Temps\+Carrega\+Vehicle} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, del temps que el vehicle esta carregant. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_add8b72d2f0eda3a89215e913a1d2db0f}{mitjana\+Passatgers} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, del nombre de clients per solicitud. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_a81b7957cb875a5e8ac80d2d94c330bde}{mitjana\+Distancia\+Nodes} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, de la distancia entre els nodes de les rutes. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_a1fe702434660a6f2bb9078a7c1e3fc6d}{mitjana\+Temps\+Espera\+Client} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, del temps que el client espera a ser ates. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_estadistics_a32bdc62dbae367138c84f6cd1331fb9f}{mitjana\+Temps\+Marxa\+Client} ()
+\begin{DoxyCompactList}\small\item\em Metode que retorna la mitjana, de totes les rutes, del temps del client desde que puja al vehicle fins que arriba al seu desti. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_estadistics_a36584b822106277dc698bc3bfb5baf0b}{generar\+Finestra} (J\+Free\+Chart chart)
+\begin{DoxyCompactList}\small\item\em Metode que mostra en un grafic per pantalla les dades emmagatzemades a chart. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_adafba688de294f32fd12e6d002503fb1}\label{class_portam_a_pro_p_1_1_estadistics_adafba688de294f32fd12e6d002503fb1}} 
+void {\bfseries mostrar\+Estadistic} (int format)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe encarregada de generar els estadistics globals de totes les rutes solucionades pel backtraking. 
+
+La classe Estadistic es l\textquotesingle{}encarregada de generar els estadistics correponents de totes les rutes en conjunt, a la vegada tambe es l\textquotesingle{}encarregada de generar els els gàfics.
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a94e45c99d004023042769c71eed2fd1e}\label{class_portam_a_pro_p_1_1_estadistics_a94e45c99d004023042769c71eed2fd1e}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!Estadistics@{Estadistics}}
+\index{Estadistics@{Estadistics}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{Estadistics()}{Estadistics()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Estadistics.\+Estadistics (\begin{DoxyParamCaption}\item[{Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} $>$}]{rutes }\end{DoxyParamCaption})}
+
+
+
+Constructor de la classe. 
+
+\begin{DoxyPrecond}{Precondition}
+rutes.\+size$>$0 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Assigna rutes com la llista de rutes i inisialitza tots els atributs a 0 
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em rutes} & llista amb totes les rutes \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a36584b822106277dc698bc3bfb5baf0b}\label{class_portam_a_pro_p_1_1_estadistics_a36584b822106277dc698bc3bfb5baf0b}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!generar\+Finestra@{generar\+Finestra}}
+\index{generar\+Finestra@{generar\+Finestra}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{generar\+Finestra()}{generarFinestra()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Estadistics.\+generar\+Finestra (\begin{DoxyParamCaption}\item[{J\+Free\+Chart}]{chart }\end{DoxyParamCaption})}
+
+
+
+Metode que mostra en un grafic per pantalla les dades emmagatzemades a chart. 
+
+\begin{DoxyPostcond}{Postcondition}
+Mostra un grafic per pantalla amb les dades de chart 
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em chart} & Contenidor de dades del qual es fara el grafic \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a81b7957cb875a5e8ac80d2d94c330bde}\label{class_portam_a_pro_p_1_1_estadistics_a81b7957cb875a5e8ac80d2d94c330bde}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Distancia\+Nodes@{mitjana\+Distancia\+Nodes}}
+\index{mitjana\+Distancia\+Nodes@{mitjana\+Distancia\+Nodes}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Distancia\+Nodes()}{mitjanaDistanciaNodes()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Distancia\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, de la distancia entre els nodes de les rutes. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades, la mitjana de la distancia entre nodes de la ruta i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de la distancia per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Distancia promig (en minuts) entre els nodes de les rutes 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_add8b72d2f0eda3a89215e913a1d2db0f}\label{class_portam_a_pro_p_1_1_estadistics_add8b72d2f0eda3a89215e913a1d2db0f}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Passatgers@{mitjana\+Passatgers}}
+\index{mitjana\+Passatgers@{mitjana\+Passatgers}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Passatgers()}{mitjanaPassatgers()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Passatgers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, del nombre de clients per solicitud. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades el nombre mig de clients per peticio i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de clients per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Mitjana de clients per peticio. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_ae909ba27083df99420a17cc0b47c9e81}\label{class_portam_a_pro_p_1_1_estadistics_ae909ba27083df99420a17cc0b47c9e81}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Temps\+Carrega\+Vehicle@{mitjana\+Temps\+Carrega\+Vehicle}}
+\index{mitjana\+Temps\+Carrega\+Vehicle@{mitjana\+Temps\+Carrega\+Vehicle}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Temps\+Carrega\+Vehicle()}{mitjanaTempsCarregaVehicle()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Temps\+Carrega\+Vehicle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, del temps que el vehicle esta carregant. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades el temps en carrega del vehicle i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de temps per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Mitjana de temps que el vehicle esta carregant 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a1fe702434660a6f2bb9078a7c1e3fc6d}\label{class_portam_a_pro_p_1_1_estadistics_a1fe702434660a6f2bb9078a7c1e3fc6d}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Temps\+Espera\+Client@{mitjana\+Temps\+Espera\+Client}}
+\index{mitjana\+Temps\+Espera\+Client@{mitjana\+Temps\+Espera\+Client}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Temps\+Espera\+Client()}{mitjanaTempsEsperaClient()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Temps\+Espera\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, del temps que el client espera a ser ates. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades el temps mig d\textquotesingle{}espera del client i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de temps d\textquotesingle{}espera per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Mitjana de temps que el client espera a ser ates 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a32bdc62dbae367138c84f6cd1331fb9f}\label{class_portam_a_pro_p_1_1_estadistics_a32bdc62dbae367138c84f6cd1331fb9f}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Temps\+Marxa\+Client@{mitjana\+Temps\+Marxa\+Client}}
+\index{mitjana\+Temps\+Marxa\+Client@{mitjana\+Temps\+Marxa\+Client}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Temps\+Marxa\+Client()}{mitjanaTempsMarxaClient()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Temps\+Marxa\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, del temps del client desde que puja al vehicle fins que arriba al seu desti. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades el temps mig de circulacio del client i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de temps de circulacio per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Mitjana de temps que el client esta circulant fins arribar al seu desti 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_estadistics_a6c53fd82b51c9383aa70b876d5ac7eb0}\label{class_portam_a_pro_p_1_1_estadistics_a6c53fd82b51c9383aa70b876d5ac7eb0}} 
+\index{Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}!mitjana\+Temps\+Marxa\+Vehicle@{mitjana\+Temps\+Marxa\+Vehicle}}
+\index{mitjana\+Temps\+Marxa\+Vehicle@{mitjana\+Temps\+Marxa\+Vehicle}!Portam\+A\+Pro\+P\+::\+Estadistics@{Portam\+A\+Pro\+P\+::\+Estadistics}}
+\subsubsection{\texorpdfstring{mitjana\+Temps\+Marxa\+Vehicle()}{mitjanaTempsMarxaVehicle()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Estadistics.\+mitjana\+Temps\+Marxa\+Vehicle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que retorna la mitjana, de totes les rutes, del temps que el vehicle esta circulant amb clients. 
+
+Per aconseguir la mitjana, busca per totes les rutes finalitzades el temps en marxa del vehicle i ho va sumant, a la vegada va portant el compte del numero de rutes finalitzades, per acabar, divideix la suma total de temps per el nombre de rutes finalitzades, finalment mostra el grafic per pantalla
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la Mitjana de temps que el vehicle esta ciculant amb clients 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Estadistics.\+java\end{DoxyCompactItemize}

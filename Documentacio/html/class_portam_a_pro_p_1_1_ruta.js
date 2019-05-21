@@ -1,0 +1,27 @@
+var class_portam_a_pro_p_1_1_ruta =
+[
+    [ "Ruta", "class_portam_a_pro_p_1_1_ruta.html#aab7322baacb2b1bec9825d98c04b98aa", null ],
+    [ "completarRuta", "class_portam_a_pro_p_1_1_ruta.html#a02289a460a871a5016fd9725aa46828a", null ],
+    [ "finalitzada", "class_portam_a_pro_p_1_1_ruta.html#a4a0c82de5c63d5e3df05470d80078868", null ],
+    [ "getGraph", "class_portam_a_pro_p_1_1_ruta.html#ae131ddbcf7bb38b74606c6d17038127e", null ],
+    [ "getNodes", "class_portam_a_pro_p_1_1_ruta.html#ac3c8cf0f68e31d67b32cc9e7e0914f46", null ],
+    [ "getSol", "class_portam_a_pro_p_1_1_ruta.html#a996ba51c71a91919b99c1df56bb6d0ad", null ],
+    [ "getVehicle", "class_portam_a_pro_p_1_1_ruta.html#a66aba8b89762ddc8df0a3bb3741ece40", null ],
+    [ "gmitjanaDistanciaNodes", "class_portam_a_pro_p_1_1_ruta.html#af6470e14e390b3394c084cbbec33cd7f", null ],
+    [ "gmitjanaPassatgers", "class_portam_a_pro_p_1_1_ruta.html#acef34ba8914120054ac66f585072cbc4", null ],
+    [ "gmitjanaTempsEsperaClient", "class_portam_a_pro_p_1_1_ruta.html#a7668f7adc193b9b23d315ca48141ab71", null ],
+    [ "gmitjanaTempsMarxaClient", "class_portam_a_pro_p_1_1_ruta.html#a81a83db89e12c72adff5e59539a7a8d1", null ],
+    [ "guadarRuta", "class_portam_a_pro_p_1_1_ruta.html#addebfd63d9ae2e9797d755dcba205ac4", null ],
+    [ "mitjanaDistanciaNodes", "class_portam_a_pro_p_1_1_ruta.html#afb5d2dd60a54765c4764866f9cc78fc8", null ],
+    [ "mitjanaPassatgers", "class_portam_a_pro_p_1_1_ruta.html#adbf94c3c5a00e9737f821c3794034e3a", null ],
+    [ "mitjanaTempsEsperaRecorregut", "class_portam_a_pro_p_1_1_ruta.html#a59ca173f24b9b180ae97cb5c1d7b25e3", null ],
+    [ "MostrarGraf", "class_portam_a_pro_p_1_1_ruta.html#ac0b686760e83d18cc6b3158c4fe4506e", null ],
+    [ "mostrarRuta", "class_portam_a_pro_p_1_1_ruta.html#a35b6d0accf1a144ab616760ae2e34e49", null ],
+    [ "mostrarRutaSugraf", "class_portam_a_pro_p_1_1_ruta.html#ad9ddcde56ed5dae239ea466e76472978", null ],
+    [ "obtHoraPrimeraPeticio", "class_portam_a_pro_p_1_1_ruta.html#a1c55ea94e7f905523f8fca83fafa6eff", null ],
+    [ "retornarConversio", "class_portam_a_pro_p_1_1_ruta.html#ab6ab0fe415c2a1925e21c495d350d798", null ],
+    [ "tempsDepot", "class_portam_a_pro_p_1_1_ruta.html#ae5415a9448cd8cb22835016e95718a0c", null ],
+    [ "tempsEnMarxa", "class_portam_a_pro_p_1_1_ruta.html#a6cfb254ff066e62ac3373ae5e7eb28ba", null ],
+    [ "toString", "class_portam_a_pro_p_1_1_ruta.html#abf345e4aeeb6bc1f7a8c813ca4d38ff9", null ],
+    [ "styleSheet", "class_portam_a_pro_p_1_1_ruta.html#a5bec0cc3f5e0aac3ac137f2cde37eb4f", null ]
+];

@@ -1,0 +1,278 @@
+\hypertarget{class_portam_a_pro_p_1_1_controlador}{}\section{Portam\+A\+Pro\+P.\+Controlador Class Reference}
+\label{class_portam_a_pro_p_1_1_controlador}\index{Portam\+A\+Pro\+P.\+Controlador@{Portam\+A\+Pro\+P.\+Controlador}}
+
+
+Classe encarregada de controlar els diferents aspectes del nostre programa, basicament organitza el funcionament dels diferents algoritmes i guarda/mostra l\textquotesingle{}informacio alla on pertoca.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_controlador_a262bc14ad6aa78a5d311f093227b4d9c}{Controlador} (int tamany\+Finestra, int maxim\+Espera, int minim\+Legal, int n\+Peticions, int max\+Persones, String n\+Fitxer\+Sol, int n\+Nodes, int pes\+Maxim, String n\+Fitxer\+Graf, int max\+Greedy, boolean random\+Sol, boolean random\+Node, double min\+Carga, String n\+Fitxer\+Sortida, String n\+Fitxer\+Vehicle, String n\+Fitxer\+Depot)
+\begin{DoxyCompactList}\small\item\em Constructor amb parametres. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_a60a7be623d88c96db3e8382c4779b23a}{init} ()
+\begin{DoxyCompactList}\small\item\em Inicialitza el nostre programa. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_aa0e7fc666e46a4ddf1856834f9e91689}{mostrar\+Sub\+Menu\+Estad} ()
+\begin{DoxyCompactList}\small\item\em Mostra el submenu de estadistics. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_afa9baa308b66d786e6a7dde83d0e6898}{mostrar\+Sub\+Menu\+Rutes} ()
+\begin{DoxyCompactList}\small\item\em Mostra el submenu de rutes. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_aa1c36ea47ced882290b8be0ff569e5e1}{mostrar\+Menu} ()
+\begin{DoxyCompactList}\small\item\em Mostra el menu principal. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_af20b7a4354e0a4d5223bbbe04aff97e1}{gestionar\+Menu} ()
+\begin{DoxyCompactList}\small\item\em Gestiona el menu. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_a018e4628c51d9664ee54d5a125f59a61}{assignar\+Solicituds\+A\+Vehicles} ()
+\begin{DoxyCompactList}\small\item\em Assigna per cada vehicle, un grup de peticions, tambe assigna tots els depots. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_ac27d24bc80d3ac8023ae7a84b2e2c19d}{algoritme\+Backtracking} (\hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} r)
+\begin{DoxyCompactList}\small\item\em Inicialitza l\textquotesingle{}algoritme de backtracking. \end{DoxyCompactList}\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_controlador_a2a8b7fc6a14913f1e5d1c046d1201c97}{crear\+Sub\+Graf} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ llista\+\_\+solicituds, int\mbox{[}$\,$\mbox{]} c)
+\begin{DoxyCompactList}\small\item\em crea i mostra un subgraf complet amb les soliciutds del vehicle \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_ad5932831350b32e447c4156f7dc9af59}{mostrar\+Rutes} ()
+\begin{DoxyCompactList}\small\item\em Mostrar rutes. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_a0142050a4eea8d58f003ef8ac92c6f19}{mostrar\+Solicituds\+No\+Assignades} ()
+\item 
+int \hyperlink{class_portam_a_pro_p_1_1_controlador_ab96141c7e6641af02d4498c35b236f7b}{numero\+Solicituds\+No\+Assignades} ()
+\begin{DoxyCompactList}\small\item\em Ens diu el numero de peticions que no han estat assignades a cap ruta. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_controlador_a74d0ce6ad481a89209bfe2ce15ce7233}{estadistic} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe encarregada de controlar els diferents aspectes del nostre programa, basicament organitza el funcionament dels diferents algoritmes i guarda/mostra l\textquotesingle{}informacio alla on pertoca. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a262bc14ad6aa78a5d311f093227b4d9c}\label{class_portam_a_pro_p_1_1_controlador_a262bc14ad6aa78a5d311f093227b4d9c}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!Controlador@{Controlador}}
+\index{Controlador@{Controlador}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{Controlador()}{Controlador()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Controlador.\+Controlador (\begin{DoxyParamCaption}\item[{int}]{tamany\+Finestra,  }\item[{int}]{maxim\+Espera,  }\item[{int}]{minim\+Legal,  }\item[{int}]{n\+Peticions,  }\item[{int}]{max\+Persones,  }\item[{String}]{n\+Fitxer\+Sol,  }\item[{int}]{n\+Nodes,  }\item[{int}]{pes\+Maxim,  }\item[{String}]{n\+Fitxer\+Graf,  }\item[{int}]{max\+Greedy,  }\item[{boolean}]{random\+Sol,  }\item[{boolean}]{random\+Node,  }\item[{double}]{min\+Carga,  }\item[{String}]{n\+Fitxer\+Sortida,  }\item[{String}]{n\+Fitxer\+Vehicle,  }\item[{String}]{n\+Fitxer\+Depot }\end{DoxyParamCaption})}
+
+
+
+Constructor amb parametres. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha construit un objecte controlador amb parametres\+: 
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em tamany\+Finestra} & Ens dona el tamany de la finestra de temps \\
+\hline
+{\em maxim\+Espera} & Ens diu quant de temps volen esperar maxim els clients \\
+\hline
+{\em minim\+Legal} & Ens diu quin es el minim temps per poder atendre una peticio dictat per llei \\
+\hline
+{\em n\+Peticions} & Ens diu el nombre de peticions que volem generar \\
+\hline
+{\em max\+Persones} & Ens diu el nombre maxim de persones per peticio a generar \\
+\hline
+{\em n\+Fitxer\+Sol} & Ens diu el nom del fitxer on anar a buscar les peticions \\
+\hline
+{\em n\+Nodes} & Ens diu el nombre maxim de nodes que volem generar \\
+\hline
+{\em pes\+Maxim} & Ens diu el pes maxim de les arestes \\
+\hline
+{\em n\+Fitxer\+Graf} & Ens diu el nom del fitxer del graf \\
+\hline
+{\em max\+Greedy} & Ens diu la distancia maxima del greedy \\
+\hline
+{\em random\+Sol} & Ens diu si la generacio de peticions sera aleatoria \\
+\hline
+{\em random\+Node} & Ens diu si la generacio de nodes sera aleatoria \\
+\hline
+{\em min\+Carga} & Ens diu el minim de carrega que el vehicle ha de tenir en \% abans de considerar un punt de carrega com acceptable \\
+\hline
+{\em n\+Fitxer\+Sortida} & Fitxer on s\textquotesingle{}escriura tota l\textquotesingle{}informacio de l\textquotesingle{}execucio del programa \\
+\hline
+{\em n\+Fitxer\+Vehicle} & Fitxer d\textquotesingle{}entrada d\textquotesingle{}on es llegiran els vehicles \\
+\hline
+{\em n\+Fitxer\+Depot} & Fitxer d\textquotesingle{}entrada d\textquotesingle{}on es llegiran els depots \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_ac27d24bc80d3ac8023ae7a84b2e2c19d}\label{class_portam_a_pro_p_1_1_controlador_ac27d24bc80d3ac8023ae7a84b2e2c19d}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!algoritme\+Backtracking@{algoritme\+Backtracking}}
+\index{algoritme\+Backtracking@{algoritme\+Backtracking}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{algoritme\+Backtracking()}{algoritmeBacktracking()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+algoritme\+Backtracking (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta}}]{r }\end{DoxyParamCaption})}
+
+
+
+Inicialitza l\textquotesingle{}algoritme de backtracking. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}han assignat peticions als vehicles dins de la finestra de temps 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha trobat la millor ruta dins d\textquotesingle{}una finestra temps 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a018e4628c51d9664ee54d5a125f59a61}\label{class_portam_a_pro_p_1_1_controlador_a018e4628c51d9664ee54d5a125f59a61}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!assignar\+Solicituds\+A\+Vehicles@{assignar\+Solicituds\+A\+Vehicles}}
+\index{assignar\+Solicituds\+A\+Vehicles@{assignar\+Solicituds\+A\+Vehicles}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{assignar\+Solicituds\+A\+Vehicles()}{assignarSolicitudsAVehicles()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+assignar\+Solicituds\+A\+Vehicles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Assigna per cada vehicle, un grup de peticions, tambe assigna tots els depots. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Afageix a \+\_\+ruta, vehicles amb unes peticions 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a2a8b7fc6a14913f1e5d1c046d1201c97}\label{class_portam_a_pro_p_1_1_controlador_a2a8b7fc6a14913f1e5d1c046d1201c97}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!crear\+Sub\+Graf@{crear\+Sub\+Graf}}
+\index{crear\+Sub\+Graf@{crear\+Sub\+Graf}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{crear\+Sub\+Graf()}{crearSubGraf()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Controlador.\+crear\+Sub\+Graf (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{llista\+\_\+solicituds,  }\item[{int \mbox{[}$\,$\mbox{]}}]{c }\end{DoxyParamCaption})}
+
+
+
+crea i mostra un subgraf complet amb les soliciutds del vehicle 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Crea un subgraf amb node d\textquotesingle{}origen de \hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v i peticions de llista\+\_\+solicituds 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a74d0ce6ad481a89209bfe2ce15ce7233}\label{class_portam_a_pro_p_1_1_controlador_a74d0ce6ad481a89209bfe2ce15ce7233}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!estadistic@{estadistic}}
+\index{estadistic@{estadistic}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{estadistic()}{estadistic()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+estadistic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Metode que mostra els estadistics mitjos respecte totes les rutes \begin{DoxyPostcond}{Postcondition}
+\+: Mostra tots els estadistics de les rutes 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_af20b7a4354e0a4d5223bbbe04aff97e1}\label{class_portam_a_pro_p_1_1_controlador_af20b7a4354e0a4d5223bbbe04aff97e1}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!gestionar\+Menu@{gestionar\+Menu}}
+\index{gestionar\+Menu@{gestionar\+Menu}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{gestionar\+Menu()}{gestionarMenu()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+gestionar\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gestiona el menu. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $>$= index inicial $<$= 2 \&\& 0 $>$= index rutes $<$ rutes.\+size() -\/1 \&\& 1 $>$= index estadistics $<$= 6 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha escollit la ruta o estadistic per mostrar 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a60a7be623d88c96db3e8382c4779b23a}\label{class_portam_a_pro_p_1_1_controlador_a60a7be623d88c96db3e8382c4779b23a}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!init@{init}}
+\index{init@{init}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Inicialitza el nostre programa. 
+
+\begin{DoxyPrecond}{Precondition}
+Nom del fitxer de sortida valid 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha inicialitzat el programa i s\textquotesingle{}ha guardat la solucio al fitxer de sortida 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_aa1c36ea47ced882290b8be0ff569e5e1}\label{class_portam_a_pro_p_1_1_controlador_aa1c36ea47ced882290b8be0ff569e5e1}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!mostrar\+Menu@{mostrar\+Menu}}
+\index{mostrar\+Menu@{mostrar\+Menu}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{mostrar\+Menu()}{mostrarMenu()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+mostrar\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mostra el menu principal. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Mostra les diferents opcions per mostrar graficament rutes o estadistics 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_ad5932831350b32e447c4156f7dc9af59}\label{class_portam_a_pro_p_1_1_controlador_ad5932831350b32e447c4156f7dc9af59}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!mostrar\+Rutes@{mostrar\+Rutes}}
+\index{mostrar\+Rutes@{mostrar\+Rutes}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{mostrar\+Rutes()}{mostrarRutes()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+mostrar\+Rutes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mostrar rutes. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Mostra les rutes de \+\_\+rutes 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_a0142050a4eea8d58f003ef8ac92c6f19}\label{class_portam_a_pro_p_1_1_controlador_a0142050a4eea8d58f003ef8ac92c6f19}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!mostrar\+Solicituds\+No\+Assignades@{mostrar\+Solicituds\+No\+Assignades}}
+\index{mostrar\+Solicituds\+No\+Assignades@{mostrar\+Solicituds\+No\+Assignades}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{mostrar\+Solicituds\+No\+Assignades()}{mostrarSolicitudsNoAssignades()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+mostrar\+Solicituds\+No\+Assignades (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Mostra les peticions que no han estat assignades a cap ruta \mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_aa0e7fc666e46a4ddf1856834f9e91689}\label{class_portam_a_pro_p_1_1_controlador_aa0e7fc666e46a4ddf1856834f9e91689}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!mostrar\+Sub\+Menu\+Estad@{mostrar\+Sub\+Menu\+Estad}}
+\index{mostrar\+Sub\+Menu\+Estad@{mostrar\+Sub\+Menu\+Estad}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{mostrar\+Sub\+Menu\+Estad()}{mostrarSubMenuEstad()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+mostrar\+Sub\+Menu\+Estad (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mostra el submenu de estadistics. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Mostra les diferents opcions que tenim per mostrar graficament els diferents estadistics i veura mes clarament els diferents resultats 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_afa9baa308b66d786e6a7dde83d0e6898}\label{class_portam_a_pro_p_1_1_controlador_afa9baa308b66d786e6a7dde83d0e6898}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!mostrar\+Sub\+Menu\+Rutes@{mostrar\+Sub\+Menu\+Rutes}}
+\index{mostrar\+Sub\+Menu\+Rutes@{mostrar\+Sub\+Menu\+Rutes}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{mostrar\+Sub\+Menu\+Rutes()}{mostrarSubMenuRutes()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Controlador.\+mostrar\+Sub\+Menu\+Rutes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mostra el submenu de rutes. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Mostra les diferents rutes realitzades per mostrar graficament 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_controlador_ab96141c7e6641af02d4498c35b236f7b}\label{class_portam_a_pro_p_1_1_controlador_ab96141c7e6641af02d4498c35b236f7b}} 
+\index{Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}!numero\+Solicituds\+No\+Assignades@{numero\+Solicituds\+No\+Assignades}}
+\index{numero\+Solicituds\+No\+Assignades@{numero\+Solicituds\+No\+Assignades}!Portam\+A\+Pro\+P\+::\+Controlador@{Portam\+A\+Pro\+P\+::\+Controlador}}
+\subsubsection{\texorpdfstring{numero\+Solicituds\+No\+Assignades()}{numeroSolicitudsNoAssignades()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Controlador.\+numero\+Solicituds\+No\+Assignades (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu el numero de peticions que no han estat assignades a cap ruta. 
+
+\begin{DoxyPostcond}{Postcondition}
+\+: Retorna el numero de peticions no assignades 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Controlador.\+java\end{DoxyCompactItemize}

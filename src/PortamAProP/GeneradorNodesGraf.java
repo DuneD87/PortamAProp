@@ -1,15 +1,5 @@
 package PortamAProP;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Random;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.Scanner;
-import java.util.TreeSet;
 /**
  * @class GeneradorNodesGraf
  * @brief Generador intern de grafs aleatoris
@@ -20,14 +10,26 @@ import java.util.TreeSet;
  */
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Random;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.Scanner;
+import java.util.TreeSet;
+
+
 
 public class GeneradorNodesGraf {
 
-    private SortedSet<String> _ubicacions;//@brief pila per emmagatzemar els noms dels nodes
-    private final int _pesMax;//@brief Pes maxim que pot tenir una aresta
-    private final int _maxNodes;//@brief Numero maxim de nodes que pot tenir el graf
-    private final String _fitxerUbicacions="PilaUbicacions.txt";//@brief Nom del fitxer on anira a buscar els nomos dels nodes del graf
-    private  String _nodes="";//@brief String on es guardara els nodes del graf amb el format corresponent
+    private SortedSet<String> _ubicacions;//!<@brief pila per emmagatzemar els noms dels nodes
+    private final int _pesMax;//!<@brief Pes maxim que pot tenir una aresta
+    private final int _maxNodes;//!<@brief Numero maxim de nodes que pot tenir el graf
+    private final String _fitxerUbicacions="PilaUbicacions.txt";//!<@brief Nom del fitxer on anira a buscar els nomos dels nodes del graf
+    private  String _nodes="";//!<@brief String on es guardara els nodes del graf amb el format corresponent
     
    /**
     * @brief Inicialitza la generacio de nodes 

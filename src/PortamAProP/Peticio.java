@@ -1,6 +1,7 @@
 package PortamAProP;
 
 /**
+ * @class Peticio
  * @brief Classe encarregada de guardar informacio sobre les peticions
  * @author Xavier Avivar & Buenaventura Martinez
  */
@@ -14,13 +15,13 @@ import org.graphstream.graph.Node;
 
 public class Peticio implements Comparable<Peticio> {
 
-    private int _identificadorSol; //@brief Identificador de peticio
-    private int _llocOrigen; //@brief Origen de la peticio
-    private int _llocDesti; //@brief Desti de la peticio
-    private LocalTime _horaEmisio; //@brief Hora, minuts i segons en la que s'ha fet la peticio
-    private LocalTime _horaArribada; //@brief Hora, minuts i segons en que s'ha acabat el trajecte
-    private LocalTime _horaRecollida;//@brief Hora real en que recollim els clients
-    private int _numPassatgers; //@brief Numero de passatgers de la peticio
+    private int _identificadorSol; //!<@brief Identificador de peticio
+    private int _llocOrigen; //!<@brief Origen de la peticio
+    private int _llocDesti; //!<@brief Desti de la peticio
+    private LocalTime _horaEmisio; //!<@brief Hora, minuts i segons en la que s'ha fet la peticio
+    private LocalTime _horaArribada; //!<@brief Hora, minuts i segons en que s'ha acabat el trajecte
+    private LocalTime _horaRecollida;//!<@brief Hora real en que recollim els clients
+    private int _numPassatgers; //!<@brief Numero de passatgers de la peticio
     enum ESTAT {
         ESPERA,
         VISITADA,

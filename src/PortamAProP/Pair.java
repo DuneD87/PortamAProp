@@ -3,7 +3,8 @@
 package PortamAProP;
 
 /**
- *
+ * @class Pair
+ * @brief Guarda informacio sobre 2 objectes
  * @author Xavier Avivar & Buenaventura Martinez
  */
 public class Pair <S,T> {

@@ -1,0 +1,437 @@
+\hypertarget{class_portam_a_pro_p_1_1_ruta}{}\section{Portam\+A\+Pro\+P.\+Ruta Class Reference}
+\label{class_portam_a_pro_p_1_1_ruta}\index{Portam\+A\+Pro\+P.\+Ruta@{Portam\+A\+Pro\+P.\+Ruta}}
+
+
+Classe encarregada de guardar/proveir informacio als diferents algoritmes.  
+
+
+
+
+Collaboration diagram for Portam\+A\+Pro\+P.\+Ruta\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_ruta_aab7322baacb2b1bec9825d98c04b98aa}{Ruta} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} vehicle, Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ sol, Graph g, int\mbox{[}$\,$\mbox{]} c)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+String \hyperlink{class_portam_a_pro_p_1_1_ruta_abf345e4aeeb6bc1f7a8c813ca4d38ff9}{to\+String} ()
+\begin{DoxyCompactList}\small\item\em to\+String metode \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_ac0b686760e83d18cc6b3158c4fe4506e}{Mostrar\+Graf} ()
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} \hyperlink{class_portam_a_pro_p_1_1_ruta_a66aba8b89762ddc8df0a3bb3741ece40}{get\+Vehicle} ()
+\item 
+Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ \hyperlink{class_portam_a_pro_p_1_1_ruta_a996ba51c71a91919b99c1df56bb6d0ad}{get\+Sol} ()
+\item 
+Array\+List$<$ Node $>$ \hyperlink{class_portam_a_pro_p_1_1_ruta_ac3c8cf0f68e31d67b32cc9e7e0914f46}{get\+Nodes} ()
+\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_ruta_ae131ddbcf7bb38b74606c6d17038127e}{get\+Graph} ()
+\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_a02289a460a871a5016fd9725aa46828a}{completar\+Ruta} (Stack$<$ Node $>$ n, Stack$<$ Character $>$ a, Stack$<$ Integer $>$ c, Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ s, Local\+Time h, double tm, double tp, Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio_en_tramit}{Peticio\+En\+Tramit} $>$ p\+Comp, String\+Builder log)
+\begin{DoxyCompactList}\small\item\em Completa la ruta. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_addebfd63d9ae2e9797d755dcba205ac4}{guadar\+Ruta} ()
+\begin{DoxyCompactList}\small\item\em Guarda informacio de la ruta al fitxer de sortida. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_a35b6d0accf1a144ab616760ae2e34e49}{mostrar\+Ruta} ()
+\begin{DoxyCompactList}\small\item\em Guarda informacio de la ruta al fitxer de sortida. \end{DoxyCompactList}\item 
+int \mbox{[}$\,$\mbox{]} \hyperlink{class_portam_a_pro_p_1_1_ruta_ab6ab0fe415c2a1925e21c495d350d798}{retornar\+Conversio} ()
+\begin{DoxyCompactList}\small\item\em Retorna el array de conversio. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_ruta_adbf94c3c5a00e9737f821c3794034e3a}{mitjana\+Passatgers} ()
+\begin{DoxyCompactList}\small\item\em Retorna la mitjana de passatgers de la ruta ~\newline
+ Per determinar la mitjana de passatgers de la ruta, suma tots els clients de les peticions i els divideix pel numero de peticions. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_afb5d2dd60a54765c4764866f9cc78fc8}{mitjana\+Distancia\+Nodes} ()
+\begin{DoxyCompactList}\small\item\em Retorna la distancia promig entre els nodes del graf ~\newline
+ Per determinar la distancia promig entre els nodes del graf sumem tots els pessos de les aresetes del graf i ho dividim per per el numeo de arestes. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_a59ca173f24b9b180ae97cb5c1d7b25e3}{mitjana\+Temps\+Espera\+Recorregut} ()
+\item 
+Local\+Time \hyperlink{class_portam_a_pro_p_1_1_ruta_a1c55ea94e7f905523f8fca83fafa6eff}{obt\+Hora\+Primera\+Peticio} ()
+\begin{DoxyCompactList}\small\item\em Retrona el temps d\textquotesingle{}emisio de la primera peticio. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_a6cfb254ff066e62ac3373ae5e7eb28ba}{temps\+En\+Marxa} ()
+\begin{DoxyCompactList}\small\item\em Retrona el temps en marxa del vehicle a la ruta. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_ae5415a9448cd8cb22835016e95718a0c}{temps\+Depot} ()
+\begin{DoxyCompactList}\small\item\em Retrona el temps de carga del vehicle a la ruta. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_ruta_a4a0c82de5c63d5e3df05470d80078868}{finalitzada} ()
+\begin{DoxyCompactList}\small\item\em Ens diu si la ruta ha estat finalitzada o no. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_af6470e14e390b3394c084cbbec33cd7f}{gmitjana\+Distancia\+Nodes} ()
+\begin{DoxyCompactList}\small\item\em Ens diu la distancia promig entre entre els nodes del graf. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_acef34ba8914120054ac66f585072cbc4}{gmitjana\+Passatgers} ()
+\begin{DoxyCompactList}\small\item\em Ens diu la mitjana de passatgers de les peticions de la ruta. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_a7668f7adc193b9b23d315ca48141ab71}{gmitjana\+Temps\+Espera\+Client} ()
+\begin{DoxyCompactList}\small\item\em Ens diu la mitjana de temps d\textquotesingle{}espera del client. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_ruta_a81a83db89e12c72adff5e59539a7a8d1}{gmitjana\+Temps\+Marxa\+Client} ()
+\begin{DoxyCompactList}\small\item\em Ens diu la mitjana de temps que el client esta al vehicle. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_ruta_ad9ddcde56ed5dae239ea466e76472978}{mostrar\+Ruta\+Sugraf} ()
+\begin{DoxyCompactList}\small\item\em Metode que marca la ruta del vehicle en el graf complet ~\newline
+ Per Marcar la ruta en el graf, les arestes i nodes que partanyen a la ruta els posem un atribut marked que modifica el especte determinat al style\+Sheet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+String \hyperlink{class_portam_a_pro_p_1_1_ruta_a5bec0cc3f5e0aac3ac137f2cde37eb4f}{style\+Sheet}
+\begin{DoxyCompactList}\small\item\em Fitxa de configuracio de la apariencia del graf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe encarregada de guardar/proveir informacio als diferents algoritmes. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_aab7322baacb2b1bec9825d98c04b98aa}\label{class_portam_a_pro_p_1_1_ruta_aab7322baacb2b1bec9825d98c04b98aa}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!Ruta@{Ruta}}
+\index{Ruta@{Ruta}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{Ruta()}{Ruta()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Ruta.\+Ruta (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{vehicle,  }\item[{Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{sol,  }\item[{Graph}]{g,  }\item[{int \mbox{[}$\,$\mbox{]}}]{c }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+\begin{DoxyPostcond}{Postcondition}
+Construim una nova ruta fen servir un vehicle, un conjunt de peticions i un subgraph 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a02289a460a871a5016fd9725aa46828a}\label{class_portam_a_pro_p_1_1_ruta_a02289a460a871a5016fd9725aa46828a}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!completar\+Ruta@{completar\+Ruta}}
+\index{completar\+Ruta@{completar\+Ruta}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{completar\+Ruta()}{completarRuta()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+completar\+Ruta (\begin{DoxyParamCaption}\item[{Stack$<$ Node $>$}]{n,  }\item[{Stack$<$ Character $>$}]{a,  }\item[{Stack$<$ Integer $>$}]{c,  }\item[{Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{s,  }\item[{Local\+Time}]{h,  }\item[{double}]{tm,  }\item[{double}]{tp,  }\item[{Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio_en_tramit}{Peticio\+En\+Tramit} $>$}]{p\+Comp,  }\item[{String\+Builder}]{log }\end{DoxyParamCaption})}
+
+
+
+Completa la ruta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Pila de nodes que descriu la ruta del vehicle \\
+\hline
+{\em a} & Pila d\textquotesingle{}accions que s\textquotesingle{}han efecuat a cada node \\
+\hline
+{\em c} & Pila de persones que han baixat/pujat a cada node o temps carregan \\
+\hline
+{\em s} & Llista de peticions completades \\
+\hline
+{\em h} & Hora de finalitzacio de la ruta \\
+\hline
+{\em tm} & Temps en marxa del vehicle \\
+\hline
+{\em tp} & Temps a depot \\
+\hline
+{\em p\+Comp} & Llistat de peticions tramitades \\
+\hline
+{\em log} & Fitxer que guarda informacio sobre l\textquotesingle{}execucio \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha cridat l\textquotesingle{}algoritme de backtracking previament 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Completa la ruta amb les diferents dades obtenides per l\textquotesingle{}algoritme de backtracking 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a4a0c82de5c63d5e3df05470d80078868}\label{class_portam_a_pro_p_1_1_ruta_a4a0c82de5c63d5e3df05470d80078868}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!finalitzada@{finalitzada}}
+\index{finalitzada@{finalitzada}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{finalitzada()}{finalitzada()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Ruta.\+finalitzada (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu si la ruta ha estat finalitzada o no. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+finalitzada 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ae131ddbcf7bb38b74606c6d17038127e}\label{class_portam_a_pro_p_1_1_ruta_ae131ddbcf7bb38b74606c6d17038127e}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!get\+Graph@{get\+Graph}}
+\index{get\+Graph@{get\+Graph}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{get\+Graph()}{getGraph()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Ruta.\+get\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyPostcond}{Postcondition}
+Ens dona el graf 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ac3c8cf0f68e31d67b32cc9e7e0914f46}\label{class_portam_a_pro_p_1_1_ruta_ac3c8cf0f68e31d67b32cc9e7e0914f46}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!get\+Nodes@{get\+Nodes}}
+\index{get\+Nodes@{get\+Nodes}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{get\+Nodes()}{getNodes()}}
+{\footnotesize\ttfamily Array\+List$<$Node$>$ Portam\+A\+Pro\+P.\+Ruta.\+get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyPostcond}{Postcondition}
+Ens dona els nodes 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a996ba51c71a91919b99c1df56bb6d0ad}\label{class_portam_a_pro_p_1_1_ruta_a996ba51c71a91919b99c1df56bb6d0ad}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!get\+Sol@{get\+Sol}}
+\index{get\+Sol@{get\+Sol}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{get\+Sol()}{getSol()}}
+{\footnotesize\ttfamily Array\+List$<$\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio}$>$ Portam\+A\+Pro\+P.\+Ruta.\+get\+Sol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyPostcond}{Postcondition}
+Conjunt de peticions 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a66aba8b89762ddc8df0a3bb3741ece40}\label{class_portam_a_pro_p_1_1_ruta_a66aba8b89762ddc8df0a3bb3741ece40}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!get\+Vehicle@{get\+Vehicle}}
+\index{get\+Vehicle@{get\+Vehicle}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{get\+Vehicle()}{getVehicle()}}
+{\footnotesize\ttfamily \hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} Portam\+A\+Pro\+P.\+Ruta.\+get\+Vehicle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyPostcond}{Postcondition}
+Ens dona el vehicle que fa la ruta 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_af6470e14e390b3394c084cbbec33cd7f}\label{class_portam_a_pro_p_1_1_ruta_af6470e14e390b3394c084cbbec33cd7f}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!gmitjana\+Distancia\+Nodes@{gmitjana\+Distancia\+Nodes}}
+\index{gmitjana\+Distancia\+Nodes@{gmitjana\+Distancia\+Nodes}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{gmitjana\+Distancia\+Nodes()}{gmitjanaDistanciaNodes()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+gmitjana\+Distancia\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu la distancia promig entre entre els nodes del graf. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+mitjana\+Distancia\+Nodes 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_acef34ba8914120054ac66f585072cbc4}\label{class_portam_a_pro_p_1_1_ruta_acef34ba8914120054ac66f585072cbc4}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!gmitjana\+Passatgers@{gmitjana\+Passatgers}}
+\index{gmitjana\+Passatgers@{gmitjana\+Passatgers}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{gmitjana\+Passatgers()}{gmitjanaPassatgers()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+gmitjana\+Passatgers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu la mitjana de passatgers de les peticions de la ruta. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+mitjana\+Passatgers 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a7668f7adc193b9b23d315ca48141ab71}\label{class_portam_a_pro_p_1_1_ruta_a7668f7adc193b9b23d315ca48141ab71}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!gmitjana\+Temps\+Espera\+Client@{gmitjana\+Temps\+Espera\+Client}}
+\index{gmitjana\+Temps\+Espera\+Client@{gmitjana\+Temps\+Espera\+Client}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{gmitjana\+Temps\+Espera\+Client()}{gmitjanaTempsEsperaClient()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+gmitjana\+Temps\+Espera\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu la mitjana de temps d\textquotesingle{}espera del client. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+mitjana\+Espera\+Client 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a81a83db89e12c72adff5e59539a7a8d1}\label{class_portam_a_pro_p_1_1_ruta_a81a83db89e12c72adff5e59539a7a8d1}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!gmitjana\+Temps\+Marxa\+Client@{gmitjana\+Temps\+Marxa\+Client}}
+\index{gmitjana\+Temps\+Marxa\+Client@{gmitjana\+Temps\+Marxa\+Client}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{gmitjana\+Temps\+Marxa\+Client()}{gmitjanaTempsMarxaClient()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+gmitjana\+Temps\+Marxa\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu la mitjana de temps que el client esta al vehicle. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+mitjana\+Marxa\+Client 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_addebfd63d9ae2e9797d755dcba205ac4}\label{class_portam_a_pro_p_1_1_ruta_addebfd63d9ae2e9797d755dcba205ac4}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!guadar\+Ruta@{guadar\+Ruta}}
+\index{guadar\+Ruta@{guadar\+Ruta}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{guadar\+Ruta()}{guadarRuta()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+guadar\+Ruta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Guarda informacio de la ruta al fitxer de sortida. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Guarda la ruta que ha fet el vehicle i els diferents estadistics al fitxer sortida 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_afb5d2dd60a54765c4764866f9cc78fc8}\label{class_portam_a_pro_p_1_1_ruta_afb5d2dd60a54765c4764866f9cc78fc8}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!mitjana\+Distancia\+Nodes@{mitjana\+Distancia\+Nodes}}
+\index{mitjana\+Distancia\+Nodes@{mitjana\+Distancia\+Nodes}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{mitjana\+Distancia\+Nodes()}{mitjanaDistanciaNodes()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+mitjana\+Distancia\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna la distancia promig entre els nodes del graf ~\newline
+ Per determinar la distancia promig entre els nodes del graf sumem tots els pessos de les aresetes del graf i ho dividim per per el numeo de arestes. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la distancia promig entre nodes del graf 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_adbf94c3c5a00e9737f821c3794034e3a}\label{class_portam_a_pro_p_1_1_ruta_adbf94c3c5a00e9737f821c3794034e3a}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!mitjana\+Passatgers@{mitjana\+Passatgers}}
+\index{mitjana\+Passatgers@{mitjana\+Passatgers}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{mitjana\+Passatgers()}{mitjanaPassatgers()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Ruta.\+mitjana\+Passatgers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna la mitjana de passatgers de la ruta ~\newline
+ Per determinar la mitjana de passatgers de la ruta, suma tots els clients de les peticions i els divideix pel numero de peticions. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna la mitjana de clients per peticio 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a59ca173f24b9b180ae97cb5c1d7b25e3}\label{class_portam_a_pro_p_1_1_ruta_a59ca173f24b9b180ae97cb5c1d7b25e3}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!mitjana\+Temps\+Espera\+Recorregut@{mitjana\+Temps\+Espera\+Recorregut}}
+\index{mitjana\+Temps\+Espera\+Recorregut@{mitjana\+Temps\+Espera\+Recorregut}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{mitjana\+Temps\+Espera\+Recorregut()}{mitjanaTempsEsperaRecorregut()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+mitjana\+Temps\+Espera\+Recorregut (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Metode que detmina la mitjana de temps que el client esta esperant i la mitjana de temps que el client esta al vehicle ~\newline
+ Per determinar les mitjanes de temps, Per cada peticio\+:sumo els minuts entre temps de emisio de la peticio o el temps de recollida del client i les 23\+:59\+:59, i els minuts entre el temps de recollida de la petcio o el temps d\textquotesingle{}arribada del client i mitjanit(00\+:00) i despres li resto un dia sencer, finalment divideixo les sumes per el nombre de peticions \mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ac0b686760e83d18cc6b3158c4fe4506e}\label{class_portam_a_pro_p_1_1_ruta_ac0b686760e83d18cc6b3158c4fe4506e}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!Mostrar\+Graf@{Mostrar\+Graf}}
+\index{Mostrar\+Graf@{Mostrar\+Graf}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{Mostrar\+Graf()}{MostrarGraf()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+Mostrar\+Graf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyPostcond}{Postcondition}
+Mostra el graf 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a35b6d0accf1a144ab616760ae2e34e49}\label{class_portam_a_pro_p_1_1_ruta_a35b6d0accf1a144ab616760ae2e34e49}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!mostrar\+Ruta@{mostrar\+Ruta}}
+\index{mostrar\+Ruta@{mostrar\+Ruta}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{mostrar\+Ruta()}{mostrarRuta()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+mostrar\+Ruta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Guarda informacio de la ruta al fitxer de sortida. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Guarda la ruta que ha fet el vehicle i els diferents estadistics al fitxer sortida 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ad9ddcde56ed5dae239ea466e76472978}\label{class_portam_a_pro_p_1_1_ruta_ad9ddcde56ed5dae239ea466e76472978}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!mostrar\+Ruta\+Sugraf@{mostrar\+Ruta\+Sugraf}}
+\index{mostrar\+Ruta\+Sugraf@{mostrar\+Ruta\+Sugraf}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{mostrar\+Ruta\+Sugraf()}{mostrarRutaSugraf()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Ruta.\+mostrar\+Ruta\+Sugraf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Metode que marca la ruta del vehicle en el graf complet ~\newline
+ Per Marcar la ruta en el graf, les arestes i nodes que partanyen a la ruta els posem un atribut marked que modifica el especte determinat al style\+Sheet. 
+
+\begin{DoxyPostcond}{Postcondition}
+Modifica el graf per poder mostrar la ruta 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a1c55ea94e7f905523f8fca83fafa6eff}\label{class_portam_a_pro_p_1_1_ruta_a1c55ea94e7f905523f8fca83fafa6eff}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!obt\+Hora\+Primera\+Peticio@{obt\+Hora\+Primera\+Peticio}}
+\index{obt\+Hora\+Primera\+Peticio@{obt\+Hora\+Primera\+Peticio}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{obt\+Hora\+Primera\+Peticio()}{obtHoraPrimeraPeticio()}}
+{\footnotesize\ttfamily Local\+Time Portam\+A\+Pro\+P.\+Ruta.\+obt\+Hora\+Primera\+Peticio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrona el temps d\textquotesingle{}emisio de la primera peticio. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna el temps d\textquotesingle{}emisio de la primera solicitud 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ab6ab0fe415c2a1925e21c495d350d798}\label{class_portam_a_pro_p_1_1_ruta_ab6ab0fe415c2a1925e21c495d350d798}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!retornar\+Conversio@{retornar\+Conversio}}
+\index{retornar\+Conversio@{retornar\+Conversio}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{retornar\+Conversio()}{retornarConversio()}}
+{\footnotesize\ttfamily int \mbox{[}$\,$\mbox{]} Portam\+A\+Pro\+P.\+Ruta.\+retornar\+Conversio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna el array de conversio. 
+
+\begin{DoxyPostcond}{Postcondition}
+\+: Retorna \+\_\+conversio 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_ae5415a9448cd8cb22835016e95718a0c}\label{class_portam_a_pro_p_1_1_ruta_ae5415a9448cd8cb22835016e95718a0c}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!temps\+Depot@{temps\+Depot}}
+\index{temps\+Depot@{temps\+Depot}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{temps\+Depot()}{tempsDepot()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+temps\+Depot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrona el temps de carga del vehicle a la ruta. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+temps\+A\+Depot 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a6cfb254ff066e62ac3373ae5e7eb28ba}\label{class_portam_a_pro_p_1_1_ruta_a6cfb254ff066e62ac3373ae5e7eb28ba}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!temps\+En\+Marxa@{temps\+En\+Marxa}}
+\index{temps\+En\+Marxa@{temps\+En\+Marxa}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{temps\+En\+Marxa()}{tempsEnMarxa()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Ruta.\+temps\+En\+Marxa (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrona el temps en marxa del vehicle a la ruta. 
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna \+\_\+temps\+En\+Marxa 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_abf345e4aeeb6bc1f7a8c813ca4d38ff9}\label{class_portam_a_pro_p_1_1_ruta_abf345e4aeeb6bc1f7a8c813ca4d38ff9}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{to\+String()}{toString()}}
+{\footnotesize\ttfamily String Portam\+A\+Pro\+P.\+Ruta.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+to\+String metode 
+
+\begin{DoxyReturn}{Returns}
+Cadena de caracters que ens dona informacio sobre la ruta (quin vehicle la fa i les peticions acceptades) 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_ruta_a5bec0cc3f5e0aac3ac137f2cde37eb4f}\label{class_portam_a_pro_p_1_1_ruta_a5bec0cc3f5e0aac3ac137f2cde37eb4f}} 
+\index{Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}!style\+Sheet@{style\+Sheet}}
+\index{style\+Sheet@{style\+Sheet}!Portam\+A\+Pro\+P\+::\+Ruta@{Portam\+A\+Pro\+P\+::\+Ruta}}
+\subsubsection{\texorpdfstring{style\+Sheet}{styleSheet}}
+{\footnotesize\ttfamily String Portam\+A\+Pro\+P.\+Ruta.\+style\+Sheet\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= 
+         \textcolor{stringliteral}{"edge\{"} +
+        \textcolor{stringliteral}{"   fill-color: black;"} +
+        \textcolor{stringliteral}{"\}"} +
+        \textcolor{stringliteral}{"edge.marked \{"} +
+        \textcolor{stringliteral}{"   fill-color: red;"}
+            + \textcolor{stringliteral}{" size: 5;"} +
+        \textcolor{stringliteral}{"\}"} +  \textcolor{stringliteral}{"node\{"} +
+        \textcolor{stringliteral}{"   fill-color: black;"} +
+        \textcolor{stringliteral}{"\}"} +
+        \textcolor{stringliteral}{"node.marked \{"} +
+        \textcolor{stringliteral}{"   fill-color: blue;"}
+            + \textcolor{stringliteral}{"size: 15;"} +
+        \textcolor{stringliteral}{"\}"}+
+            \textcolor{stringliteral}{"node.principi\{"}
+            + \textcolor{stringliteral}{"fill-color: green;"}
+            + \textcolor{stringliteral}{"size:15;"}
+            + \textcolor{stringliteral}{"\}"}
+            + \textcolor{stringliteral}{"node.fi\{"}
+            + \textcolor{stringliteral}{"fill-color: yellow;"}
+            + \textcolor{stringliteral}{"size:15;"}
+            + \textcolor{stringliteral}{"\}"}
+\end{DoxyCode}
+
+
+Fitxa de configuracio de la apariencia del graf. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Ruta.\+java\end{DoxyCompactItemize}

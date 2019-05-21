@@ -1,12 +1,6 @@
 package PortamAProP;
-
-
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Random;
-
 /**
- * @class GeneradorSolicituds
+ * @class GeneradorPeticions
  * @brief Generador intern de peticions aleatories.
  * -Donat 3 numeros, determinem:
  * --maxSol: Ens diu el nombre maxim de peticions que es crearan de forma aleatoria
@@ -15,13 +9,19 @@ import java.util.Random;
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Random;
+
+
+
 public class GeneradorPeticions {
 
   
-    private final int _maxNodes;//@brief nombre maxim de nodes
-    private String _sol;//@brief Cadena de caracters que guarda el contingut de generar peticions aleatories
-    private final int _maxSol;//@brief Maxim nombre de peticions a crear
-    private final int _maxPersones;//@brief Maxim nombre de persones per peticio
+    private final int _maxNodes;//!<@brief nombre maxim de nodes
+    private String _sol;//!<@brief Cadena de caracters que guarda el contingut de generar peticions aleatories
+    private final int _maxSol;//!<@brief Maxim nombre de peticions a crear
+    private final int _maxPersones;//!<@brief Maxim nombre de persones per peticio
     
     /**
      * @brief Constructor per defecte

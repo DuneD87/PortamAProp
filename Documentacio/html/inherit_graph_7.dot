@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="PortamAProP.LlegirFitxer\lPeticions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_portam_a_pro_p_1_1_llegir_fitxer_peticions.html",tooltip="Objecte encarregat de llegir les peticions i afegirles a la estructura de dades. "];
+}

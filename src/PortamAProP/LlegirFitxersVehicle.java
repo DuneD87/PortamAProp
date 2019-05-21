@@ -1,5 +1,10 @@
 package PortamAProP;
 
+/**
+ * @class LlegirFitxerVehicle
+ * @brief Objecte encarregat de construir els diferents vehicles
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
 
 import java.util.Vector;
 import java.io.*;

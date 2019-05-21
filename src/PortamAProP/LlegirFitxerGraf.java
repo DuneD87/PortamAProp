@@ -1,6 +1,7 @@
 package PortamAProP;
 
 /**
+ * @class LlegirFitxerGraf
  * @brief Objecte encarregat de construir el nostre graf
  * @author Xavier Avivar & Buenaventura Martinez
  */
@@ -15,8 +16,8 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class LlegirFitxerGraf {
-    private Graph _graf; // @brief Atribut necessari per construir el graf 
-    private int Num_depots;// @brief Atribut necessari per optimitzar temps per fer el greedy
+    private Graph _graf; // !<@brief Atribut necessari per construir el graf 
+    private int Num_depots;// !<@brief Atribut necessari per optimitzar temps per fer el greedy
     
     public LlegirFitxerGraf(){
         Num_depots=0;

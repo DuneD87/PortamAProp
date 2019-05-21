@@ -1,0 +1,304 @@
+\hypertarget{class_portam_a_pro_p_1_1_peticio}{}\section{Portam\+A\+Pro\+P.\+Peticio Class Reference}
+\label{class_portam_a_pro_p_1_1_peticio}\index{Portam\+A\+Pro\+P.\+Peticio@{Portam\+A\+Pro\+P.\+Peticio}}
+
+
+Classe encarregada de guardar informacio sobre les peticions.  
+
+
+
+
+Inheritance diagram for Portam\+A\+Pro\+P.\+Peticio\+:
+% FIG 0
+
+
+Collaboration diagram for Portam\+A\+Pro\+P.\+Peticio\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries E\+S\+T\+AT}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_peticio_aed2b961399a80931533345e5856caccd}{Peticio} (int id, int \hyperlink{class_portam_a_pro_p_1_1_peticio_ada432763708d506b17e51d34ae71bce5}{origen}, int \hyperlink{class_portam_a_pro_p_1_1_peticio_ae4b8db0a79daf6569d7e0dabda401384}{desti}, Local\+Time emisio, int num\+Persones)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a47cc5bc8df2a2c7ab773615ba4f09eb7}\label{class_portam_a_pro_p_1_1_peticio_a47cc5bc8df2a2c7ab773615ba4f09eb7}} 
+{\bfseries Peticio} (\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} sol)
+\item 
+String \hyperlink{class_portam_a_pro_p_1_1_peticio_ac4b45fde5a7ac007dd68f825d4d80450}{to\+String} ()
+\begin{DoxyCompactList}\small\item\em Converteix l\textquotesingle{}objecte en text. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_peticio_a373dc2aa206fd15dc16c71cadde98493}{identificador} ()
+\begin{DoxyCompactList}\small\item\em 
+
+ \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_peticio_ada432763708d506b17e51d34ae71bce5}{origen} ()
+\begin{DoxyCompactList}\small\item\em Ens diu l\textquotesingle{}origen. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_peticio_ae4b8db0a79daf6569d7e0dabda401384}{desti} ()
+\begin{DoxyCompactList}\small\item\em Ens diu el desti. \end{DoxyCompactList}\item 
+Local\+Time \hyperlink{class_portam_a_pro_p_1_1_peticio_a4149dc8834d7d7ac573b7d6dc64dfcd3}{emissio} ()
+\begin{DoxyCompactList}\small\item\em Ens diu l\textquotesingle{}hora d\textquotesingle{}emissio. \end{DoxyCompactList}\item 
+Local\+Time \hyperlink{class_portam_a_pro_p_1_1_peticio_a62761b978b33392dc79ebdfc31a35195}{arribada} ()
+\begin{DoxyCompactList}\small\item\em Ens diu l\textquotesingle{}hora d\textquotesingle{}arribada. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_peticio_acfd386df7ba754b5e04c0a5a7fe0da33}{num\+Passatgers} ()
+\begin{DoxyCompactList}\small\item\em Ens diu el numero de passatgers. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_peticio_aba980884fe4971f848aa1b63f4651738}{assignar\+Hora\+Arribada} (int minut)
+\begin{DoxyCompactList}\small\item\em Assigna l\textquotesingle{}hora d\textquotesingle{}arribada. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_peticio_a666ea74e2d0ccf62227431a5fa7785fa}{assignar\+Hora\+Recollida} (int minut)
+\begin{DoxyCompactList}\small\item\em Assigna l\textquotesingle{}hora real de recollida. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a094fc15ce78a4534d8a6f59eb475c4e7}\label{class_portam_a_pro_p_1_1_peticio_a094fc15ce78a4534d8a6f59eb475c4e7}} 
+Local\+Time {\bfseries obtenir\+Hora\+Recollida} ()
+\item 
+int \hyperlink{class_portam_a_pro_p_1_1_peticio_a8531527cf72fab6b4c43c512595c3259}{compare\+To} (\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} o)
+\begin{DoxyCompactList}\small\item\em Sobrecarrega del metode compare\+To. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_peticio_a760f5b29474cb642a757ef203e47638f}{equals} (Object obj)
+\begin{DoxyCompactList}\small\item\em Sobrecarrega del metode equals. \end{DoxyCompactList}\item 
+E\+S\+T\+AT \hyperlink{class_portam_a_pro_p_1_1_peticio_a3861fa751f46d4744e1842e308ee460b}{obtenir\+Estat} ()
+\begin{DoxyCompactList}\small\item\em Ens diu l\textquotesingle{}estat de la peticio. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_peticio_a839435a053238a99ccf4b1af43ac1d3b}{modificar\+Estat} (E\+S\+T\+AT s)
+\begin{DoxyCompactList}\small\item\em Canvia l\textquotesingle{}estat de la peticio. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe encarregada de guardar informacio sobre les peticions. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_aed2b961399a80931533345e5856caccd}\label{class_portam_a_pro_p_1_1_peticio_aed2b961399a80931533345e5856caccd}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!Peticio@{Peticio}}
+\index{Peticio@{Peticio}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{Peticio()}{Peticio()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Peticio.\+Peticio (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int}]{origen,  }\item[{int}]{desti,  }\item[{Local\+Time}]{emisio,  }\item[{int}]{num\+Persones }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha construit una nova peticio amb els parametres donats 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a62761b978b33392dc79ebdfc31a35195}\label{class_portam_a_pro_p_1_1_peticio_a62761b978b33392dc79ebdfc31a35195}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!arribada@{arribada}}
+\index{arribada@{arribada}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{arribada()}{arribada()}}
+{\footnotesize\ttfamily Local\+Time Portam\+A\+Pro\+P.\+Peticio.\+arribada (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu l\textquotesingle{}hora d\textquotesingle{}arribada. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha finalitzat la peticio 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu l\textquotesingle{}hora d\textquotesingle{}arribada en format Time \textquotesingle{}H\+H\+:\+MM\+:SS\textquotesingle{} 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_aba980884fe4971f848aa1b63f4651738}\label{class_portam_a_pro_p_1_1_peticio_aba980884fe4971f848aa1b63f4651738}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!assignar\+Hora\+Arribada@{assignar\+Hora\+Arribada}}
+\index{assignar\+Hora\+Arribada@{assignar\+Hora\+Arribada}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{assignar\+Hora\+Arribada()}{assignarHoraArribada()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Peticio.\+assignar\+Hora\+Arribada (\begin{DoxyParamCaption}\item[{int}]{minut }\end{DoxyParamCaption})}
+
+
+
+Assigna l\textquotesingle{}hora d\textquotesingle{}arribada. 
+
+\begin{DoxyPrecond}{Precondition}
+Hora valida 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha completat la peticio amb hora d\textquotesingle{}arribada \textquotesingle{}arribada\textquotesingle{} 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a666ea74e2d0ccf62227431a5fa7785fa}\label{class_portam_a_pro_p_1_1_peticio_a666ea74e2d0ccf62227431a5fa7785fa}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!assignar\+Hora\+Recollida@{assignar\+Hora\+Recollida}}
+\index{assignar\+Hora\+Recollida@{assignar\+Hora\+Recollida}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{assignar\+Hora\+Recollida()}{assignarHoraRecollida()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Peticio.\+assignar\+Hora\+Recollida (\begin{DoxyParamCaption}\item[{int}]{minut }\end{DoxyParamCaption})}
+
+
+
+Assigna l\textquotesingle{}hora real de recollida. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha assignat una hora de recollida real 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a8531527cf72fab6b4c43c512595c3259}\label{class_portam_a_pro_p_1_1_peticio_a8531527cf72fab6b4c43c512595c3259}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!compare\+To@{compare\+To}}
+\index{compare\+To@{compare\+To}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{compare\+To()}{compareTo()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Peticio.\+compare\+To (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio}}]{o }\end{DoxyParamCaption})}
+
+
+
+Sobrecarrega del metode compare\+To. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si la peticio donada es diferent del que tenim (mes petit si el valor es negatiu, mes gran si el valor es positiu, 0 si tenen el mateix valor) 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_ae4b8db0a79daf6569d7e0dabda401384}\label{class_portam_a_pro_p_1_1_peticio_ae4b8db0a79daf6569d7e0dabda401384}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!desti@{desti}}
+\index{desti@{desti}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{desti()}{desti()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Peticio.\+desti (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu el desti. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha inicialitzat la peticio 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu l\textquotesingle{}ID del node desti 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a4149dc8834d7d7ac573b7d6dc64dfcd3}\label{class_portam_a_pro_p_1_1_peticio_a4149dc8834d7d7ac573b7d6dc64dfcd3}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!emissio@{emissio}}
+\index{emissio@{emissio}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{emissio()}{emissio()}}
+{\footnotesize\ttfamily Local\+Time Portam\+A\+Pro\+P.\+Peticio.\+emissio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu l\textquotesingle{}hora d\textquotesingle{}emissio. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha inicialitzat la peticio 
+\end{DoxyPrecond}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a760f5b29474cb642a757ef203e47638f}\label{class_portam_a_pro_p_1_1_peticio_a760f5b29474cb642a757ef203e47638f}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!equals@{equals}}
+\index{equals@{equals}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Peticio.\+equals (\begin{DoxyParamCaption}\item[{Object}]{obj }\end{DoxyParamCaption})}
+
+
+
+Sobrecarrega del metode equals. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si la peticio donada es igual a la que tenim 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a373dc2aa206fd15dc16c71cadde98493}\label{class_portam_a_pro_p_1_1_peticio_a373dc2aa206fd15dc16c71cadde98493}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!identificador@{identificador}}
+\index{identificador@{identificador}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{identificador()}{identificador()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Peticio.\+identificador (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+
+
+ 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha inicialitzat la peticio 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu l\textquotesingle{}identificador de la peticio 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a839435a053238a99ccf4b1af43ac1d3b}\label{class_portam_a_pro_p_1_1_peticio_a839435a053238a99ccf4b1af43ac1d3b}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!modificar\+Estat@{modificar\+Estat}}
+\index{modificar\+Estat@{modificar\+Estat}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{modificar\+Estat()}{modificarEstat()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Peticio.\+modificar\+Estat (\begin{DoxyParamCaption}\item[{E\+S\+T\+AT}]{s }\end{DoxyParamCaption})}
+
+
+
+Canvia l\textquotesingle{}estat de la peticio. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha canviat l\textquotesingle{}estat de la peticio 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_acfd386df7ba754b5e04c0a5a7fe0da33}\label{class_portam_a_pro_p_1_1_peticio_acfd386df7ba754b5e04c0a5a7fe0da33}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!num\+Passatgers@{num\+Passatgers}}
+\index{num\+Passatgers@{num\+Passatgers}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{num\+Passatgers()}{numPassatgers()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Peticio.\+num\+Passatgers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu el numero de passatgers. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna un enter que ens diu el numero de passatges actualment al vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_a3861fa751f46d4744e1842e308ee460b}\label{class_portam_a_pro_p_1_1_peticio_a3861fa751f46d4744e1842e308ee460b}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!obtenir\+Estat@{obtenir\+Estat}}
+\index{obtenir\+Estat@{obtenir\+Estat}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{obtenir\+Estat()}{obtenirEstat()}}
+{\footnotesize\ttfamily E\+S\+T\+AT Portam\+A\+Pro\+P.\+Peticio.\+obtenir\+Estat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu l\textquotesingle{}estat de la peticio. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si la peticio es troba en espera, en transit o finalitzada 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_ada432763708d506b17e51d34ae71bce5}\label{class_portam_a_pro_p_1_1_peticio_ada432763708d506b17e51d34ae71bce5}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!origen@{origen}}
+\index{origen@{origen}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{origen()}{origen()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Peticio.\+origen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens diu l\textquotesingle{}origen. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha inicialtizat la peticio 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu l\textquotesingle{}ID del node origen 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_peticio_ac4b45fde5a7ac007dd68f825d4d80450}\label{class_portam_a_pro_p_1_1_peticio_ac4b45fde5a7ac007dd68f825d4d80450}} 
+\index{Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!Portam\+A\+Pro\+P\+::\+Peticio@{Portam\+A\+Pro\+P\+::\+Peticio}}
+\subsubsection{\texorpdfstring{to\+String()}{toString()}}
+{\footnotesize\ttfamily String Portam\+A\+Pro\+P.\+Peticio.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Converteix l\textquotesingle{}objecte en text. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens retorna l\textquotesingle{}objecte en format de cadena de caracters 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Peticio.\+java\end{DoxyCompactItemize}

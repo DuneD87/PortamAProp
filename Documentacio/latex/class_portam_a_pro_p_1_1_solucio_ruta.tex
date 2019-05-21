@@ -1,0 +1,208 @@
+\hypertarget{class_portam_a_pro_p_1_1_solucio_ruta}{}\section{Portam\+A\+Pro\+P.\+Solucio\+Ruta Class Reference}
+\label{class_portam_a_pro_p_1_1_solucio_ruta}\index{Portam\+A\+Pro\+P.\+Solucio\+Ruta@{Portam\+A\+Pro\+P.\+Solucio\+Ruta}}
+
+
+Classe encarregada de guardar les diferents solucions.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_a8dfc53d75c5971b680d848d069e5d7c9}{Solucio\+Ruta} (\hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} r, int minim\+Legal, int maxim\+Espera, double min\+Carga, String\+Builder log)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_ad5f03af52bc7e1016431322f939a6f92}{Solucio\+Ruta} (\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta} sol)
+\begin{DoxyCompactList}\small\item\em Constructor de copia. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_a63c5960d90ed9c344493ea0f8eed1498}{acceptable} (\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta} i\+Can)
+\begin{DoxyCompactList}\small\item\em Candidat acceptable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_a771a301345beac91ba71452c7dd5d1bb}\label{class_portam_a_pro_p_1_1_solucio_ruta_a771a301345beac91ba71452c7dd5d1bb}} 
+\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta} \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_a771a301345beac91ba71452c7dd5d1bb}{ini\+Can} ()
+\begin{DoxyCompactList}\small\item\em Inicialitza el candidat i possa com a maxim el maxim del vector de candidats. Els nostres candidats son\+:~\newline
+ Origen\+: Origen d\textquotesingle{}una peticio ~\newline
+Desti\+: Desti d\textquotesingle{}una peticio ~\newline
+Depot\+: Punt de recarrega ~\newline
+. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_a616aa2104765f1218a426944ec1695b6}{anotar} (\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta} i\+Can)
+\begin{DoxyCompactList}\small\item\em Anotem candidat. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_a84464a58a4c68efa9f332b94f7349c42}{desanotar} (\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta} i\+Can)
+\begin{DoxyCompactList}\small\item\em Desanotem candidat. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_ab949eba660c769bf69e80decac453da4}{completa} ()
+\begin{DoxyCompactList}\small\item\em Solucio completa. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_adda943e292f59567d947a45725892480}{pot\+Ser\+Millor} (\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta} optim)
+\begin{DoxyCompactList}\small\item\em Pot ser millor. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_aefcddb3e0a49950f99007c52d5845cdc}{es\+Millor} (\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta} optim)
+\begin{DoxyCompactList}\small\item\em Es millor. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta_aaf3d50166e85a38269d39b9f7bde1a83}{finalitzar} ()
+\begin{DoxyCompactList}\small\item\em Guarda el resultat a ruta. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe encarregada de guardar les diferents solucions. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_a8dfc53d75c5971b680d848d069e5d7c9}\label{class_portam_a_pro_p_1_1_solucio_ruta_a8dfc53d75c5971b680d848d069e5d7c9}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!Solucio\+Ruta@{Solucio\+Ruta}}
+\index{Solucio\+Ruta@{Solucio\+Ruta}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{Solucio\+Ruta()}{SolucioRuta()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+Solucio\+Ruta (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta}}]{r,  }\item[{int}]{minim\+Legal,  }\item[{int}]{maxim\+Espera,  }\item[{double}]{min\+Carga,  }\item[{String\+Builder}]{log }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+\begin{DoxyPostcond}{Postcondition}
+A partir d\textquotesingle{}una ruta generada per el voraç, obtenim les diferents estructures de dades, i completem la ruta, intentan millorar la solucio obtenida. 
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em r} & La ruta que ens dona el voraç \\
+\hline
+{\em minim\+Legal} & Minim temps legal d\textquotesingle{}espera per atendre una peticio \\
+\hline
+{\em maxim\+Espera} & Maxim temps que els clients estan disposats a esperar \\
+\hline
+{\em min\+Carga} & Minim de bateria que el vehicle considera apropiat abans d\textquotesingle{}anar a carregar \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_ad5f03af52bc7e1016431322f939a6f92}\label{class_portam_a_pro_p_1_1_solucio_ruta_ad5f03af52bc7e1016431322f939a6f92}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!Solucio\+Ruta@{Solucio\+Ruta}}
+\index{Solucio\+Ruta@{Solucio\+Ruta}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{Solucio\+Ruta()}{SolucioRuta()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+Solucio\+Ruta (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta}}]{sol }\end{DoxyParamCaption})}
+
+
+
+Constructor de copia. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha construit una nova \hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta} a partir de la solucio anterior ~\newline
+Es fa copia de totes aquelles estructures que guarden solucions parcials al problema, la resta, copiem la seva referencia. 
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em sol} & Ens dona la solucio anterior \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_a63c5960d90ed9c344493ea0f8eed1498}\label{class_portam_a_pro_p_1_1_solucio_ruta_a63c5960d90ed9c344493ea0f8eed1498}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!acceptable@{acceptable}}
+\index{acceptable@{acceptable}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{acceptable()}{acceptable()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+acceptable (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta}}]{i\+Can }\end{DoxyParamCaption})}
+
+
+
+Candidat acceptable. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$= i\+Can.\+actual() $<$ n\+Nodes -\/ 1 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si el candidat es acceptable\+: ~\newline
+Determinem el tipus de candidat del que es tracta ( origen, desti, depot ) i mirem si pot arribar al node. En cas afirmatiu, tractem el candidat per el seu tipus i determinem si es acceptable 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_a616aa2104765f1218a426944ec1695b6}\label{class_portam_a_pro_p_1_1_solucio_ruta_a616aa2104765f1218a426944ec1695b6}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!anotar@{anotar}}
+\index{anotar@{anotar}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{anotar()}{anotar()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+anotar (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta}}]{i\+Can }\end{DoxyParamCaption})}
+
+
+
+Anotem candidat. 
+
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha anotat el node a la ruta, s\textquotesingle{}ha actualitzat el cost total i s\textquotesingle{}ha decrementat la bateria del vehicle. {\itshape LA P\+O\+ST ES FA S\+E\+M\+P\+RE} ~\newline
+~\newline
+Independenment de la postcondicio hem de tractar 3 casos\+: ~\newline
+~\newline
+Origen i desti\+: Modifiquem el nombre de passatges del vehicle i actualitzem el rellotge global. ~\newline
+~\newline
+Depot\+: Carreguem el cotxe fins carrega completa i actualitzem el rellotge global. ~\newline
+
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_ab949eba660c769bf69e80decac453da4}\label{class_portam_a_pro_p_1_1_solucio_ruta_ab949eba660c769bf69e80decac453da4}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!completa@{completa}}
+\index{completa@{completa}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{completa()}{completa()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+completa (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Solucio completa. 
+
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si el nombre de peticions tramitades es igual al nombre de peticions que teniem en una primera instancia 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_a84464a58a4c68efa9f332b94f7349c42}\label{class_portam_a_pro_p_1_1_solucio_ruta_a84464a58a4c68efa9f332b94f7349c42}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!desanotar@{desanotar}}
+\index{desanotar@{desanotar}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{desanotar()}{desanotar()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+desanotar (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_candidat_ruta}{Candidat\+Ruta}}]{i\+Can }\end{DoxyParamCaption})}
+
+
+
+Desanotem candidat. 
+
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha eliminat l\textquotesingle{}ultim node de la ruta, s\textquotesingle{}ha actualitzat el cost total i s\textquotesingle{}ha incrementat la bateria del cotxe ~\newline
+~\newline
+Com en el cas d\textquotesingle{}anotar, aqui tambe tenim els 3 casos, complementaris al anotar ~\newline
+
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_aefcddb3e0a49950f99007c52d5845cdc}\label{class_portam_a_pro_p_1_1_solucio_ruta_aefcddb3e0a49950f99007c52d5845cdc}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!es\+Millor@{es\+Millor}}
+\index{es\+Millor@{es\+Millor}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{es\+Millor()}{esMillor()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+es\+Millor (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta}}]{optim }\end{DoxyParamCaption})}
+
+
+
+Es millor. 
+
+\begin{DoxyPostcond}{Postcondition}
+Ens diu si el temps que ha estat en marxa el vehicle en aquesta solucio es inferior al temps que ha estat en marxa el vehicle a la solucio anterior. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_aaf3d50166e85a38269d39b9f7bde1a83}\label{class_portam_a_pro_p_1_1_solucio_ruta_aaf3d50166e85a38269d39b9f7bde1a83}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!finalitzar@{finalitzar}}
+\index{finalitzar@{finalitzar}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{finalitzar()}{finalitzar()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+finalitzar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Guarda el resultat a ruta. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}han afegit el conjunt de nodes, accions, carrega i peticions a la ruta. A mes, hem afegit l\textquotesingle{}hora en que el vehicle ha finalitzat, el temps que ha estat en marxa i el temps que ha estat carregant. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_solucio_ruta_adda943e292f59567d947a45725892480}\label{class_portam_a_pro_p_1_1_solucio_ruta_adda943e292f59567d947a45725892480}} 
+\index{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}!pot\+Ser\+Millor@{pot\+Ser\+Millor}}
+\index{pot\+Ser\+Millor@{pot\+Ser\+Millor}!Portam\+A\+Pro\+P\+::\+Solucio\+Ruta@{Portam\+A\+Pro\+P\+::\+Solucio\+Ruta}}
+\subsubsection{\texorpdfstring{pot\+Ser\+Millor()}{potSerMillor()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Solucio\+Ruta.\+pot\+Ser\+Millor (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_solucio_ruta}{Solucio\+Ruta}}]{optim }\end{DoxyParamCaption})}
+
+
+
+Pot ser millor. 
+
+\begin{DoxyPostcond}{Postcondition}
+NO I\+M\+P\+L\+E\+M\+E\+N\+T\+AT 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Solucio\+Ruta.\+java\end{DoxyCompactItemize}

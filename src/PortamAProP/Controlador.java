@@ -1,8 +1,12 @@
 package PortamAProP;
-
+/**
+ * @class Controlador
+ * @brief Classe encarregada de controlar els diferents aspectes del nostre programa, basicament organitza el
+ * funcionament dels diferents algoritmes i guarda/mostra l'informacio alla on pertoca
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.SortedSet;
@@ -18,21 +22,14 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
-/*
- * @brief Classe controladora, es dedica a gestionar les diferents opcions del
- * programa
- * @input Menu provisional per fer diferents execucions
- * @output ...
- * @author drive
- */
+
 public class Controlador {
 
-    private Graph _graf; // @brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
-    private SortedSet<Peticio> _peticions; // @brief Vector de peticions, el fem servir en els diferents algoritmes
-    private List<Vehicle> _vehicles;//@brief Estructura on ens guardem els vehicles
-    private GeneradorNodesGraf _generadorNodes; // @brief Objecte que ens permet generar un conjunt de nodes aleatoriament
-    private GeneradorPeticions _generadorPeticions;
-    private String NOM_FITXER_D = "Depots.txt";
+    private Graph _graf; //!<@brief Ens guardem el graf com atribut per executar els diferents algoritmes sobre ell
+    private SortedSet<Peticio> _peticions; //!<@brief Vector de peticions, el fem servir en els diferents algoritmes
+    private List<Vehicle> _vehicles;//!<@brief Estructura on ens guardem els vehicles
+    private GeneradorNodesGraf _generadorNodes; //!<@brief Objecte que ens permet generar un conjunt de nodes aleatoriament
+    private GeneradorPeticions _generadorPeticions;//!<@brief Objecte que ens permet generar un conjunt de peticions aleatoriament
     private List<Pair<Vehicle, TreeSet<Peticio>>> _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
     private LlegirFitxerGraf mapa;
     private Estadistics estadistic;
@@ -40,8 +37,8 @@ public class Controlador {
     private ArrayList<Ruta> _rutes;
     private Greedy voras;
 
-    /**
-     * VARIABLES DE CONTROL
+    /*
+     * VARIABLES DE CONTROL - Explicacio a parametres del constructor
      */
     private final int _maxDistanciaGreedy;
     private final long _maxFinestraTemps;
@@ -60,7 +57,7 @@ public class Controlador {
     private final String _nFitxerVehicle;
     private final String _nFitxerDepot;
     
-    private StringBuilder _log;
+    private StringBuilder _log;//!<@brief Fitxer de sortida on guardem l'execucio de l'aplicacio
 
     /**
      * @brief Constructor amb parametres
@@ -172,6 +169,7 @@ public class Controlador {
         }
         gestionarMenu();
     }
+    
     /**
      * @brief Mostra el submenu de estadistics
      * @pre ---
@@ -233,6 +231,7 @@ public class Controlador {
                     System.out.println("Selecciona una ruta de la llista anterior per mostrar");
                     key = keyb.nextInt();
                     _rutes.get(key).mostrarRutaSugraf();
+                    _rutes.get(key).mostrarRuta();
                     break;
                 case 2:
                     mostrarSubMenuEstad();
@@ -374,7 +373,7 @@ public class Controlador {
         if (trobat) {
             _log.append("Solucio trobada: \n");
             _log.append("Ruta actual: " + (_rutes.size() - 1) + "\n");
-            r.mostrarRuta();
+            r.guadarRuta();
         } else {
             _log.append("No s'ha trobat solucio\n");
         }

@@ -4,23 +4,24 @@ package PortamAProP;
  * @class PeticioEnTramit
  * @brief Objecte compost per una peticio i diferents atributs que ens donen
  * informacio sobre l'estat i hores de les peticions
+ * @author Xavier Avivar & Buenaventura Martinez
  */
 
 import java.time.LocalTime;
 
 public class PeticioEnTramit {
     
-    private final Peticio _instancia; //@brief Ens diu de quina peticio es tracta
-    private LocalTime _horaRecollida; //@brief Ens diu l'hora de recollida
-    private LocalTime _horaArribada; //@brief Ens diu l'hora d'arribada
+    private final Peticio _instancia; //!<@brief Ens diu de quina peticio es tracta
+    private LocalTime _horaRecollida; //!<@brief Ens diu l'hora de recollida
+    private LocalTime _horaArribada; //!<@brief Ens diu l'hora d'arribada
     
     /**
      * @brief Ens diu l'estat en que es troba la peticions
      */
     public enum ESTAT {
-        ESPERA,//La peticio esta esperan a ser acceptada
-        ENTRANSIT,//La peticio es troba en transit, els passatgers estan al vehicle
-        FINALITZADA//La peticio ha estat finalitzada
+        ESPERA,//!<@brief La peticio esta esperan a ser acceptada
+        ENTRANSIT,//!<@brief La peticio es troba en transit, els passatgers estan al vehicle
+        FINALITZADA//!<@brief La peticio ha estat finalitzada
     }
     private ESTAT _estat;
     
@@ -96,7 +97,7 @@ public class PeticioEnTramit {
      * @brief Assigna hora recollida
      * @pre Peticio en estat ESPERA
      * @post S'ha assignat l'hora de recollida a la peticio en tramit
-     * @param horaRecollida Ens diu l'hora de recollida en format LocalTime
+     * @param temps Ens diu quant de temps li hem de sumar a l'hora d'emissio
      */
     public void assignarRecollida(int temps) {
         _horaRecollida = _instancia.emissio().plusMinutes(temps);
@@ -106,7 +107,7 @@ public class PeticioEnTramit {
      * @brief Assigna hora d'arribada
      * @pre Peticio en estat ENTRANSIT i s'ha assignat una hora de recollida previament
      * @post S'ha assignat l'hora d'arribada
-     * @param horaArribada Ens diu l'hora d'arribada en format LocalTime
+     * @param temps Ens diu quant de temps li hem de sumar a l'hora de recollida
      */
     public void assignarArribada(int temps) {
         _horaArribada = _horaRecollida.plusMinutes(temps);

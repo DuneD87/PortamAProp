@@ -1,0 +1,134 @@
+\hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf}{}\section{Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf Class Reference}
+\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf}\index{Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf}}
+
+
+Objecte encarregat de construir el nostre graf.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a2c388c5057711db37543f939204134f2}{Modificar\+Graf\+Per\+String} (Graph graf, String text, String format)
+\begin{DoxyCompactList}\small\item\em Inicialitza el graf. \end{DoxyCompactList}\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_afdbe4a4f48460910592efa5589776d62}{Modificar\+Graf\+Per\+Fitxer} (Graph \+\_\+graf, String file, String format)
+\begin{DoxyCompactList}\small\item\em Inicialitza el graf. \end{DoxyCompactList}\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a584bea22b69e7dde9159c7aac0a11de1}{Completar\+Graf} (Graph graf)
+\begin{DoxyCompactList}\small\item\em Completa el graf. \end{DoxyCompactList}\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a9d28fa913057ede0ea78757f490e5a7d}{obt\+Graph} ()
+\begin{DoxyCompactList}\small\item\em Ens dona el graf construit. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_ad2bb4a17c5af9b5c6294f6ea1a17f63d}{Eliminar\+Nodes\+Desconectats} (Graph graf)
+\begin{DoxyCompactList}\small\item\em Elimina els nodes desconectats o conectats nomes entre dos nodes. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a45dd3b57e65010e9e6eaf940d7695527}{Get\+Num\+Depot} ()
+\begin{DoxyCompactList}\small\item\em Retorna el numero de depots del graf. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Objecte encarregat de construir el nostre graf. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a584bea22b69e7dde9159c7aac0a11de1}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a584bea22b69e7dde9159c7aac0a11de1}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!Completar\+Graf@{Completar\+Graf}}
+\index{Completar\+Graf@{Completar\+Graf}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{Completar\+Graf()}{CompletarGraf()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+Completar\+Graf (\begin{DoxyParamCaption}\item[{Graph}]{graf }\end{DoxyParamCaption})}
+
+
+
+Completa el graf. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha completat el graf afegint les arestes que falten fen servir l\textquotesingle{}algorisme de Dijkstra per trobar el cami minim entre dos nodes 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_ad2bb4a17c5af9b5c6294f6ea1a17f63d}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_ad2bb4a17c5af9b5c6294f6ea1a17f63d}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!Eliminar\+Nodes\+Desconectats@{Eliminar\+Nodes\+Desconectats}}
+\index{Eliminar\+Nodes\+Desconectats@{Eliminar\+Nodes\+Desconectats}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{Eliminar\+Nodes\+Desconectats()}{EliminarNodesDesconectats()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+Eliminar\+Nodes\+Desconectats (\begin{DoxyParamCaption}\item[{Graph}]{graf }\end{DoxyParamCaption})}
+
+
+
+Elimina els nodes desconectats o conectats nomes entre dos nodes. 
+
+\begin{DoxyPrecond}{Precondition}
+graf complet amb pessos 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna un graf complet sense desconxions 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a45dd3b57e65010e9e6eaf940d7695527}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a45dd3b57e65010e9e6eaf940d7695527}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!Get\+Num\+Depot@{Get\+Num\+Depot}}
+\index{Get\+Num\+Depot@{Get\+Num\+Depot}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{Get\+Num\+Depot()}{GetNumDepot()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+Get\+Num\+Depot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna el numero de depots del graf. 
+
+\begin{DoxyPrecond}{Precondition}
+Cert 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna el numero de depots 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_afdbe4a4f48460910592efa5589776d62}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_afdbe4a4f48460910592efa5589776d62}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!Modificar\+Graf\+Per\+Fitxer@{Modificar\+Graf\+Per\+Fitxer}}
+\index{Modificar\+Graf\+Per\+Fitxer@{Modificar\+Graf\+Per\+Fitxer}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{Modificar\+Graf\+Per\+Fitxer()}{ModificarGrafPerFitxer()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+Modificar\+Graf\+Per\+Fitxer (\begin{DoxyParamCaption}\item[{Graph}]{\+\_\+graf,  }\item[{String}]{file,  }\item[{String}]{format }\end{DoxyParamCaption})}
+
+
+
+Inicialitza el graf. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Inicialitza la construccio del graf a traves d\textquotesingle{}un fitxer 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a2c388c5057711db37543f939204134f2}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a2c388c5057711db37543f939204134f2}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!Modificar\+Graf\+Per\+String@{Modificar\+Graf\+Per\+String}}
+\index{Modificar\+Graf\+Per\+String@{Modificar\+Graf\+Per\+String}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{Modificar\+Graf\+Per\+String()}{ModificarGrafPerString()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+Modificar\+Graf\+Per\+String (\begin{DoxyParamCaption}\item[{Graph}]{graf,  }\item[{String}]{text,  }\item[{String}]{format }\end{DoxyParamCaption})}
+
+
+
+Inicialitza el graf. 
+
+\begin{DoxyPrecond}{Precondition}
+Cadena de caracters amb el format implicit 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Inicialitza la construccio del graf a traves d\textquotesingle{}una cadena de caracters 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a9d28fa913057ede0ea78757f490e5a7d}\label{class_portam_a_pro_p_1_1_llegir_fitxer_graf_a9d28fa913057ede0ea78757f490e5a7d}} 
+\index{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}!obt\+Graph@{obt\+Graph}}
+\index{obt\+Graph@{obt\+Graph}!Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf@{Portam\+A\+Pro\+P\+::\+Llegir\+Fitxer\+Graf}}
+\subsubsection{\texorpdfstring{obt\+Graph()}{obtGraph()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Llegir\+Fitxer\+Graf.\+obt\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens dona el graf construit. 
+
+\begin{DoxyPrecond}{Precondition}
+S\textquotesingle{}ha cridat previament a init\+Text o init\+Fitxer 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna un graf complet 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Llegir\+Fitxer\+Graf.\+java\end{DoxyCompactItemize}

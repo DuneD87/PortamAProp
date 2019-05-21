@@ -1,40 +1,45 @@
 package PortamAProP;
 
+/**
+ * @class Ruta
+ * @brief Classe encarregada de guardar/proveir informacio als diferents algoritmes
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeSet;
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.MultiGraph;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import org.graphstream.ui.view.Viewer;
 
 public class Ruta {
 
-    private Vehicle _vehicle;//@brief Vehicle que fa la ruta
-    private TreeSet<Peticio> _solicituds;//@brief Conjunt peticions ordenades decreixement per data, 
-    private Graph _graf;//@brief Subgraph per on es moura el nostre vehicle
-    private Stack<Node> _ruta;//@brief Solucio obtenida per l'algoritme de backtracking
-    private int[] _conversio; // @brief array de pairs que assosia l'index dels nodes del subgraf de la ruta amb l'index del graf complet
+    private Vehicle _vehicle;//!<@brief Vehicle que fa la ruta
+    private TreeSet<Peticio> _solicituds;//!<@brief Conjunt peticions ordenades decreixement per data, 
+    private Graph _graf;//!<@brief Subgraph per on es moura el nostre vehicle
+    private Stack<Node> _ruta;//!<@brief Solucio obtenida per l'algoritme de backtracking
+    private int[] _conversio; //!<@brief array de pairs que assosia l'index dels nodes del subgraf de la ruta amb l'index del graf complet
     
-    private ArrayList<Peticio> _solCompletades;//@brief Llistat de les peticions completades
-    private ArrayList<Node> _nodes;//@brief Llistat de nodes que descriuen la ruta efectuada
-    private ArrayList<Character> _accions;//@brief Llistat d'accions que s'ha efectuat a cada node
-    private ArrayList<Integer> _carrega;//@brief Llistat de persones que han baixat o pujat en peticions, o temps a depot
-    private boolean _finalitzada;//@brief Ens diu si el bactracking ha trobat una solucio a la ruta
-    private ArrayList<PeticioEnTramit> _peticionsCompletades;//@brief Llista de les peticions completades
+    private ArrayList<Peticio> _solCompletades;//!<@brief Llistat de les peticions completades
+    private ArrayList<Node> _nodes;//!<@brief Llistat de nodes que descriuen la ruta efectuada
+    private ArrayList<Character> _accions;//!<@brief Llistat d'accions que s'ha efectuat a cada node
+    private ArrayList<Integer> _carrega;//!<@brief Llistat de persones que han baixat o pujat en peticions, o temps a depot
+    private boolean _finalitzada;//!<@brief Ens diu si el bactracking ha trobat una solucio a la ruta
+    private ArrayList<PeticioEnTramit> _peticionsCompletades;//!<@brief Llista de les peticions completades
     
-    private double _tempsEnMarxa;//@brief Temps que el vehicle esta en marxa
-    private double _tempsADepot;//@brief Temps que el vehicle esta a depot
+    private double _tempsEnMarxa;//!<@brief Temps que el vehicle esta en marxa
+    private double _tempsADepot;//!<@brief Temps que el vehicle esta a depot
     
-    private LocalTime _horaFi;//@brief Hora on finalitza la ruta
-    private LocalTime _horaInici;//@brief Hora en que iniciem la ruta
+    private LocalTime _horaFi;//!<@brief Hora on finalitza la ruta
+    private LocalTime _horaInici;//!<@brief Hora en que iniciem la ruta
 
     
-    private int _mitjanaPassatgers;
-    private double _mitjanaDistanciaNodes;
-    private double _mitjanaEsperaClient;
-    private double _mitjanaMarxaClient;
+    private int _mitjanaPassatgers;//!<@brief Mitjana de passatgers en aquesta ruta
+    private double _mitjanaDistanciaNodes;//!<@brief Mitjana de distancia de nodes en aquesta ruta
+    private double _mitjanaEsperaClient;//!<@brief Mitjana d'espera de client en aquesta ruta
+    private double _mitjanaMarxaClient;//!<@brief Mitjana en marxa del client en aquesta ruta
     
     private StringBuilder _log;
     /**
@@ -134,29 +139,16 @@ public class Ruta {
     }
     
     /**
-     * @brief Mostra la ruta i detalls
+     * @brief Guarda informacio de la ruta al fitxer de sortida
      * @pre ---
-     * @post S'ha mostrat la ruta..TO COMPLETE
+     * @post Guarda la ruta que ha fet el vehicle i els diferents estadistics al
+     * fitxer sortida
      */
-    public void mostrarRuta() {
+    public void guadarRuta() {
         //_graf.display();
         _log.append("\n*****PETICIONS ATESES*****\n");
         for (PeticioEnTramit s : _peticionsCompletades) {
             _log.append(s.toString() + "\n");
-        }
-        Graph g = new MultiGraph("Sol");
-        for (int i = 0; i < _nodes.size(); i++) {
-            if(g.getNode(_nodes.get(i).getId())==null){
-                g.addNode(_nodes.get(i).getId());
-                g.getNode(_nodes.get(i).getId()).setAttribute("ui.label", _nodes.get(i).getId());
-            }
-        }int numaresta=1;
-        for (int i = 0; i < _nodes.size() - 1; i++) {
-            if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
-                g.addEdge(Integer.toString(i), _nodes.get(i).getId(), _nodes.get(i + 1).getId(),true);
-                g.getEdge(Integer.toString(i)).setAttribute("ui.label", Integer.toString(numaresta));
-                numaresta++;
-            }
         }
         _log.append("RUTA DE NODES\n");
         Node q = _nodes.get(0);
@@ -173,6 +165,35 @@ public class Ruta {
         _log.append("\n");
        
     }
+    
+    /**
+     * @brief Guarda informacio de la ruta al fitxer de sortida
+     * @pre ---
+     * @post Guarda la ruta que ha fet el vehicle i els diferents estadistics al
+     * fitxer sortida
+     */
+    public void mostrarRuta() {
+        //_graf.display();
+        System.out.println("*****PETICIONS ATESES*****");
+        for (PeticioEnTramit s : _peticionsCompletades) {
+            System.out.println(s.toString());
+        }
+       
+        System.out.println("RUTA DE NODES");
+        Node q = _nodes.get(0);
+        System.out.print(q.getAttribute("Nom").toString());
+        for(int i = 1; i < _nodes.size(); i++){
+            System.out.print("->"+_nodes.get(i).getAttribute("Nom"));
+        }
+        System.out.println();
+        System.out.println("HORA DE FINALITZACIO: " + _horaFi);
+        System.out.println("TEMPS TOTAL EN RUTA: " + _tempsEnMarxa + " minuts");
+        System.out.println("TEMPS A DEPOT: " + _tempsADepot + " minuts");
+        System.out.println("MITJANA DE PASSATGERS:" + mitjanaPassatgers() + " passatgers");
+        System.out.println("MITJANA DISTANCIA ENTRE NODES " + mitjanaDistanciaNodes() + " minuts");
+       
+    }
+    
     /**
      * @brief Retorna el array de conversio
      * @post: Retorna _conversio
@@ -181,7 +202,7 @@ public class Ruta {
         return _conversio;
     }
     /**
-     * @brief Retorna la mitjana de passatgers de la ruta
+     * @brief Retorna la mitjana de passatgers de la ruta \n
      *        Per determinar la mitjana de passatgers de la ruta,
      *        suma tots els clients de les peticions i els divideix pel numero 
      *        de peticions
@@ -200,7 +221,7 @@ public class Ruta {
         return mitjana;
     }
      /**
-     * @brief Retorna la distancia promig entre els nodes del graf
+     * @brief Retorna la distancia promig entre els nodes del graf \n
      *        Per determinar la distancia promig entre els nodes del graf
      *        sumem tots els pessos de les aresetes del graf i ho dividim per
      *        per el numeo de arestes
@@ -224,10 +245,9 @@ public class Ruta {
     }
     
     /**
-     * @breif Metode que detmina la mitjana de temps que el client esta esperant i la mitjana de temps que el client esta al vehicle
-     * 
-     *      Per determinar les mitjanes de temps, Per cada peticio:sumo els minuts entre temps de emisio de la peticio o el temps de recollida del client i les 23:59:59, i els minuts entre
-     *      el temps de recollida de la petcio o el temps d'arribada del client i mitjanit(00:00) i despres li resto un dia sencer, finalment divideixo les sumes per el nombre de peticions
+     * @breif Metode que detmina la mitjana de temps que el client esta esperant i la mitjana de temps que el client esta al vehicle \n
+     *        Per determinar les mitjanes de temps, Per cada peticio:sumo els minuts entre temps de emisio de la peticio o el temps de recollida del client i les 23:59:59, i els minuts entre
+     *        el temps de recollida de la petcio o el temps d'arribada del client i mitjanit(00:00) i despres li resto un dia sencer, finalment divideixo les sumes per el nombre de peticions
      */
     public void mitjanaTempsEsperaRecorregut(){
         long mitjanaEspera=0;
@@ -332,10 +352,9 @@ public class Ruta {
         return _mitjanaMarxaClient;
     }
     /**
-     * @brief Metode que marca la ruta del vehicle en el graf complet
-     * 
-     *      Per Marcar la ruta en el graf, les arestes i nodes que partanyen a la ruta 
-     *      els posem un atribut marked que modifica el especte determinat al styleSheet
+     * @brief Metode que marca la ruta del vehicle en el graf complet \n
+     *        Per Marcar la ruta en el graf, les arestes i nodes que partanyen a la ruta 
+     *        els posem un atribut marked que modifica el especte determinat al styleSheet
      * @post Modifica el graf per poder mostrar la ruta
      */
 

@@ -1,6 +1,7 @@
 package PortamAProP;
 
 /**
+ * @class LlegirFitxerPeticions
  * @brief Objecte encarregat de llegir les peticions i afegirles a la estructura de dades
  * @author Xavier Avivar & Buenaventura Martinez
  */
@@ -16,9 +17,9 @@ import java.util.TreeSet;
 import org.graphstream.graph.*;
 public class LlegirFitxerPeticions {
 
-    private SortedSet<Peticio> _vecSol; //@brief Estructura on ens guardem les peticions ordenades per data d'emissio decreixent
+    private SortedSet<Peticio> _vecSol; //!<@brief Estructura on ens guardem les peticions ordenades per data d'emissio decreixent
     private Graph _graf;
-    private String NOM_FITXER_SOL="peticions.txt"; //@brief Nom del fitxer d'on es llegeixen les peticions
+
     /**
      * @brief Inicialitza la lectura de peticions
      * @pre Cadena de caracters amb el format implicit

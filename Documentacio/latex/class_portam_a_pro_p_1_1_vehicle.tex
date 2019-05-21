@@ -1,0 +1,322 @@
+\hypertarget{class_portam_a_pro_p_1_1_vehicle}{}\section{Portam\+A\+Pro\+P.\+Vehicle Class Reference}
+\label{class_portam_a_pro_p_1_1_vehicle}\index{Portam\+A\+Pro\+P.\+Vehicle@{Portam\+A\+Pro\+P.\+Vehicle}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_vehicle_aff6c27bb9be6a4463d74a003e1110b1b}{Vehicle} (int Id, int Cap\+Total, double Auto\+Tot, double carga, int node)
+\begin{DoxyCompactList}\small\item\em Constructor amb parametres. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a0b870654a23dba4acdb2b8a9614a93d8}{Modificar\+Passatgers} (int variacio)
+\begin{DoxyCompactList}\small\item\em Canvia el numero de passatges. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a2b871f64c384f8fb8ebde6d1ff0282b0}{descarga} (double temps)
+\begin{DoxyCompactList}\small\item\em Fa que el vehicle perdi carrega progressivament. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_ae39b60cb4d70ef1aef7ec97341eb25ce}{cargar} (double temps)
+\begin{DoxyCompactList}\small\item\em Carrega el vehicle. \end{DoxyCompactList}\item 
+String \hyperlink{class_portam_a_pro_p_1_1_vehicle_a54c396472460bc914c2cc65b64ab5a0b}{to\+String} ()
+\begin{DoxyCompactList}\small\item\em Ens dona informacio sobre el vehicle. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_vehicle_acaee99f30ba494ed5bde824f283ca329}{n\+Passatgers} ()
+\begin{DoxyCompactList}\small\item\em Nombre de passatgers. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_vehicle_adec927d972606ab6d3fcdfa113b46ce3}{n\+Pass\+Total} ()
+\begin{DoxyCompactList}\small\item\em Total de passatgers. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_vehicle_ac21f14eaa0e69f35b33dee20d085cb3e}{node\+Inicial} ()
+\begin{DoxyCompactList}\small\item\em Node inicial. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a36c3f9cd157876333245102034f297e3}{set\+Posicio} (int node\+Id)
+\begin{DoxyCompactList}\small\item\em Actualitza la posicio del vehicle. \end{DoxyCompactList}\item 
+int \hyperlink{class_portam_a_pro_p_1_1_vehicle_a56c8e150a14137bb6e0722d4d697c0c5}{get\+Posicio} ()
+\begin{DoxyCompactList}\small\item\em Ens dona la posicio actual del vehicle. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_vehicle_a54547c7e60fb5f50cad5462ae4609562}{carrega\+Restant} ()
+\begin{DoxyCompactList}\small\item\em Autonomia restant del vehicle. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_vehicle_aec1dd0d3144f2b4196e589fa1f9bc81b}{carrega\+Total} ()
+\begin{DoxyCompactList}\small\item\em Autonomia total del vehicle. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a2d2bd58e6b614ff9cbbf4229cdc19e8e}{restaurar\+Carrega} ()
+\begin{DoxyCompactList}\small\item\em Assigna l\textquotesingle{}autonimia total del vehicle a l\textquotesingle{}autonomia restant. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a4a1d2ae60f3baa2dc01a51ab97e23f27}{set\+Hora\+Primera\+Sol} (Local\+Time t)
+\begin{DoxyCompactList}\small\item\em Assigna el temps de la primera peticio que accepta el vehicle com a t. \end{DoxyCompactList}\item 
+Local\+Time \hyperlink{class_portam_a_pro_p_1_1_vehicle_a5cdfe0d84974985a89a218c5f8e3a554}{get\+Hora\+Primera\+Sol} ()
+\begin{DoxyCompactList}\small\item\em Retorna el temps de la primera peticio que ha acceptat el vehicle. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_vehicle_a72944f859922a8a0f79af0d4426c5aad}{set\+Hora\+Ultima\+Sol} (Local\+Time t)
+\begin{DoxyCompactList}\small\item\em Assigna el temps de la ultima peticio que accepta el vehicle com a t. \end{DoxyCompactList}\item 
+Local\+Time \hyperlink{class_portam_a_pro_p_1_1_vehicle_ac4b240efbba88cd805bdc9cdff58785d}{get\+Hora\+Ultima\+Sol} ()
+\begin{DoxyCompactList}\small\item\em Retorna el temps de l\textquotesingle{}ultima peticio que ha acceptat el vehicle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_aff6c27bb9be6a4463d74a003e1110b1b}\label{class_portam_a_pro_p_1_1_vehicle_aff6c27bb9be6a4463d74a003e1110b1b}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!Vehicle@{Vehicle}}
+\index{Vehicle@{Vehicle}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{Vehicle()}{Vehicle()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Vehicle.\+Vehicle (\begin{DoxyParamCaption}\item[{int}]{Id,  }\item[{int}]{Cap\+Total,  }\item[{double}]{Auto\+Tot,  }\item[{double}]{carga,  }\item[{int}]{node }\end{DoxyParamCaption})}
+
+
+
+Constructor amb parametres. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha construit un nou vehicle 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_ae39b60cb4d70ef1aef7ec97341eb25ce}\label{class_portam_a_pro_p_1_1_vehicle_ae39b60cb4d70ef1aef7ec97341eb25ce}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!cargar@{cargar}}
+\index{cargar@{cargar}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{cargar()}{cargar()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+cargar (\begin{DoxyParamCaption}\item[{double}]{temps }\end{DoxyParamCaption})}
+
+
+
+Carrega el vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$ temps 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha carregat el vehicle en funcio del temps 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a54547c7e60fb5f50cad5462ae4609562}\label{class_portam_a_pro_p_1_1_vehicle_a54547c7e60fb5f50cad5462ae4609562}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!carrega\+Restant@{carrega\+Restant}}
+\index{carrega\+Restant@{carrega\+Restant}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{carrega\+Restant()}{carregaRestant()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Vehicle.\+carrega\+Restant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Autonomia restant del vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu la quantitat de carrega que li queda al vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_aec1dd0d3144f2b4196e589fa1f9bc81b}\label{class_portam_a_pro_p_1_1_vehicle_aec1dd0d3144f2b4196e589fa1f9bc81b}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!carrega\+Total@{carrega\+Total}}
+\index{carrega\+Total@{carrega\+Total}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{carrega\+Total()}{carregaTotal()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Vehicle.\+carrega\+Total (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Autonomia total del vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu la quantitat de carrega total que pot enmagatzemar el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a2b871f64c384f8fb8ebde6d1ff0282b0}\label{class_portam_a_pro_p_1_1_vehicle_a2b871f64c384f8fb8ebde6d1ff0282b0}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!descarga@{descarga}}
+\index{descarga@{descarga}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{descarga()}{descarga()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+descarga (\begin{DoxyParamCaption}\item[{double}]{temps }\end{DoxyParamCaption})}
+
+
+
+Fa que el vehicle perdi carrega progressivament. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$ temps 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens resta temps al atribut \+\_\+autonomia\+Restant i el deixa a 0 si aquest ultim es negatiu 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a5cdfe0d84974985a89a218c5f8e3a554}\label{class_portam_a_pro_p_1_1_vehicle_a5cdfe0d84974985a89a218c5f8e3a554}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!get\+Hora\+Primera\+Sol@{get\+Hora\+Primera\+Sol}}
+\index{get\+Hora\+Primera\+Sol@{get\+Hora\+Primera\+Sol}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{get\+Hora\+Primera\+Sol()}{getHoraPrimeraSol()}}
+{\footnotesize\ttfamily Local\+Time Portam\+A\+Pro\+P.\+Vehicle.\+get\+Hora\+Primera\+Sol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna el temps de la primera peticio que ha acceptat el vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+-- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna el temps de la primera peticio que ha acceptat el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_ac4b240efbba88cd805bdc9cdff58785d}\label{class_portam_a_pro_p_1_1_vehicle_ac4b240efbba88cd805bdc9cdff58785d}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!get\+Hora\+Ultima\+Sol@{get\+Hora\+Ultima\+Sol}}
+\index{get\+Hora\+Ultima\+Sol@{get\+Hora\+Ultima\+Sol}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{get\+Hora\+Ultima\+Sol()}{getHoraUltimaSol()}}
+{\footnotesize\ttfamily Local\+Time Portam\+A\+Pro\+P.\+Vehicle.\+get\+Hora\+Ultima\+Sol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retorna el temps de l\textquotesingle{}ultima peticio que ha acceptat el vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+-- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna el temps de l\textquotesingle{}ultima peticio que ha acceptat el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a56c8e150a14137bb6e0722d4d697c0c5}\label{class_portam_a_pro_p_1_1_vehicle_a56c8e150a14137bb6e0722d4d697c0c5}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!get\+Posicio@{get\+Posicio}}
+\index{get\+Posicio@{get\+Posicio}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{get\+Posicio()}{getPosicio()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Vehicle.\+get\+Posicio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens dona la posicio actual del vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens dona l\textquotesingle{}identificador del node on actualment es troba el vehidle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a0b870654a23dba4acdb2b8a9614a93d8}\label{class_portam_a_pro_p_1_1_vehicle_a0b870654a23dba4acdb2b8a9614a93d8}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!Modificar\+Passatgers@{Modificar\+Passatgers}}
+\index{Modificar\+Passatgers@{Modificar\+Passatgers}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{Modificar\+Passatgers()}{ModificarPassatgers()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+Modificar\+Passatgers (\begin{DoxyParamCaption}\item[{int}]{variacio }\end{DoxyParamCaption})}
+
+
+
+Canvia el numero de passatges. 
+
+\begin{DoxyPrecond}{Precondition}
+0$<$Abs(variacio)$<$= \+\_\+\+Capacitat\+Total 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens modifica el valor del atribut \+\_\+\+Capacitat\+Total segons variacio 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_ac21f14eaa0e69f35b33dee20d085cb3e}\label{class_portam_a_pro_p_1_1_vehicle_ac21f14eaa0e69f35b33dee20d085cb3e}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!node\+Inicial@{node\+Inicial}}
+\index{node\+Inicial@{node\+Inicial}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{node\+Inicial()}{nodeInicial()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Vehicle.\+node\+Inicial (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Node inicial. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu el node inicial del vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_acaee99f30ba494ed5bde824f283ca329}\label{class_portam_a_pro_p_1_1_vehicle_acaee99f30ba494ed5bde824f283ca329}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!n\+Passatgers@{n\+Passatgers}}
+\index{n\+Passatgers@{n\+Passatgers}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{n\+Passatgers()}{nPassatgers()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Vehicle.\+n\+Passatgers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Nombre de passatgers. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu el nombre de passatges que te actualment el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_adec927d972606ab6d3fcdfa113b46ce3}\label{class_portam_a_pro_p_1_1_vehicle_adec927d972606ab6d3fcdfa113b46ce3}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!n\+Pass\+Total@{n\+Pass\+Total}}
+\index{n\+Pass\+Total@{n\+Pass\+Total}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{n\+Pass\+Total()}{nPassTotal()}}
+{\footnotesize\ttfamily int Portam\+A\+Pro\+P.\+Vehicle.\+n\+Pass\+Total (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Total de passatgers. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu el total de passatgers que pot assolir el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a2d2bd58e6b614ff9cbbf4229cdc19e8e}\label{class_portam_a_pro_p_1_1_vehicle_a2d2bd58e6b614ff9cbbf4229cdc19e8e}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!restaurar\+Carrega@{restaurar\+Carrega}}
+\index{restaurar\+Carrega@{restaurar\+Carrega}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{restaurar\+Carrega()}{restaurarCarrega()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+restaurar\+Carrega (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Assigna l\textquotesingle{}autonimia total del vehicle a l\textquotesingle{}autonomia restant. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ens diu la quantitat de carrega total que pot enmagatzemar el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a4a1d2ae60f3baa2dc01a51ab97e23f27}\label{class_portam_a_pro_p_1_1_vehicle_a4a1d2ae60f3baa2dc01a51ab97e23f27}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!set\+Hora\+Primera\+Sol@{set\+Hora\+Primera\+Sol}}
+\index{set\+Hora\+Primera\+Sol@{set\+Hora\+Primera\+Sol}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{set\+Hora\+Primera\+Sol()}{setHoraPrimeraSol()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+set\+Hora\+Primera\+Sol (\begin{DoxyParamCaption}\item[{Local\+Time}]{t }\end{DoxyParamCaption})}
+
+
+
+Assigna el temps de la primera peticio que accepta el vehicle com a t. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+El temps de la primera peticio s\textquotesingle{}ha actualitzat a t 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a72944f859922a8a0f79af0d4426c5aad}\label{class_portam_a_pro_p_1_1_vehicle_a72944f859922a8a0f79af0d4426c5aad}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!set\+Hora\+Ultima\+Sol@{set\+Hora\+Ultima\+Sol}}
+\index{set\+Hora\+Ultima\+Sol@{set\+Hora\+Ultima\+Sol}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{set\+Hora\+Ultima\+Sol()}{setHoraUltimaSol()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+set\+Hora\+Ultima\+Sol (\begin{DoxyParamCaption}\item[{Local\+Time}]{t }\end{DoxyParamCaption})}
+
+
+
+Assigna el temps de la ultima peticio que accepta el vehicle com a t. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+El temps de la ultima peticio s\textquotesingle{}ha actualitzat a t 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a36c3f9cd157876333245102034f297e3}\label{class_portam_a_pro_p_1_1_vehicle_a36c3f9cd157876333245102034f297e3}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!set\+Posicio@{set\+Posicio}}
+\index{set\+Posicio@{set\+Posicio}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{set\+Posicio()}{setPosicio()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Vehicle.\+set\+Posicio (\begin{DoxyParamCaption}\item[{int}]{node\+Id }\end{DoxyParamCaption})}
+
+
+
+Actualitza la posicio del vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+0 $<$= node\+Id $>$= max\+Nodes\+Graf 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+S\textquotesingle{}ha actualitzat l\textquotesingle{}identificador del node on es troba el vehicle 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_vehicle_a54c396472460bc914c2cc65b64ab5a0b}\label{class_portam_a_pro_p_1_1_vehicle_a54c396472460bc914c2cc65b64ab5a0b}} 
+\index{Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!Portam\+A\+Pro\+P\+::\+Vehicle@{Portam\+A\+Pro\+P\+::\+Vehicle}}
+\subsubsection{\texorpdfstring{to\+String()}{toString()}}
+{\footnotesize\ttfamily String Portam\+A\+Pro\+P.\+Vehicle.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ens dona informacio sobre el vehicle. 
+
+\begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Torna una cadena de caracters amb informacio sobre el vehicle 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Vehicle.\+java\end{DoxyCompactItemize}

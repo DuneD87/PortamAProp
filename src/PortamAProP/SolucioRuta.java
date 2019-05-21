@@ -1,5 +1,11 @@
 package PortamAProP;
 
+/**
+ * @class SolucioRuta
+ * @brief Classe encarregada de guardar les diferents solucions
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +13,7 @@ import java.util.Stack;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
-/**
- * @class SolucioRuta
- * @brief Classe encarregada de guardar les diferents solucions
- * @author Xavier Avivar & Buenaventura Martinez
- */
+
 
 public class SolucioRuta {
 
@@ -27,33 +29,33 @@ public class SolucioRuta {
      */
     private ArrayList<Pair<Character, Node>> _candidats;
     
-    /**MAPA, VEHICLES Y PETICIONS*/
-    private Vehicle _vehicle;//@brief Vehicle que realitzara la ruta
-    private double _tempsEnMarxa;//@brief temps acumulat en atendre totes les peticions
-    private double _tempsADepot;//@brief temps que esta el vehicle carregan
-    private double _tempsTotal;//@brief Temps total, suma de temps en marxa i temps a depot
-    private Graph _graf;//@brief Subgraph sobre el que treballem
-    private ArrayList<Peticio> _peticio;//@breif Subgrup de peticions que el nostre vehicle atendra
+    /*MAPA, VEHICLES Y PETICIONS*/
+    private Vehicle _vehicle;//!<@brief Vehicle que realitzara la ruta
+    private double _tempsEnMarxa;//!<@brief temps acumulat en atendre totes les peticions
+    private double _tempsADepot;//!<@brief temps que esta el vehicle carregan
+    private double _tempsTotal;//!<@brief Temps total, suma de temps en marxa i temps a depot
+    private Graph _graf;//!<@brief Subgraph sobre el que treballem
+    private ArrayList<Peticio> _peticio;//!<@breif Subgrup de peticions que el nostre vehicle atendra
     
-    /**ESTRUCTURES ON GUARDEM LA SOLUCIO*/
-    private Stack<Node> _nodes;//@brief Conjunt de nodes que representa la nostra ruta
-    private Stack<Character> _accio;//@brief accio feta a cada node
-    private Stack<Integer> _carrega;//@brief ens diu quants passatgers a carregat/descarregat a cada node
-    private ArrayList<PeticioEnTramit> _peticionsTramit;//@brief Llista de peticions en tramit
+    /*ESTRUCTURES ON GUARDEM LA SOLUCIO*/
+    private Stack<Node> _nodes;//!<@brief Conjunt de nodes que representa la nostra ruta
+    private Stack<Character> _accio;//!<@brief accio feta a cada node
+    private Stack<Integer> _carrega;//!<@brief ens diu quants passatgers a carregat/descarregat a cada node
+    private ArrayList<PeticioEnTramit> _peticionsTramit;//!<@brief Llista de peticions en tramit
     
-    /**VARIABLES DE CONTROL*/
-    private int _nPeticions;//@brief Numero de peticions que estem tramitan
-    private int _nPeticionsTramitades;//@brief Numero de peticions que estan finalitzades
-    private LocalTime _horaActual; //@brief Ens diu l'hora actual
-    private int _maximEspera;//@brief Temps maxim d'espera que estem disposats a esperar
-    private int _minimLegal;//@brief Temps establer per la llei que ha d'esperar minim tota peticio
+    /*VARIABLES DE CONTROL*/
+    private int _nPeticions;//!<@brief Numero de peticions que estem tramitan
+    private int _nPeticionsTramitades;//!<@brief Numero de peticions que estan finalitzades
+    private LocalTime _horaActual; //!<@brief Ens diu l'hora actual
+    private int _maximEspera;//!<@brief Temps maxim d'espera que estem disposats a esperar
+    private int _minimLegal;//!<@brief Temps establer per la llei que ha d'esperar minim tota peticio
     
-    private Ruta _ruta;//@brief Ruta que fa el vehicle
+    private Ruta _ruta;//!<@brief Ruta que fa el vehicle
     
-    private double _minCarga; //@brief ens diu quan el vehicle ha d'anar a carregar
+    private double _minCarga; //!<@brief ens diu quan el vehicle ha d'anar a carregar
     
     //Afegit per Buenaventura 
-    private int [] _conversio; //@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
+    private int [] _conversio; //!<@brief ArrayList de pairs que assosia els index dels nodes del subgraf amb el graf complet ( Possible solucio per el conflicte de indexs)
     
     private StringBuilder _log;
     
@@ -142,7 +144,7 @@ public class SolucioRuta {
     /**
      * @brief Constructor de copia
      * @pre ---
-     * @post S'ha construit una nova SolucioRuta a partir de la solucio anterior
+     * @post S'ha construit una nova SolucioRuta a partir de la solucio anterior \n
      * Es fa copia de totes aquelles estructures que guarden solucions parcials al
      * problema, la resta, copiem la seva referencia.
      * @param sol Ens dona la solucio anterior
@@ -173,7 +175,7 @@ public class SolucioRuta {
     /**
      * @brief Candidat acceptable
      * @pre 0 <= iCan.actual() < nNodes - 1 
-     * @post Ens diu si el candidat es acceptable:
+     * @post Ens diu si el candidat es acceptable: \n
      * Determinem el tipus de candidat del que es tracta ( origen, desti, depot )
      * i mirem si pot arribar al node. En cas afirmatiu, tractem el candidat per el
      * seu tipus i determinem si es acceptable
@@ -209,12 +211,10 @@ public class SolucioRuta {
     
     /**
      * @brief Ens diu si considerem el candidat origen com a acceptable, per
-     * aixo s'han de cumplir dos condicions: 
-     * Tenim prou espai per carregar els
-     * clients que esperen. 
-     * La bateria del vehicle es superior al 50%.
-     * L'hora actual es inferior a l'hora de l'emissio + el minim temps legal d'espera 
-     * + el maxim temps que el client vol esperar + el temps d'arribada.
+     * aixo s'han de cumplir dos condicions: \n
+     * -Tenim prou espai per carregar els clients que esperen \n
+     * -La bateria del vehicle es superior al 50% \n
+     * -L'hora actual es inferior a l'hora de l'emissio + el minim temps legal d'espera + el maxim temps que el client vol esperar + el temps d'arribada \n
      */
     private boolean origenAcceptable(CandidatRuta iCan, double temps) {
         double mitjaBat = _vehicle.carregaTotal() * _minCarga;
@@ -227,7 +227,7 @@ public class SolucioRuta {
 
     /**
      * @brief Ens diu si considerem el candidat desti com a acceptable, per aixo
-     * s'ha de cumplir: 
+     * s'ha de cumplir:\n 
      * Els passatgers que portem hagin de baixar al node
      */
     private boolean destiAcceptable(CandidatRuta iCan, Node p) {
@@ -238,7 +238,7 @@ public class SolucioRuta {
 
     /**
      * @brief Ens diu si considerem el candidat depot com aceptable, per aixo
-     * s'ha de cumplir: 
+     * s'ha de cumplir:\n 
      * No hi ha cap peticio en curs, i la bateria del vehicle
      * esta per sota del factor de carrega critic
      */
@@ -251,10 +251,10 @@ public class SolucioRuta {
 
     /**
      * @brief Inicialitza el candidat i possa com a maxim el maxim del vector de
-     * candidats. Els nostres candidats son: 
-     * Origen: Origen d'una peticio
-     * Desti: Desti d'una peticio 
-     * Depot: Punt de recarrega
+     * candidats. Els nostres candidats son:\n 
+     * Origen: Origen d'una peticio \n
+     * Desti: Desti d'una peticio \n
+     * Depot: Punt de recarrega \n
      */
     public CandidatRuta iniCan() {
         return new CandidatRuta(_candidats.size() - 1);
@@ -263,15 +263,15 @@ public class SolucioRuta {
     /**
      * @brief Anotem candidat
      * @post S'ha anotat el node a la ruta, s'ha actualitzat el cost total i
-     * s'ha decrementat la bateria del vehicle. *LA POST ES FA SEMPRE*
-     *
-     * Independenment de la postcondicio hem de tractar 3 casos:
-     *
+     * s'ha decrementat la bateria del vehicle. *LA POST ES FA SEMPRE* \n
+     * \n
+     * Independenment de la postcondicio hem de tractar 3 casos: \n
+     * \n
      * Origen i desti: Modifiquem el nombre de passatges del vehicle i
-     * actualitzem el rellotge global.
-     *
-     * Depot: Carreguem el cotxe durant 30min i actualitzem el rellotge
-     * global.
+     * actualitzem el rellotge global. \n
+     * \n
+     * Depot: Carreguem el cotxe fins carrega completa i actualitzem el rellotge
+     * global. \n
      */
     public void anotar(CandidatRuta iCan) {
         char tipus = _candidats.get(iCan.actual()).getKey();
@@ -331,9 +331,9 @@ public class SolucioRuta {
     /**
      * @brief Desanotem candidat
      * @post S'ha eliminat l'ultim node de la ruta, s'ha actualitzat el cost
-     * total i s'ha incrementat la bateria del cotxe
-     *
-     * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar.
+     * total i s'ha incrementat la bateria del cotxe \n
+     * \n
+     * Com en el cas d'anotar, aqui tambe tenim els 3 casos, complementaris al anotar \n
      */
     public void desanotar(CandidatRuta iCan) {
         char tipus = _accio.pop();
@@ -397,14 +397,6 @@ public class SolucioRuta {
     public boolean completa() {
       
         return _nPeticionsTramitades == (_peticio.size());
-    }
-    
-    /**
-     * @brief Pot ser millor
-     * @post NO IMPLEMENTAT
-     */
-    public boolean potSerMillor(SolucioRuta optim) {
-        return true;
     }
     
     /**

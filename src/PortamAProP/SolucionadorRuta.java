@@ -7,11 +7,11 @@ package PortamAProP;
  */
 public class SolucionadorRuta {
 
-    private SolucioRuta _actual;
-    private SolucioRuta _optim;
-    private boolean _trobat;
-    private int _nSolucions;
-    private int _nSolucionsTotal;
+    private SolucioRuta _actual;//!<@brief Solucio actual
+    private SolucioRuta _optim;//!<@brief Candidat a solucio millor
+    private boolean _trobat;//!<@brief Ens diu si ha trobat solucio
+    private int _nSolucions;//!<@brief Numero de solucions trobades
+    private int _nSolucionsTotal;//!<@brief Numero de solucions totals
     private StringBuilder _log;
     
     /**
@@ -24,7 +24,7 @@ public class SolucionadorRuta {
     private void backtracking() {
         CandidatRuta iCan = _actual.iniCan();
         while (!iCan.esFi()) {
-            if (_actual.acceptable(iCan) && _actual.potSerMillor(_optim)) {
+            if (_actual.acceptable(iCan)) {
                 _actual.anotar(iCan);
                 if (!_actual.completa()) {
                     backtracking();

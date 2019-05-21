@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['generadoraleatorinodes',['generadorAleatoriNodes',['../class_portam_a_pro_p_1_1_generador_nodes_graf.html#aca80784e2f6b7a5ed13029e4dd993a44',1,'PortamAProP::GeneradorNodesGraf']]],
+  ['generadornodesgraf',['GeneradorNodesGraf',['../class_portam_a_pro_p_1_1_generador_nodes_graf.html',1,'PortamAProP.GeneradorNodesGraf'],['../class_portam_a_pro_p_1_1_generador_nodes_graf.html#a0a254397d096732fe208ad9f70cf0a41',1,'PortamAProP.GeneradorNodesGraf.GeneradorNodesGraf()']]],
+  ['generadorpeticions',['GeneradorPeticions',['../class_portam_a_pro_p_1_1_generador_peticions.html',1,'PortamAProP.GeneradorPeticions'],['../class_portam_a_pro_p_1_1_generador_peticions.html#a70f24b2e595d7492753542902c5e0d85',1,'PortamAProP.GeneradorPeticions.GeneradorPeticions()']]],
+  ['generarfinestra',['generarFinestra',['../class_portam_a_pro_p_1_1_estadistics.html#a36584b822106277dc698bc3bfb5baf0b',1,'PortamAProP::Estadistics']]],
+  ['gestionarmenu',['gestionarMenu',['../class_portam_a_pro_p_1_1_controlador.html#af20b7a4354e0a4d5223bbbe04aff97e1',1,'PortamAProP::Controlador']]],
+  ['getgraph',['getGraph',['../class_portam_a_pro_p_1_1_ruta.html#ae131ddbcf7bb38b74606c6d17038127e',1,'PortamAProP::Ruta']]],
+  ['gethoraprimerasol',['getHoraPrimeraSol',['../class_portam_a_pro_p_1_1_vehicle.html#a5cdfe0d84974985a89a218c5f8e3a554',1,'PortamAProP::Vehicle']]],
+  ['gethoraultimasol',['getHoraUltimaSol',['../class_portam_a_pro_p_1_1_vehicle.html#ac4b240efbba88cd805bdc9cdff58785d',1,'PortamAProP::Vehicle']]],
+  ['getnodes',['getNodes',['../class_portam_a_pro_p_1_1_ruta.html#ac3c8cf0f68e31d67b32cc9e7e0914f46',1,'PortamAProP::Ruta']]],
+  ['getnumdepot',['GetNumDepot',['../class_portam_a_pro_p_1_1_llegir_fitxer_graf.html#a45dd3b57e65010e9e6eaf940d7695527',1,'PortamAProP::LlegirFitxerGraf']]],
+  ['getposicio',['getPosicio',['../class_portam_a_pro_p_1_1_vehicle.html#a56c8e150a14137bb6e0722d4d697c0c5',1,'PortamAProP::Vehicle']]],
+  ['getsol',['getSol',['../class_portam_a_pro_p_1_1_ruta.html#a996ba51c71a91919b99c1df56bb6d0ad',1,'PortamAProP::Ruta']]],
+  ['getvehicle',['getVehicle',['../class_portam_a_pro_p_1_1_ruta.html#a66aba8b89762ddc8df0a3bb3741ece40',1,'PortamAProP::Ruta']]],
+  ['gmitjanadistancianodes',['gmitjanaDistanciaNodes',['../class_portam_a_pro_p_1_1_ruta.html#af6470e14e390b3394c084cbbec33cd7f',1,'PortamAProP::Ruta']]],
+  ['gmitjanapassatgers',['gmitjanaPassatgers',['../class_portam_a_pro_p_1_1_ruta.html#acef34ba8914120054ac66f585072cbc4',1,'PortamAProP::Ruta']]],
+  ['gmitjanatempsesperaclient',['gmitjanaTempsEsperaClient',['../class_portam_a_pro_p_1_1_ruta.html#a7668f7adc193b9b23d315ca48141ab71',1,'PortamAProP::Ruta']]],
+  ['gmitjanatempsmarxaclient',['gmitjanaTempsMarxaClient',['../class_portam_a_pro_p_1_1_ruta.html#a81a83db89e12c72adff5e59539a7a8d1',1,'PortamAProP::Ruta']]],
+  ['greedy',['Greedy',['../class_portam_a_pro_p_1_1_greedy.html',1,'PortamAProP.Greedy'],['../class_portam_a_pro_p_1_1_greedy.html#abeac8894d01a8df14d99ced2988d66c3',1,'PortamAProP.Greedy.Greedy()']]],
+  ['guadarruta',['guadarRuta',['../class_portam_a_pro_p_1_1_ruta.html#addebfd63d9ae2e9797d755dcba205ac4',1,'PortamAProP::Ruta']]]
+];

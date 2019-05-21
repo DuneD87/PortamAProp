@@ -1,0 +1,167 @@
+\hypertarget{class_portam_a_pro_p_1_1_greedy}{}\section{Portam\+A\+Pro\+P.\+Greedy Class Reference}
+\label{class_portam_a_pro_p_1_1_greedy}\index{Portam\+A\+Pro\+P.\+Greedy@{Portam\+A\+Pro\+P.\+Greedy}}
+
+
+Classe que a partir de un vehicle i una llista de peticions genera una ruta que el vehicle pot assolir amb la seva autonimia sense haver de anar a carregar ~\newline
+-\/\+Donat 2 numeros, determinam\+:~\newline
+--limit\+Temps\+: Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud ~\newline
+--distancia\+Maxima\+: Ens diu la distancia(en minuts) que el vehicle pot buscar peticions ~\newline
+.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_portam_a_pro_p_1_1_greedy_abeac8894d01a8df14d99ced2988d66c3}{Greedy} (long limit\+Temps, int distancia\+Maxima)
+\begin{DoxyCompactList}\small\item\em Constructor de la classe Gready. \end{DoxyCompactList}\item 
+void \hyperlink{class_portam_a_pro_p_1_1_greedy_a88ab480dd626665d2480220b3a032cc9}{crear\+Ruta} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} $>$ \+\_\+rutes, Sorted\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ \+\_\+solicituds, Graph \+\_\+graf, \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf}{Llegir\+Fitxer\+Graf} mapa)
+\begin{DoxyCompactList}\small\item\em Metode encarregat de generar una ruta per el vehicle v a partir de \+\_\+solicituds. \end{DoxyCompactList}\item 
+boolean \hyperlink{class_portam_a_pro_p_1_1_greedy_adf602e9d56f5dab642b1deb80719d7fa}{Dins\+Finestra\+Temps} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} s, Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ r)
+\begin{DoxyCompactList}\small\item\em Metode que ens diu si la peticio esta dins la finestra de temps acceptable pel vehicle. \end{DoxyCompactList}\item 
+double \hyperlink{class_portam_a_pro_p_1_1_greedy_ab5ac383d579ef9227ca99e52075e893d}{vehicle\+Pot\+Assolir\+Solicitud} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} s, Graph \+\_\+graf)
+\begin{DoxyCompactList}\small\item\em Metode que ens diu si el vehicle pot assolir la peticio, si pot anar a l\textquotesingle{}origen de la peticio si la pot fer i si pot tornar al depot mes proper sense anar a carregar. \end{DoxyCompactList}\item 
+\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} \hyperlink{class_portam_a_pro_p_1_1_greedy_aee6b3c5abeb729501fdf82a213ad60b5}{solicitud\+Mes\+Propera\+Disponible} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, Sorted\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ \+\_\+solicituds, Graph \+\_\+graf)
+\item 
+double \hyperlink{class_portam_a_pro_p_1_1_greedy_a452e5f5e1fd5489666fd9687d91b89c4}{buscar\+Depot\+Mes\+Proxim} (int index, Graph \+\_\+graf)
+\item 
+Graph \hyperlink{class_portam_a_pro_p_1_1_greedy_ad535a1ddb039e8d8c3d9e61d3d4caee9}{crear\+Sub\+Graf} (\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle} v, Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$ llista\+\_\+solicituds, int\mbox{[}$\,$\mbox{]} c, Graph \+\_\+graf, \hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf}{Llegir\+Fitxer\+Graf} mapa)
+\begin{DoxyCompactList}\small\item\em Metode que crea i retorna un graf a partir de una llista de peticions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe que a partir de un vehicle i una llista de peticions genera una ruta que el vehicle pot assolir amb la seva autonimia sense haver de anar a carregar ~\newline
+-\/\+Donat 2 numeros, determinam\+:~\newline
+--limit\+Temps\+: Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud ~\newline
+--distancia\+Maxima\+: Ens diu la distancia(en minuts) que el vehicle pot buscar peticions ~\newline
+. 
+
+\begin{DoxyAuthor}{Author}
+Xavier Avivar \& Buenaventura Martinez 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_abeac8894d01a8df14d99ced2988d66c3}\label{class_portam_a_pro_p_1_1_greedy_abeac8894d01a8df14d99ced2988d66c3}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!Greedy@{Greedy}}
+\index{Greedy@{Greedy}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{Greedy()}{Greedy()}}
+{\footnotesize\ttfamily Portam\+A\+Pro\+P.\+Greedy.\+Greedy (\begin{DoxyParamCaption}\item[{long}]{limit\+Temps,  }\item[{int}]{distancia\+Maxima }\end{DoxyParamCaption})}
+
+
+
+Constructor de la classe Gready. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em limit\+Temps} & Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud \\
+\hline
+{\em distancia\+Maxima} & Ens diu la distancia(en minuts) que el vehicle pot buscar peticions \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_a452e5f5e1fd5489666fd9687d91b89c4}\label{class_portam_a_pro_p_1_1_greedy_a452e5f5e1fd5489666fd9687d91b89c4}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!buscar\+Depot\+Mes\+Proxim@{buscar\+Depot\+Mes\+Proxim}}
+\index{buscar\+Depot\+Mes\+Proxim@{buscar\+Depot\+Mes\+Proxim}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{buscar\+Depot\+Mes\+Proxim()}{buscarDepotMesProxim()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Greedy.\+buscar\+Depot\+Mes\+Proxim (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{Graph}]{\+\_\+graf }\end{DoxyParamCaption})}
+
+Metode que retorna la distancia fins al depot mes proper \begin{DoxyVerb}Per determinal la distancia fins al depot mes proper, primer detrmino el numero
+de depots que hi ha al graf
+Com els depots sempre son els primers al graf, per cada index de 0 fins el numero de depots:
+miro la distancia que hi ha respecte el vehicle i em quedo amb el minim i el retorno
+\end{DoxyVerb}
+ \begin{DoxyPrecond}{Precondition}
+\+: Els depots han de ser els primers nodes 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+\+: Retoro la distancia entre el node amb index(index) i el depot mes proper 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_a88ab480dd626665d2480220b3a032cc9}\label{class_portam_a_pro_p_1_1_greedy_a88ab480dd626665d2480220b3a032cc9}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!crear\+Ruta@{crear\+Ruta}}
+\index{crear\+Ruta@{crear\+Ruta}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{crear\+Ruta()}{crearRuta()}}
+{\footnotesize\ttfamily void Portam\+A\+Pro\+P.\+Greedy.\+crear\+Ruta (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{Array\+List$<$ \hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} $>$}]{\+\_\+rutes,  }\item[{Sorted\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{\+\_\+solicituds,  }\item[{Graph}]{\+\_\+graf,  }\item[{\hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf}{Llegir\+Fitxer\+Graf}}]{mapa }\end{DoxyParamCaption})}
+
+
+
+Metode encarregat de generar una ruta per el vehicle v a partir de \+\_\+solicituds. 
+
+Per crear la ruta per el vehicle, el primer es buscar la peticio mes propera al vehicle, Mentre la solicitud sigui acceptada( !=null) i el contador de solicituds no superi al numero de solicituds, mirem si el vehicle pot assolir la solicitud tant per autonomia com per finestra de temps, si es aixi afagim la peticio a la ruta, restem el cost del la peticio a l\textquotesingle{}autonomia i posem el vehicle al desti de la peticio, i modifiquem l\textquotesingle{}estat de la peticio a E\+N\+T\+R\+A\+N\+S\+IT si per alguna cosa no es acceptada o per autonomia o per finstra de temps, modifiquem l\textquotesingle{}estat de la peticio a V\+I\+S\+I\+T\+A\+DA, sumem 1 al contador de peticions i tornem a buscar la seguent peticio disponible. Un cop finalitzat el bucle, reseteixo el temps de la primera peticio atesa per el vehicle, creo el subraf de la ruta, i si la ruta te alguna peticio, la afageixo a la llita de rutes, sino ho ignoro( una ruta sense peticions no te sentit) Finalment canvio el estat de totes les peticions V\+I\+S\+I\+T\+A\+D\+ES A E\+S\+P\+E\+RA
+
+\begin{DoxyPostcond}{Postcondition}
+\hyperlink{class_portam_a_pro_p_1_1_ruta}{Ruta} inserida \+\_\+rutes correctament 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_ad535a1ddb039e8d8c3d9e61d3d4caee9}\label{class_portam_a_pro_p_1_1_greedy_ad535a1ddb039e8d8c3d9e61d3d4caee9}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!crear\+Sub\+Graf@{crear\+Sub\+Graf}}
+\index{crear\+Sub\+Graf@{crear\+Sub\+Graf}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{crear\+Sub\+Graf()}{crearSubGraf()}}
+{\footnotesize\ttfamily Graph Portam\+A\+Pro\+P.\+Greedy.\+crear\+Sub\+Graf (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{llista\+\_\+solicituds,  }\item[{int \mbox{[}$\,$\mbox{]}}]{c,  }\item[{Graph}]{\+\_\+graf,  }\item[{\hyperlink{class_portam_a_pro_p_1_1_llegir_fitxer_graf}{Llegir\+Fitxer\+Graf}}]{mapa }\end{DoxyParamCaption})}
+
+
+
+Metode que crea i retorna un graf a partir de una llista de peticions. 
+
+Per crer un subgraf a partr de la llista de peticions, primer creo el graph i li afageixo tots els depots, despres per cada peticio afageixo al graf el origen i el desti. Per detrminar els pesos de les arestes del subgraf, i copia el pes del graf complet al subgraf
+
+\begin{DoxyPostcond}{Postcondition}
+\+: Retorna el subgraf creat a partir de la llista de peticions 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_adf602e9d56f5dab642b1deb80719d7fa}\label{class_portam_a_pro_p_1_1_greedy_adf602e9d56f5dab642b1deb80719d7fa}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!Dins\+Finestra\+Temps@{Dins\+Finestra\+Temps}}
+\index{Dins\+Finestra\+Temps@{Dins\+Finestra\+Temps}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{Dins\+Finestra\+Temps()}{DinsFinestraTemps()}}
+{\footnotesize\ttfamily boolean Portam\+A\+Pro\+P.\+Greedy.\+Dins\+Finestra\+Temps (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio}}]{s,  }\item[{Tree\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{r }\end{DoxyParamCaption})}
+
+
+
+Metode que ens diu si la peticio esta dins la finestra de temps acceptable pel vehicle. 
+
+Per determinar si la peticio esta dins de la finstra de temps del vehicle, el primer que es fa es mirar si el vehicle te alguna peticio acceptada, sino es aixi, inicialitzem el temps de la primera peticio acceptada per el vehilce. Si ja hi han peticions, es mira si la peticio s\textquotesingle{}ha emes despres de la primera que ha acceptat el vehicle i abans del limit que accepta el vehicle.
+
+\begin{DoxyPostcond}{Postcondition}
+Retorna verdades si la peticio esta dins de la finestra de temps acceptable pel vehicle 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Verdades si la peticio esta dins la finestra de temps acceptable pel vehicle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_aee6b3c5abeb729501fdf82a213ad60b5}\label{class_portam_a_pro_p_1_1_greedy_aee6b3c5abeb729501fdf82a213ad60b5}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!solicitud\+Mes\+Propera\+Disponible@{solicitud\+Mes\+Propera\+Disponible}}
+\index{solicitud\+Mes\+Propera\+Disponible@{solicitud\+Mes\+Propera\+Disponible}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{solicitud\+Mes\+Propera\+Disponible()}{solicitudMesProperaDisponible()}}
+{\footnotesize\ttfamily \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} Portam\+A\+Pro\+P.\+Greedy.\+solicitud\+Mes\+Propera\+Disponible (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{Sorted\+Set$<$ \hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio} $>$}]{\+\_\+solicituds,  }\item[{Graph}]{\+\_\+graf }\end{DoxyParamCaption})}
+
+Metode que retorna la peticio disponible mes propera al vehicle \begin{DoxyVerb}  Per determinar quina es la peticio disponible mes propera busca per totes les solicituds en estat ESPERA:
+  si troba una que l'inici es el node on esta el vehicle la dona com a valida, 
+  sino busca per totes les peticios la mes propera dins del rang MAX_DISTNACIA_GREEDY
+  i la retorna
+\end{DoxyVerb}
+
+
+\begin{DoxyPostcond}{Postcondition}
+\+: -- 
+
+\+: Retorna la peticio valida mes propera 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_portam_a_pro_p_1_1_greedy_ab5ac383d579ef9227ca99e52075e893d}\label{class_portam_a_pro_p_1_1_greedy_ab5ac383d579ef9227ca99e52075e893d}} 
+\index{Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}!vehicle\+Pot\+Assolir\+Solicitud@{vehicle\+Pot\+Assolir\+Solicitud}}
+\index{vehicle\+Pot\+Assolir\+Solicitud@{vehicle\+Pot\+Assolir\+Solicitud}!Portam\+A\+Pro\+P\+::\+Greedy@{Portam\+A\+Pro\+P\+::\+Greedy}}
+\subsubsection{\texorpdfstring{vehicle\+Pot\+Assolir\+Solicitud()}{vehiclePotAssolirSolicitud()}}
+{\footnotesize\ttfamily double Portam\+A\+Pro\+P.\+Greedy.\+vehicle\+Pot\+Assolir\+Solicitud (\begin{DoxyParamCaption}\item[{\hyperlink{class_portam_a_pro_p_1_1_vehicle}{Vehicle}}]{v,  }\item[{\hyperlink{class_portam_a_pro_p_1_1_peticio}{Peticio}}]{s,  }\item[{Graph}]{\+\_\+graf }\end{DoxyParamCaption})}
+
+
+
+Metode que ens diu si el vehicle pot assolir la peticio, si pot anar a l\textquotesingle{}origen de la peticio si la pot fer i si pot tornar al depot mes proper sense anar a carregar. 
+
+Per detrminar si el vehicle pot assolir la peticio calculem les distancies i les sumem, si la suma es menor que l\textquotesingle{}autonomia actual, la peticio es valida. \begin{DoxyPrecond}{Precondition}
+--- 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Retorna cert si el vehicle v pot assolir la peticio s 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/drive/\+Net\+Beans\+Projects/\+Portam\+A\+Prop/src/\+Portam\+A\+Pro\+P/Greedy.\+java\end{DoxyCompactItemize}

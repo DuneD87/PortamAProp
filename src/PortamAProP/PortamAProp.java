@@ -1,5 +1,10 @@
 package PortamAProP;
-
+/**
+ * @class PortamAProP
+ * @brief Classe main encarregada de gestionar els parametres d'entrada i inicialitzar
+ * el controlador
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
 
 
 public class PortamAProp {
@@ -34,7 +39,7 @@ public class PortamAProp {
     }
     
     /**
-     * @param args the command line argumentsds
+     * @param args Arguments de la linea de comandes
      * @arg -tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)
      * @arg -me n   Temps maxim d'espera de les peticions (DEFAULT : 30min)
      * @arg -ml n   Temps minim legal per atendre una peticio (DEFAULT : 15min)
@@ -51,7 +56,7 @@ public class PortamAProp {
      */
     public static void main(String[] args) {
         
-        /**VARIABLES DE CONTROL*/
+        /*VARIABLES DE CONTROL*/
         int tamanyFinestra = 150;
         int maximEspera = 30;
         int minimLegal = 15;
@@ -69,7 +74,7 @@ public class PortamAProp {
         String nFitxerVehicle = "Vehicles.txt";
         String nFitxerDepot = "Depots.txt";
         
-        /**TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
+        /*TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
         
         for (int i = 0 ; i < args.length; i++) {
             String s = args[i];
@@ -79,10 +84,10 @@ public class PortamAProp {
                 maximEspera = Integer.parseInt(args[i + 1]);
             } else if (s.contains("-ml")) {
                 minimLegal = Integer.parseInt(args[i + 1]);
-            } else if (s.contains("-rs")) {
+            } else if (s.contains("-rp")) {
                 nPeticions = Integer.parseInt(args[i + 1]);
                 maxPersones = Integer.parseInt(args[i + 2]);
-            } else if (s.contains("-fs")) {
+            } else if (s.contains("-fp")) {
                 randomSol = false;
                 nFitxerSol = args[i + 1];
             } else if (s.contains("-rn")) {
@@ -107,7 +112,7 @@ public class PortamAProp {
             }
         }
         
-        /**INICIALITZEM EL CONTROLADOR*/
+        /*INICIALITZEM EL CONTROLADOR*/
         Controlador c = new Controlador(tamanyFinestra,maximEspera,minimLegal,nPeticions
                 ,maxPersones,nFitxerSol,nNodes,pesMaxim,nFitxerGraf,maxGreedy,randomSol
                 ,randomNode,minCarga,nFitxerSortida,nFitxerVehicle,nFitxerDepot);

@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="PortamAProP.PeticioEnTramit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_portam_a_pro_p_1_1_peticio_en_tramit.html",tooltip="Objecte compost per una peticio i diferents atributs que ens donen informacio sobre l&#39;estat i hores d..."];
+}

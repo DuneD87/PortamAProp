@@ -1,13 +1,6 @@
 package PortamAProP;
-
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 /**
+ * @class Estadistics
  * @brief Classe encarregada de generar els estadistics globals de totes les rutes solucionades pel backtraking
  *        
  *        La classe Estadistic es l'encarregada de generar els estadistics correponents 
@@ -16,16 +9,26 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * 
  * @author Xavier Avivar & Buenaventura Martinez
  */
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 
 public class Estadistics {
     
-    private ArrayList<Ruta> _rutes; //@brief Llista de totes les rutes solucionades pel backtracking
-    private double _mitjanaTempsRutaVehicle;//@brief Mitjana de temps que el vehicle esta circulant per la carratera
-    private double _mitjanaTempsCarregaVehicle;//@brief Mitjana de temps que el vehicle esta aturat per carregar
-    private double _mitjanaPassatgersVehicle;//@brief Mitjana de clients per peticio
-    private int _distanciaNodes;//@brief Mitjana de la distancia (en minuts) que hi ha entre els nodes de la ruta
-    private int _mitjanaTempsEsperaClient; //@brief Mitjana de temps que els clients esperen a ser recollits pel vehicle
-    private int _mitjanaTempsRecorregutClient;//@brief Mitjana de temps que el client esta al vehicle, desde que el recull fins que el deixa
+    private ArrayList<Ruta> _rutes; //!<@brief Llista de totes les rutes solucionades pel backtracking
+    private double _mitjanaTempsRutaVehicle;//!<@brief Mitjana de temps que el vehicle esta circulant per la carratera
+    private double _mitjanaTempsCarregaVehicle;//!<@brief Mitjana de temps que el vehicle esta aturat per carregar
+    private double _mitjanaPassatgersVehicle;//!<@brief Mitjana de clients per peticio
+    private int _distanciaNodes;//!<@brief Mitjana de la distancia (en minuts) que hi ha entre els nodes de la ruta
+    private int _mitjanaTempsEsperaClient; //!<@brief Mitjana de temps que els clients esperen a ser recollits pel vehicle
+    private int _mitjanaTempsRecorregutClient;//!<@brief Mitjana de temps que el client esta al vehicle, desde que el recull fins que el deixa
+    
+    /*FINESTRES*/
     private JFreeChart chartMitjanaTempsMarxaVehicle;
     private JFreeChart chartMitjanaTempsCarregaVehicle;
     private JFreeChart chartMitjanaDistanciaNodes;

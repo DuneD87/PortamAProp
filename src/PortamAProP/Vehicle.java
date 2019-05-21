@@ -1,8 +1,5 @@
 package PortamAProP;
 
-import java.sql.Time;
-import java.time.LocalTime;
-
 /**
  * @brief Classe encarregada de guardar dades dels vehicles
  *      El vehicle es un objecte que es mou pels diferents nodes del 
@@ -11,18 +8,22 @@ import java.time.LocalTime;
  * @author Xavier Avivar & Buenaventura Martinez
  */
 
+import java.time.LocalTime;
+
+
+
 public class Vehicle {
     //Atributs
-    private int _identificador; //@brief Indetificador unic per el vehicle
-    private int _capacitatTotal; //@brief Quantitat total de persones que pot portar
-    private double _autonomiaTotal; //@brief Temps total que pot funcionar el vehicle sense haber de cargar
-    private double _autonomiaRestant; //@brief Temps que li falta per haber de anar a cargar
-    private int _numPassatgers; //@brief Numero de passatges actuals del vehicle
+    private int _identificador; //!<@brief Indetificador unic per el vehicle
+    private int _capacitatTotal; //!<@brief Quantitat total de persones que pot portar
+    private double _autonomiaTotal; //!<@brief Temps total que pot funcionar el vehicle sense haber de cargar
+    private double _autonomiaRestant; //!<@brief Temps que li falta per haber de anar a cargar
+    private int _numPassatgers; //!<@brief Numero de passatges actuals del vehicle
     private double _carga; //@brief Index de efectivitat  carga del cotxe 0<x<1 (no pot ser 0 perque no cargaria)
-    private int _idNodePrincipi; //@brief Identificador del node en que el cotxe esta inicialment
-    private int _idNodeActual; //@brief Identificador del node en el que es troba el cotxe
-    private LocalTime _HoraUltimaSol;//@brief Temps de la arribada de la ultima peticio assignada al vehicle
-    private LocalTime _HoraPrimeraSol;//@brief Temps de la emisio de la primera peticio assignada al vehicle
+    private int _idNodePrincipi; //!<@brief Identificador del node en que el cotxe esta inicialment
+    private int _idNodeActual; //!<@brief Identificador del node en el que es troba el cotxe
+    private LocalTime _HoraUltimaSol;//!<@brief Temps de la arribada de la ultima peticio assignada al vehicle
+    private LocalTime _HoraPrimeraSol;//!<@brief Temps de la emisio de la primera peticio assignada al vehicle
     
     /**
      * @brief Constructor amb parametres

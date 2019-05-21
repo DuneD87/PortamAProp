@@ -1,4 +1,13 @@
 package PortamAProP;
+/**
+ * @class Greedy
+ * @brief Classe que a partir de un vehicle i una llista de peticions genera una ruta que el vehicle pot assolir amb la seva autonimia sense haver de anar a carregar \n
+ * -Donat 2 numeros, determinam:\n
+ * --limitTemps: Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud \n
+ * --distanciaMaxima: Ens diu la distancia(en minuts) que el vehicle pot buscar peticions \n
+ * 
+ * @author Xavier Avivar & Buenaventura Martinez
+ */
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,15 +18,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
-/**
- * @class Greedy
- * @brief Classe que a partir de un vehicle i una llista de peticions genera una ruta que el vehicle pot assolir amb la seva autonimia sense haver de anar a carregar 
- * -Donat 2 numeros, determinam:
- * --limitTemps: Ens diu els minuts maxim que el vehicle podra assolir peticions desde la primera solicitud
- * --distanciaMaxima: Ens diu la distancia(en minuts) que el vehicle pot buscar peticions
- * 
- * @author Xavier Avivar & Buenaventura Martinez
- */
+
 public class Greedy {
     private long LIMIT_FINESTRA_TEMPS;
     private int MAX_DISTANCIA_GREEDY;
