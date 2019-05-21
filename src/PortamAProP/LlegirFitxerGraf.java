@@ -31,13 +31,12 @@ public class LlegirFitxerGraf {
       
         String[] lines = text.split("\r\n|\r|\n");
         int contador=0;
-        for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
-            //System.out.println(lines[i]);
+        for (int i=contador; i < lines.length && !lines[i].equals("*"); i++){
             CrearNode(lines[i], graf, format);
             contador=i;
         }
             contador+=2;
-         for (int i=contador; i < lines.length && !lines[i].equals("#"); i++){
+         for (int i=contador; i < lines.length && !lines[i].equals("*"); i++){
             // System.out.println(lines[i]);
              DefinirAresta(lines[i], graf.getEdgeCount(), graf);
 

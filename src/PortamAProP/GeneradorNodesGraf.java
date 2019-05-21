@@ -88,7 +88,7 @@ public class GeneradorNodesGraf {
             _nodes += Integer.toString(desti) + " ";
             _nodes += Integer.toString(random.nextInt(_pesMax) + 1)+ "\n";
         }
-        _nodes += "*";
+        _nodes += "*\n";
     }
 
     /**
@@ -165,7 +165,7 @@ public class GeneradorNodesGraf {
      * @post Retorna una cadena de caracters amb un llistat dels nodes generats
      */
     public String obtenirNodes(){
-        return _nodes+"\n";
+        return _nodes;
     }
 
 }
