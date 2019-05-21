@@ -3,6 +3,17 @@ package PortamAProP;
 
 
 public class PortamAProp {
+    
+    /**
+     * @brief Mostra ajuda sobre el programa
+     * @pre ---
+     * @post Mostra informacio sobre els diferents parametres de la nostra applicacio
+     */
+    public static void mostrarAjuda() {
+        StringBuilder ajuda = new StringBuilder();
+        
+    }
+    
     /**
      * @param args the command line argumentsds
      * @arg -tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)
@@ -17,7 +28,6 @@ public class PortamAProp {
      * @arg -o  f   Ens diu el nom del fitxer de sortida (DEFAULT: output.txt)
      * @arg -help   Ens dona informacio sobre l'utilitzacio de la aplicacio
      */
-    
     public static void main(String[] args) {
         
         /**VARIABLES DE CONTROL*/
