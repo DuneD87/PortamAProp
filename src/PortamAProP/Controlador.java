@@ -101,7 +101,8 @@ public class Controlador {
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
         _log = new StringBuilder();
-        System.out.println("NOOOOM DEL FITXEEEER: " + _nFitxerSol);
+        System.out.println("NOOOOM DEL FITXEEEER SOLICITUDS: " + _nFitxerSol);
+        System.out.println("NOOOM DEL FITXER GRAF: " + _nFitxerGraf);
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();

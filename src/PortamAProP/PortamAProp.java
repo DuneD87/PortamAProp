@@ -31,8 +31,8 @@ public class PortamAProp {
         int pesMaxim = 20;
         String nFitxerGraf = "Graf.txt";
         int maxGreedy = 50;
-        boolean randomSol = true;
-        boolean randomNode = true;
+        boolean randomSol = false;
+        boolean randomNode = false;
         double minCarga = 0.8;
         String nFitxerSortida = "output.txt";
         /**TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
