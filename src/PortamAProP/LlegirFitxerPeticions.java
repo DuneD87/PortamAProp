@@ -30,7 +30,6 @@ public class LlegirFitxerPeticions {
             CrearSolicitud(lines[i]);
         }
         
-        System.out.println("peticions creades");
         
     }
     

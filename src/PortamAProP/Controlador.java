@@ -108,17 +108,17 @@ public class Controlador {
         _nFitxerDepot = nFitxerDepot;
         _nFitxerVehicle = nFitxerVehicle;
         _graf = new SingleGraph("MAPA");
-        _graf.setAutoCreate(true);
+        _peticions = new TreeSet<>();
+         _vehicles = new ArrayList<>();
         _log = new StringBuilder();
         generarGraf();
-        _peticions = new TreeSet<>();
+        if(_graf.getNodeCount()!=0){
         generarSolicituds();
-        _vehicles = new ArrayList<>();
         generarVehicles();
         _ruta = new ArrayList<Pair<Vehicle, TreeSet<Peticio>>>(10);
         _rutes = new ArrayList<Ruta>();
         voras = new Greedy(_maxFinestraTemps, _maxDistanciaGreedy);
-
+        }
     }
 
     /**
@@ -127,6 +127,8 @@ public class Controlador {
      * @post S'ha inicialitzat el programa i s'ha guardat la solucio al fitxer de sortida
      */
     public void init() {
+      
+        if(_graf.getNodeCount() != 0 || ! _peticions.isEmpty() || ! _vehicles.isEmpty()){
         assignarSolicitudsAVehicles();
         estadistic();
         FileWriter fichero = null;
@@ -171,6 +173,14 @@ public class Controlador {
             }
         }
         gestionarMenu();
+        }else{
+            if(_graf.getNodeCount()==0)
+                System.out.println("No hi han nodes al graf");
+            if(_peticions.isEmpty())
+                System.out.println("No hi han peticions");
+            if(_vehicles.isEmpty())
+                System.out.println("No hi han vehicles");
+        }
     }
     /**
      * @brief Mostra el submenu de estadistics
@@ -297,7 +307,7 @@ public class Controlador {
 
         mapa = new LlegirFitxerGraf();
         mapa.ModificarGrafPerFitxer(_graf, _nFitxerDepot, "Depot");//Els Depots sempre es Generer primer i a partir de un fitxer
-
+        if(_graf.getNodeCount()!=0){
         if (_randomNode) {
             _generadorNodes = new GeneradorNodesGraf(_pesMaxim, _nNodes);
             _generadorNodes.generadorAleatoriNodes(_graf.getNodeCount());
@@ -309,7 +319,7 @@ public class Controlador {
 
         _graf = mapa.obtGraph();
         _log.append("\nNodes inserits correctament\n");
-
+        }
     }
 
     /**

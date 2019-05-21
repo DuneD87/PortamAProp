@@ -129,7 +129,7 @@ public class Greedy {
         } else {//si no coincidex es calcula el pes fins anar a l'origen de la peticio
             anar_solicitud = _graf.getNode(v.nodeInicial()).getEdgeBetween(s.origen()).getAttribute("Pes");
         }
-        double completar_solicitud = _graf.getNode(s.origen()).getEdgeBetween(s.desti()).getAttribute("Pes");// es calcula el pes de assolir la peticio
+        double completar_solicitud = _graf.getNode(Integer.toString(s.origen())).getEdgeBetween(Integer.toString(s.desti())).getAttribute("Pes");// es calcula el pes de assolir la peticio
         double depot_proxim = buscarDepotMesProxim(s.desti(),_graf);//es calcula el pes de tornar al depot mes proper
         double autonomia = v.carregaRestant();
         if (anar_solicitud + completar_solicitud + depot_proxim < autonomia && s.numPassatgers() <= v.nPassTotal()) {// si pot assolir la peticio tant per autonomia com per nombre de passatgers

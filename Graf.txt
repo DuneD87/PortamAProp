@@ -15,6 +15,11 @@
 9 LLoc10
 10 LLoc11
 11 LLoc12
+12 Lloc13
+13 LLoc14
+14 Lloc15
+15 LLoc 16
+
 *
 #
 #   Creacio d'Arestes:
