@@ -10,13 +10,14 @@ import java.util.Scanner;
 public class LlegirFitxersVehicle {
 
     private List<Vehicle> _vecVehicles;
-    private static String FITXER_VEHICLE = "Vehicles.txt";
+    private String FITXER_VEHICLE;
     /**
      * @brief Inicialitza la lectura de vehicles
      * @pre ---
      * @post S'ha inicialitzat la lectura de vehicles
      */
-    public LlegirFitxersVehicle() {
+    public LlegirFitxersVehicle(String nFitxer) {
+        FITXER_VEHICLE = nFitxer;
         _vecVehicles = new ArrayList<>();
         File fitxer = null;
         FileReader fr = null;

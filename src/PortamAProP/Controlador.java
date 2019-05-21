@@ -57,6 +57,9 @@ public class Controlador {
     private final boolean _randomNode;
     private final double _minCarga;
     private final String _nFitxerSortida;
+    private final String _nFitxerVehicle;
+    private final String _nFitxerDepot;
+    
     private StringBuilder _log;
 
     /**
@@ -80,9 +83,13 @@ public class Controlador {
      * @param randomNode Ens diu si la generacio de nodes sera aleatoria
      * @param minCarga Ens diu el minim de carrega que el vehicle ha de tenir en
      * % abans de considerar un punt de carrega com acceptable
+     * @param nFitxerSortida Fitxer on s'escriura tota l'informacio de l'execucio del programa
+     * @param nFitxerVehicle Fitxer d'entrada d'on es llegiran els vehicles
+     * @param nFitxerDepot Fitxer d'entrada d'on es llegiran els depots
      */
     public Controlador(int tamanyFinestra, int maximEspera, int minimLegal, int nPeticions, int maxPersones,
-            String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol, boolean randomNode, double minCarga, String nFitxerSortida) {
+            String nFitxerSol, int nNodes, int pesMaxim, String nFitxerGraf, int maxGreedy, boolean randomSol,
+            boolean randomNode, double minCarga, String nFitxerSortida,String nFitxerVehicle, String nFitxerDepot) {
 
         _maxFinestraTemps = tamanyFinestra;
         _maxDistanciaGreedy = maxGreedy;
@@ -98,11 +105,11 @@ public class Controlador {
         _randomSol = randomSol;
         _randomNode = randomNode;
         _minCarga = minCarga;
+        _nFitxerDepot = nFitxerDepot;
+        _nFitxerVehicle = nFitxerVehicle;
         _graf = new SingleGraph("MAPA");
         _graf.setAutoCreate(true);
         _log = new StringBuilder();
-        System.out.println("NOOOOM DEL FITXEEEER SOLICITUDS: " + _nFitxerSol);
-        System.out.println("NOOOM DEL FITXER GRAF: " + _nFitxerGraf);
         generarGraf();
         _peticions = new TreeSet<>();
         generarSolicituds();
@@ -250,7 +257,7 @@ public class Controlador {
      * dades
      */
     private void generarVehicles() {
-        LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle();
+        LlegirFitxersVehicle lVehicle = new LlegirFitxersVehicle(_nFitxerVehicle);
         _vehicles = lVehicle.obtVehicles();
 
         for (int i = 0; i < _vehicles.size(); i++) {//suma 1 per cada vehicle en el su depot
@@ -289,7 +296,7 @@ public class Controlador {
     private void generarGraf() {
 
         mapa = new LlegirFitxerGraf();
-        mapa.ModificarGrafPerFitxer(_graf, NOM_FITXER_D, "Depot");//Els Depots sempre es Generer primer i a partir de un fitxer
+        mapa.ModificarGrafPerFitxer(_graf, _nFitxerDepot, "Depot");//Els Depots sempre es Generer primer i a partir de un fitxer
 
         if (_randomNode) {
             _generadorNodes = new GeneradorNodesGraf(_pesMaxim, _nNodes);

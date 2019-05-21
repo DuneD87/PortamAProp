@@ -1,0 +1,18 @@
+#   
+#   Format per la creacio de vehicles
+#   =================================
+#
+#   Creacio de vehicle (un per linia):
+#   1r paramentre: Id del vehicle
+#   2n paramentre: Maxim de passatgers (Conductor inclos)
+#   3r paramentre: Autonomia total (= Autonomia Restant al començament del programa)
+#   4t paramentre: Index Efectivitat de carga 
+#   5e paramentre: Id node on comença
+#
+#   Comentari pel bon funcionament del programa: NO deixar el cursor a la linia següent de 
+#   l'ultima linia de paramentres
+#
+1 5 300 0.4 1
+2 5 300 0.6 3
+3 5 400 0.1 5
+

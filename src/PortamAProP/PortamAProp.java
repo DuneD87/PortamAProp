@@ -11,7 +11,27 @@ public class PortamAProp {
      */
     public static void mostrarAjuda() {
         StringBuilder ajuda = new StringBuilder();
-        
+        ajuda.append("Forma d'us: PortamAProp [RANDOM PETICIONS | FITXER PETICIONS].. [RANDOM NODES | FITXER NODES].. [OPCIONS]..\n");
+        ajuda.append("Genera diversos estadistics a partir de unes dades d'entrada\n"
+                + "que poden venir desde fitxer o generades aleatoriament."
+                + "Tots les opcions son opcionals, pero algunes son contradictoris, ej.\n"
+                + "no podem llegir de forma aleatoria i de fitxer a la mateixa vegada.\n"
+                + "Ocions disponibles: \n"
+                + "     [-rp | -fp]\n"
+                + "     -rp n,k Creara maxim n peticions aleatories per el paquet actual, amb k persones maxim (DEFAULT: ON : 60 peticions : 2 persones maxim per peticio) \n"
+                + "     -fp f   Treballarem sobre un paquet de peticions que venen de fitxer (DEFAULT: OFF)\n"
+                + "     [-rn | -fn]\n"
+                + "     -rn n,k Creara n nodes aleatoris per el nostre graf amb k pes maxim (DEFAULT: ON : 60 nodes : 20 pes maxim)\n"
+                + "     -fn f   Creara un graf llegit desde fitxer (DEFAULT: OFF)\n\n"
+                + "     -tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)\n"
+                + "     -me n   Temps maxim d'espera de les peticions (DEFAULT : 30min)\n"
+                + "     -ml n   Temps minim legal per atendre una peticio (DEFAULT : 15min)\n"
+                + "     -mg n   Distancia maxima que el l'algoritme per assignar peticions posara com a restriccio (DEFAULT: 50min)\n"
+                + "     -mc n   Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com acceptable (DEFAULT: 0.8(80% de bateria))\n"
+                + "     -o  f   Escriura la sortida al fitxer amb nom f (DEFAULT: output.txt)\n"
+                + "     -v  f   Llegira els vehicles del fitxer amb nom f (DEFAULT: Vehicles.txt)\n"
+                + "     -d  f   Llegira els punts de carrega del fitxer amb nom f (DEFAULT: Depots.txt)\n");
+        System.out.println(ajuda.toString());
     }
     
     /**
@@ -19,14 +39,16 @@ public class PortamAProp {
      * @arg -tf n   Temps de finestra acompanyat d'un nombre (DEFAULT : 150min)
      * @arg -me n   Temps maxim d'espera de les peticions (DEFAULT : 30min)
      * @arg -ml n   Temps minim legal per atendre una peticio (DEFAULT : 15min)
-     * @arg -rs n,k Creara maxim n peticions aleatories per el paquet actual, amb k persones maxim (DEFAULT: ON : 60 peticions : 2 persones maxim per peticio) 
-     * @arg -fs f   Treballarem sobre un paquet de peticions que venen de fitxer (DEFAULT: OFF)
+     * @arg -rp n,k Creara maxim n peticions aleatories per el paquet actual, amb k persones maxim (DEFAULT: ON : 60 peticions : 2 persones maxim per peticio) 
+     * @arg -fp f   Treballarem sobre un paquet de peticions que venen de fitxer (DEFAULT: OFF)
      * @arg -rn n,k Creara n nodes aleatoris per el nostre graf amb k pes maxim (DEFAULT: ON : 60 nodes : 20 pes maxim)
      * @arg -fn f   Creara un graf llegit desde fitxer (DEFAULT: OFF)
      * @arg -mg n   Distancia maxima que el l'algoritme per assignar peticions posara com a restriccio (DEFAULT: 50min)
      * @arg -mc n   Ens diu el minim de carrega que el vehicle ha de tenir en % abans de considerar un punt de carrega com acceptable (DEFAULT: 0.8)
      * @arg -o  f   Ens diu el nom del fitxer de sortida (DEFAULT: output.txt)
      * @arg -help   Ens dona informacio sobre l'utilitzacio de la aplicacio
+     * @arg -v  f   Llegira els vehicles del fitxer amb nom f (DEFAULT: Vehicles.txt)
+     * @arg -d  f   Llegira els punts de carrega del fitxer amb nom f (DEFAULT: Depots.txt)
      */
     public static void main(String[] args) {
         
@@ -41,10 +63,13 @@ public class PortamAProp {
         int pesMaxim = 20;
         String nFitxerGraf = "Graf.txt";
         int maxGreedy = 50;
-        boolean randomSol = false;
-        boolean randomNode = false;
+        boolean randomSol = true;
+        boolean randomNode = true;
         double minCarga = 0.8;
         String nFitxerSortida = "output.txt";
+        String nFitxerVehicle = "Vehicles.txt";
+        String nFitxerDepot = "Depots.txt";
+        
         /**TRACTEM ELS ARGUMENTS I SI CAL, ACTUALITZEM LES VARIABLES*/
         
         for (int i = 0 ; i < args.length; i++) {
@@ -73,11 +98,20 @@ public class PortamAProp {
                 minCarga = Double.parseDouble(args[i + 1]);
             } else if (s.contains("-o")) {
                 nFitxerSortida = args[i + 1];
+            } else if (s.contains("-help")) {
+                mostrarAjuda();
+                return ;
+            } else if (s.contains("-v")) {
+                nFitxerVehicle = args[i + 1];
+            } else if (s.contains("-d")) {
+                nFitxerDepot = args[i + 1];
             }
         }
         
         /**INICIALITZEM EL CONTROLADOR*/
-        Controlador c = new Controlador(tamanyFinestra,maximEspera,minimLegal,nPeticions,maxPersones,nFitxerSol,nNodes,pesMaxim,nFitxerGraf,maxGreedy,randomSol, randomNode,minCarga,nFitxerSortida);
+        Controlador c = new Controlador(tamanyFinestra,maximEspera,minimLegal,nPeticions
+                ,maxPersones,nFitxerSol,nNodes,pesMaxim,nFitxerGraf,maxGreedy,randomSol
+                ,randomNode,minCarga,nFitxerSortida,nFitxerVehicle,nFitxerDepot);
         c.init();
     }
 
