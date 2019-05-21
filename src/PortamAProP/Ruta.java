@@ -338,19 +338,31 @@ public class Ruta {
      *      els posem un atribut marked que modifica el especte determinat al styleSheet
      * @post Modifica el graf per poder mostrar la ruta
      */
-    
-    public void mostrarRutaSugraf(){
-        for (int i = 0; i < _nodes.size()-1; i++) {
-            if (! _nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
-                 _graf.getNode(_nodes.get(i).getId()).getEdgeBetween(_nodes.get(i+1).getId()).setAttribute("ui.class", "marked");
-                 _graf.getNode(_nodes.get(i).getId()).setAttribute("ui.class", "marked");
-                 _graf.getNode(_nodes.get(i+1).getId()).setAttribute("ui.class", "marked");
+
+    public void mostrarRutaSugraf() {
+        int contador=0;
+        for (int i = 0; i < _nodes.size() - 1; i++) {
+            if (!_nodes.get(i).getId().equals(_nodes.get(i + 1).getId())) {
+                _graf.getNode(_nodes.get(i).getId()).getEdgeBetween(_nodes.get(i + 1).getId()).setAttribute("ui.class", "marked");
+                if (contador == 0) {
+                        _graf.getNode(_nodes.get(i).getId()).setAttribute("ui.class", "principi");
+                        _graf.getNode(_nodes.get(i + 1).getId()).setAttribute("ui.class", "marked");
+                         contador++;
+                } else {
+                    _graf.getNode(_nodes.get(i).getId()).setAttribute("ui.class", "marked");
+                    _graf.getNode(_nodes.get(i + 1).getId()).setAttribute("ui.class", "fi");
+                }
             }
+           
         }
         
         Viewer display = _graf.display(true);
         display.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
     }
+    
+    /**
+     * @brief Fitxa de configuracio de la apariencia del graf
+     */
     protected String styleSheet= 
          "edge{" +
         "	fill-color: black;" +
@@ -364,7 +376,15 @@ public class Ruta {
         "node.marked {" +
         "	fill-color: blue;"
             + "size: 15;" +
-        "}";
+        "}"+
+            "node.principi{"
+            + "fill-color: green;"
+            + "size:15;"
+            + "}"
+            + "node.fi{"
+            + "fill-color: yellow;"
+            + "size:15;"
+            + "}";
     
   
 }
