@@ -59,7 +59,7 @@
 64 Carrerd'Osca
 65 Carrerd'OvidiMontllor
 66 Carrerd'Oviedo
-#
+*
 50 22 19
 33 57 10
 33 6 15
@@ -1414,5 +1414,4 @@
 59 30 13
 20 44 8
 35 7 19
-#
-
+*

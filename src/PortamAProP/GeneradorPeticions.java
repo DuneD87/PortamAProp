@@ -63,7 +63,8 @@ public class GeneradorPeticions {
             llistat += random.nextInt(60) + " ";//minut emisio
             llistat += random.nextInt(60) + " ";//segon emisio
             llistat += random.nextInt(_maxPersones) + 1;//numero de passatgers, entre 1 i 9
-            llistat += "\n";
+            if(i!=_maxSol)
+                llistat += "\n";
 
         }
         return llistat;
